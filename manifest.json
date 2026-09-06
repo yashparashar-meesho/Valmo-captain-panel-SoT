@@ -1,0 +1,54 @@
+{
+  "flows": [
+    {
+      "id": "captain-payments",
+      "name": "Captain Payments",
+      "description": "How a fleet captain (BEU) tracks pending payouts and drills into one settlement cycle's breakup.",
+      "screens": [
+        {
+          "id": "payments-list",
+          "name": "Payments",
+          "order": 0
+        },
+        {
+          "id": "payment-details",
+          "name": "Payment Details",
+          "order": 1
+        }
+      ]
+    },
+    {
+      "id": "pilot-management",
+      "name": "Pilot Management",
+      "description": "How a captain views their roster of pilots and onboards a new one.",
+      "screens": [
+        {
+          "id": "pilot-management-list",
+          "name": "Pilot Management",
+          "order": 0
+        },
+        {
+          "id": "add-new-pilot",
+          "name": "Add New Pilot",
+          "order": 1
+        }
+      ]
+    }
+  ],
+  "components": [
+    "sidebar-navigation",
+    "badge-new",
+    "page-header",
+    "buttons",
+    "callout-banner",
+    "hero-stat",
+    "stat-summary-bar",
+    "tabs",
+    "segmented-toggle",
+    "data-table",
+    "search-input",
+    "pagination",
+    "modal",
+    "accordion-row"
+  ]
+}
