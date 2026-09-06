@@ -1270,10 +1270,10 @@
   document.getElementById("newFlowBtn").addEventListener("click", function () { openFlowPanel(); });
 
   // ---- local (file://) fallback db ----
-  // Used when this page is opened directly, outside claude.ai, so the SoT-Yash
-  // project stays browsable without needing the published artifact. Backed by
-  // the seed data embedded below — edits here are in-memory only, not saved
-  // back to disk. Push to the artifact (see README) to persist real changes.
+  // This is the only mode this page runs in now — it's hosted as a plain static
+  // site (Vercel), not a claude.ai Artifact, so window.claude.use('db') never
+  // resolves. Backed by the seed data embedded below — edits here are in-memory
+  // only. Update data-seed.json and redeploy to persist real changes.
   function makeLocalDb(seed) {
     function idOf(path) { return path.split("/").pop(); }
     function collOf(path) {
