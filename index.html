@@ -850,7 +850,7 @@
       "Primary method — git (fast, no token cost for the actual assets):",
       "1. Ask me which folder to clone into.",
       "2. Run: git clone " + SOT_REPO + " — this is a private repo; if the clone fails (auth/network), stop and fall back to method B below, and explicitly tell me in chat that you're using the fallback method and why.",
-      "3. Open `screens/" + screen.id + ".html` from the clone directly in the browser — it's fully self-contained (real icon files, shared kit.css, click-through navigation already wired). That's the real screen, pixel-exact.",
+      "3. Open `screens/" + screen.id + ".html` from the clone directly — just double-click it, no server or build step needed. Icons are inlined as base64 and the stylesheet is inlined too, so it works exactly the same via plain file:// as it would served any other way. That's the real screen, pixel-exact.",
       "4. Only after it's loaded and visible, ask me what I want to build here.",
       "",
       "Fallback method B — only if git access isn't available here (tell me you're using this and why):",
@@ -870,7 +870,7 @@
       "Primary method — git (fast, no token cost for the actual assets):",
       "1. Ask me which folder to clone into.",
       "2. Run: git clone " + SOT_REPO + " — this is a private repo; if the clone fails (auth/network), stop and fall back to method B below, and explicitly tell me in chat that you're using the fallback method and why.",
-      "3. Check `manifest.json` in the clone for the \"" + flow.id + "\" flow's screen order (should match: " + order + "). Open `screens/" + screens[0].id + ".html` directly in the browser first — every screen file is self-contained (real icon files, shared kit.css, click-through navigation already wired between all the screens in this repo).",
+      "3. Check `manifest.json` in the clone for the \"" + flow.id + "\" flow's screen order (should match: " + order + "). Open `screens/" + screens[0].id + ".html` directly first — just double-click it, no server needed. Every screen file is fully self-contained (icons and stylesheet both inlined) and click-through navigation is already wired between all the screens in this repo.",
       "4. Treat all of this flow's screen files together as one module — this is the whole flow, start to finish. Only after the first one is loaded and visible, ask me what I want to build here.",
       "",
       "Fallback method B — only if git access isn't available here (tell me you're using this and why):",
@@ -987,7 +987,7 @@
     var lines = [
       'Pull component "' + comp.name + '" (doc id: ' + comp.id + ') for the Valmo Partner captain panel.',
       "Primary method — git (fast, no token cost for the actual assets):",
-      "git clone " + SOT_REPO + " (private repo; if it fails, fall back to method B below and tell me you're doing so, and why). Open/reuse `components/" + comp.id + ".html` from the clone — self-contained, real icon files, shared kit.css.",
+      "git clone " + SOT_REPO + " (private repo; if it fails, fall back to method B below and tell me you're doing so, and why). Open/reuse `components/" + comp.id + ".html` from the clone — double-click it, no server needed; icons and stylesheet are both inlined.",
       "",
       "Fallback method B — only if git access isn't available here (tell me you're using this and why):",
       "This is a plain public page, no special Claude access needed — fetch " + url + " directly (curl, WebFetch, whatever you have). It embeds all component data as JSON inside `<script id=\"seed-data\" type=\"application/json\">`. Parse that JSON and pull out `components` where `id === \"" + comp.id + "\"` — its `html` field is the real markup (vp- prefixed classes) and `css` is the matching stylesheet — reuse both as-is instead of rebuilding this component."
