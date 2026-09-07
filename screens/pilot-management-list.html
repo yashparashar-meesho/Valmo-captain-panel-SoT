@@ -214,7 +214,7 @@
 <div class="vp-scope">
   <div class="vp-shell">
     <div class="vp-sidebar">
-      <div class="vp-acct"><div class="vp-avatar"><img src="../assets/icons/ic_66aed9e0a5.svg" alt=""></div><div><div class="vp-acct-name">CAPTAIN</div><span class="vp-beu">BEU</span></div></div>
+      <div class="vp-acct"><div class="vp-avatar"><img src="../assets/icons/ic_66aed9e0a5.svg" alt=""></div><div><div class="vp-acct-name">Yash P</div><span class="vp-beu">BEU</span></div></div>
       <div class="vp-navlist">
       <div class="vp-navitem divider-after"><img class="ic" src="../assets/icons/ic_7220aba916.svg" alt=""><span class="lbl">Valmo Support</span></div>
       <div class="vp-navitem" data-goto="payments-list"><img class="ic" src="../assets/icons/ic_499fa6adb6.svg" alt=""><span class="lbl">Payments</span></div>
@@ -236,29 +236,39 @@
         <div class="vp-illo"><img src="../assets/icons/ic_3078c1ee85.png" alt=""></div>
         <div><h4>Add and manage pilots here</h4><p>Ask pilots to complete onboarding on the Valmo Partner App first, before you can add them here.<br>Share app link with pilots: <a href="#" style="color:var(--vpBrand);">Click here to copy</a></p><button class="vp-btn vp-btn-primary" style="margin-top:8px;" data-goto="add-new-pilot">+ Add Pilots</button></div>
       </div>
-      <div class="vp-pageheader"><h3>Pilot Management</h3><button class="vp-btn vp-btn-primary" data-goto="add-new-pilot">+ Add Pilots</button></div>
-      <div class="vp-tabs" style="margin-bottom:16px;">
-        <div class="vp-tab active">My Current Pilots (124)</div>
-        <div class="vp-tab">Previously Worked Pilots (11)</div>
-      </div>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-        <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--vpMuted);">Sort by:
-          <div class="vp-select">Date of Joining (Newest) <span class="chev">&#9662;</span></div>
+      <div>
+        <div class="vp-pageheader" style="padding: 16px; background-color: rgb(255, 255, 255); margin-bottom: 0; border-top-left-radius: 8px; border-top-right-radius: 8px;"><h3>Pilot Management</h3><button class="vp-btn vp-btn-primary" data-goto="add-new-pilot">+ Add Pilots</button></div>
+        <div class="vp-tabs" style="padding: 8px 16px; background-color: rgb(255, 255, 255); margin-bottom: 0;">
+          <div class="vp-tab active">My Current Pilots (124)</div>
+          <div class="vp-tab">Previously Worked Pilots (11)</div>
         </div>
-        <div class="vp-search" style="width:280px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg> Search by Phone Number(Enter 10 digits)</div>
-      </div>
-      <table class="vp-table" style="width:100%;">
-        <thead><tr><th>Pilot Details</th><th>Date of Joining</th><th>Last Worked On</th><th>COD Rate (&#8377; / Shipment)</th><th>Prepaid Rate (&#8377; / Shipment)</th><th>Reverse Rate (&#8377; / Shipment)</th></tr></thead>
-        <tbody>
-        <tr><td>Kabra Shubham Kamalkishor<span class="sub">Pilot ID: 10096240838</span><span class="sub">+919555296962</span></td><td>01 Sep'26</td><td>03 Sep'26</td><td>₹17</td><td>₹17</td><td>₹17.00</td></tr>
-        <tr><td>Manjunatha C K<span class="sub">Pilot ID: 10092758644</span><span class="sub">+919036615379</span></td><td>24 Aug'26</td><td>03 Sep'26</td><td>₹17</td><td>₹16.15</td><td>₹17.00</td></tr>
-        <tr><td>Basavaraja H<span class="sub">Pilot ID: 10098626257</span><span class="sub">+919980620580</span></td><td>17 Aug'26</td><td>21 Aug'26</td><td>₹17</td><td>₹16.15</td><td>₹17.00</td></tr>
-        <tr><td>Arun K<span class="sub">Pilot ID: 10048940694</span><span class="sub">+919731271492</span></td><td>11 Aug'26</td><td>--</td><td>₹17</td><td>₹16.15</td><td>₹17.00</td></tr>
-        <tr><td>Manjunatha R<span class="sub">Pilot ID: 10056005932</span><span class="sub">+919972500996</span></td><td>07 Aug'26</td><td>07 Aug'26</td><td>₹17</td><td>₹16.15</td><td>₹17.00</td></tr>
-        </tbody>
-      </table>
-      <div style="display:flex;justify-content:flex-end;margin-top:14px;">
-        <div class="vp-pagination"><span class="pg">&#8249;</span><span class="pg active">1</span><span class="pg">2</span><span class="pg">3</span><span class="pg">4</span><span class="pg">&hellip;</span><span class="pg">13</span><span class="pg">&#8250;</span></div>
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px 16px; background-color: rgb(255, 255, 255); border-radius: 0px; margin-bottom: 0;">
+          <div style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:400;color:var(--vpMuted);">Sort by:
+            <div style="position:relative;">
+              <div class="vp-select" style="font-weight:400;color:var(--vpText);" onclick="var p=this.nextElementSibling;p.style.display=(p.style.display==='block')?'none':'block';">Date of Joining (Newest) <span class="chev">&#9662;</span></div>
+              <div style="display:none;position:absolute;top:calc(100% + 6px);left:0;z-index:30;background:#fff;border:1px solid var(--vpBorder);border-radius:8px;box-shadow:0 10px 28px rgba(0,0,0,0.14);padding:6px 0;min-width:230px;">
+                <label style="display:flex;align-items:center;gap:10px;padding:9px 14px;font-size:13px;font-weight:400;color:var(--vpText);cursor:pointer;"><input type="radio" name="pmSort" checked style="accent-color:var(--vpBrand);width:15px;height:15px;margin:0;"> Date of Joining (Newest)</label>
+                <label style="display:flex;align-items:center;gap:10px;padding:9px 14px;font-size:13px;font-weight:400;color:var(--vpText);cursor:pointer;"><input type="radio" name="pmSort" style="accent-color:var(--vpBrand);width:15px;height:15px;margin:0;"> Date of Joining (Oldest)</label>
+                <label style="display:flex;align-items:center;gap:10px;padding:9px 14px;font-size:13px;font-weight:400;color:var(--vpText);cursor:pointer;"><input type="radio" name="pmSort" style="accent-color:var(--vpBrand);width:15px;height:15px;margin:0;"> Last Worked On (Oldest)</label>
+                <label style="display:flex;align-items:center;gap:10px;padding:9px 14px;font-size:13px;font-weight:400;color:var(--vpText);cursor:pointer;"><input type="radio" name="pmSort" style="accent-color:var(--vpBrand);width:15px;height:15px;margin:0;"> Last Worked On (Newest)</label>
+              </div>
+            </div>
+          </div>
+          <div class="vp-search" style="width: fit-content; height: fit-content;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg> Search by Phone Number(Enter 10 digits)</div>
+        </div>
+        <table class="vp-table" style="width:100%;">
+          <thead><tr><th>Pilot Details</th><th>Date of Joining</th><th>Last Worked On</th><th>COD Rate (&#8377; / Shipment)</th><th>Prepaid Rate (&#8377; / Shipment)</th><th>Reverse Rate (&#8377; / Shipment)</th></tr></thead>
+          <tbody>
+          <tr><td>Kabra Shubham Kamalkishor<span class="sub">Pilot ID: 10096240838</span><span class="sub">+919555296962</span></td><td>01 Sep'26</td><td>03 Sep'26</td><td>₹17</td><td>₹17</td><td>₹17.00</td></tr>
+          <tr><td>Manjunatha C K<span class="sub">Pilot ID: 10092758644</span><span class="sub">+919036615379</span></td><td>24 Aug'26</td><td>03 Sep'26</td><td>₹17</td><td>₹16.15</td><td>₹17.00</td></tr>
+          <tr><td>Basavaraja H<span class="sub">Pilot ID: 10098626257</span><span class="sub">+919980620580</span></td><td>17 Aug'26</td><td>21 Aug'26</td><td>₹17</td><td>₹16.15</td><td>₹17.00</td></tr>
+          <tr><td>Arun K<span class="sub">Pilot ID: 10048940694</span><span class="sub">+919731271492</span></td><td>11 Aug'26</td><td>--</td><td>₹17</td><td>₹16.15</td><td>₹17.00</td></tr>
+          <tr><td>Manjunatha R<span class="sub">Pilot ID: 10056005932</span><span class="sub">+919972500996</span></td><td>07 Aug'26</td><td>07 Aug'26</td><td>₹17</td><td>₹16.15</td><td>₹17.00</td></tr>
+          </tbody>
+        </table>
+        <div style="display: flex; justify-content: flex-end; padding: 16px 8px; background-color: rgb(255, 255, 255); margin-top: 0; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px;">
+          <div class="vp-pagination"><span class="pg">&#8249;</span><span class="pg active">1</span><span class="pg">2</span><span class="pg">3</span><span class="pg">4</span><span class="pg">&hellip;</span><span class="pg">13</span><span class="pg">&#8250;</span></div>
+        </div>
       </div>
     </div>
   </div>
