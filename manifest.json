@@ -3,7 +3,7 @@
     {
       "id": "captain-payments",
       "name": "Captain Payments",
-      "description": "How a fleet captain (BEU) tracks pending payouts and drills into one settlement cycle's breakup.",
+      "description": "Check captain panel - Payments complete flow",
       "screens": [
         {
           "id": "payments-list",
