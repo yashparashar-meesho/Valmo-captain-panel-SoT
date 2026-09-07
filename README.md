@@ -1,23 +1,33 @@
 # Valmo Captain Panel — Source of Truth
 
-Pixel-faithful, offline mirror of the Valmo Partner captain panel screens tracked in the
-Flow Ledger catalog. This repo exists so a fresh Claude Code session (or a human) can get
-the exact real markup locally in seconds, with zero token cost — no fetching giant base64
-blobs through a model's context, just a normal `git clone`.
+Pixel-faithful mirror of the Valmo Partner captain panel screens tracked in the Flow Ledger
+catalog. This repo exists so a fresh Claude Code session (or a human) can get the exact real
+markup in seconds, at a cost that scales with what's actually asked for — not with how big
+this repo grows.
 
-**Meesho internal — private repo. Do not make public or share the clone URL outside the team.**
+**Public repo.** Contains real pilot names, phone numbers, and transaction IDs from the
+source catalog — left public as a deliberate call so the Flow Ledger catalog works for anyone
+regardless of Claude plan or team, without needing repo access to be granted per person.
 
-## Get it locally
+## Get one screen, one flow, or a component
+
+Don't `git clone` this repo — it pulls every screen and component every time, regardless of
+what you actually need, and that cost only grows as more flows get added. Instead fetch just
+the file(s) you want:
 
 ```bash
-git clone https://github.com/yashparashar-meesho/Valmo-captain-panel-SoT.git
+curl -s https://raw.githubusercontent.com/yashparashar-meesho/Valmo-captain-panel-SoT/main/screens/<id>.html -o screens/<id>.html
 ```
 
-Then open any file under `screens/` or `components/` directly — just double-click it, or drag
-it into a browser tab. Every file is **fully self-contained**: fonts load from Google Fonts,
-every icon is inlined as base64 right in the HTML, no external file references at all. No
-build step, no local server, no path assumptions — it works exactly the same whether you open
-it via `file://` (double-click) or serve it however you like.
+Then grep that file for its `assets/icons/<file>` references and fetch just those the same
+way into `assets/icons/`. The Flow Ledger catalog's "Copy current screen" / "Copy Entire
+flow" / component-pull buttons already generate the exact commands for this — that's the
+easiest way to drive it end to end (folder prompt, fetch, local server, link to open).
+
+Every `screens/*.html` and `components/*.html` file references its stylesheet inline but its
+icons via a relative `../assets/icons/<file>` path, so pulled files need to sit under a
+`screens/` or `components/` folder next to a sibling `assets/icons/` folder — mirror the
+repo's own layout locally and it works exactly the same as here.
 
 ## Layout
 
@@ -26,9 +36,8 @@ manifest.json        — flows, their screens (in order), and the component list
 screens/<id>.html     — one real screen per file, exact markup, click-through navigation wired
 components/<id>.html  — one component per file, for reuse in new work
 assets/kit.css        — the shared stylesheet, kept here for reference (already inlined in every page)
-assets/icons/         — every icon as a real .svg/.png file, kept here for reference/reuse
-                        (already inlined as base64 in every screens/components page — nothing
-                        reads from this folder to render)
+assets/icons/         — every icon as a real .svg/.png file, referenced by relative path from
+                        screens/ and components/ pages
 ```
 
 Screens link to each other exactly like the real app: `data-goto` attributes on buttons,
@@ -38,13 +47,13 @@ back-arrows, and sidebar items navigate between the local screen files (`locatio
 ## Staying in sync
 
 This repo is a **generated mirror**, not the primary editing surface — keep editing
-flows/screens/components in the Flow Ledger catalog itself (currently hosted on Vercel), then
-re-run `scripts/export_to_github.py` and push whenever it changes. If something here looks
-stale, the hosted catalog is the source of truth; ping whoever maintains this repo to refresh it.
+flows/screens/components in the Flow Ledger catalog itself (hosted on Vercel), then re-run
+`scripts/export_to_github.py` and push whenever it changes. If something here looks stale,
+the hosted catalog is the source of truth; ping whoever maintains this repo to refresh it.
 
-## If you don't have git access here
+## If you don't have git/gh access here
 
-The Flow Ledger catalog's "Copy pull command" / "Pull entire flow" buttons fall back to a
-plain HTTP fetch of the hosted page itself (no special Claude access needed — curl, WebFetch,
-anything works) and parse the flow/screen/component/icon data out of its embedded JSON. Slower
-and heavier on tokens than `git clone`, but works for anyone with just a URL.
+The Flow Ledger catalog's pull buttons fall back to a plain HTTP fetch of the hosted page
+itself (no special Claude access needed — curl, WebFetch, anything works) and parse the
+flow/screen/component/icon data out of its embedded JSON. Slower and heavier on tokens than
+fetching files directly from this repo, but works for anyone with just a URL.
