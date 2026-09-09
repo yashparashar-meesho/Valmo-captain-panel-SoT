@@ -52,6 +52,20 @@ switch the boundary version, and the date-range picker opens as an overlay and l
 range. Data itself is a fixed snapshot, not live: counts and dates stay put, and the Download
 AWB Details button is deliberately inert.
 
+## Typography
+
+All type comes from one place: the **Foundations / Typography** block at the top of
+`assets/kit.css`. It ships Mier B02 (the panel's real typeface, three faces under
+`assets/fonts/`) plus the 19 Crystal type styles and 8 Valmo-only additions the live panel
+needs, as `--vp<Name>` tokens and matching `.vp-scope .vp-<name>` classes.
+
+Nothing outside that block may declare `font-family`, `font-size`, `font-weight` or
+`line-height` — components and screens pick a style instead. `docs/typography-audit.md` is the
+stored measurement behind the library (what live actually uses, per module, and why each
+addition exists); build against those numbers rather than re-measuring the live panel.
+
+Browse the styles in the catalog under **Foundations**.
+
 ## Layout
 
 ```
@@ -59,6 +73,8 @@ manifest.json        — flows, their screens (in order), and the component list
 screens/<id>.html     — one real screen per file, exact markup, click-through navigation wired
 components/<id>.html  — one component per file, for reuse in new work
 assets/kit.css        — the shared stylesheet, kept here for reference (already inlined in every page)
+assets/fonts/         — Mier B02 (Book/Demi/Bold) as real .woff2 files
+docs/typography-audit.md — the live-panel type measurement the library is built from
 assets/icons/         — every icon as a real .svg/.png file, referenced by relative path from
                         screens/ and components/ pages
 ```

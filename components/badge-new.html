@@ -9,6 +9,105 @@
 <style>body{margin:0;padding:24px;background:#eaeaf2;}</style>
 <style>
 /* ============ vp- component kit (Valmo Partner clone) ============ */
+
+  /* ============ FOUNDATIONS / TYPOGRAPHY ============================
+     Mier B02 + the Crystal type scale, measured off
+     crystal.meeshosupplyassets.com -> Foundation/Typography.
+
+     This is the ONLY place type is defined. Pages and components must use a
+     .vp-<style> class (or the matching token) and must not declare their own
+     font-family / font-size / font-weight.
+
+     Font files: assets/fonts/*.woff2. The path is relative to the page, so the
+     export rewrites it to ../assets/fonts for files under screens/ and
+     components/ (same asymmetry the icons have).
+     ------------------------------------------------------------------ */
+  @font-face { font-family: "Mier B02"; src: url("../assets/fonts/Mier_B02-Book.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Mier B02"; src: url("../assets/fonts/Mier_B02-Demi.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Mier B02"; src: url("../assets/fonts/Mier_B02-Bold.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+
+  .vp-scope {
+    --vpFont: "Mier B02", "Inter", system-ui, sans-serif;
+    /* weight size/line-height - one token per Crystal style */
+    --vpDisplay1:    600 28px/36px var(--vpFont);
+    /* Display2Valmo - the numeric display style, and the one deliberate addition to
+       Crystal. Used for hero figures (e.g. "+₹10,368.00"). Crystal's Display1 is also
+       28px but 600/36px, so nothing covered a bold 28px figure.
+       Line-height is set equal to the size (28px) on purpose: the live panel ships 20px,
+       which is smaller than the glyph size and risks clipping numerals, and Display1's
+       36px adds leading a standalone figure doesn't want. */
+    --vpDisplay2Valmo: 700 28px/28px var(--vpFont);
+    /* Display3Banner / Display3BannerValue - Growth Dashboard runs 21px at two weights
+       that Crystal doesn't have (it only defines 21/700 as Heading1). Measured live. */
+    --vpDisplay3Banner:      600 21px/28px var(--vpFont);
+    --vpDisplay3BannerValue: 400 21px/28px var(--vpFont);
+    /* Body17Valmo - stat-summary figures on Payments and Loss Management render at
+       17px regular. Crystal has 17px only as Heading3 (700), so nothing covered it. */
+    --vpBody17Valmo:      400 17px/24px var(--vpFont);
+    --vpHeading1:    700 21px/28px var(--vpFont);
+    --vpHeading2:    700 19px/24px var(--vpFont);
+    --vpHeading3:    700 17px/24px var(--vpFont);
+    --vpHeading4:    700 15px/20px var(--vpFont);
+    --vpHeading5:    600 13px/20px var(--vpFont);
+    --vpHeading6:    600 13px/20px var(--vpFont);
+    --vpHeading7:    600 12px/16px var(--vpFont);
+    /* Crystal ships Heading8 as 11px on a 28px line-height (2.5x, evidently a slip);
+       corrected here to 16px to match the other 11px styles (Body4, ButtonText4). */
+    --vpHeading8:    600 11px/16px var(--vpFont);
+    --vpBody1:       400 15px/20px var(--vpFont);
+    --vpBody2:       400 13px/20px var(--vpFont);
+    /* ButtonText13BoldValmo - small bold text. The live panel uses 13/700 widely (links,
+       compact button labels, small emphatic headings); Crystal stops at 13/600, so
+       mapping these to Demi lost the weight. Line-height 20px matches every other
+       13px style in the scale. */
+    --vpButtonText13BoldValmo: 700 13px/20px var(--vpFont);
+
+    /* ---- 14px family (Valmo) -------------------------------------------------
+       Crystal has no 14px style at all, yet 14px is the standard size for table
+       content across Payments, Pilot Management and Pilot Rate Card - 212 elements,
+       94% of everything the library previously failed to cover. Live renders these at
+       browser-default line-heights (19.6 / 21 / normal); we set 20px for all three,
+       consistent with every other 13-15px style in the scale. */
+    --vpBody14Valmo:     400 14px/20px var(--vpFont);
+    --vpButtonText14DemiValmo: 600 14px/20px var(--vpFont);
+    --vpButtonText14BoldValmo: 700 14px/20px var(--vpFont);
+    --vpBody3:       400 12px/16px var(--vpFont);
+    --vpBody4:       400 11px/16px var(--vpFont);
+    --vpBody5:       400 10px/16px var(--vpFont);
+    --vpBody6:       400  9px/12px var(--vpFont);
+    --vpButtonText1: 600 15px/20px var(--vpFont);
+    --vpButtonText2: 600 13px/20px var(--vpFont);
+    --vpButtonText3: 600 12px/16px var(--vpFont);
+    --vpButtonText4: 600 11px/16px var(--vpFont);
+  }
+
+  .vp-scope .vp-display1    { font: var(--vpDisplay1); }
+  .vp-scope .vp-display2valmo { font: var(--vpDisplay2Valmo); }
+  .vp-scope .vp-display3banner      { font: var(--vpDisplay3Banner); }
+  .vp-scope .vp-display3bannervalue { font: var(--vpDisplay3BannerValue); }
+  .vp-scope .vp-body17valmo      { font: var(--vpBody17Valmo); }
+  .vp-scope .vp-heading1    { font: var(--vpHeading1); }
+  .vp-scope .vp-heading2    { font: var(--vpHeading2); }
+  .vp-scope .vp-heading3    { font: var(--vpHeading3); }
+  .vp-scope .vp-heading4    { font: var(--vpHeading4); }
+  .vp-scope .vp-heading5    { font: var(--vpHeading5); }
+  .vp-scope .vp-heading6    { font: var(--vpHeading6); }
+  .vp-scope .vp-heading7    { font: var(--vpHeading7); }
+  .vp-scope .vp-heading8    { font: var(--vpHeading8); text-transform: uppercase; }
+  .vp-scope .vp-body1       { font: var(--vpBody1); }
+  .vp-scope .vp-body2       { font: var(--vpBody2); }
+  .vp-scope .vp-buttontext13boldvalmo { font: var(--vpButtonText13BoldValmo); }
+  .vp-scope .vp-body14valmo     { font: var(--vpBody14Valmo); }
+  .vp-scope .vp-buttontext14demivalmo { font: var(--vpButtonText14DemiValmo); }
+  .vp-scope .vp-buttontext14boldvalmo { font: var(--vpButtonText14BoldValmo); }
+  .vp-scope .vp-body3       { font: var(--vpBody3); }
+  .vp-scope .vp-body4       { font: var(--vpBody4); }
+  .vp-scope .vp-body5       { font: var(--vpBody5); }
+  .vp-scope .vp-body6       { font: var(--vpBody6); text-transform: uppercase; }
+  .vp-scope .vp-buttontext1 { font: var(--vpButtonText1); }
+  .vp-scope .vp-buttontext2 { font: var(--vpButtonText2); }
+  .vp-scope .vp-buttontext3 { font: var(--vpButtonText3); }
+  .vp-scope .vp-buttontext4 { font: var(--vpButtonText4); text-transform: uppercase; }
   .vp-scope {
     --vpNavy: #072042;
     --vpNavyActive: #16345c;
@@ -21,7 +120,7 @@
     --vpMuted: #5a5e66;
     --vpPink: #ec4899;
     --vpPeach: #fbefe0;
-    font-family: "Inter", system-ui, sans-serif;
+    font-family: var(--vpFont);
     color: var(--vpText);
   }
   .vp-scope * { box-sizing: border-box; }
