@@ -60,7 +60,6 @@
   "components": [
     "sidebar-navigation",
     "badge-new",
-    "page-header",
     "buttons",
     "callout-banner",
     "hero-stat",
