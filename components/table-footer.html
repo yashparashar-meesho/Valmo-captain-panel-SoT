@@ -113,21 +113,102 @@
   .vp-scope .vp-buttontext3 { font: var(--vpButtonText3); }
   .vp-scope .vp-buttontext4 { font: var(--vpButtonText4); text-transform: uppercase; }
   .vp-scope {
-    --vpNavy: #072042;
-    --vpNavyActive: #16345c;
-    --vpBrand: #092d5e;
-    --vpPageBg: #eaeaf2;
-    --vpSurface: #ffffff;
-    --vpHeadBg: #f2f5fa;
-    --vpBorder: #e6ebf2;
-    --vpText: #272829;
-    --vpMuted: #5a5e66;
-    --vpPink: #ec4899;
-    --vpPeach: #fbefe0;
-    --vpSegActive: #dde7fe;   /* live segmented-control active fill */
-    --vpBorderStrong: #c3c9d4;  /* live stroke on outlined controls (segmented filter) */
-    --vpNavSelected: #c5d7ff;   /* 4px bar on the selected nav row */
-    --vpNavDivider: rgba(195, 201, 212, 0.2);  /* sidebar dividers (live oklab -> #c3c9d4 @ 20%) */
+    /* ============ FOUNDATIONS / COLOR ================================
+       The palette. Every colour in the kit resolves to one of these, the
+       same way every font declaration resolves to a type token.
+
+       Crystal's own palette, read off Foundation/Colors, minus its four
+       "blue" shades - those are purple (#3C29B7) and Valmo does not use
+       them. Valmo's blue ramp stands in their place.
+       ------------------------------------------------------------------ */
+    /* base */
+    --vpWhite:            #FFFFFF;
+    --vpBlack:            #000000;
+    /* grey */
+    --vpGreyLight01:      #E6EBF2;
+    --vpGreyLight02:      #F2F5FA;
+    --vpGainsboro:        #DCDCDC;
+    --vpSantasGray:       #9D9DA6;
+    --vpGreyMid01:        #C3C9D4;
+    --vpGreyMid02:        #8E96A3;
+    --vpGreyDark01:       #5A5E66;
+    --vpGreyDark02:       #272829;
+    /* red */
+    --vpRedBg:            #FFEEED;
+    --vpRedBorder:        #FFCBC9;
+    --vpBlushPink:        #FFAFAC;
+    --vpRedAction:        #F44240;
+    /* orange */
+    --vpOrangeBg:         #FFEDDE;
+    --vpOrangeBorder:     #FFD2AB;
+    --vpOrangeAction:     #EC7600;
+    /* green */
+    --vpGreenBg:          #E7FBE0;
+    --vpGreenBorder:      #C2EAB4;
+    --vpGreenAction:      #43A92C;
+    --vpEmeraldGreen:     #038D63;
+    /* yellow */
+    --vpYellowBg:         #FFF7D6;
+    --vpPaleAmber:        #FFD78A;
+    --vpYellowBorder:     #FFDB4C;
+    --vpYellowAction:     #F7BE00;
+    --vpAmberBrown:       #BF7900;
+    /* pink */
+    --vpPinkBg:           #FEEFF5;
+    --vpPinkBorder:       #F991C6;
+    --vpPinkAction:       #F43397;
+    /* graph */
+    --vpGraphPrimary:     #6E9DEE;
+    --vpGraphSecondary:   #CB91E8;
+    --vpGraphTertiary:    #E8D381;
+
+    /* Valmo Blue - replaces Crystal's blue shades */
+    --vpValmoPrimaryDark: #092D5E;
+    --vpValmoBlue:        #2A67FF;
+    --vpValmoBlueT1:      #6E9DEE;
+    --vpValmoBlue2:       #C5D7FF;
+    --vpValmoBlueT2:      #C7DCFF;
+    --vpValmoBlueBg:      #E3EDFF;
+
+    /* Valmo-only: live uses these and neither palette carries them */
+    --vpValmoNavy:        #072042;   /* the sidebar rail - darker than PrimaryDark */
+    --vpValmoPageBg:      #EAEAF2;   /* the page ground behind every panel */
+    --vpValmoBlueT3:      #DDE7FE;   /* segmented-control active fill */
+    --vpValmoNavyMid:     #0D2B52;   /* map side-panel toggle */
+    --vpValmoGreenDeep:   #1A7D3A;   /* positive metric hint */
+
+    /* ---- semantic aliases -------------------------------------------
+       What a thing is *for*, pointing at what it *is*. Rules reference
+       these; only this block names a raw colour. */
+    --vpNavy:         var(--vpValmoNavy);
+    --vpBrand:        var(--vpValmoPrimaryDark);
+    --vpPageBg:       var(--vpValmoPageBg);
+    --vpSurface:      var(--vpWhite);
+    --vpHeadBg:       var(--vpGreyLight02);
+    --vpBorder:       var(--vpGreyLight01);
+    --vpBorderStrong: var(--vpGreyMid01);   /* stroke on outlined controls */
+    --vpText:         var(--vpGreyDark02);
+    --vpMuted:        var(--vpGreyDark01);
+    --vpPeach:        var(--vpOrangeBg);
+    --vpSegActive:    var(--vpValmoBlueT3);
+    
+    /* ---- navigation ---------------------------------------------------
+       The rail is its own colour world - white type and pale tints on navy,
+       where the rest of the panel is dark type on white. Every value here was
+       measured off live's sidebar; the nav component uses only these.
+
+       The two alpha tints are given as literals because CSS cannot feed a
+       var() into rgba(). Both are palette colours at 20%: live states them in
+       oklab, and converting the OPAQUE oklab is what gives an exact hex -
+       reading the composited pixel back is lossy at that opacity. */
+    --vpNavBg:         var(--vpValmoNavy);      /* #072042 rail */
+    --vpNavText:       var(--vpWhite);          /* nav rows, account name, Log Out */
+    --vpNavTextDim:    var(--vpGreyLight01);    /* BEU pill text, "Captain Panel" */
+    --vpNavAvatarBg:   var(--vpGreyLight01);
+    --vpNavPillBorder: var(--vpWhite);          /* 1px ring on the BEU pill */
+    --vpNavActiveBar:  var(--vpValmoBlue2);     /* #C5D7FF 4px selected edge */
+    --vpNavActiveBg:   rgba(197, 215, 255, 0.2);  /* ValmoBlue2 @ 20% */
+    --vpNavDivider:    rgba(195, 201, 212, 0.2);  /* GreyMid01  @ 20% */
     /* base type for the whole scope: any text a component rule does not cover still
        lands inside the library instead of the browser default 16px */
     font: var(--vpBody2);
@@ -137,11 +218,11 @@
 
   .vp-shell { display: flex; background: var(--vpPageBg); min-height: 100vh; }
   .vp-sidebar {
-    /* measured against the live panel: 250px, #072042, no padding, 48px rows */
+    /* measured against the live panel: 250px, var(--vpValmoNavy), no padding, 48px rows */
     width: 250px;
     flex-shrink: 0;
-    background: var(--vpNavy);
-    color: #fff;
+    background: var(--vpNavBg);
+    color: var(--vpWhite);
     padding: 0;
     display: flex;
     flex-direction: column;
@@ -155,16 +236,16 @@
   }
   .vp-sidebar .vp-avatar {
     width: 40px; height: 40px; border-radius: 50%;
-    background: rgba(255,255,255,0.15);
+    background: var(--vpNavAvatarBg);
     display: flex; align-items: center; justify-content: center;
     overflow: hidden; flex-shrink: 0;
   }
   .vp-sidebar .vp-avatar img { width: 40px; height: 40px; object-fit: cover; }
-  .vp-sidebar .vp-acct-name { font: var(--vpHeading5); text-transform: uppercase; color: #fff; }
+  .vp-sidebar .vp-acct-name { font: var(--vpHeading5); text-transform: uppercase; color: var(--vpNavText); }
   /* live: 54x22 pill, 1px white border, 4px radius, 2px 4px padding, 4px gap */
-  .vp-sidebar .vp-beu { font: var(--vpBody3); color: var(--vpBorder);
+  .vp-sidebar .vp-beu { font: var(--vpBody3); color: var(--vpNavTextDim);
     display: inline-flex; align-items: center; gap: 4px;
-    border: 1px solid #fff; border-radius: 4px; padding: 2px 4px; }
+    border: 1px solid var(--vpNavPillBorder); border-radius: 4px; padding: 2px 4px; }
   /* the shipped chevron is navy (#092D5E), invisible on the navy rail - inverted to white */
   .vp-sidebar .vp-beu img { width: 16px; height: 16px; display: block; filter: brightness(0) invert(1); }
   .vp-sidebar .vp-acct > div { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
@@ -178,15 +259,15 @@
     height: 48px;
     box-sizing: border-box;
     padding: 14px 20px;
-    color: #fff;
+    color: var(--vpWhite);
   }
   .vp-navitem .ic { width: 20px; height: 20px; object-fit: contain; flex-shrink: 0; }
   .vp-navitem .lbl { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   /* selected module: pale tint plus a 4px bar down the left edge */
-  .vp-navitem.active { font: var(--vpHeading5); background: rgba(221, 231, 254, 0.2); color: #fff; }
+  .vp-navitem.active { font: var(--vpHeading5); background: var(--vpNavActiveBg); color: var(--vpNavText); }
   .vp-navitem.active::before {
     content: ""; position: absolute; left: 0; top: 0; bottom: 0;
-    width: 4px; background: var(--vpNavSelected);
+    width: 4px; background: var(--vpNavActiveBar);
   }
   .vp-navitem.divider-after { border-bottom: 1px solid var(--vpNavDivider); margin-bottom: 8px; }
 
@@ -195,7 +276,7 @@
   .vp-sidebar-footer .vp-logo-row { font: var(--vpBody2);
     display: flex; align-items: center; gap: 12px;
     height: 48px; box-sizing: border-box; padding: 14px 20px;
-    color: var(--vpBorder);
+    color: var(--vpNavTextDim);
     border-top: 1px solid var(--vpNavDivider);
     /* live dims this whole row (logo + label) with opacity .6 - the wordmark
        ships as fill="white", so on the navy rail full strength reads bright
@@ -211,7 +292,7 @@
     display: inline-flex; align-items: center; gap: 8px;
     border: 1px solid var(--vpBorder); border-radius: 6px;
     padding: 8px 12px;
-    background: #fff; color: var(--vpText); cursor: pointer;
+    background: var(--vpWhite); color: var(--vpText); cursor: pointer;
   }
   .vp-select .chev { color: var(--vpMuted); font-size: 11px; }
 
@@ -254,8 +335,8 @@
     cursor: pointer;
     border: 1px solid var(--vpBrand);
   }
-  .vp-btn-primary { background: var(--vpBrand); color: #fff; }
-  .vp-btn-outline { background: #fff; color: var(--vpBrand); }
+  .vp-btn-primary { background: var(--vpBrand); color: var(--vpWhite); }
+  .vp-btn-outline { background: var(--vpWhite); color: var(--vpBrand); }
 
   .vp-banner {
     background: var(--vpPeach);
@@ -282,20 +363,20 @@
 
   /* "Payment Breakup" - live sets it 16/600 black with 24px of air either side.
      16px maps to the library's 15px at the same weight (ButtonText1). */
-  .vp-sectiontitle { font: var(--vpButtonText1); color: #000; margin: 24px 0; }
+  .vp-sectiontitle { font: var(--vpButtonText1); color: var(--vpBlack); margin: 24px 0; }
 
   /* live's discrepancy/total bar is a full-bleed white strip pinned to the bottom
      of the viewport, not text trailing the content. */
   .vp-pagefoot { display: flex; align-items: flex-start; justify-content: space-between;
     gap: 16px; margin: auto -16px -16px; padding: 16px; background: var(--vpSurface); }
-  .vp-pagefoot, .vp-pagefoot .rgt { font: var(--vpBody1); color: #000; }
+  .vp-pagefoot, .vp-pagefoot .rgt { font: var(--vpBody1); color: var(--vpBlack); }
   .vp-pagefoot .rgt { text-align: right; }
   .vp-pagefoot a { font: var(--vpButtonText1); color: var(--vpBrand); text-decoration: none; }
-  .vp-pagefoot .txn { font: var(--vpBody1); color: #43a92c; }
+  .vp-pagefoot .txn { font: var(--vpBody1); color: var(--vpGreenAction); }
   .vp-herostat .val { font: var(--vpDisplay2Valmo); margin-top: 4px; }
 
   /* live: the All Payments panel is 8px-rounded white, like the hero and stat cards */
-  .vp-panel { background: #fff; padding: 16px; border-radius: 8px; }
+  .vp-panel { background: var(--vpWhite); padding: 16px; border-radius: 8px; }
   .vp-panel-pad { padding: 16px 16px 0; border-radius: 8px; }
   .vp-statbar { display: flex; background: var(--vpSurface); border: 1px solid var(--vpBorder); border-radius: 8px; overflow: hidden; }
   .vp-statbar .stat { flex: 1; padding: 12px; border-right: 1px solid var(--vpBorder); }
@@ -350,7 +431,7 @@
   .vp-search { font: var(--vpBody2);
     display: flex; align-items: center; gap: 8px;
     border: 1px solid var(--vpBorder); border-radius: 6px;
-    padding: 9px 12px; background: #fff; color: var(--vpMuted);
+    padding: 9px 12px; background: var(--vpWhite); color: var(--vpMuted);
   }
   .vp-search svg { flex-shrink: 0; color: var(--vpMuted); }
 
@@ -369,14 +450,14 @@
   .vp-pagination .pg.active::after { content: ""; position: absolute; left: 12px; right: 12px; bottom: 7px; height: 3px; background: var(--vpBrand); }
 
   .vp-modal-backdrop { background: rgba(7,32,66,0.35); padding: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
-  .vp-modal { background: #fff; border-radius: 8px; width: 260px; box-shadow: 0 12px 32px rgba(0,0,0,0.18); }
+  .vp-modal { background: var(--vpWhite); border-radius: 8px; width: 260px; box-shadow: 0 12px 32px rgba(0,0,0,0.18); }
   .vp-modal .vp-modal-head { font: var(--vpButtonText13BoldValmo); display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border-bottom: 1px solid var(--vpBorder); }
   .vp-modal .vp-modal-body { padding: 16px; display: flex; flex-direction: column; gap: 10px; }
   .vp-modal label { font: var(--vpBody4); color: var(--vpMuted); }
   .vp-modal input { font: var(--vpBody3); border: 1px solid var(--vpBorder); border-radius: 4px; padding: 7px 8px; width: 100%; margin-top: 4px; }
 
-  .vp-successbar { font: var(--vpBody2); background: #e7fbe0; color: #000;
-    border: 1px solid #c2eab4; padding: 8px; border-radius: 8px;
+  .vp-successbar { font: var(--vpBody2); background: var(--vpGreenBg); color: var(--vpBlack);
+    border: 1px solid var(--vpGreenBorder); padding: 8px; border-radius: 8px;
     display: flex; align-items: center; gap: 10px; }
   .vp-successbar img { width: 20px; height: 20px; display: block; flex-shrink: 0; margin-left: 2px; }
   /* live's banner content box is 24px tall, giving 8 + 24 + 8 + 2 = 42px overall */
@@ -394,8 +475,8 @@
   .vp-accordion { display: flex; flex-direction: column; gap: 16px; }
   .vp-accrow { font: var(--vpBody2); display: flex; justify-content: space-between;
     align-items: center; gap: 12px; padding: 12px 16px; min-height: 24px; }
-  .vp-accrow .lft { font: var(--vpHeading4); color: #000; display: flex; align-items: center; gap: 8px; }
-  .vp-accrow .amt { font: var(--vpHeading4); color: #000; }
+  .vp-accrow .lft { font: var(--vpHeading4); color: var(--vpBlack); display: flex; align-items: center; gap: 8px; }
+  .vp-accrow .amt { font: var(--vpHeading4); color: var(--vpBlack); }
 
   /* ============ Service Area module ============ */
   /* Sizes below are measured off the live dashboard at a 2056px viewport:
@@ -436,7 +517,7 @@
   .vp-mappanel .p-sub { font: var(--vpBody3); color: var(--vpMuted); margin-top: 3px; }
   .vp-mappanel .p-head { font: var(--vpHeading4); margin: 18px 0 4px; }
   .vp-mappanel .p-desc { font: var(--vpBody3); color: var(--vpMuted); }
-  .vp-panel-toggle { position: absolute; top: 50%; left: 377px; transform: translateY(-50%); width: 17px; height: 36px; background: #0d2b52; color: #fff; border-radius: 0 5px 5px 0; display: flex; align-items: center; justify-content: center; font-size: 13px; cursor: pointer; z-index: 3; }
+  .vp-panel-toggle { position: absolute; top: 50%; left: 377px; transform: translateY(-50%); width: 17px; height: 36px; background: var(--vpValmoNavyMid); color: var(--vpWhite); border-radius: 0 5px 5px 0; display: flex; align-items: center; justify-content: center; font-size: 13px; cursor: pointer; z-index: 3; }
   .vp-expand-ic { width: 22px; height: 22px; border: 1.5px solid var(--vpBrand); border-radius: 3px; flex-shrink: 0; cursor: pointer; position: relative; }
   .vp-expand-ic::before, .vp-expand-ic::after { content: ""; position: absolute; width: 5px; height: 5px; border: 1.5px solid var(--vpBrand); }
   .vp-expand-ic::before { top: 3px; left: 3px; border-right: none; border-bottom: none; }
@@ -460,18 +541,22 @@
   /* checkbox + label + legend token rows */
   .vp-cbx { width: 17px; height: 17px; border: 1.5px solid var(--vpBrand); border-radius: 3px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
   .vp-cbx.on { background: var(--vpBrand); }
-  .vp-cbx.on::after { content: "\2713"; color: #fff; font-size: 11px; font-weight: 700; line-height: 1; }
+  .vp-cbx.on::after { content: "\2713"; color: var(--vpWhite); font-size: 11px; font-weight: 700; line-height: 1; }
   .vp-layerrow { font: var(--vpBody14Valmo); display: flex; align-items: center; gap: 10px; border: 1px solid var(--vpBorder); border-radius: 6px; padding: 11px 12px; margin-top: 9px; cursor: pointer; }
   .vp-layerrow .lbl { flex: 1; }
   .vp-layerrow.off .lbl { color: var(--vpMuted); }
   .vp-legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  /* the legend keys repeat the shipment-dot artwork colours */
+  .vp-legend-dot.diff-dc { background: #f44240; }
+  .vp-legend-dot.outside { background: #00a550; }
+  .vp-legend-dot.rto     { background: #34353a; }
   .vp-legend-tri { width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-bottom: 12px solid #e11900; flex-shrink: 0; }
 
   /* key/value + metric rows */
   .vp-kv { font: var(--vpBody2); display: flex; justify-content: space-between; gap: 16px; margin-top: 13px; }
   .vp-kv .lbl { color: var(--vpMuted); flex-shrink: 0; display: inline-flex; align-items: center; gap: 5px; }
   .vp-kv .val { text-align: right; }
-  .vp-metric-hint { font: var(--vpHeading7); color: #1a7d3a; margin-top: 4px; }
+  .vp-metric-hint { font: var(--vpHeading7); color: var(--vpValmoGreenDeep); margin-top: 4px; }
   .vp-info-dot { width: 13px; height: 13px; border-radius: 50%; border: 1.2px solid var(--vpMuted); color: var(--vpMuted); font-size: 9px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
 
   /* date range field + picker */
@@ -486,7 +571,7 @@
   .vp-dp-anchor { position: relative; }
   .vp-datepicker { position: absolute; top: 100%; left: 0; right: 0; z-index: 20; background: var(--vpSurface); border: 1px solid var(--vpBorder); border-radius: 8px; box-shadow: 0 10px 28px rgba(0,0,0,0.18); padding: 14px; margin-top: 9px; }
   .vp-dp-grid .day:not(:empty):hover { background: var(--vpHeadBg); }
-  .vp-dp-grid .day.in:hover, .vp-dp-grid .day.end:hover { background: var(--vpBrand); color: #fff; }
+  .vp-dp-grid .day.in:hover, .vp-dp-grid .day.end:hover { background: var(--vpBrand); color: var(--vpWhite); }
   .vp-dp-fields { display: flex; gap: 12px; }
   .vp-dp-field { flex: 1; }
   .vp-dp-field .lbl { font: var(--vpBody3); color: var(--vpMuted); margin-bottom: 5px; }
@@ -496,13 +581,13 @@
   .vp-dp-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center; }
   .vp-dp-grid .dow { font: var(--vpBody3); color: var(--vpMuted); padding: 5px 0; }
   .vp-dp-grid .day { font: var(--vpBody2); padding: 8px 0; border-radius: 4px; cursor: pointer; }
-  .vp-dp-grid .day.in { background: #e8ebf7; }
-  .vp-dp-grid .day.end { font: var(--vpButtonText13BoldValmo); background: var(--vpBrand); color: #fff; }
+  .vp-dp-grid .day.in { background: var(--vpValmoPageBg); }
+  .vp-dp-grid .day.end { font: var(--vpButtonText13BoldValmo); background: var(--vpBrand); color: var(--vpWhite); }
   .vp-dp-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 13px; border-top: 1px solid var(--vpBorder); padding-top: 13px; }
   .vp-dp-foot .note { font: var(--vpBody3); color: var(--vpMuted); }
 
   /* inline alert */
-  .vp-inlinealert { font: var(--vpBody2); display: flex; gap: 9px; background: #fdecec; border-radius: 6px; padding: 12px; margin-top: 13px; }
+  .vp-inlinealert { font: var(--vpBody2); display: flex; gap: 9px; background: var(--vpRedBg); border-radius: 6px; padding: 12px; margin-top: 13px; }
   .vp-inlinealert img, .vp-inlinealert svg { width: 19px; height: 19px; flex-shrink: 0; }
 
   /* download button (UI only) */
@@ -516,7 +601,7 @@
   .vp-awbfield .go img { width: 14px; height: 14px; filter: brightness(0) invert(1); }
 
   /* empty-state card */
-  .vp-emptycard { background: #eef4fd; border-radius: 8px; padding: 16px; margin-top: 14px; }
+  .vp-emptycard { background: var(--vpGreyLight02); border-radius: 8px; padding: 16px; margin-top: 14px; }
   .vp-emptycard .illo { display: block; width: 150px; margin: 0 auto 11px; }
   .vp-emptycard h5 { font: var(--vpHeading4); margin: 0 0 11px; color: var(--vpBrand); text-align: center; }
   .vp-emptystep { font: var(--vpBody14Valmo); display: flex; align-items: center; gap: 9px; margin-top: 8px; }
@@ -526,7 +611,7 @@
 </head>
 <body>
 <div class="vp-scope">
-<div class="vp-tablefoot" style="background:#fff;">
+<div class="vp-tablefoot" style="background:var(--vpSurface);">
   <span class="note"><svg class="vp-info-ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5"></path><circle cx="12" cy="7.6" r="0.6" fill="currentColor"></circle></svg>Only last 3 months data is being displayed here, for older data visit <a href="#">Valmo Support</a></span>
   <div class="vp-pagination"><span class="pg arrow">&#8249;</span><span class="pg active">1</span><span class="pg">2</span><span class="pg">3</span><span class="pg arrow">&#8250;</span></div>
 </div>
