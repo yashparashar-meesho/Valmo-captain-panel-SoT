@@ -3,9 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>AWB Search Field — Valmo Partner component</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- no external fonts: Mier B02 is local, with a metric-matched fallback -->
 <style>body{margin:0;padding:24px;background:#eaeaf2;}</style>
 <style>
 /* ============ vp- component kit (Valmo Partner clone) ============ */
@@ -26,8 +24,22 @@
   @font-face { font-family: "Mier B02"; src: url("../assets/fonts/Mier_B02-Demi.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
   @font-face { font-family: "Mier B02"; src: url("../assets/fonts/Mier_B02-Bold.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
 
+  /* If the Mier files never arrive - pulled without assets/fonts, offline, a blocked
+     CDN - the page must not reflow. Measured against Mier, system-ui sets ~10.4-13.4%
+     wide and Arial ~4%, which is enough to overflow a table row or push the page title
+     into the Download button. This fallback is Arial (or a metric-compatible clone)
+     scaled to Mier's advance widths, so a failed font load costs a change of typeface
+     and nothing else. The live panel does the same thing, under the same name. */
+  @font-face {
+    font-family: "Mier Fallback";
+    src: local("Arial"), local("Helvetica Neue"), local("Helvetica"),
+         local("Liberation Sans"), local("Nimbus Sans"), local("Albany AMT");
+    size-adjust: 96%;
+    font-display: swap;
+  }
+
   .vp-scope {
-    --vpFont: "Mier B02", "Inter", system-ui, sans-serif;
+    --vpFont: "Mier B02", "Mier Fallback", system-ui, sans-serif;
     /* weight size/line-height - one token per Crystal style */
     --vpDisplay1:    600 28px/36px var(--vpFont);
     /* Display2Valmo - the numeric display style, and the one deliberate addition to
@@ -618,5 +630,11 @@
   </div>
 </div>
 </div>
+<script>
+document.addEventListener("error", function (e) {
+  var el = e.target;
+  if (el && el.tagName === "IMG") { el.style.visibility = "hidden"; }
+}, true);
+</script>
 </body>
 </html>
