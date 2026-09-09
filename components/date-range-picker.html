@@ -193,6 +193,10 @@
     height: 48px; box-sizing: border-box; padding: 14px 20px;
     color: var(--vpBorder);
     border-top: 1px solid var(--vpNavDivider);
+    /* live dims this whole row (logo + label) with opacity .6 - the wordmark
+       ships as fill="white", so on the navy rail full strength reads bright
+       white where live reads muted blue-grey. Same on the label. */
+    opacity: 0.6;
   }
   .vp-sidebar-footer .vp-logo-row img { width: 100px; height: 27px; object-fit: contain; }
 
