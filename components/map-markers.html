@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Segmented Toggle — Valmo Partner component</title>
+<title>Map Markers — Valmo Partner component</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -336,7 +336,14 @@
 </head>
 <body>
 <div class="vp-scope">
-<div class="vp-segtoggle"><span class="seg">This Month</span><span class="seg">Previous Month</span><span class="seg active">Last 3 Months</span></div>
+<div style="display:flex;align-items:flex-end;gap:34px;padding:30px 16px 16px;background:#dfe3e6;border-radius:8px;">
+  <div style="position:relative;width:56px;height:46px;"><div class="vp-dcpin" style="left:50%;top:100%;"><img data-icon="ic_blue_marker" alt=""><span class="code">UXV</span></div></div>
+  <div style="position:relative;width:86px;height:46px;"><div class="vp-dcpin mine" style="left:50%;top:100%;"><img data-icon="ic_blue_marker" alt=""><span class="code">My DC (BEU)</span></div></div>
+  <div style="position:relative;width:26px;height:46px;"><div class="vp-shiptri" style="left:50%;top:60%;"></div></div>
+  <div style="position:relative;width:26px;height:46px;"><div class="vp-shipdot diff-dc" style="left:50%;top:60%;"></div></div>
+  <div style="position:relative;width:26px;height:46px;"><div class="vp-shipdot outside" style="left:50%;top:60%;"></div></div>
+  <div style="position:relative;width:26px;height:46px;"><div class="vp-shipdot rto" style="left:50%;top:60%;"></div></div>
+</div>
 </div>
 </body>
 </html>

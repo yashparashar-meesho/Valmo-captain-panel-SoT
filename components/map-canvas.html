@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Segmented Toggle — Valmo Partner component</title>
+<title>Map Canvas — Valmo Partner component</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -336,7 +336,25 @@
 </head>
 <body>
 <div class="vp-scope">
-<div class="vp-segtoggle"><span class="seg">This Month</span><span class="seg">Previous Month</span><span class="seg active">Last 3 Months</span></div>
+<div class="vp-maparea" style="min-height:340px;">
+  <img class="vp-mapbase" data-icon="img_sa_basemap" alt="">
+        <svg class="vp-mapoverlay" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <path data-area="0" d="M 42.4,56.5 L 48.1,51.9 L 59.5,34.0 L 62.9,24.5 L 63.4,21.5 L 65.3,21.7 L 66.5,22.2 L 68.1,22.4 L 68.7,22.8 L 69.3,23.9 L 69.5,25.7 L 71.2,28.7 L 72.4,29.1 L 73.8,47.1 L 73.5,51.8 L 72.7,52.1 L 72.0,55.2 L 69.4,54.0 L 68.9,55.5 L 69.8,56.1 L 69.7,56.8 L 69.4,56.5 L 69.2,57.0 L 68.2,60.9 L 64.5,66.5 L 61.3,72.7 L 60.6,75.2 L 57.9,75.2 L 57.9,79.4 L 56.1,79.6 L 56.1,75.7 L 54.4,75.8 L 54.7,79.7 L 53.4,79.8 L 44.5,75.5 L 40.2,74.0 L 39.1,74.2 L 38.1,76.0 L 37.7,75.9 L 36.8,74.5 L 35.8,78.2 L 33.5,83.1 L 30.8,79.7 L 27.8,79.0 L 24.9,76.9 L 26.0,70.3 L 42.4,56.5 Z" fill="rgba(83,101,214,0.16)" stroke="#3b4fc4" stroke-width="0.28" vector-effect="non-scaling-stroke"/>
+          <path data-area="1" style="display:none" d="M 42.4,56.6 L 48.7,51.8 L 59.6,34.2 L 62.5,24.5 L 63.6,21.9 L 64.7,21.4 L 66.0,22.6 L 68.4,21.8 L 69.4,23.5 L 69.5,24.1 L 69.0,25.0 L 71.3,28.1 L 72.0,28.7 L 73.2,47.1 L 73.4,52.3 L 72.7,52.3 L 72.0,55.4 L 69.3,53.7 L 69.6,56.2 L 70.3,56.4 L 69.5,56.4 L 69.1,55.9 L 69.5,56.8 L 68.7,60.7 L 65.2,67.0 L 60.6,72.3 L 61.2,75.2 L 58.6,75.0 L 57.3,79.6 L 56.5,79.2 L 55.5,75.5 L 55.0,76.2 L 54.2,79.3 L 52.8,79.2 L 44.9,75.1 L 40.3,73.9 L 38.6,74.6 L 37.6,76.2 L 37.2,75.8 L 36.3,74.2 L 36.4,78.6 L 33.2,83.6 L 30.4,79.6 L 28.3,79.2 L 24.3,77.6 L 25.6,70.0 L 42.8,56.3 Z" fill="rgba(83,101,214,0.16)" stroke="#3b4fc4" stroke-width="0.28" vector-effect="non-scaling-stroke"/>
+          <path data-area="2" style="display:none" d="M 43.6,55.6 L 46.9,53.2 L 58.7,33.1 L 63.3,24.1 L 64.4,20.8 L 66.5,21.2 L 66.8,23.3 L 68.6,23.5 L 69.3,21.6 L 70.3,24.2 L 69.0,24.9 L 72.1,29.0 L 73.6,29.8 L 75.0,47.3 L 74.0,52.1 L 72.1,53.3 L 71.5,55.9 L 70.6,54.4 L 68.0,56.4 L 70.3,55.3 L 68.6,56.9 L 68.2,57.6 L 69.2,57.0 L 68.0,61.3 L 65.6,66.0 L 61.0,72.9 L 60.1,75.5 L 58.0,75.0 L 58.4,79.5 L 55.0,80.9 L 55.7,75.6 L 54.1,77.0 L 55.9,79.7 L 53.1,78.7 L 45.6,74.7 L 40.4,73.6 L 38.6,73.9 L 37.3,74.8 L 37.8,76.7 L 37.1,73.7 L 36.3,77.1 L 33.2,84.0 L 31.9,79.6 L 28.7,79.0 L 24.9,77.1 L 27.2,71.0 L 42.4,57.1 Z" fill="rgba(83,101,214,0.16)" stroke="#3b4fc4" stroke-width="0.28" vector-effect="non-scaling-stroke"/>
+          <path data-area="3" style="display:none" d="M 42.7,57.1 L 49.4,51.0 L 60.1,35.6 L 64.6,23.2 L 64.0,22.0 L 65.3,23.5 L 66.7,22.0 L 69.9,22.9 L 67.9,22.0 L 69.3,22.1 L 69.9,26.6 L 70.9,30.1 L 74.2,29.3 L 74.6,45.6 L 71.7,53.8 L 71.8,51.0 L 73.6,56.2 L 67.9,53.3 L 67.9,54.6 L 67.9,56.2 L 69.0,56.4 L 68.2,54.9 L 67.3,58.5 L 69.2,61.1 L 63.0,65.1 L 59.8,72.0 L 58.8,74.3 L 56.7,73.9 L 58.5,79.3 L 56.0,79.0 L 56.3,76.9 L 53.6,74.1 L 54.6,79.2 L 54.5,78.2 L 46.0,73.6 L 40.4,73.8 L 38.3,75.8 L 38.9,74.6 L 37.7,76.3 L 34.9,72.8 L 36.2,79.1 L 33.3,82.8 L 30.8,78.8 L 29.3,80.8 L 24.8,75.0 L 25.6,71.6 L 41.7,55.0 Z" fill="rgba(83,101,214,0.16)" stroke="#3b4fc4" stroke-width="0.28" vector-effect="non-scaling-stroke"/>
+        </svg>
+        <div class="vp-lyr" data-lyr="demo-diff">
+          <div class="vp-shipdot diff-dc" style="left:46.92%;top:68.66%;"></div>
+          <div class="vp-shipdot diff-dc" style="left:51.86%;top:55.98%;"></div>
+        </div>
+        <div class="vp-lyr" data-lyr="demo-same">
+          <div class="vp-shiptri" style="left:47.11%;top:64.05%;"></div>
+          <div class="vp-shiptri" style="left:31.39%;top:66.63%;"></div>
+        </div>
+        <div class="vp-dcpin mine" style="left:54.3%;top:56.53%;"><img data-icon="ic_blue_marker" alt=""><span class="code">My DC (BEU)</span></div>
+  <div class="vp-mapattrib">Map data &#169; OpenStreetMap contributors</div>
+</div>
 </div>
 </body>
 </html>

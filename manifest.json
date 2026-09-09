@@ -33,6 +33,28 @@
           "order": 1
         }
       ]
+    },
+    {
+      "id": "service-area",
+      "name": "Service Area",
+      "description": "Check captain panel - Service Area complete flow",
+      "screens": [
+        {
+          "id": "service-area-my-area",
+          "name": "My Service Area",
+          "order": 0
+        },
+        {
+          "id": "service-area-find-shipment",
+          "name": "Find Shipment Location",
+          "order": 1
+        },
+        {
+          "id": "service-area-misrouted",
+          "name": "Misrouted Shipment",
+          "order": 2
+        }
+      ]
     }
   ],
   "components": [
@@ -49,6 +71,18 @@
     "search-input",
     "pagination",
     "modal",
-    "accordion-row"
+    "accordion-row",
+    "map-canvas",
+    "map-side-panel",
+    "map-markers",
+    "collapsible-section",
+    "metric-kv-row",
+    "layer-checkbox-row",
+    "date-range-field",
+    "date-range-picker",
+    "inline-alert",
+    "download-button",
+    "awb-search-field",
+    "empty-state-card"
   ]
 }

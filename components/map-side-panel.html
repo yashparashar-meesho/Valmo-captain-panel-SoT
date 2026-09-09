@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Segmented Toggle — Valmo Partner component</title>
+<title>Map Side Panel — Valmo Partner component</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -336,7 +336,13 @@
 </head>
 <body>
 <div class="vp-scope">
-<div class="vp-segtoggle"><span class="seg">This Month</span><span class="seg">Previous Month</span><span class="seg active">Last 3 Months</span></div>
+<div class="vp-maparea" style="min-height:240px;background:#dfe3e6;">
+  <div class="vp-mappanel" data-collapsed="0" style="position:relative;top:0;left:0;">
+    <h4>Panel title<span class="vp-expand-ic"></span></h4>
+    <div class="p-sub">Supporting line under the title</div>
+  </div>
+  <div class="vp-panel-toggle" onclick="var p=this.previousElementSibling;var col=p.style.display==='none';p.style.display=col?'':'none';this.style.left=col?'377px':'12px';this.innerHTML=col?'&#8249;':'&#8250;';">&#8249;</div>
+</div>
 </div>
 </body>
 </html>
