@@ -21,7 +21,7 @@ Category follows the **weight**, not the usage:
 `Display…` is its own category and keeps its own names. Valmo-only additions carry a
 `Valmo` suffix (or a descriptive name) so it is obvious they are not from Crystal.
 
-## 2. The library — 27 styles
+## 2. The library — 28 styles
 
 Defined once in `flow-ledger.html`'s kit CSS as `--vp<Name>` tokens plus `.vp-<name>`
 classes. Nothing else in the codebase may declare `font-family` / `font-size` /
@@ -46,7 +46,7 @@ classes. Nothing else in the codebase may declare `font-family` / `font-size` /
 † Crystal ships Heading8 as 11/**28** — a 2.5× line-height, evidently a slip. Corrected
 to 11/16 to match the other 11px styles.
 
-### Valmo additions (8) — live patterns Crystal does not cover
+### Valmo additions (9) — live patterns Crystal does not cover
 
 | Style | Face | px/lh | Covers |
 |---|---|---|---|
@@ -58,10 +58,16 @@ to 11/16 to match the other 11px styles.
 | ButtonText14DemiValmo | Demi 600 | 14/20 | table column headers, "Sort by:" |
 | ButtonText14BoldValmo | Bold 700 | 14/20 | table action links, banner headings |
 | ButtonText13BoldValmo | Bold 700 | 13/20 | small bold — links, compact labels |
+| Body14TightValmo | Book 400 | 14/**16** | breadcrumbs |
 
 ‡ Live renders the hero stat at 28/**20**. We use 28/28 deliberately: 20px is smaller
 than the glyph size and risks clipping numerals, and Display1's 36px adds unwanted
 leading to a standalone figure.
+
+**On Body14TightValmo.** The coverage audit below matched on size + effective weight
+only, so it never surfaced a *line-height* gap: live sets breadcrumbs at 14px on a 16px
+line, where `Body14Valmo` (table cells) uses 20px. Added 2026-09-10 while matching the
+payment-details page, where the 4px difference moved the whole header band.
 
 ### Weight 500 is a no-op — do not add it
 
@@ -130,6 +136,6 @@ Those 14 are left uncovered on purpose: 16px maps to 15px (same weight), and the
 
 ## 5. Clone compliance (verified)
 
-All 7 screens, 345 rendered text nodes: **345/345 in Mier B02**, zero raw
+All 7 screens, 462 rendered text nodes: **462/462 in Mier B02**, zero raw
 `font-size`/`font-weight` declarations in screens or components, and the only values
 outside the library are the 2 map zoom glyphs (`+` / `−`) per map screen.
