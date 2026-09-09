@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Segmented Toggle — Valmo Partner component</title>
+<title>Layer Checkbox Row — Valmo Partner component</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -336,7 +336,13 @@
 </head>
 <body>
 <div class="vp-scope">
-<div class="vp-segtoggle"><span class="seg">This Month</span><span class="seg">Previous Month</span><span class="seg active">Last 3 Months</span></div>
+<div style="max-width:321px;">
+  <div class="vp-layerrow" data-target="same-dc" onclick="var c=this.querySelector('.vp-cbx');c.classList.toggle('on');this.classList.toggle('off');var t=this.getAttribute('data-target'),m=this.closest('.vp-maparea');if(t&&m){var el=m.querySelector('[data-lyr=\''+t+'\']');if(el)el.style.display=c.classList.contains('on')?'':'none';}"><span class="vp-cbx on"></span><span class="lbl">Delivered within polygon by same DC (2)</span><span class="vp-legend-tri"></span></div>
+  <div class="vp-layerrow" data-target="diff-dc" onclick="var c=this.querySelector('.vp-cbx');c.classList.toggle('on');this.classList.toggle('off');var t=this.getAttribute('data-target'),m=this.closest('.vp-maparea');if(t&&m){var el=m.querySelector('[data-lyr=\''+t+'\']');if(el)el.style.display=c.classList.contains('on')?'':'none';}"><span class="vp-cbx on"></span><span class="lbl">Delivered within polygon by different DC (2)</span><span class="vp-legend-dot" style="background:#f44240;"></span></div>
+  <div class="vp-layerrow off" data-target="outside" onclick="var c=this.querySelector('.vp-cbx');c.classList.toggle('on');this.classList.toggle('off');var t=this.getAttribute('data-target'),m=this.closest('.vp-maparea');if(t&&m){var el=m.querySelector('[data-lyr=\''+t+'\']');if(el)el.style.display=c.classList.contains('on')?'':'none';}"><span class="vp-cbx"></span><span class="lbl">Delivered outside polygon (169)</span><span class="vp-legend-dot" style="background:#00a550;"></span></div>
+  <div class="vp-layerrow off" data-target="rto" onclick="var c=this.querySelector('.vp-cbx');c.classList.toggle('on');this.classList.toggle('off');var t=this.getAttribute('data-target'),m=this.closest('.vp-maparea');if(t&&m){var el=m.querySelector('[data-lyr=\''+t+'\']');if(el)el.style.display=c.classList.contains('on')?'':'none';}"><span class="vp-cbx"></span><span class="lbl">Not delivered and RTO marked (49)</span><span class="vp-legend-dot" style="background:#34353a;"></span></div>
+  <div class="vp-layerrow off" data-target="arrows" onclick="var c=this.querySelector('.vp-cbx');c.classList.toggle('on');this.classList.toggle('off');var t=this.getAttribute('data-target'),m=this.closest('.vp-maparea');if(t&&m){var el=m.querySelector('[data-lyr=\''+t+'\']');if(el)el.style.display=c.classList.contains('on')?'':'none';}"><span class="vp-cbx"></span><span class="lbl">Arrow to misrouted DC from shipments inside your area (42)</span><img data-icon="ic_dashed_lines" style="width:18px;" alt=""></div>
+</div>
 </div>
 </body>
 </html>

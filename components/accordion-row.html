@@ -208,6 +208,130 @@
   .vp-accrow:last-child { border-bottom: none; }
   .vp-accrow .lft { display: flex; align-items: center; gap: 6px; font-weight: 600; }
 
+  /* ============ Service Area module ============ */
+  /* Sizes below are measured off the live dashboard at a 2056px viewport:
+     panel 353px wide (16px padding), titles 15/700, rows 14/500, metrics 13/500,
+     hints & descriptions 12px, page title 21/700, tabs 301px wide at 15/500. */
+  .vp-content-flush { padding: 0 !important; display: flex; flex-direction: column; }
+  .vp-sa-title { background: var(--vpSurface); padding: 6px 8px 8px; flex-shrink: 0; }
+  .vp-sa-title h3 { margin: 0; font-size: 21px; font-weight: 700; }
+  .vp-subtabbar { background: var(--vpSurface); display: flex; border-bottom: 1px solid var(--vpBorder); flex-shrink: 0; }
+  .vp-subtabbar .vp-tab { width: 301px; padding: 16px 0 13px; text-align: center; font-size: 15px; font-weight: 500; }
+  .vp-subtabbar .vp-tab.active { font-weight: 700; color: var(--vpBrand); }
+
+  .vp-maparea { position: relative; flex: 1; min-height: 700px; overflow: hidden; background: #eceae7; }
+  /* stretched to fill, so a marker at N% of the map is at N% of the raster */
+  .vp-mapbase { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; display: block; }
+  /* explicit height: an SVG with a viewBox and auto height resolves to its intrinsic
+     1:1 aspect, which would stretch the polygon far past the map area */
+  .vp-mapoverlay { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .vp-mapattrib { position: absolute; right: 5px; bottom: 3px; font-size: 9px; color: #5a5e66; background: rgba(255,255,255,0.7); padding: 1px 5px; border-radius: 2px; }
+  .vp-mapzoom { position: absolute; right: 10px; bottom: 24px; display: flex; flex-direction: column; background: #fff; border-radius: 3px; box-shadow: 0 1px 4px rgba(0,0,0,0.3); overflow: hidden; }
+  .vp-mapzoom span { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: #5a5e66; cursor: pointer; }
+  .vp-mapzoom span + span { border-top: 1px solid var(--vpBorder); }
+
+  /* map markers */
+  .vp-dcpin { position: absolute; transform: translate(-50%, -100%); display: flex; flex-direction: column; align-items: center; }
+  .vp-dcpin img { width: 20px; height: 27px; display: block; }
+  .vp-dcpin .code { margin-top: 1px; background: #fff; border-radius: 3px; padding: 1px 5px; font-size: 10px; font-weight: 700; color: var(--vpText); box-shadow: 0 1px 3px rgba(0,0,0,0.28); white-space: nowrap; }
+  .vp-shipdot { position: absolute; width: 11px; height: 11px; border-radius: 50%; transform: translate(-50%, -50%); border: 1.5px solid #fff; box-shadow: 0 1px 2px rgba(0,0,0,0.35); }
+  .vp-shipdot.diff-dc { background: #f44240; }
+  .vp-shipdot.outside { background: #00a550; }
+  .vp-shipdot.rto { background: #34353a; }
+  .vp-shiptri { position: absolute; transform: translate(-50%, -50%); width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-bottom: 12px solid #e11900; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.35)); }
+
+  /* floating panel over the map */
+  .vp-mappanel { position: absolute; top: 12px; left: 12px; width: 353px; box-sizing: border-box; background: var(--vpSurface); border-radius: 8px; box-shadow: 0 4px 18px rgba(0,0,0,0.16); padding: 16px; max-height: calc(100% - 24px); overflow-y: auto; }
+  .vp-mappanel > h4 { margin: 0; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .vp-mappanel .p-sub { font-size: 12px; color: var(--vpMuted); margin-top: 3px; }
+  .vp-mappanel .p-head { font-size: 15px; font-weight: 700; margin: 18px 0 4px; }
+  .vp-mappanel .p-desc { font-size: 12px; color: var(--vpMuted); line-height: 1.45; }
+  .vp-panel-toggle { position: absolute; top: 50%; left: 377px; transform: translateY(-50%); width: 17px; height: 36px; background: #0d2b52; color: #fff; border-radius: 0 5px 5px 0; display: flex; align-items: center; justify-content: center; font-size: 13px; cursor: pointer; z-index: 3; }
+  .vp-expand-ic { width: 22px; height: 22px; border: 1.5px solid var(--vpBrand); border-radius: 3px; flex-shrink: 0; cursor: pointer; position: relative; }
+  .vp-expand-ic::before, .vp-expand-ic::after { content: ""; position: absolute; width: 5px; height: 5px; border: 1.5px solid var(--vpBrand); }
+  .vp-expand-ic::before { top: 3px; left: 3px; border-right: none; border-bottom: none; }
+  .vp-expand-ic::after { bottom: 3px; right: 3px; border-left: none; border-top: none; }
+
+  /* collapsible section */
+  .vp-collapse { border: 1px solid var(--vpBorder); border-radius: 8px; margin: 13px 0 14px; overflow: hidden; }
+  .vp-collapse-head { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; font-size: 15px; font-weight: 700; color: var(--vpBrand); cursor: pointer; }
+  .vp-collapse-head .chev { font-size: 11px; }
+  .vp-collapse-body { padding: 0 16px 8px; }
+  .vp-optrow { display: flex; align-items: center; gap: 10px; padding: 11px 0; font-size: 14px; font-weight: 500; border-top: 1px solid var(--vpBorder); }
+  .vp-optrow:first-child { border-top: none; }
+  /* Area Update History selector: always a radio, so the shape never changes on select
+     - only the inner dot appears. */
+  .vp-sel { width: 17px; height: 17px; border: 1.5px solid var(--vpBrand); border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+  .vp-sel.on::after { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--vpBrand); }
+
+  /* toggleable map marker groups */
+  .vp-lyr { position: absolute; inset: 0; pointer-events: none; }
+
+  /* checkbox + label + legend token rows */
+  .vp-cbx { width: 17px; height: 17px; border: 1.5px solid var(--vpBrand); border-radius: 3px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .vp-cbx.on { background: var(--vpBrand); }
+  .vp-cbx.on::after { content: "\2713"; color: #fff; font-size: 11px; font-weight: 700; line-height: 1; }
+  .vp-layerrow { display: flex; align-items: center; gap: 10px; border: 1px solid var(--vpBorder); border-radius: 6px; padding: 11px 12px; margin-top: 9px; font-size: 14px; font-weight: 500; cursor: pointer; }
+  .vp-layerrow .lbl { flex: 1; line-height: 1.35; }
+  .vp-layerrow.off .lbl { color: var(--vpMuted); }
+  .vp-legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  .vp-legend-tri { width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-bottom: 12px solid #e11900; flex-shrink: 0; }
+
+  /* key/value + metric rows */
+  .vp-kv { display: flex; justify-content: space-between; gap: 16px; font-size: 13px; font-weight: 500; margin-top: 13px; }
+  .vp-kv .lbl { color: var(--vpMuted); flex-shrink: 0; display: inline-flex; align-items: center; gap: 5px; }
+  .vp-kv .val { text-align: right; line-height: 1.4; }
+  .vp-metric-hint { color: #1a7d3a; font-size: 12px; font-weight: 600; line-height: 1.4; margin-top: 4px; }
+  .vp-info-dot { width: 13px; height: 13px; border-radius: 50%; border: 1.2px solid var(--vpMuted); color: var(--vpMuted); font-size: 9px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+  /* date range field + picker */
+  .vp-daterange { display: flex; align-items: center; justify-content: space-between; gap: 10px; border: 1px solid var(--vpBorder); border-radius: 6px; padding: 11px 12px; margin-top: 7px; font-size: 13px; }
+  .vp-daterange .rng { display: flex; align-items: center; gap: 7px; color: var(--vpBrand); font-weight: 600; white-space: nowrap; }
+  .vp-daterange .rng img { width: 15px; height: 15px; }
+  .vp-daterange .edit { display: flex; align-items: center; gap: 6px; color: var(--vpBrand); font-weight: 700; cursor: pointer; white-space: nowrap; }
+  .vp-daterange .edit img { width: 14px; height: 14px; }
+
+  /* The picker is anchored under the field and taken out of flow, so opening it
+     overlays the rest of the panel instead of growing the panel height. */
+  .vp-dp-anchor { position: relative; }
+  .vp-datepicker { position: absolute; top: 100%; left: 0; right: 0; z-index: 20; background: var(--vpSurface); border: 1px solid var(--vpBorder); border-radius: 8px; box-shadow: 0 10px 28px rgba(0,0,0,0.18); padding: 14px; margin-top: 9px; }
+  .vp-dp-grid .day:not(:empty):hover { background: var(--vpHeadBg); }
+  .vp-dp-grid .day.in:hover, .vp-dp-grid .day.end:hover { background: var(--vpBrand); color: #fff; }
+  .vp-dp-fields { display: flex; gap: 12px; }
+  .vp-dp-field { flex: 1; }
+  .vp-dp-field .lbl { font-size: 11.5px; color: var(--vpMuted); margin-bottom: 5px; }
+  .vp-dp-field .box { border: 1px solid var(--vpBorder); border-radius: 6px; padding: 9px 11px; font-size: 13px; }
+  .vp-dp-nav { display: flex; align-items: center; justify-content: space-between; margin: 15px 2px 10px; font-size: 14px; font-weight: 600; }
+  .vp-dp-nav .arw { width: 24px; height: 24px; border: 1px solid var(--vpBorder); border-radius: 5px; display: flex; align-items: center; justify-content: center; color: var(--vpBrand); cursor: pointer; font-size: 12px; }
+  .vp-dp-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center; }
+  .vp-dp-grid .dow { font-size: 11.5px; color: var(--vpMuted); padding: 5px 0; }
+  .vp-dp-grid .day { font-size: 13px; padding: 8px 0; border-radius: 4px; cursor: pointer; }
+  .vp-dp-grid .day.in { background: #e8ebf7; }
+  .vp-dp-grid .day.end { background: var(--vpBrand); color: #fff; font-weight: 700; }
+  .vp-dp-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 13px; border-top: 1px solid var(--vpBorder); padding-top: 13px; }
+  .vp-dp-foot .note { font-size: 11.5px; color: var(--vpMuted); line-height: 1.35; }
+
+  /* inline alert */
+  .vp-inlinealert { display: flex; gap: 9px; background: #fdecec; border-radius: 6px; padding: 12px; font-size: 13px; line-height: 1.45; margin-top: 13px; }
+  .vp-inlinealert img, .vp-inlinealert svg { width: 19px; height: 19px; flex-shrink: 0; }
+
+  /* download button (UI only) */
+  .vp-downloadbtn { display: flex; align-items: center; justify-content: space-between; gap: 10px; border: 1px solid var(--vpBrand); border-radius: 6px; padding: 12px; margin-top: 13px; color: var(--vpBrand); font-weight: 700; font-size: 14px; cursor: pointer; }
+  .vp-downloadbtn .lft { display: flex; align-items: center; gap: 8px; }
+
+  /* AWB search + submit */
+  .vp-awbfield { display: flex; align-items: stretch; gap: 8px; margin-top: 12px; }
+  .vp-awbfield .inp { flex: 1; border: 1px solid var(--vpBorder); border-radius: 6px; padding: 11px 12px; font-size: 14px; color: var(--vpMuted); }
+  .vp-awbfield .go { width: 34px; background: var(--vpBrand); border-radius: 5px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
+  .vp-awbfield .go img { width: 14px; height: 14px; filter: brightness(0) invert(1); }
+
+  /* empty-state card */
+  .vp-emptycard { background: #eef4fd; border-radius: 8px; padding: 16px; margin-top: 14px; }
+  .vp-emptycard .illo { display: block; width: 150px; margin: 0 auto 11px; }
+  .vp-emptycard h5 { margin: 0 0 11px; font-size: 15px; font-weight: 700; color: var(--vpBrand); text-align: center; }
+  .vp-emptystep { display: flex; align-items: center; gap: 9px; font-size: 14px; font-weight: 500; margin-top: 8px; }
+  .vp-emptystep img { width: 16px; height: 16px; flex-shrink: 0; }
+
 </style>
 </head>
 <body>

@@ -29,6 +29,29 @@ icons via a relative `../assets/icons/<file>` path, so pulled files need to sit 
 `screens/` or `components/` folder next to a sibling `assets/icons/` folder — mirror the
 repo's own layout locally and it works exactly the same as here.
 
+## Serve it, don't double-click it
+
+**These pages must be opened over `http://`, not as a `file://` double-click.** Chrome refuses
+to load assets reached via `../` from a file URL, so the icons — and on the Service Area screens
+the whole map raster — come up blank. From the folder that contains `screens/`:
+
+```bash
+python3 -m http.server 8000
+# then open http://localhost:8000/screens/<id>.html
+```
+
+Every page detects this itself: opened from a file it shows a banner at the top explaining the
+problem and giving that command, so nobody has to guess why the map is empty.
+
+## What's interactive
+
+The screens are static HTML with inline handlers — no build step, no JS libraries, no runtime
+fetches — so behaviour is identical wherever they're served. On the Service Area screens the
+map-layer checkboxes really do show and hide their marker groups, the Area Update History rows
+switch the boundary version, and the date-range picker opens as an overlay and lets you pick a
+range. Data itself is a fixed snapshot, not live: counts and dates stay put, and the Download
+AWB Details button is deliberately inert.
+
 ## Layout
 
 ```

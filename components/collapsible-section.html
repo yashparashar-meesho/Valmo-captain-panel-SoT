@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Segmented Toggle — Valmo Partner component</title>
+<title>Collapsible Section — Valmo Partner component</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -336,7 +336,15 @@
 </head>
 <body>
 <div class="vp-scope">
-<div class="vp-segtoggle"><span class="seg">This Month</span><span class="seg">Previous Month</span><span class="seg active">Last 3 Months</span></div>
+<div class="vp-collapse" style="max-width:321px;">
+  <div class="vp-collapse-head" onclick="var b=this.nextElementSibling;var open=b.style.display!=='none';b.style.display=open?'none':'block';this.querySelector('.chev').innerHTML=open?'&#9662;':'&#9652;';">Area Update History<span class="chev">&#9652;</span></div>
+  <div class="vp-collapse-body">
+    <div class="vp-optrow" onclick="var rows=this.parentNode.children,i=0,me=0;for(i=0;i<rows.length;i++){if(rows[i]===this)me=i;var s=rows[i].querySelector('.vp-sel');if(s)s.classList.remove('on');}var s2=this.querySelector('.vp-sel');if(s2)s2.classList.add('on');var m=this.closest('.vp-maparea');if(m){var ps=m.querySelectorAll('[data-area]');for(i=0;i<ps.length;i++)ps[i].style.display=(i===me)?'':'none';}"><span class="vp-sel on"></span>Area On 10th Aug, 7:01PM</div>
+    <div class="vp-optrow" onclick="var rows=this.parentNode.children,i=0,me=0;for(i=0;i<rows.length;i++){if(rows[i]===this)me=i;var s=rows[i].querySelector('.vp-sel');if(s)s.classList.remove('on');}var s2=this.querySelector('.vp-sel');if(s2)s2.classList.add('on');var m=this.closest('.vp-maparea');if(m){var ps=m.querySelectorAll('[data-area]');for(i=0;i<ps.length;i++)ps[i].style.display=(i===me)?'':'none';}"><span class="vp-sel"></span>Area on 10th Aug, 7:00PM</div>
+    <div class="vp-optrow" onclick="var rows=this.parentNode.children,i=0,me=0;for(i=0;i<rows.length;i++){if(rows[i]===this)me=i;var s=rows[i].querySelector('.vp-sel');if(s)s.classList.remove('on');}var s2=this.querySelector('.vp-sel');if(s2)s2.classList.add('on');var m=this.closest('.vp-maparea');if(m){var ps=m.querySelectorAll('[data-area]');for(i=0;i<ps.length;i++)ps[i].style.display=(i===me)?'':'none';}"><span class="vp-sel"></span>Area on 10th Aug, 6:59PM</div>
+    <div class="vp-optrow" onclick="var rows=this.parentNode.children,i=0,me=0;for(i=0;i<rows.length;i++){if(rows[i]===this)me=i;var s=rows[i].querySelector('.vp-sel');if(s)s.classList.remove('on');}var s2=this.querySelector('.vp-sel');if(s2)s2.classList.add('on');var m=this.closest('.vp-maparea');if(m){var ps=m.querySelectorAll('[data-area]');for(i=0;i<ps.length;i++)ps[i].style.display=(i===me)?'':'none';}"><span class="vp-sel"></span>Area on 10th Aug, 6:57PM</div>
+  </div>
+</div>
 </div>
 </body>
 </html>

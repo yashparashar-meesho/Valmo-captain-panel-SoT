@@ -1,0 +1,751 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Misrouted Shipment — Valmo Partner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#eaeaf2;}[data-goto]{cursor:pointer;}</style>
+<style>
+/* ============ vp- component kit (Valmo Partner clone) ============ */
+  .vp-scope {
+    --vpNavy: #072042;
+    --vpNavyActive: #16345c;
+    --vpBrand: #092d5e;
+    --vpPageBg: #eaeaf2;
+    --vpSurface: #ffffff;
+    --vpHeadBg: #f2f5fa;
+    --vpBorder: #e6ebf2;
+    --vpText: #272829;
+    --vpMuted: #5a5e66;
+    --vpPink: #ec4899;
+    --vpPeach: #fbefe0;
+    font-family: "Inter", system-ui, sans-serif;
+    color: var(--vpText);
+  }
+  .vp-scope * { box-sizing: border-box; }
+
+  .vp-shell { display: flex; background: var(--vpPageBg); min-height: 100vh; }
+  .vp-sidebar {
+    width: 250px;
+    flex-shrink: 0;
+    background: var(--vpNavy);
+    color: #fff;
+    padding: 16px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .vp-sidebar .vp-acct {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 18px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+  }
+  .vp-sidebar .vp-avatar {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .vp-sidebar .vp-avatar img { width: 20px; height: 20px; object-fit: contain; }
+  .vp-sidebar .vp-acct-name { font-size: 13px; font-weight: 600; }
+  .vp-sidebar .vp-beu {
+    font-size: 10.5px;
+    border: 1px solid rgba(255,255,255,0.6);
+    border-radius: 3px;
+    padding: 1px 5px;
+    margin-top: 2px;
+    display: inline-block;
+  }
+  .vp-navlist { display: flex; flex-direction: column; padding: 0; }
+  .vp-navitem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    font-size: 14.5px;
+    color: rgba(255,255,255,0.9);
+  }
+  .vp-navitem .ic { width: 20px; height: 20px; object-fit: contain; flex-shrink: 0; }
+  .vp-navitem .lbl { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .vp-navitem.active { background: var(--vpNavyActive); font-weight: 600; color: #fff; }
+  .vp-navitem.divider-after { border-bottom: 1px solid rgba(255,255,255,0.2); margin-bottom: 8px; }
+
+  .vp-sidebar-footer { margin-top: auto; border-top: 1px solid rgba(255,255,255,0.2); padding: 8px 0; }
+  .vp-sidebar-footer .vp-navitem { font-size: 13px; padding: 14px 20px; border-bottom: 1px solid rgba(255,255,255,0.2); }
+  .vp-sidebar-footer .vp-logo-row {
+    display: flex; align-items: center; gap: 8px;
+    padding: 14px 20px; font-size: 12px; opacity: 0.6;
+  }
+
+  .vp-badge-new { display: inline-block; width: 34px; height: 16px; flex-shrink: 0; }
+  .vp-badge-new img { display: block; width: 100%; height: 100%; }
+
+  .vp-select {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid var(--vpBorder); border-radius: 6px;
+    padding: 8px 12px; font-size: 13px; font-weight: 600;
+    background: #fff; color: var(--vpText); cursor: pointer;
+  }
+  .vp-select .chev { color: var(--vpMuted); font-size: 11px; }
+
+  .vp-content { flex: 1; padding: 20px 24px; min-width: 0; }
+  .vp-crumb { font-size: 11.5px; color: var(--vpMuted); margin-bottom: 6px; }
+  .vp-crumb a { color: var(--vpMuted); text-decoration: none; }
+  .vp-pageheader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .vp-pageheader h3 { margin: 0; font-size: 15px; font-weight: 700; }
+
+  .vp-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: inherit;
+    font-size: 12.5px;
+    font-weight: 700;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1px solid var(--vpBrand);
+  }
+  .vp-btn-primary { background: var(--vpBrand); color: #fff; }
+  .vp-btn-outline { background: #fff; color: var(--vpBrand); }
+
+  .vp-banner {
+    background: var(--vpPeach);
+    border-radius: 6px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .vp-banner .vp-illo {
+    width: 64px; height: 66px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .vp-banner .vp-illo img { width: 100%; height: 100%; object-fit: contain; }
+  .vp-banner h4 { margin: 0 0 3px; font-size: 14px; font-weight: 700; }
+  .vp-banner p { margin: 0; font-size: 12px; color: var(--vpMuted); }
+  .vp-banner .vp-btn { margin-top: 8px; }
+
+  .vp-herostat { background: var(--vpSurface); border: 1px solid rgba(0,0,0,0.09); border-radius: 8px; padding: 20px 16px 16px; }
+  .vp-herostat .lbl { font-size: 12.5px; font-weight: 500; color: var(--vpMuted); text-transform: uppercase; letter-spacing: 0.02em; display: inline-flex; align-items: center; gap: 5px; }
+  .vp-info-ic { color: var(--vpMuted); flex-shrink: 0; }
+  .vp-herostat .val { font-size: 26px; font-weight: 700; margin-top: 4px; }
+
+  .vp-panel { background: #fff; padding: 16px; }
+  .vp-panel-pad { padding: 16px 16px 0; }
+  .vp-statbar { display: flex; background: var(--vpSurface); border: 1px solid rgba(0,0,0,0.09); border-radius: 8px; overflow: hidden; }
+  .vp-statbar .stat { flex: 1; padding: 12px; border-right: 1px solid var(--vpBorder); }
+  .vp-statbar .stat:last-child { border-right: none; }
+  .vp-statbar .stat .lbl { font-size: 11.5px; color: var(--vpMuted); display: inline-flex; align-items: center; gap: 5px; }
+  .vp-statbar .stat .val { font-size: 16px; font-weight: 700; margin-top: 4px; }
+
+  .vp-tabs { display: flex; gap: 22px; border-bottom: 1px solid var(--vpBorder); }
+  .vp-tab { padding: 9px 2px 11px; font-size: 12.5px; font-weight: 500; color: var(--vpText); position: relative; cursor: pointer; }
+  .vp-tab.active { color: var(--vpBrand); font-weight: 700; }
+  .vp-tab.active::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--vpBrand); }
+
+  .vp-segtoggle { display: inline-flex; background: var(--vpHeadBg); border-radius: 6px; padding: 2px; }
+  .vp-segtoggle .seg { padding: 6px 12px; font-size: 11.5px; font-weight: 600; border-radius: 4px; color: var(--vpMuted); cursor: pointer; }
+  .vp-segtoggle .seg.active { background: var(--vpBrand); color: #fff; }
+
+  .vp-table { width: 100%; border-collapse: collapse; background: var(--vpSurface); font-size: 14px; }
+  .vp-table th {
+    background: var(--vpHeadBg);
+    text-align: left;
+    font-weight: 600;
+    padding: 16px;
+    border-bottom: 1px solid var(--vpBorder);
+    font-size: 14px;
+  }
+  .vp-table td { padding: 16px; border-bottom: 1px solid var(--vpBorder); vertical-align: top; line-height: 1.4; }
+  .vp-table .sub { display: block; color: var(--vpMuted); font-size: 12px; margin-top: 2px; }
+
+  .vp-back-btn { width: 24px; height: 24px; cursor: pointer; flex-shrink: 0; }
+  .vp-titlerow { display: flex; align-items: center; gap: 10px; }
+
+  .vp-accrow-details { border-bottom: 1px solid var(--vpBorder); }
+  .vp-accrow-details:last-child { border-bottom: none; }
+  .vp-accrow-details summary { list-style: none; cursor: pointer; }
+  .vp-accrow-details summary::-webkit-details-marker { display: none; }
+  .vp-accrow-details .chevron { display: inline-block; transition: transform 0.15s ease; margin-right: 4px; }
+  .vp-accrow-details[open] > summary .chevron { transform: rotate(180deg); }
+  .vp-accrow-body { padding: 10px 14px 14px 34px; display: flex; flex-direction: column; gap: 8px; }
+  .vp-accrow-line { display: flex; justify-content: space-between; font-size: 12.5px; color: var(--vpMuted); }
+
+  .vp-search {
+    display: flex; align-items: center; gap: 8px;
+    border: 1px solid var(--vpBorder); border-radius: 6px;
+    padding: 9px 12px; background: #fff; font-size: 13px; color: var(--vpMuted);
+  }
+  .vp-search svg { flex-shrink: 0; color: var(--vpMuted); }
+
+  .vp-pagination { display: flex; align-items: center; gap: 4px; font-size: 11.5px; }
+  .vp-pagination .pg { width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 4px; color: var(--vpMuted); cursor: pointer; }
+  .vp-pagination .pg.active { color: var(--vpBrand); font-weight: 700; text-decoration: underline; }
+
+  .vp-modal-backdrop { background: rgba(7,32,66,0.35); padding: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+  .vp-modal { background: #fff; border-radius: 8px; width: 260px; box-shadow: 0 12px 32px rgba(0,0,0,0.18); }
+  .vp-modal .vp-modal-head { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border-bottom: 1px solid var(--vpBorder); font-size: 13px; font-weight: 700; }
+  .vp-modal .vp-modal-body { padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+  .vp-modal label { font-size: 11px; color: var(--vpMuted); }
+  .vp-modal input { border: 1px solid var(--vpBorder); border-radius: 4px; padding: 7px 8px; font-size: 12px; width: 100%; margin-top: 4px; }
+
+  .vp-successbar { background: #eafbee; color: #1a7d3a; border: 1px solid #cdebd4; padding: 10px 14px; border-radius: 6px; font-size: 12.5px; }
+
+  .vp-accordion { background: #fff; border: 1px solid rgba(0,0,0,0.09); border-radius: 8px; overflow: hidden; }
+  .vp-accrow { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; border-bottom: 1px solid var(--vpBorder); font-size: 12.5px; }
+  .vp-accrow:last-child { border-bottom: none; }
+  .vp-accrow .lft { display: flex; align-items: center; gap: 6px; font-weight: 600; }
+
+  /* ============ Service Area module ============ */
+  /* Sizes below are measured off the live dashboard at a 2056px viewport:
+     panel 353px wide (16px padding), titles 15/700, rows 14/500, metrics 13/500,
+     hints & descriptions 12px, page title 21/700, tabs 301px wide at 15/500. */
+  .vp-content-flush { padding: 0 !important; display: flex; flex-direction: column; }
+  .vp-sa-title { background: var(--vpSurface); padding: 6px 8px 8px; flex-shrink: 0; }
+  .vp-sa-title h3 { margin: 0; font-size: 21px; font-weight: 700; }
+  .vp-subtabbar { background: var(--vpSurface); display: flex; border-bottom: 1px solid var(--vpBorder); flex-shrink: 0; }
+  .vp-subtabbar .vp-tab { width: 301px; padding: 16px 0 13px; text-align: center; font-size: 15px; font-weight: 500; }
+  .vp-subtabbar .vp-tab.active { font-weight: 700; color: var(--vpBrand); }
+
+  .vp-maparea { position: relative; flex: 1; min-height: 700px; overflow: hidden; background: #eceae7; }
+  /* stretched to fill, so a marker at N% of the map is at N% of the raster */
+  .vp-mapbase { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; display: block; }
+  /* explicit height: an SVG with a viewBox and auto height resolves to its intrinsic
+     1:1 aspect, which would stretch the polygon far past the map area */
+  .vp-mapoverlay { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .vp-mapattrib { position: absolute; right: 5px; bottom: 3px; font-size: 9px; color: #5a5e66; background: rgba(255,255,255,0.7); padding: 1px 5px; border-radius: 2px; }
+  .vp-mapzoom { position: absolute; right: 10px; bottom: 24px; display: flex; flex-direction: column; background: #fff; border-radius: 3px; box-shadow: 0 1px 4px rgba(0,0,0,0.3); overflow: hidden; }
+  .vp-mapzoom span { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: #5a5e66; cursor: pointer; }
+  .vp-mapzoom span + span { border-top: 1px solid var(--vpBorder); }
+
+  /* map markers */
+  .vp-dcpin { position: absolute; transform: translate(-50%, -100%); display: flex; flex-direction: column; align-items: center; }
+  .vp-dcpin img { width: 20px; height: 27px; display: block; }
+  .vp-dcpin .code { margin-top: 1px; background: #fff; border-radius: 3px; padding: 1px 5px; font-size: 10px; font-weight: 700; color: var(--vpText); box-shadow: 0 1px 3px rgba(0,0,0,0.28); white-space: nowrap; }
+  .vp-shipdot { position: absolute; width: 11px; height: 11px; border-radius: 50%; transform: translate(-50%, -50%); border: 1.5px solid #fff; box-shadow: 0 1px 2px rgba(0,0,0,0.35); }
+  .vp-shipdot.diff-dc { background: #f44240; }
+  .vp-shipdot.outside { background: #00a550; }
+  .vp-shipdot.rto { background: #34353a; }
+  .vp-shiptri { position: absolute; transform: translate(-50%, -50%); width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-bottom: 12px solid #e11900; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.35)); }
+
+  /* floating panel over the map */
+  .vp-mappanel { position: absolute; top: 12px; left: 12px; width: 353px; box-sizing: border-box; background: var(--vpSurface); border-radius: 8px; box-shadow: 0 4px 18px rgba(0,0,0,0.16); padding: 16px; max-height: calc(100% - 24px); overflow-y: auto; }
+  .vp-mappanel > h4 { margin: 0; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .vp-mappanel .p-sub { font-size: 12px; color: var(--vpMuted); margin-top: 3px; }
+  .vp-mappanel .p-head { font-size: 15px; font-weight: 700; margin: 18px 0 4px; }
+  .vp-mappanel .p-desc { font-size: 12px; color: var(--vpMuted); line-height: 1.45; }
+  .vp-panel-toggle { position: absolute; top: 50%; left: 377px; transform: translateY(-50%); width: 17px; height: 36px; background: #0d2b52; color: #fff; border-radius: 0 5px 5px 0; display: flex; align-items: center; justify-content: center; font-size: 13px; cursor: pointer; z-index: 3; }
+  .vp-expand-ic { width: 22px; height: 22px; border: 1.5px solid var(--vpBrand); border-radius: 3px; flex-shrink: 0; cursor: pointer; position: relative; }
+  .vp-expand-ic::before, .vp-expand-ic::after { content: ""; position: absolute; width: 5px; height: 5px; border: 1.5px solid var(--vpBrand); }
+  .vp-expand-ic::before { top: 3px; left: 3px; border-right: none; border-bottom: none; }
+  .vp-expand-ic::after { bottom: 3px; right: 3px; border-left: none; border-top: none; }
+
+  /* collapsible section */
+  .vp-collapse { border: 1px solid var(--vpBorder); border-radius: 8px; margin: 13px 0 14px; overflow: hidden; }
+  .vp-collapse-head { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; font-size: 15px; font-weight: 700; color: var(--vpBrand); cursor: pointer; }
+  .vp-collapse-head .chev { font-size: 11px; }
+  .vp-collapse-body { padding: 0 16px 8px; }
+  .vp-optrow { display: flex; align-items: center; gap: 10px; padding: 11px 0; font-size: 14px; font-weight: 500; border-top: 1px solid var(--vpBorder); }
+  .vp-optrow:first-child { border-top: none; }
+  /* Area Update History selector: always a radio, so the shape never changes on select
+     - only the inner dot appears. */
+  .vp-sel { width: 17px; height: 17px; border: 1.5px solid var(--vpBrand); border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+  .vp-sel.on::after { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--vpBrand); }
+
+  /* toggleable map marker groups */
+  .vp-lyr { position: absolute; inset: 0; pointer-events: none; }
+
+  /* checkbox + label + legend token rows */
+  .vp-cbx { width: 17px; height: 17px; border: 1.5px solid var(--vpBrand); border-radius: 3px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .vp-cbx.on { background: var(--vpBrand); }
+  .vp-cbx.on::after { content: "\2713"; color: #fff; font-size: 11px; font-weight: 700; line-height: 1; }
+  .vp-layerrow { display: flex; align-items: center; gap: 10px; border: 1px solid var(--vpBorder); border-radius: 6px; padding: 11px 12px; margin-top: 9px; font-size: 14px; font-weight: 500; cursor: pointer; }
+  .vp-layerrow .lbl { flex: 1; line-height: 1.35; }
+  .vp-layerrow.off .lbl { color: var(--vpMuted); }
+  .vp-legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  .vp-legend-tri { width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-bottom: 12px solid #e11900; flex-shrink: 0; }
+
+  /* key/value + metric rows */
+  .vp-kv { display: flex; justify-content: space-between; gap: 16px; font-size: 13px; font-weight: 500; margin-top: 13px; }
+  .vp-kv .lbl { color: var(--vpMuted); flex-shrink: 0; display: inline-flex; align-items: center; gap: 5px; }
+  .vp-kv .val { text-align: right; line-height: 1.4; }
+  .vp-metric-hint { color: #1a7d3a; font-size: 12px; font-weight: 600; line-height: 1.4; margin-top: 4px; }
+  .vp-info-dot { width: 13px; height: 13px; border-radius: 50%; border: 1.2px solid var(--vpMuted); color: var(--vpMuted); font-size: 9px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+  /* date range field + picker */
+  .vp-daterange { display: flex; align-items: center; justify-content: space-between; gap: 10px; border: 1px solid var(--vpBorder); border-radius: 6px; padding: 11px 12px; margin-top: 7px; font-size: 13px; }
+  .vp-daterange .rng { display: flex; align-items: center; gap: 7px; color: var(--vpBrand); font-weight: 600; white-space: nowrap; }
+  .vp-daterange .rng img { width: 15px; height: 15px; }
+  .vp-daterange .edit { display: flex; align-items: center; gap: 6px; color: var(--vpBrand); font-weight: 700; cursor: pointer; white-space: nowrap; }
+  .vp-daterange .edit img { width: 14px; height: 14px; }
+
+  /* The picker is anchored under the field and taken out of flow, so opening it
+     overlays the rest of the panel instead of growing the panel height. */
+  .vp-dp-anchor { position: relative; }
+  .vp-datepicker { position: absolute; top: 100%; left: 0; right: 0; z-index: 20; background: var(--vpSurface); border: 1px solid var(--vpBorder); border-radius: 8px; box-shadow: 0 10px 28px rgba(0,0,0,0.18); padding: 14px; margin-top: 9px; }
+  .vp-dp-grid .day:not(:empty):hover { background: var(--vpHeadBg); }
+  .vp-dp-grid .day.in:hover, .vp-dp-grid .day.end:hover { background: var(--vpBrand); color: #fff; }
+  .vp-dp-fields { display: flex; gap: 12px; }
+  .vp-dp-field { flex: 1; }
+  .vp-dp-field .lbl { font-size: 11.5px; color: var(--vpMuted); margin-bottom: 5px; }
+  .vp-dp-field .box { border: 1px solid var(--vpBorder); border-radius: 6px; padding: 9px 11px; font-size: 13px; }
+  .vp-dp-nav { display: flex; align-items: center; justify-content: space-between; margin: 15px 2px 10px; font-size: 14px; font-weight: 600; }
+  .vp-dp-nav .arw { width: 24px; height: 24px; border: 1px solid var(--vpBorder); border-radius: 5px; display: flex; align-items: center; justify-content: center; color: var(--vpBrand); cursor: pointer; font-size: 12px; }
+  .vp-dp-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center; }
+  .vp-dp-grid .dow { font-size: 11.5px; color: var(--vpMuted); padding: 5px 0; }
+  .vp-dp-grid .day { font-size: 13px; padding: 8px 0; border-radius: 4px; cursor: pointer; }
+  .vp-dp-grid .day.in { background: #e8ebf7; }
+  .vp-dp-grid .day.end { background: var(--vpBrand); color: #fff; font-weight: 700; }
+  .vp-dp-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 13px; border-top: 1px solid var(--vpBorder); padding-top: 13px; }
+  .vp-dp-foot .note { font-size: 11.5px; color: var(--vpMuted); line-height: 1.35; }
+
+  /* inline alert */
+  .vp-inlinealert { display: flex; gap: 9px; background: #fdecec; border-radius: 6px; padding: 12px; font-size: 13px; line-height: 1.45; margin-top: 13px; }
+  .vp-inlinealert img, .vp-inlinealert svg { width: 19px; height: 19px; flex-shrink: 0; }
+
+  /* download button (UI only) */
+  .vp-downloadbtn { display: flex; align-items: center; justify-content: space-between; gap: 10px; border: 1px solid var(--vpBrand); border-radius: 6px; padding: 12px; margin-top: 13px; color: var(--vpBrand); font-weight: 700; font-size: 14px; cursor: pointer; }
+  .vp-downloadbtn .lft { display: flex; align-items: center; gap: 8px; }
+
+  /* AWB search + submit */
+  .vp-awbfield { display: flex; align-items: stretch; gap: 8px; margin-top: 12px; }
+  .vp-awbfield .inp { flex: 1; border: 1px solid var(--vpBorder); border-radius: 6px; padding: 11px 12px; font-size: 14px; color: var(--vpMuted); }
+  .vp-awbfield .go { width: 34px; background: var(--vpBrand); border-radius: 5px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
+  .vp-awbfield .go img { width: 14px; height: 14px; filter: brightness(0) invert(1); }
+
+  /* empty-state card */
+  .vp-emptycard { background: #eef4fd; border-radius: 8px; padding: 16px; margin-top: 14px; }
+  .vp-emptycard .illo { display: block; width: 150px; margin: 0 auto 11px; }
+  .vp-emptycard h5 { margin: 0 0 11px; font-size: 15px; font-weight: 700; color: var(--vpBrand); text-align: center; }
+  .vp-emptystep { display: flex; align-items: center; gap: 9px; font-size: 14px; font-weight: 500; margin-top: 8px; }
+  .vp-emptystep img { width: 16px; height: 16px; flex-shrink: 0; }
+
+</style>
+</head>
+<body>
+<div class="vp-scope">
+  <div class="vp-shell">
+    <div class="vp-sidebar">
+      <div class="vp-acct"><div class="vp-avatar"><img src="../assets/icons/ic_66aed9e0a5.svg" alt=""></div><div><div class="vp-acct-name">Yash P</div><span class="vp-beu">BEU</span></div></div>
+      <div class="vp-navlist">
+      <div class="vp-navitem divider-after"><img class="ic" src="../assets/icons/ic_7220aba916.svg" alt=""><span class="lbl">Valmo Support</span></div>
+      <div class="vp-navitem" data-goto="payments-list"><img class="ic" src="../assets/icons/ic_499fa6adb6.svg" alt=""><span class="lbl">Payments</span></div>
+      <div class="vp-navitem"><img class="ic" src="../assets/icons/ic_c96a29e781.svg" alt=""><span class="lbl">DC Capacity</span><span class="vp-badge-new"><img src="../assets/icons/ic_139e5b8758.svg" alt="NEW"></span></div>
+      <div class="vp-navitem"><img class="ic" src="../assets/icons/ic_82a75bf38b.svg" alt=""><span class="lbl">Growth Dashboard</span><span class="vp-badge-new"><img src="../assets/icons/ic_139e5b8758.svg" alt="NEW"></span></div>
+      <div class="vp-navitem active" data-goto="service-area-my-area"><img class="ic" src="../assets/icons/ic_eda39bed0f.svg" alt=""><span class="lbl">Service Area</span></div>
+      <div class="vp-navitem"><img class="ic" src="../assets/icons/ic_9e4feb432c.svg" alt=""><span class="lbl">Loss Management</span></div>
+      <div class="vp-navitem"><img class="ic" src="../assets/icons/ic_5d34a47f1f.svg" alt=""><span class="lbl">Cash Pendency</span><span class="vp-badge-new"><img src="../assets/icons/ic_139e5b8758.svg" alt="NEW"></span></div>
+      <div class="vp-navitem"><img class="ic" src="../assets/icons/ic_8ad2411e3d.svg" alt=""><span class="lbl">Pilot Rate Card</span><span class="vp-badge-new"><img src="../assets/icons/ic_139e5b8758.svg" alt="NEW"></span></div>
+      <div class="vp-navitem" data-goto="pilot-management-list"><img class="ic" src="../assets/icons/ic_94023365dd.svg" alt=""><span class="lbl">Pilot Management</span><span class="vp-badge-new"><img src="../assets/icons/ic_139e5b8758.svg" alt="NEW"></span></div>
+      </div>
+      <div class="vp-sidebar-footer">
+        <div class="vp-navitem"><img class="ic" src="../assets/icons/ic_fa48a28bbd.svg" alt=""><span class="lbl">Log Out</span></div>
+        <div class="vp-logo-row"><img src="../assets/icons/ic_df11d316c7.svg" style="height:14px;" alt=""><span>Captain Panel</span></div>
+      </div>
+    </div>
+    <div class="vp-content vp-content-flush">
+      <div class="vp-sa-title"><h3>Service Area</h3></div>
+      <div class="vp-subtabbar">
+        <div class="vp-tab" data-goto="service-area-my-area">My Service Area</div>
+        <div class="vp-tab" data-goto="service-area-find-shipment">Find Shipment Location</div>
+        <div class="vp-tab active">Misrouted Shipment</div>
+      </div>
+      <div class="vp-maparea">
+        <img class="vp-mapbase" src="../assets/icons/img_sa_basemap.jpg" alt="">
+        <svg class="vp-mapoverlay" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <path data-area="0" d="M 42.4,56.5 L 48.1,51.9 L 59.5,34.0 L 62.9,24.5 L 63.4,21.5 L 65.3,21.7 L 66.5,22.2 L 68.1,22.4 L 68.7,22.8 L 69.3,23.9 L 69.5,25.7 L 71.2,28.7 L 72.4,29.1 L 73.8,47.1 L 73.5,51.8 L 72.7,52.1 L 72.0,55.2 L 69.4,54.0 L 68.9,55.5 L 69.8,56.1 L 69.7,56.8 L 69.4,56.5 L 69.2,57.0 L 68.2,60.9 L 64.5,66.5 L 61.3,72.7 L 60.6,75.2 L 57.9,75.2 L 57.9,79.4 L 56.1,79.6 L 56.1,75.7 L 54.4,75.8 L 54.7,79.7 L 53.4,79.8 L 44.5,75.5 L 40.2,74.0 L 39.1,74.2 L 38.1,76.0 L 37.7,75.9 L 36.8,74.5 L 35.8,78.2 L 33.5,83.1 L 30.8,79.7 L 27.8,79.0 L 24.9,76.9 L 26.0,70.3 L 42.4,56.5 Z" fill="rgba(83,101,214,0.16)" stroke="#3b4fc4" stroke-width="0.28" vector-effect="non-scaling-stroke"/>
+          <path data-area="1" style="display:none" d="M 42.4,56.6 L 48.7,51.8 L 59.6,34.2 L 62.5,24.5 L 63.6,21.9 L 64.7,21.4 L 66.0,22.6 L 68.4,21.8 L 69.4,23.5 L 69.5,24.1 L 69.0,25.0 L 71.3,28.1 L 72.0,28.7 L 73.2,47.1 L 73.4,52.3 L 72.7,52.3 L 72.0,55.4 L 69.3,53.7 L 69.6,56.2 L 70.3,56.4 L 69.5,56.4 L 69.1,55.9 L 69.5,56.8 L 68.7,60.7 L 65.2,67.0 L 60.6,72.3 L 61.2,75.2 L 58.6,75.0 L 57.3,79.6 L 56.5,79.2 L 55.5,75.5 L 55.0,76.2 L 54.2,79.3 L 52.8,79.2 L 44.9,75.1 L 40.3,73.9 L 38.6,74.6 L 37.6,76.2 L 37.2,75.8 L 36.3,74.2 L 36.4,78.6 L 33.2,83.6 L 30.4,79.6 L 28.3,79.2 L 24.3,77.6 L 25.6,70.0 L 42.8,56.3 Z" fill="rgba(83,101,214,0.16)" stroke="#3b4fc4" stroke-width="0.28" vector-effect="non-scaling-stroke"/>
+          <path data-area="2" style="display:none" d="M 43.6,55.6 L 46.9,53.2 L 58.7,33.1 L 63.3,24.1 L 64.4,20.8 L 66.5,21.2 L 66.8,23.3 L 68.6,23.5 L 69.3,21.6 L 70.3,24.2 L 69.0,24.9 L 72.1,29.0 L 73.6,29.8 L 75.0,47.3 L 74.0,52.1 L 72.1,53.3 L 71.5,55.9 L 70.6,54.4 L 68.0,56.4 L 70.3,55.3 L 68.6,56.9 L 68.2,57.6 L 69.2,57.0 L 68.0,61.3 L 65.6,66.0 L 61.0,72.9 L 60.1,75.5 L 58.0,75.0 L 58.4,79.5 L 55.0,80.9 L 55.7,75.6 L 54.1,77.0 L 55.9,79.7 L 53.1,78.7 L 45.6,74.7 L 40.4,73.6 L 38.6,73.9 L 37.3,74.8 L 37.8,76.7 L 37.1,73.7 L 36.3,77.1 L 33.2,84.0 L 31.9,79.6 L 28.7,79.0 L 24.9,77.1 L 27.2,71.0 L 42.4,57.1 Z" fill="rgba(83,101,214,0.16)" stroke="#3b4fc4" stroke-width="0.28" vector-effect="non-scaling-stroke"/>
+          <path data-area="3" style="display:none" d="M 42.7,57.1 L 49.4,51.0 L 60.1,35.6 L 64.6,23.2 L 64.0,22.0 L 65.3,23.5 L 66.7,22.0 L 69.9,22.9 L 67.9,22.0 L 69.3,22.1 L 69.9,26.6 L 70.9,30.1 L 74.2,29.3 L 74.6,45.6 L 71.7,53.8 L 71.8,51.0 L 73.6,56.2 L 67.9,53.3 L 67.9,54.6 L 67.9,56.2 L 69.0,56.4 L 68.2,54.9 L 67.3,58.5 L 69.2,61.1 L 63.0,65.1 L 59.8,72.0 L 58.8,74.3 L 56.7,73.9 L 58.5,79.3 L 56.0,79.0 L 56.3,76.9 L 53.6,74.1 L 54.6,79.2 L 54.5,78.2 L 46.0,73.6 L 40.4,73.8 L 38.3,75.8 L 38.9,74.6 L 37.7,76.3 L 34.9,72.8 L 36.2,79.1 L 33.3,82.8 L 30.8,78.8 L 29.3,80.8 L 24.8,75.0 L 25.6,71.6 L 41.7,55.0 Z" fill="rgba(83,101,214,0.16)" stroke="#3b4fc4" stroke-width="0.28" vector-effect="non-scaling-stroke"/>
+        </svg>
+        <div class="vp-lyr" data-lyr="dcpins">
+          <svg class="vp-mapoverlay" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <path d="M 62.9,21.4 L 63.4,21.5 L 62.9,24.5 L 59.5,34.0 L 48.1,51.9 L 25.7,70.3 L 16.3,65.2 L 17.3,62.1 L 15.2,57.5 L 15.2,53.1 L 27.1,50.1 L 35.2,49.7 L 37.7,48.0 L 38.5,47.9 L 39.7,36.7 L 40.5,39.7 L 43.0,44.8 L 44.4,41.2 L 42.5,41.8 L 43.0,35.5 L 50.1,31.5 L 50.3,31.8 L 52.7,29.2 L 53.6,28.5 L 54.0,27.6 L 53.3,26.5 L 53.8,25.1 L 55.0,24.3 L 55.5,24.4 L 56.2,23.9 L 56.4,23.2 L 57.1,23.4 L 59.0,22.6 L 59.6,21.4 L 61.1,22.1 L 62.9,21.4 Z" fill="rgba(74,78,86,0.42)" stroke="#565b63" stroke-width="1" vector-effect="non-scaling-stroke"/>
+            <path d="M 53.4,79.8 L 54.7,79.7 L 54.4,75.8 L 56.1,75.7 L 56.1,79.6 L 57.9,79.4 L 57.9,75.2 L 60.6,75.2 L 61.5,72.4 L 64.5,66.5 L 68.2,60.9 L 69.4,56.5 L 68.9,55.5 L 69.4,54.0 L 71.4,54.9 L 75.0,60.1 L 76.7,63.2 L 75.4,67.1 L 77.1,68.1 L 81.2,68.5 L 84.9,70.3 L 86.2,70.2 L 86.7,72.2 L 87.9,71.2 L 90.2,76.8 L 93.1,77.0 L 92.6,79.1 L 94.5,80.4 L 95.0,82.9 L 96.2,83.9 L 95.9,88.3 L 97.5,88.7 L 97.5,90.2 L 96.6,95.5 L 95.4,96.9 L 95.0,98.3 L 95.8,100.0 L 31.4,100.0 L 31.6,99.4 L 31.4,98.8 L 35.3,96.2 L 31.3,86.5 L 34.4,81.3 L 35.8,78.2 L 36.8,74.5 L 37.7,75.9 L 38.1,76.0 L 39.1,74.2 L 40.2,74.0 L 45.3,75.9 L 53.4,79.8 Z" fill="rgba(74,78,86,0.42)" stroke="#565b63" stroke-width="1" vector-effect="non-scaling-stroke"/>
+            <path d="M 95.6,100.0 L 95.0,98.3 L 95.4,96.9 L 96.4,95.7 L 97.5,88.7 L 95.9,88.3 L 96.2,83.9 L 95.0,82.9 L 94.5,80.4 L 92.6,79.1 L 93.1,77.0 L 90.2,76.8 L 87.9,71.2 L 86.7,72.2 L 86.2,70.2 L 84.9,70.3 L 79.8,68.2 L 77.1,68.1 L 75.4,67.1 L 76.7,63.2 L 75.0,60.1 L 71.4,54.9 L 72.0,55.2 L 72.7,52.1 L 73.5,51.8 L 73.8,47.1 L 72.4,29.1 L 73.5,30.7 L 74.8,29.5 L 77.2,29.6 L 77.8,30.1 L 79.0,30.1 L 81.4,29.2 L 82.8,27.8 L 84.2,27.6 L 85.2,28.4 L 85.8,28.2 L 92.6,21.8 L 100.0,16.4 L 100.0,100.0 Z" fill="rgba(74,78,86,0.42)" stroke="#565b63" stroke-width="1" vector-effect="non-scaling-stroke"/>
+            <path d="M 66.4,0.0 L 66.4,0.5 L 63.4,21.5 L 62.3,21.5 L 61.1,22.1 L 59.6,21.4 L 59.0,22.6 L 57.2,23.4 L 56.4,23.2 L 55.7,24.4 L 55.0,24.3 L 53.8,25.1 L 53.3,27.4 L 54.0,27.6 L 53.8,28.2 L 50.3,31.8 L 50.1,31.5 L 43.0,35.5 L 42.5,41.8 L 44.4,41.2 L 43.0,44.8 L 40.5,39.7 L 39.7,36.7 L 38.5,47.9 L 37.7,48.0 L 35.2,49.7 L 33.6,30.5 L 32.3,24.3 L 31.2,13.6 L 40.4,12.4 L 39.4,5.4 L 40.1,3.6 L 42.1,1.5 L 42.5,0.0 Z" fill="rgba(74,78,86,0.42)" stroke="#565b63" stroke-width="1" vector-effect="non-scaling-stroke"/>
+            <path d="M 70.0,0.0 L 72.4,29.1 L 71.2,28.7 L 70.2,27.1 L 69.5,25.7 L 69.3,23.9 L 68.7,22.8 L 68.1,22.4 L 66.5,22.2 L 65.3,21.7 L 63.4,21.5 L 66.4,0.5 L 66.4,0.0 Z" fill="rgba(74,78,86,0.42)" stroke="#565b63" stroke-width="1" vector-effect="non-scaling-stroke"/>
+            <path d="M 3.0,0.0 L 4.6,1.4 L 4.9,3.0 L 6.7,7.2 L 8.7,10.1 L 10.2,10.9 L 11.0,10.4 L 11.7,10.4 L 13.3,13.2 L 13.6,16.2 L 31.2,13.6 L 32.3,24.3 L 33.6,30.5 L 35.2,49.7 L 27.1,50.1 L 15.2,53.1 L 13.1,53.4 L 11.3,45.3 L 8.4,43.5 L 2.5,33.4 L 0.0,29.8 L 0.0,0.0 Z" fill="rgba(74,78,86,0.42)" stroke="#565b63" stroke-width="1" vector-effect="non-scaling-stroke"/>
+            <path d="M 2.7,100.0 L 2.5,99.9 L 2.8,86.9 L 13.3,87.4 L 13.6,76.2 L 16.3,65.2 L 26.0,70.3 L 24.9,76.9 L 27.8,79.0 L 30.8,79.7 L 33.5,83.1 L 31.3,86.5 L 35.3,96.2 L 31.4,98.8 L 31.6,99.4 L 31.4,100.0 Z" fill="rgba(74,78,86,0.42)" stroke="#565b63" stroke-width="1" vector-effect="non-scaling-stroke"/>
+            <path d="M 82.4,2.1 L 82.6,0.1 L 84.0,0.0 L 84.0,0.0 L 70.2,0.0 L 72.4,29.1 L 73.5,30.7 L 74.8,29.5 L 77.2,29.6 L 77.8,30.1 L 79.0,30.1 L 81.4,29.2 L 82.8,27.8 L 84.2,27.6 L 85.2,28.4 L 85.8,28.2 L 83.9,24.1 L 84.4,19.9 L 84.2,18.8 L 84.6,18.7 L 84.3,14.2 L 83.5,14.5 L 82.8,2.3 L 82.4,2.1 Z" fill="rgba(74,78,86,0.42)" stroke="#565b63" stroke-width="1" vector-effect="non-scaling-stroke"/>
+            <path d="M 0.0,45.7 L 2.4,45.7 L 5.0,45.3 L 7.6,44.4 L 8.4,43.5 L 11.3,45.3 L 13.1,53.4 L 9.2,54.5 L 8.2,62.1 L 6.3,62.7 L 4.9,64.3 L 3.2,66.6 L 0.0,73.6 Z" fill="rgba(74,78,86,0.42)" stroke="#565b63" stroke-width="1" vector-effect="non-scaling-stroke"/>
+            <path d="M 0.0,99.1 L 2.5,99.9 L 2.8,86.9 L 13.3,87.4 L 13.6,76.2 L 17.3,62.1 L 15.2,57.5 L 15.2,53.1 L 13.1,53.4 L 9.2,54.5 L 8.2,62.1 L 7.3,62.2 L 6.1,62.9 L 4.9,64.3 L 2.8,67.6 L 0.0,73.6 Z" fill="rgba(74,78,86,0.42)" stroke="#565b63" stroke-width="1" vector-effect="non-scaling-stroke"/>
+            <path d="M 82.8,2.3 L 83.5,14.5 L 84.3,14.2 L 84.6,18.7 L 84.2,18.8 L 84.4,19.9 L 83.9,24.1 L 85.8,28.2 L 92.6,21.8 L 100.0,16.4 L 100.0,0.0 L 84.0,0.0 L 84.0,0.0 L 82.6,0.1 L 82.4,2.1 L 82.8,2.3 Z" fill="rgba(74,78,86,0.42)" stroke="#565b63" stroke-width="1" vector-effect="non-scaling-stroke"/>
+            <path d="M 24.3,0.0 L 24.2,2.9 L 27.4,14.1 L 13.6,16.2 L 13.3,13.2 L 11.7,10.4 L 11.0,10.4 L 10.2,10.9 L 8.7,10.1 L 6.7,7.2 L 4.9,3.0 L 4.6,1.4 L 6.2,1.2 L 6.6,0.0 Z" fill="rgba(74,78,86,0.42)" stroke="#565b63" stroke-width="1" vector-effect="non-scaling-stroke"/>
+          </svg>
+          <div class="vp-dcpin" style="left:38.67%;top:48.73%;"><img src="../assets/icons/ic_yellow_marker.svg" alt=""><span class="code">QJE</span></div>
+          <div class="vp-dcpin" style="left:66.04%;top:85.05%;"><img src="../assets/icons/ic_yellow_marker.svg" alt=""><span class="code">CAR</span></div>
+          <div class="vp-dcpin" style="left:88.84%;top:51.43%;"><img src="../assets/icons/ic_yellow_marker.svg" alt=""><span class="code">FB9</span></div>
+          <div class="vp-dcpin" style="left:47.45%;top:18.4%;"><img src="../assets/icons/ic_yellow_marker.svg" alt=""><span class="code">MQR</span></div>
+          <div class="vp-dcpin" style="left:68.22%;top:13.88%;"><img src="../assets/icons/ic_yellow_marker.svg" alt=""><span class="code">MQE</span></div>
+          <div class="vp-dcpin" style="left:16.99%;top:29.67%;"><img src="../assets/icons/ic_yellow_marker.svg" alt=""><span class="code">M2A</span></div>
+          <div class="vp-dcpin" style="left:19.35%;top:87.42%;"><img src="../assets/icons/ic_yellow_marker.svg" alt=""><span class="code">HSV</span></div>
+          <div class="vp-dcpin" style="left:77.49%;top:14.74%;"><img src="../assets/icons/ic_yellow_marker.svg" alt=""><span class="code">G24</span></div>
+          <div class="vp-dcpin" style="left:4.98%;top:54.91%;"><img src="../assets/icons/ic_yellow_marker.svg" alt=""><span class="code">QCK</span></div>
+          <div class="vp-dcpin" style="left:8.02%;top:73.97%;"><img src="../assets/icons/ic_yellow_marker.svg" alt=""><span class="code">HLT</span></div>
+          <div class="vp-dcpin" style="left:91.07%;top:11.22%;"><img src="../assets/icons/ic_yellow_marker.svg" alt=""><span class="code">WTF</span></div>
+          <div class="vp-dcpin" style="left:16.57%;top:7.11%;"><img src="../assets/icons/ic_yellow_marker.svg" alt=""><span class="code">M1J</span></div>
+        </div>
+        <div class="vp-lyr" data-lyr="same-dc">
+          <div class="vp-shiptri" style="left:47.11%;top:64.05%;"></div>
+          <div class="vp-shiptri" style="left:31.39%;top:66.63%;"></div>
+        </div>
+        <div class="vp-lyr" data-lyr="diff-dc">
+          <div class="vp-shipdot diff-dc" style="left:46.92%;top:68.66%;"></div>
+          <div class="vp-shipdot diff-dc" style="left:51.86%;top:55.98%;"></div>
+        </div>
+        <div class="vp-lyr" data-lyr="outside" style="display:none">
+          <div class="vp-shipdot outside" style="left:8.79%;top:91.22%;"></div>
+          <div class="vp-shipdot outside" style="left:23.15%;top:93.5%;"></div>
+          <div class="vp-shipdot outside" style="left:89.31%;top:28.02%;"></div>
+          <div class="vp-shipdot outside" style="left:51.43%;top:40.45%;"></div>
+          <div class="vp-shipdot outside" style="left:42.05%;top:75.28%;"></div>
+          <div class="vp-shipdot outside" style="left:78.84%;top:27.83%;"></div>
+          <div class="vp-shipdot outside" style="left:58.26%;top:15.81%;"></div>
+          <div class="vp-shipdot outside" style="left:40.42%;top:48.87%;"></div>
+          <div class="vp-shipdot outside" style="left:87.32%;top:78.2%;"></div>
+          <div class="vp-shipdot outside" style="left:88.61%;top:25.4%;"></div>
+          <div class="vp-shipdot outside" style="left:35.73%;top:18.97%;"></div>
+          <div class="vp-shipdot outside" style="left:67.76%;top:78.62%;"></div>
+          <div class="vp-shipdot outside" style="left:67.81%;top:63.13%;"></div>
+          <div class="vp-shipdot outside" style="left:28.13%;top:90.31%;"></div>
+          <div class="vp-shipdot outside" style="left:93.16%;top:70.2%;"></div>
+          <div class="vp-shipdot outside" style="left:93.74%;top:83.64%;"></div>
+          <div class="vp-shipdot outside" style="left:83.2%;top:72.36%;"></div>
+          <div class="vp-shipdot outside" style="left:77.44%;top:66.5%;"></div>
+          <div class="vp-shipdot outside" style="left:17.23%;top:79.52%;"></div>
+          <div class="vp-shipdot outside" style="left:85.14%;top:48.9%;"></div>
+          <div class="vp-shipdot outside" style="left:29.8%;top:54.25%;"></div>
+          <div class="vp-shipdot outside" style="left:83.06%;top:79.84%;"></div>
+          <div class="vp-shipdot outside" style="left:93.46%;top:85.8%;"></div>
+          <div class="vp-shipdot outside" style="left:76.83%;top:48.15%;"></div>
+          <div class="vp-shipdot outside" style="left:22.08%;top:88.02%;"></div>
+          <div class="vp-shipdot outside" style="left:9.38%;top:89.29%;"></div>
+          <div class="vp-shipdot outside" style="left:62.26%;top:26.01%;"></div>
+          <div class="vp-shipdot outside" style="left:20.61%;top:68.81%;"></div>
+          <div class="vp-shipdot outside" style="left:12.36%;top:43.36%;"></div>
+          <div class="vp-shipdot outside" style="left:15.39%;top:17.0%;"></div>
+          <div class="vp-shipdot outside" style="left:28.13%;top:63.09%;"></div>
+          <div class="vp-shipdot outside" style="left:8.37%;top:80.97%;"></div>
+          <div class="vp-shipdot outside" style="left:61.46%;top:27.99%;"></div>
+          <div class="vp-shipdot outside" style="left:68.87%;top:10.61%;"></div>
+          <div class="vp-shipdot outside" style="left:28.3%;top:49.85%;"></div>
+          <div class="vp-shipdot outside" style="left:81.17%;top:65.09%;"></div>
+          <div class="vp-shipdot outside" style="left:9.5%;top:90.34%;"></div>
+          <div class="vp-shipdot outside" style="left:19.55%;top:21.42%;"></div>
+          <div class="vp-shipdot outside" style="left:56.85%;top:11.27%;"></div>
+          <div class="vp-shipdot outside" style="left:42.16%;top:23.83%;"></div>
+          <div class="vp-shipdot outside" style="left:45.65%;top:36.09%;"></div>
+          <div class="vp-shipdot outside" style="left:43.04%;top:35.26%;"></div>
+          <div class="vp-shipdot outside" style="left:42.99%;top:52.07%;"></div>
+          <div class="vp-shipdot outside" style="left:32.11%;top:40.36%;"></div>
+          <div class="vp-shipdot outside" style="left:12.85%;top:45.76%;"></div>
+          <div class="vp-shipdot outside" style="left:50.37%;top:19.19%;"></div>
+          <div class="vp-shipdot outside" style="left:33.93%;top:54.52%;"></div>
+          <div class="vp-shipdot outside" style="left:19.1%;top:86.82%;"></div>
+          <div class="vp-shipdot outside" style="left:35.94%;top:29.01%;"></div>
+          <div class="vp-shipdot outside" style="left:35.56%;top:89.26%;"></div>
+          <div class="vp-shipdot outside" style="left:67.06%;top:88.98%;"></div>
+          <div class="vp-shipdot outside" style="left:93.21%;top:46.32%;"></div>
+          <div class="vp-shipdot outside" style="left:76.66%;top:8.91%;"></div>
+          <div class="vp-shipdot outside" style="left:77.52%;top:27.79%;"></div>
+          <div class="vp-shipdot outside" style="left:34.19%;top:39.97%;"></div>
+          <div class="vp-shipdot outside" style="left:86.94%;top:7.35%;"></div>
+          <div class="vp-shipdot outside" style="left:7.82%;top:62.28%;"></div>
+          <div class="vp-shipdot outside" style="left:13.26%;top:27.81%;"></div>
+          <div class="vp-shipdot outside" style="left:29.92%;top:7.33%;"></div>
+          <div class="vp-shipdot outside" style="left:40.32%;top:91.64%;"></div>
+          <div class="vp-shipdot outside" style="left:81.7%;top:8.73%;"></div>
+          <div class="vp-shipdot outside" style="left:93.03%;top:85.32%;"></div>
+          <div class="vp-shipdot outside" style="left:81.57%;top:20.8%;"></div>
+          <div class="vp-shipdot outside" style="left:33.94%;top:19.28%;"></div>
+          <div class="vp-shipdot outside" style="left:70.92%;top:68.9%;"></div>
+          <div class="vp-shipdot outside" style="left:30.33%;top:90.4%;"></div>
+          <div class="vp-shipdot outside" style="left:70.01%;top:68.56%;"></div>
+          <div class="vp-shipdot outside" style="left:43.28%;top:81.26%;"></div>
+          <div class="vp-shipdot outside" style="left:86.45%;top:11.3%;"></div>
+          <div class="vp-shipdot outside" style="left:10.19%;top:26.01%;"></div>
+          <div class="vp-shipdot outside" style="left:87.16%;top:34.27%;"></div>
+          <div class="vp-shipdot outside" style="left:39.2%;top:54.46%;"></div>
+          <div class="vp-shipdot outside" style="left:78.04%;top:46.27%;"></div>
+          <div class="vp-shipdot outside" style="left:73.36%;top:17.09%;"></div>
+          <div class="vp-shipdot outside" style="left:50.69%;top:17.01%;"></div>
+          <div class="vp-shipdot outside" style="left:82.56%;top:17.7%;"></div>
+          <div class="vp-shipdot outside" style="left:6.98%;top:90.15%;"></div>
+          <div class="vp-shipdot outside" style="left:71.87%;top:14.01%;"></div>
+          <div class="vp-shipdot outside" style="left:21.7%;top:88.31%;"></div>
+          <div class="vp-shipdot outside" style="left:42.89%;top:5.49%;"></div>
+          <div class="vp-shipdot outside" style="left:12.62%;top:28.98%;"></div>
+          <div class="vp-shipdot outside" style="left:17.16%;top:41.06%;"></div>
+          <div class="vp-shipdot outside" style="left:8.64%;top:64.35%;"></div>
+          <div class="vp-shipdot outside" style="left:28.0%;top:60.76%;"></div>
+          <div class="vp-shipdot outside" style="left:36.03%;top:11.59%;"></div>
+          <div class="vp-shipdot outside" style="left:69.43%;top:11.11%;"></div>
+          <div class="vp-shipdot outside" style="left:77.84%;top:33.88%;"></div>
+          <div class="vp-shipdot outside" style="left:15.98%;top:57.6%;"></div>
+          <div class="vp-shipdot outside" style="left:65.17%;top:93.0%;"></div>
+          <div class="vp-shipdot outside" style="left:24.95%;top:13.67%;"></div>
+          <div class="vp-shipdot outside" style="left:87.37%;top:29.03%;"></div>
+          <div class="vp-shipdot outside" style="left:92.4%;top:57.87%;"></div>
+          <div class="vp-shipdot outside" style="left:77.4%;top:21.54%;"></div>
+          <div class="vp-shipdot outside" style="left:75.98%;top:48.0%;"></div>
+          <div class="vp-shipdot outside" style="left:73.16%;top:61.64%;"></div>
+          <div class="vp-shipdot outside" style="left:18.16%;top:40.87%;"></div>
+          <div class="vp-shipdot outside" style="left:59.97%;top:21.81%;"></div>
+          <div class="vp-shipdot outside" style="left:34.51%;top:30.92%;"></div>
+          <div class="vp-shipdot outside" style="left:46.45%;top:83.15%;"></div>
+          <div class="vp-shipdot outside" style="left:88.87%;top:62.15%;"></div>
+          <div class="vp-shipdot outside" style="left:65.36%;top:88.36%;"></div>
+          <div class="vp-shipdot outside" style="left:81.84%;top:56.2%;"></div>
+          <div class="vp-shipdot outside" style="left:9.21%;top:35.8%;"></div>
+          <div class="vp-shipdot outside" style="left:29.71%;top:59.44%;"></div>
+          <div class="vp-shipdot outside" style="left:41.03%;top:16.42%;"></div>
+          <div class="vp-shipdot outside" style="left:47.91%;top:83.49%;"></div>
+          <div class="vp-shipdot outside" style="left:77.66%;top:16.77%;"></div>
+          <div class="vp-shipdot outside" style="left:24.22%;top:34.49%;"></div>
+          <div class="vp-shipdot outside" style="left:75.73%;top:89.81%;"></div>
+          <div class="vp-shipdot outside" style="left:65.21%;top:84.88%;"></div>
+          <div class="vp-shipdot outside" style="left:13.94%;top:11.13%;"></div>
+          <div class="vp-shipdot outside" style="left:59.36%;top:88.74%;"></div>
+          <div class="vp-shipdot outside" style="left:87.25%;top:25.07%;"></div>
+          <div class="vp-shipdot outside" style="left:41.74%;top:20.13%;"></div>
+          <div class="vp-shipdot outside" style="left:30.06%;top:91.3%;"></div>
+          <div class="vp-shipdot outside" style="left:11.28%;top:33.09%;"></div>
+          <div class="vp-shipdot outside" style="left:39.61%;top:46.2%;"></div>
+          <div class="vp-shipdot outside" style="left:28.81%;top:85.46%;"></div>
+          <div class="vp-shipdot outside" style="left:81.0%;top:43.64%;"></div>
+          <div class="vp-shipdot outside" style="left:9.27%;top:42.25%;"></div>
+          <div class="vp-shipdot outside" style="left:7.59%;top:5.99%;"></div>
+          <div class="vp-shipdot outside" style="left:12.67%;top:15.66%;"></div>
+          <div class="vp-shipdot outside" style="left:83.6%;top:71.97%;"></div>
+          <div class="vp-shipdot outside" style="left:28.06%;top:12.08%;"></div>
+          <div class="vp-shipdot outside" style="left:8.69%;top:43.25%;"></div>
+          <div class="vp-shipdot outside" style="left:45.59%;top:85.35%;"></div>
+          <div class="vp-shipdot outside" style="left:40.03%;top:55.02%;"></div>
+          <div class="vp-shipdot outside" style="left:58.56%;top:23.65%;"></div>
+          <div class="vp-shipdot outside" style="left:27.49%;top:24.07%;"></div>
+          <div class="vp-shipdot outside" style="left:37.08%;top:60.34%;"></div>
+          <div class="vp-shipdot outside" style="left:42.97%;top:82.14%;"></div>
+          <div class="vp-shipdot outside" style="left:59.74%;top:24.51%;"></div>
+          <div class="vp-shipdot outside" style="left:35.48%;top:84.89%;"></div>
+          <div class="vp-shipdot outside" style="left:7.57%;top:39.98%;"></div>
+          <div class="vp-shipdot outside" style="left:47.27%;top:19.6%;"></div>
+          <div class="vp-shipdot outside" style="left:73.71%;top:89.43%;"></div>
+          <div class="vp-shipdot outside" style="left:32.56%;top:38.43%;"></div>
+          <div class="vp-shipdot outside" style="left:28.64%;top:67.48%;"></div>
+          <div class="vp-shipdot outside" style="left:6.37%;top:46.47%;"></div>
+          <div class="vp-shipdot outside" style="left:13.89%;top:67.36%;"></div>
+          <div class="vp-shipdot outside" style="left:66.69%;top:18.2%;"></div>
+          <div class="vp-shipdot outside" style="left:87.37%;top:82.69%;"></div>
+          <div class="vp-shipdot outside" style="left:29.29%;top:55.72%;"></div>
+          <div class="vp-shipdot outside" style="left:53.09%;top:86.1%;"></div>
+          <div class="vp-shipdot outside" style="left:22.73%;top:31.41%;"></div>
+          <div class="vp-shipdot outside" style="left:51.49%;top:5.14%;"></div>
+          <div class="vp-shipdot outside" style="left:37.1%;top:35.66%;"></div>
+          <div class="vp-shipdot outside" style="left:14.23%;top:31.11%;"></div>
+          <div class="vp-shipdot outside" style="left:79.83%;top:9.85%;"></div>
+          <div class="vp-shipdot outside" style="left:38.16%;top:13.72%;"></div>
+          <div class="vp-shipdot outside" style="left:29.67%;top:91.59%;"></div>
+          <div class="vp-shipdot outside" style="left:45.23%;top:84.85%;"></div>
+          <div class="vp-shipdot outside" style="left:12.26%;top:59.52%;"></div>
+          <div class="vp-shipdot outside" style="left:52.62%;top:27.0%;"></div>
+          <div class="vp-shipdot outside" style="left:73.31%;top:18.37%;"></div>
+          <div class="vp-shipdot outside" style="left:13.79%;top:57.17%;"></div>
+          <div class="vp-shipdot outside" style="left:30.88%;top:86.58%;"></div>
+          <div class="vp-shipdot outside" style="left:87.65%;top:31.41%;"></div>
+          <div class="vp-shipdot outside" style="left:86.89%;top:39.74%;"></div>
+          <div class="vp-shipdot outside" style="left:90.81%;top:32.66%;"></div>
+          <div class="vp-shipdot outside" style="left:81.49%;top:13.55%;"></div>
+          <div class="vp-shipdot outside" style="left:46.97%;top:14.34%;"></div>
+          <div class="vp-shipdot outside" style="left:22.35%;top:88.55%;"></div>
+          <div class="vp-shipdot outside" style="left:23.78%;top:84.77%;"></div>
+          <div class="vp-shipdot outside" style="left:32.8%;top:36.26%;"></div>
+          <div class="vp-shipdot outside" style="left:18.19%;top:34.81%;"></div>
+          <div class="vp-shipdot outside" style="left:52.2%;top:80.87%;"></div>
+          <div class="vp-shipdot outside" style="left:15.63%;top:77.87%;"></div>
+          <div class="vp-shipdot outside" style="left:13.64%;top:27.0%;"></div>
+        </div>
+        <div class="vp-lyr" data-lyr="rto" style="display:none">
+          <div class="vp-shipdot rto" style="left:13.7%;top:41.12%;"></div>
+          <div class="vp-shipdot rto" style="left:6.29%;top:13.32%;"></div>
+          <div class="vp-shipdot rto" style="left:58.51%;top:34.61%;"></div>
+          <div class="vp-shipdot rto" style="left:40.85%;top:13.91%;"></div>
+          <div class="vp-shipdot rto" style="left:83.66%;top:64.43%;"></div>
+          <div class="vp-shipdot rto" style="left:21.76%;top:57.12%;"></div>
+          <div class="vp-shipdot rto" style="left:71.98%;top:21.35%;"></div>
+          <div class="vp-shipdot rto" style="left:18.43%;top:50.04%;"></div>
+          <div class="vp-shipdot rto" style="left:17.65%;top:41.35%;"></div>
+          <div class="vp-shipdot rto" style="left:29.5%;top:9.08%;"></div>
+          <div class="vp-shipdot rto" style="left:54.05%;top:23.52%;"></div>
+          <div class="vp-shipdot rto" style="left:10.61%;top:13.38%;"></div>
+          <div class="vp-shipdot rto" style="left:93.14%;top:72.82%;"></div>
+          <div class="vp-shipdot rto" style="left:80.91%;top:14.82%;"></div>
+          <div class="vp-shipdot rto" style="left:74.59%;top:78.85%;"></div>
+          <div class="vp-shipdot rto" style="left:28.15%;top:22.53%;"></div>
+          <div class="vp-shipdot rto" style="left:92.66%;top:23.85%;"></div>
+          <div class="vp-shipdot rto" style="left:27.09%;top:27.99%;"></div>
+          <div class="vp-shipdot rto" style="left:50.55%;top:22.54%;"></div>
+          <div class="vp-shipdot rto" style="left:9.77%;top:36.53%;"></div>
+          <div class="vp-shipdot rto" style="left:46.24%;top:6.0%;"></div>
+          <div class="vp-shipdot rto" style="left:92.76%;top:15.12%;"></div>
+          <div class="vp-shipdot rto" style="left:51.22%;top:90.99%;"></div>
+          <div class="vp-shipdot rto" style="left:75.73%;top:84.08%;"></div>
+          <div class="vp-shipdot rto" style="left:89.28%;top:65.11%;"></div>
+          <div class="vp-shipdot rto" style="left:30.87%;top:88.56%;"></div>
+          <div class="vp-shipdot rto" style="left:22.42%;top:12.63%;"></div>
+          <div class="vp-shipdot rto" style="left:54.54%;top:92.3%;"></div>
+          <div class="vp-shipdot rto" style="left:43.75%;top:27.54%;"></div>
+          <div class="vp-shipdot rto" style="left:41.94%;top:92.28%;"></div>
+          <div class="vp-shipdot rto" style="left:25.95%;top:41.51%;"></div>
+          <div class="vp-shipdot rto" style="left:47.46%;top:23.64%;"></div>
+          <div class="vp-shipdot rto" style="left:77.81%;top:13.53%;"></div>
+          <div class="vp-shipdot rto" style="left:17.93%;top:41.32%;"></div>
+          <div class="vp-shipdot rto" style="left:72.89%;top:75.56%;"></div>
+          <div class="vp-shipdot rto" style="left:87.82%;top:43.34%;"></div>
+          <div class="vp-shipdot rto" style="left:15.65%;top:50.8%;"></div>
+          <div class="vp-shipdot rto" style="left:52.19%;top:86.29%;"></div>
+          <div class="vp-shipdot rto" style="left:40.24%;top:51.75%;"></div>
+          <div class="vp-shipdot rto" style="left:48.48%;top:91.8%;"></div>
+          <div class="vp-shipdot rto" style="left:86.46%;top:37.41%;"></div>
+          <div class="vp-shipdot rto" style="left:45.29%;top:37.75%;"></div>
+          <div class="vp-shipdot rto" style="left:15.56%;top:42.61%;"></div>
+          <div class="vp-shipdot rto" style="left:51.1%;top:18.36%;"></div>
+          <div class="vp-shipdot rto" style="left:85.55%;top:67.26%;"></div>
+          <div class="vp-shipdot rto" style="left:7.28%;top:32.18%;"></div>
+          <div class="vp-shipdot rto" style="left:68.32%;top:83.88%;"></div>
+          <div class="vp-shipdot rto" style="left:57.53%;top:11.89%;"></div>
+          <div class="vp-shipdot rto" style="left:52.42%;top:8.07%;"></div>
+        </div>
+        <div class="vp-lyr" data-lyr="arrows" style="display:none">
+          <svg class="vp-mapoverlay" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <line x1="30.68" y1="67.45" x2="16.57" y2="7.11" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="31.86" y1="75.76" x2="38.67" y2="48.73" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="65.63" y1="42.28" x2="16.99" y2="29.67" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="60.94" y1="60.16" x2="91.07" y2="11.22" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="65.51" y1="35.18" x2="19.35" y2="87.42" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="49.88" y1="74.36" x2="91.07" y2="11.22" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="69.68" y1="51.02" x2="16.99" y2="29.67" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="62.43" y1="38.41" x2="88.84" y2="51.43" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="70.62" y1="44.19" x2="77.49" y2="14.74" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="58.34" y1="63.44" x2="77.49" y2="14.74" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="72.25" y1="53.76" x2="77.49" y2="14.74" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="69.27" y1="33.58" x2="88.84" y2="51.43" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="44.33" y1="72.25" x2="91.07" y2="11.22" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="38.58" y1="67.99" x2="88.84" y2="51.43" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="46.6" y1="58.5" x2="91.07" y2="11.22" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="64.41" y1="65.29" x2="68.22" y2="13.88" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="69.84" y1="46.52" x2="38.67" y2="48.73" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="54.8" y1="71.96" x2="16.99" y2="29.67" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="62.89" y1="64.52" x2="19.35" y2="87.42" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="60.85" y1="47.65" x2="16.99" y2="29.67" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="62.75" y1="34.53" x2="66.04" y2="85.05" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="42.37" y1="57.71" x2="16.57" y2="7.11" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="58.06" y1="62.58" x2="19.35" y2="87.42" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="46.11" y1="70.67" x2="66.04" y2="85.05" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="66.71" y1="60.0" x2="19.35" y2="87.42" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="64.53" y1="31.64" x2="4.98" y2="54.91" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="56.55" y1="70.22" x2="66.04" y2="85.05" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="35.0" y1="71.46" x2="77.49" y2="14.74" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="44.91" y1="62.26" x2="47.45" y2="18.4" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="51.34" y1="68.71" x2="4.98" y2="54.91" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="59.72" y1="41.11" x2="38.67" y2="48.73" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="52.0" y1="50.13" x2="4.98" y2="54.91" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="50.88" y1="67.58" x2="47.45" y2="18.4" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="61.9" y1="42.85" x2="88.84" y2="51.43" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="62.58" y1="45.56" x2="91.07" y2="11.22" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="55.64" y1="74.31" x2="19.35" y2="87.42" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="34.88" y1="73.93" x2="19.35" y2="87.42" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="73.29" y1="46.8" x2="8.02" y2="73.97" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="62.31" y1="48.55" x2="91.07" y2="11.22" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="56.74" y1="66.33" x2="16.99" y2="29.67" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="68.05" y1="28.95" x2="16.57" y2="7.11" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="68.14" y1="44.35" x2="16.57" y2="7.11" stroke="#e0625a" stroke-width="0.7" stroke-dasharray="1.4 1.2" vector-effect="non-scaling-stroke"/>
+          </svg>
+        </div>
+        <div class="vp-dcpin mine" style="left:54.3%;top:56.53%;"><img src="../assets/icons/ic_blue_marker.svg" alt=""><span class="code">My DC (BEU)</span></div>
+        <div class="vp-mappanel" data-collapsed="0">
+          <h4>Your Misrouted Shipments (222)</h4>
+          <div class="p-sub" style="margin-top:10px;">In-Scan Date Range:</div>
+          <div class="vp-dp-anchor">
+          <div class="vp-daterange">
+            <span class="rng"><img src="../assets/icons/ic_calendar.svg" alt="">20 Aug 26 - 27 Aug 26</span>
+            <span class="edit" onclick="var p=this.closest('.vp-dp-anchor').querySelector('.vp-datepicker');p.style.display=(p.style.display==='block')?'none':'block';">Edit Date Range<img src="../assets/icons/ic_pencil.svg" alt=""></span>
+          </div>
+          <div class="vp-datepicker" style="display:none;" data-s="20" data-e="27">
+            <div class="vp-dp-fields">
+              <div class="vp-dp-field"><div class="lbl">From</div><div class="box">20 Aug 26</div></div>
+              <div class="vp-dp-field"><div class="lbl">To</div><div class="box">27 Aug 26</div></div>
+            </div>
+            <div class="vp-dp-nav"><span class="arw">&#8249;</span>August 2026<span class="arw">&#8250;</span></div>
+            <div class="vp-dp-grid">
+              <div class="dow">Sun</div><div class="dow">Mon</div><div class="dow">Tue</div><div class="dow">Wed</div><div class="dow">Thu</div><div class="dow">Fri</div><div class="dow">Sat</div>
+              <div class="day"></div><div class="day"></div><div class="day"></div><div class="day"></div><div class="day"></div><div class="day"></div><div class="day" onclick="var dp=this.closest('.vp-datepicker');var n=parseInt(this.textContent,10);var s=parseInt(dp.getAttribute('data-s')||'0',10),e=parseInt(dp.getAttribute('data-e')||'0',10);if(s&&!e){if(n<s){s=n;}else{e=n;}}else{s=n;e=0;}dp.setAttribute('data-s',s);dp.setAttribute('data-e',e);var ds=dp.querySelectorAll('.day'),i,t,v;for(i=0;i<ds.length;i++){t=ds[i].textContent.trim();if(!t){continue;}v=parseInt(t,10);ds[i].className=(v===s||v===e)?'day end':((s&&e&&v>s&&v<e)?'day in':'day');}var bx=dp.querySelectorAll('.vp-dp-field .box');bx[0].textContent=s?s+' Aug 26':'--';bx[1].textContent=e?e+' Aug 26':'--';">1</div>
+              <div class="day" onclick="var dp=this.closest('.vp-datepicker');var n=parseInt(this.textContent,10);var s=parseInt(dp.getAttribute('data-s')||'0',10),e=parseInt(dp.getAttribute('data-e')||'0',10);if(s&&!e){if(n<s){s=n;}else{e=n;}}else{s=n;e=0;}dp.setAttribute('data-s',s);dp.setAttribute('data-e',e);var ds=dp.querySelectorAll('.day'),i,t,v;for(i=0;i<ds.length;i++){t=ds[i].textContent.trim();if(!t){continue;}v=parseInt(t,10);ds[i].className=(v===s||v===e)?'day end':((s&&e&&v>s&&v<e)?'day in':'day');}var bx=dp.querySelectorAll('.vp-dp-field .box');bx[0].textContent=s?s+' Aug 26':'--';bx[1].textContent=e?e+' Aug 26':'--';">2</div><div class="day" onclick="var dp=this.closest('.vp-datepicker');var n=parseInt(this.textContent,10);var s=parseInt(dp.getAttribute('data-s')||'0',10),e=parseInt(dp.getAttribute('data-e')||'0',10);if(s&&!e){if(n<s){s=n;}else{e=n;}}else{s=n;e=0;}dp.setAttribute('data-s',s);dp.setAttribute('data-e',e);var ds=dp.querySelectorAll('.day'),i,t,v;for(i=0;i<ds.length;i++){t=ds[i].textContent.trim();if(!t){continue;}v=parseInt(t,10);ds[i].className=(v===s||v===e)?'day end':((s&&e&&v>s&&v<e)?'day in':'day');}var bx=dp.querySelectorAll('.vp-dp-field .box');bx[0].textContent=s?s+' Aug 26':'--';bx[1].textContent=e?e+' Aug 26':'--';">3</div><div class="day" onclick="var dp=this.closest('.vp-datepicker');var n=parseInt(this.textContent,10);var s=parseInt(dp.getAttribute('data-s')||'0',10),e=parseInt(dp.getAttribute('data-e')||'0',10);if(s&&!e){if(n<s){s=n;}else{e=n;}}else{s=n;e=0;}dp.setAttribute('data-s',s);dp.setAttribute('data-e',e);var ds=dp.querySelectorAll('.day'),i,t,v;for(i=0;i<ds.length;i++){t=ds[i].textContent.trim();if(!t){continue;}v=parseInt(t,10);ds[i].className=(v===s||v===e)?'day end':((s&&e&&v>s&&v<e)?'day in':'day');}var bx=dp.querySelectorAll('.vp-dp-field .box');bx[0].textContent=s?s+' Aug 26':'--';bx[1].textContent=e?e+' Aug 26':'--';">4</div><div class="day" onclick="var dp=this.closest('.vp-datepicker');var n=parseInt(this.textContent,10);var s=parseInt(dp.getAttribute('data-s')||'0',10),e=parseInt(dp.getAttribute('data-e')||'0',10);if(s&&!e){if(n<s){s=n;}else{e=n;}}else{s=n;e=0;}dp.setAttribute('data-s',s);dp.setAttribute('data-e',e);var ds=dp.querySelectorAll('.day'),i,t,v;for(i=0;i<ds.length;i++){t=ds[i].textContent.trim();if(!t){continue;}v=parseInt(t,10);ds[i].className=(v===s||v===e)?'day end':((s&&e&&v>s&&v<e)?'day in':'day');}var bx=dp.querySelectorAll('.vp-dp-field .box');bx[0].textContent=s?s+' Aug 26':'--';bx[1].textContent=e?e+' Aug 26':'--';">5</div><div class="day" onclick="var dp=this.closest('.vp-datepicker');var n=parseInt(this.textContent,10);var s=parseInt(dp.getAttribute('data-s')||'0',10),e=parseInt(dp.getAttribute('data-e')||'0',10);if(s&&!e){if(n<s){s=n;}else{e=n;}}else{s=n;e=0;}dp.setAttribute('data-s',s);dp.setAttribute('data-e',e);var ds=dp.querySelectorAll('.day'),i,t,v;for(i=0;i<ds.length;i++){t=ds[i].textContent.trim();if(!t){continue;}v=parseInt(t,10);ds[i].className=(v===s||v===e)?'day end':((s&&e&&v>s&&v<e)?'day in':'day');}var bx=dp.querySelectorAll('.vp-dp-field .box');bx[0].textContent=s?s+' Aug 26':'--';bx[1].textContent=e?e+' Aug 26':'--';">6</div><div class="day" onclick="var dp=this.closest('.vp-datepicker');var n=parseInt(this.textContent,10);var s=parseInt(dp.getAttribute('data-s')||'0',10),e=parseInt(dp.getAttribute('data-e')||'0',10);if(s&&!e){if(n<s){s=n;}else{e=n;}}else{s=n;e=0;}dp.setAttribute('data-s',s);dp.setAttribute('data-e',e);var ds=dp.querySelectorAll('.day'),i,t,v;for(i=0;i<ds.length;i++){t=ds[i].textContent.trim();if(!t){continue;}v=parseInt(t,10);ds[i].className=(v===s||v===e)?'day end':((s&&e&&v>s&&v<e)?'day in':'day');}var bx=dp.querySelectorAll('.vp-dp-field .box');bx[0].textContent=s?s+' Aug 26':'--';bx[1].textContent=e?e+' Aug 26':'--';">7</div><div class="day" onclick="var dp=this.closest('.vp-datepicker');var n=parseInt(this.textContent,10);var s=parseInt(dp.getAttribute('data-s')||'0',10),e=parseInt(dp.getAttribute('data-e')||'0',10);if(s&&!e){if(n<s){s=n;}else{e=n;}}else{s=n;e=0;}dp.setAttribute('data-s',s);dp.setAttribute('data-e',e);var ds=dp.querySelectorAll('.day'),i,t,v;for(i=0;i<ds.length;i++){t=ds[i].textContent.trim();if(!t){continue;}v=parseInt(t,10);ds[i].className=(v===s||v===e)?'day end':((s&&e&&v>s&&v<e)?'day in':'day');}var bx=dp.querySelectorAll('.vp-dp-field .box');bx[0].textContent=s?s+' Aug 26':'--';bx[1].textContent=e?e+' Aug 26':'--';">8</div>
+              <div class="day" onclick="var dp=this.closest('.vp-datepicker');var n=parseInt(this.textContent,10);var s=parseInt(dp.getAttribute('data-s')||'0',10),e=parseInt(dp.getAttribute('data-e')||'0',10);if(s&&!e){if(n<s){s=n;}else{e=n;}}else{s=n;e=0;}dp.setAttribute('data-s',s);dp.setAttribute('data-e',e);var ds=dp.querySelectorAll('.day'),i,t,v;for(i=0;i<ds.length;i++){t=ds[i].textContent.trim();if(!t){continue;}v=parseInt(t,10);ds[i].className=(v===s||v===e)?'day end':((s&&e&&v>s&&v<e)?'day in':'day');}var bx=dp.querySelectorAll('.vp-dp-field .box');bx[0].textContent=s?s+' Aug 26':'--';bx[1].textContent=e?e+' Aug 26':'--';">9</div><div class="day" onclick="var dp=this.closest('.vp-datepicker');var n=parseInt(this.textContent,10);var s=parseInt(dp.getAttribute('data-s')||'0',10),e=parseInt(dp.getAttribute('data-e')||'0',10);if(s&&!e){if(n<s){s=n;}else{e=n;}}else{s=n;e=0;}dp.setAttribute('data-s',s);dp.setAttribute('data-e',e);var ds=dp.querySelectorAll('.day'),i,t,v;for(i=0;i<ds.length;i++){t=ds[i].textContent.trim();if(!t){continue;}v=parseInt(t,10);ds[i].className=(v===s||v===e)?'day end':((s&&e&&v>s&&v<e)?'day in':'day');}var bx=dp.querySelectorAll('.vp-dp-field .box');bx[0].textContent=s?s+' Aug 26':'--';bx[1].textContent=e?e+' Aug 26':'--';">10</div><div class="day" onclick="var dp=this.closest('.vp-datepicker');var n=parseInt(this.textContent,10);var s=parseInt(dp.getAttribute('data-s')||'0',10),e=parseInt(dp.getAttribute('data-e')||'0',10);if(s&&!e){if(n<s){s=n;}else{e=n;}}else{s=n;e=0;}dp.setAttribute('data-s',s);dp.setAttribute('data-e',e);var ds=dp.querySelectorAll('.day'),i,t,v;for(i=0;i<ds.length;i++){t=ds[i].textContent.trim();if(!t){continue;}v=parseInt(t,10);ds[i].className=(v===s||v===e)?'day end':((s&&e&&v>s&&v<e)?'day in':'day');}var bx=dp.querySelectorAll('.vp-dp-field .box');bx[0].textContent=s?s+' Aug 26':'--';bx[1].textContent=e?e+' Aug 26':'--';">11</div><div class="day" onclick="var dp=this.closest('.vp-datepicker');var n=parseInt(this.textContent,10);var s=parseInt(dp.getAttribute('data-s')||'0',10),e=parseInt(dp.getAttribute('data-e')||'0',10);if(s&&!e){if(n<s){s=n;}else{e=n;}}else{s=n;e=0;}dp.setAttribute('data-s',s);dp.setAttribute('data-e',e);var ds=dp.querySelectorAll('.day'),i,t,v;for(i=0;i<ds.length;i++){t=ds[i].textContent.trim();if(!t){continue;}v=parseInt(t,10);ds[i].className=(v===s||v===e)?'day end':((s&&e&&v>s&&v<e)?'day in':'day');}var bx=dp.querySelectorAll('.vp-dp-field .box');bx[0].textContent=s?s+' Aug 26':'--';bx[1].textContent=e?e+' Aug 26':'--';">12</div><div class="day" onclick="var dp=this.closest('.vp-datepicker');var n=parseInt(this.textContent,10);var s=parseInt(dp.getAttribute('data-s')||'0',10),e=parseInt(dp.getAttribute('data-e')||'0',10);if(s&&!e){if(n<s){s=n;}else{e=n;}}else{s=n;e=0;}dp.setAttribute('data-s',s);dp.setAttribute('data-e',e);var ds=dp.querySelectorAll('.day'),i,t,v;for(i=0;i<ds.length;i++){t=ds[i].textContent.trim();if(!t){continue;}v=parseInt(t,10);ds[i].className=(v===s||v===e)?'day end':((s&&e&&v>s&&v<e)?'day in':'day');}var bx=dp.querySelectorAll('.vp-dp-field .box');bx[0].textContent=s?s+' Aug 26':'--';bx[1].textContent=e?e+' Aug 26':'--';">13</div><div class="day" onclick="var dp=this.closest('.vp-datepicker');var n=parseInt(this.textContent,10);var s=parseInt(dp.getAttribute('data-s')||'0',10),e=parseInt(dp.getAttribute('data-e')||'0',10);if(s&&!e){if(n<s){s=n;}else{e=n;}}else{s=n;e=0;}dp.setAttribute('data-s',s);dp.setAttribute('data-e',e);var ds=dp.querySelectorAll('.day'),i,t,v;for(i=0;i<ds.length;i++){t=ds[i].textContent.trim();if(!t){continue;}v=parseInt(t,10);ds[i].className=(v===s||v===e)?'day end':((s&&e&&v>s&&v<e)?'day in':'day');}var bx=dp.querySelectorAll('.vp-dp-field .box');bx[0].textContent=s?s+' Aug 26':'--';bx[1].textContent=e?e+' Aug 26':'--';">14</div><div class="day" onclick="var dp=this.closest('.vp-datepicker');var n=parseInt(this.textContent,10);var s=parseInt(dp.getAttribute('data-s')||'0',10),e=parseInt(dp.getAttribute('data-e')||'0',10);if(s&&!e){if(n<s){s=n;}else{e=n;}}else{s=n;e=0;}dp.setAttribute('data-s',s);dp.setAttribute('data-e',e);var ds=dp.querySelectorAll('.day'),i,t,v;for(i=0;i<ds.length;i++){t=ds[i].textContent.trim();if(!t){continue;}v=parseInt(t,10);ds[i].className=(v===s||v===e)?'day end':((s&&e&&v>s&&v<e)?'day in':'day');}var bx=dp.querySelectorAll('.vp-dp-field .box');bx[0].textContent=s?s+' Aug 26':'--';bx[1].textContent=e?e+' Aug 26':'--';">15</div>
+              <div class="day" onclick="var dp=this.closest('.vp-datepicker');var n=parseInt(this.textContent,10);var s=parseInt(dp.getAttribute('data-s')||'0',10),e=parseInt(dp.getAttribute('data-e')||'0',10);if(s&&!e){if(n<s){s=n;}else{e=n;}}else{s=n;e=0;}dp.setAttribute('data-s',s);dp.setAttribute('data-e',e);var ds=dp.querySelectorAll('.day'),i,t,v;for(i=0;i<ds.length;i++){t=ds[i].textContent.trim();if(!t){continue;}v=parseInt(t,10);ds[i].className=(v===s||v===e)?'day end':((s&&e&&v>s&&v<e)?'day in':'day');}var bx=dp.querySelectorAll('.vp-dp-field .box');bx[0].textContent=s?s+' Aug 26':'--';bx[1].textContent=e?e+' Aug 26':'--';">16</div><div class="day" onclick="var dp=this.closest('.vp-datepicker');var n=parseInt(this.textContent,10);var s=parseInt(dp.getAttribute('data-s')||'0',10),e=parseInt(dp.getAttribute('data-e')||'0',10);if(s&&!e){if(n<s){s=n;}else{e=n;}}else{s=n;e=0;}dp.setAttribute('data-s',s);dp.setAttribute('data-e',e);var ds=dp.querySelectorAll('.day'),i,t,v;for(i=0;i<ds.length;i++){t=ds[i].textContent.trim();if(!t){continue;}v=parseInt(t,10);ds[i].className=(v===s||v===e)?'day end':((s&&e&&v>s&&v<e)?'day in':'day');}var bx=dp.querySelectorAll('.vp-dp-field .box');bx[0].textContent=s?s+' Aug 26':'--';bx[1].textContent=e?e+' Aug 26':'--';">17</div><div class="day" onclick="var dp=this.closest('.vp-datepicker');var n=parseInt(this.textContent,10);var s=parseInt(dp.getAttribute('data-s')||'0',10),e=parseInt(dp.getAttribute('data-e')||'0',10);if(s&&!e){if(n<s){s=n;}else{e=n;}}else{s=n;e=0;}dp.setAttribute('data-s',s);dp.setAttribute('data-e',e);var ds=dp.querySelectorAll('.day'),i,t,v;for(i=0;i<ds.length;i++){t=ds[i].textContent.trim();if(!t){continue;}v=parseInt(t,10);ds[i].className=(v===s||v===e)?'day end':((s&&e&&v>s&&v<e)?'day in':'day');}var bx=dp.querySelectorAll('.vp-dp-field .box');bx[0].textContent=s?s+' Aug 26':'--';bx[1].textContent=e?e+' Aug 26':'--';">18</div><div class="day" onclick="var dp=this.closest('.vp-datepicker');var n=parseInt(this.textContent,10);var s=parseInt(dp.getAttribute('data-s')||'0',10),e=parseInt(dp.getAttribute('data-e')||'0',10);if(s&&!e){if(n<s){s=n;}else{e=n;}}else{s=n;e=0;}dp.setAttribute('data-s',s);dp.setAttribute('data-e',e);var ds=dp.querySelectorAll('.day'),i,t,v;for(i=0;i<ds.length;i++){t=ds[i].textContent.trim();if(!t){continue;}v=parseInt(t,10);ds[i].className=(v===s||v===e)?'day end':((s&&e&&v>s&&v<e)?'day in':'day');}var bx=dp.querySelectorAll('.vp-dp-field .box');bx[0].textContent=s?s+' Aug 26':'--';bx[1].textContent=e?e+' Aug 26':'--';">19</div><div class="day end" onclick="var dp=this.closest('.vp-datepicker');var n=parseInt(this.textContent,10);var s=parseInt(dp.getAttribute('data-s')||'0',10),e=parseInt(dp.getAttribute('data-e')||'0',10);if(s&&!e){if(n<s){s=n;}else{e=n;}}else{s=n;e=0;}dp.setAttribute('data-s',s);dp.setAttribute('data-e',e);var ds=dp.querySelectorAll('.day'),i,t,v;for(i=0;i<ds.length;i++){t=ds[i].textContent.trim();if(!t){continue;}v=parseInt(t,10);ds[i].className=(v===s||v===e)?'day end':((s&&e&&v>s&&v<e)?'day in':'day');}var bx=dp.querySelectorAll('.vp-dp-field .box');bx[0].textContent=s?s+' Aug 26':'--';bx[1].textContent=e?e+' Aug 26':'--';">20</div><div class="day in" onclick="var dp=this.closest('.vp-datepicker');var n=parseInt(this.textContent,10);var s=parseInt(dp.getAttribute('data-s')||'0',10),e=parseInt(dp.getAttribute('data-e')||'0',10);if(s&&!e){if(n<s){s=n;}else{e=n;}}else{s=n;e=0;}dp.setAttribute('data-s',s);dp.setAttribute('data-e',e);var ds=dp.querySelectorAll('.day'),i,t,v;for(i=0;i<ds.length;i++){t=ds[i].textContent.trim();if(!t){continue;}v=parseInt(t,10);ds[i].className=(v===s||v===e)?'day end':((s&&e&&v>s&&v<e)?'day in':'day');}var bx=dp.querySelectorAll('.vp-dp-field .box');bx[0].textContent=s?s+' Aug 26':'--';bx[1].textContent=e?e+' Aug 26':'--';">21</div><div class="day in" onclick="var dp=this.closest('.vp-datepicker');var n=parseInt(this.textContent,10);var s=parseInt(dp.getAttribute('data-s')||'0',10),e=parseInt(dp.getAttribute('data-e')||'0',10);if(s&&!e){if(n<s){s=n;}else{e=n;}}else{s=n;e=0;}dp.setAttribute('data-s',s);dp.setAttribute('data-e',e);var ds=dp.querySelectorAll('.day'),i,t,v;for(i=0;i<ds.length;i++){t=ds[i].textContent.trim();if(!t){continue;}v=parseInt(t,10);ds[i].className=(v===s||v===e)?'day end':((s&&e&&v>s&&v<e)?'day in':'day');}var bx=dp.querySelectorAll('.vp-dp-field .box');bx[0].textContent=s?s+' Aug 26':'--';bx[1].textContent=e?e+' Aug 26':'--';">22</div>
+              <div class="day in" onclick="var dp=this.closest('.vp-datepicker');var n=parseInt(this.textContent,10);var s=parseInt(dp.getAttribute('data-s')||'0',10),e=parseInt(dp.getAttribute('data-e')||'0',10);if(s&&!e){if(n<s){s=n;}else{e=n;}}else{s=n;e=0;}dp.setAttribute('data-s',s);dp.setAttribute('data-e',e);var ds=dp.querySelectorAll('.day'),i,t,v;for(i=0;i<ds.length;i++){t=ds[i].textContent.trim();if(!t){continue;}v=parseInt(t,10);ds[i].className=(v===s||v===e)?'day end':((s&&e&&v>s&&v<e)?'day in':'day');}var bx=dp.querySelectorAll('.vp-dp-field .box');bx[0].textContent=s?s+' Aug 26':'--';bx[1].textContent=e?e+' Aug 26':'--';">23</div><div class="day in" onclick="var dp=this.closest('.vp-datepicker');var n=parseInt(this.textContent,10);var s=parseInt(dp.getAttribute('data-s')||'0',10),e=parseInt(dp.getAttribute('data-e')||'0',10);if(s&&!e){if(n<s){s=n;}else{e=n;}}else{s=n;e=0;}dp.setAttribute('data-s',s);dp.setAttribute('data-e',e);var ds=dp.querySelectorAll('.day'),i,t,v;for(i=0;i<ds.length;i++){t=ds[i].textContent.trim();if(!t){continue;}v=parseInt(t,10);ds[i].className=(v===s||v===e)?'day end':((s&&e&&v>s&&v<e)?'day in':'day');}var bx=dp.querySelectorAll('.vp-dp-field .box');bx[0].textContent=s?s+' Aug 26':'--';bx[1].textContent=e?e+' Aug 26':'--';">24</div><div class="day in" onclick="var dp=this.closest('.vp-datepicker');var n=parseInt(this.textContent,10);var s=parseInt(dp.getAttribute('data-s')||'0',10),e=parseInt(dp.getAttribute('data-e')||'0',10);if(s&&!e){if(n<s){s=n;}else{e=n;}}else{s=n;e=0;}dp.setAttribute('data-s',s);dp.setAttribute('data-e',e);var ds=dp.querySelectorAll('.day'),i,t,v;for(i=0;i<ds.length;i++){t=ds[i].textContent.trim();if(!t){continue;}v=parseInt(t,10);ds[i].className=(v===s||v===e)?'day end':((s&&e&&v>s&&v<e)?'day in':'day');}var bx=dp.querySelectorAll('.vp-dp-field .box');bx[0].textContent=s?s+' Aug 26':'--';bx[1].textContent=e?e+' Aug 26':'--';">25</div><div class="day in" onclick="var dp=this.closest('.vp-datepicker');var n=parseInt(this.textContent,10);var s=parseInt(dp.getAttribute('data-s')||'0',10),e=parseInt(dp.getAttribute('data-e')||'0',10);if(s&&!e){if(n<s){s=n;}else{e=n;}}else{s=n;e=0;}dp.setAttribute('data-s',s);dp.setAttribute('data-e',e);var ds=dp.querySelectorAll('.day'),i,t,v;for(i=0;i<ds.length;i++){t=ds[i].textContent.trim();if(!t){continue;}v=parseInt(t,10);ds[i].className=(v===s||v===e)?'day end':((s&&e&&v>s&&v<e)?'day in':'day');}var bx=dp.querySelectorAll('.vp-dp-field .box');bx[0].textContent=s?s+' Aug 26':'--';bx[1].textContent=e?e+' Aug 26':'--';">26</div><div class="day end" onclick="var dp=this.closest('.vp-datepicker');var n=parseInt(this.textContent,10);var s=parseInt(dp.getAttribute('data-s')||'0',10),e=parseInt(dp.getAttribute('data-e')||'0',10);if(s&&!e){if(n<s){s=n;}else{e=n;}}else{s=n;e=0;}dp.setAttribute('data-s',s);dp.setAttribute('data-e',e);var ds=dp.querySelectorAll('.day'),i,t,v;for(i=0;i<ds.length;i++){t=ds[i].textContent.trim();if(!t){continue;}v=parseInt(t,10);ds[i].className=(v===s||v===e)?'day end':((s&&e&&v>s&&v<e)?'day in':'day');}var bx=dp.querySelectorAll('.vp-dp-field .box');bx[0].textContent=s?s+' Aug 26':'--';bx[1].textContent=e?e+' Aug 26':'--';">27</div><div class="day" onclick="var dp=this.closest('.vp-datepicker');var n=parseInt(this.textContent,10);var s=parseInt(dp.getAttribute('data-s')||'0',10),e=parseInt(dp.getAttribute('data-e')||'0',10);if(s&&!e){if(n<s){s=n;}else{e=n;}}else{s=n;e=0;}dp.setAttribute('data-s',s);dp.setAttribute('data-e',e);var ds=dp.querySelectorAll('.day'),i,t,v;for(i=0;i<ds.length;i++){t=ds[i].textContent.trim();if(!t){continue;}v=parseInt(t,10);ds[i].className=(v===s||v===e)?'day end':((s&&e&&v>s&&v<e)?'day in':'day');}var bx=dp.querySelectorAll('.vp-dp-field .box');bx[0].textContent=s?s+' Aug 26':'--';bx[1].textContent=e?e+' Aug 26':'--';">28</div><div class="day" onclick="var dp=this.closest('.vp-datepicker');var n=parseInt(this.textContent,10);var s=parseInt(dp.getAttribute('data-s')||'0',10),e=parseInt(dp.getAttribute('data-e')||'0',10);if(s&&!e){if(n<s){s=n;}else{e=n;}}else{s=n;e=0;}dp.setAttribute('data-s',s);dp.setAttribute('data-e',e);var ds=dp.querySelectorAll('.day'),i,t,v;for(i=0;i<ds.length;i++){t=ds[i].textContent.trim();if(!t){continue;}v=parseInt(t,10);ds[i].className=(v===s||v===e)?'day end':((s&&e&&v>s&&v<e)?'day in':'day');}var bx=dp.querySelectorAll('.vp-dp-field .box');bx[0].textContent=s?s+' Aug 26':'--';bx[1].textContent=e?e+' Aug 26':'--';">29</div>
+              <div class="day" onclick="var dp=this.closest('.vp-datepicker');var n=parseInt(this.textContent,10);var s=parseInt(dp.getAttribute('data-s')||'0',10),e=parseInt(dp.getAttribute('data-e')||'0',10);if(s&&!e){if(n<s){s=n;}else{e=n;}}else{s=n;e=0;}dp.setAttribute('data-s',s);dp.setAttribute('data-e',e);var ds=dp.querySelectorAll('.day'),i,t,v;for(i=0;i<ds.length;i++){t=ds[i].textContent.trim();if(!t){continue;}v=parseInt(t,10);ds[i].className=(v===s||v===e)?'day end':((s&&e&&v>s&&v<e)?'day in':'day');}var bx=dp.querySelectorAll('.vp-dp-field .box');bx[0].textContent=s?s+' Aug 26':'--';bx[1].textContent=e?e+' Aug 26':'--';">30</div><div class="day" onclick="var dp=this.closest('.vp-datepicker');var n=parseInt(this.textContent,10);var s=parseInt(dp.getAttribute('data-s')||'0',10),e=parseInt(dp.getAttribute('data-e')||'0',10);if(s&&!e){if(n<s){s=n;}else{e=n;}}else{s=n;e=0;}dp.setAttribute('data-s',s);dp.setAttribute('data-e',e);var ds=dp.querySelectorAll('.day'),i,t,v;for(i=0;i<ds.length;i++){t=ds[i].textContent.trim();if(!t){continue;}v=parseInt(t,10);ds[i].className=(v===s||v===e)?'day end':((s&&e&&v>s&&v<e)?'day in':'day');}var bx=dp.querySelectorAll('.vp-dp-field .box');bx[0].textContent=s?s+' Aug 26':'--';bx[1].textContent=e?e+' Aug 26':'--';">31</div>
+            </div>
+            <div class="vp-dp-foot"><span class="note">You can select a date range up to 30 days</span><button class="vp-btn vp-btn-primary" onclick="var dp=this.closest('.vp-datepicker');var s=dp.getAttribute('data-s'),e=dp.getAttribute('data-e');var a=dp.closest('.vp-dp-anchor'),chip=a?a.querySelector('.vp-daterange .rng'):null;if(chip&&chip.lastChild)chip.lastChild.nodeValue=s+' Aug 26 - '+((e&&e!=='0')?e:s)+' Aug 26';dp.style.display='none';">Apply</button></div>
+          </div>
+          </div>
+          <div class="p-head">Shipments Map Layers</div>
+          <div class="p-desc">Use these filters to see where different types of misrouting errors are happening.</div>
+          <div class="vp-inlinealert"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 20 20" fill="#F44240"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 17.5C14.1421 17.5 17.5 14.1421 17.5 10C17.5 5.85786 14.1421 2.5 10 2.5C5.85786 2.5 2.5 5.85786 2.5 10C2.5 14.1421 5.85786 17.5 10 17.5ZM11.25 7.08333C11.25 7.77369 10.6904 8.33333 10 8.33333C9.30964 8.33333 8.75 7.77369 8.75 7.08333C8.75 6.39298 9.30964 5.83333 10 5.83333C10.6904 5.83333 11.25 6.39298 11.25 7.08333ZM10 9.79167C10.3452 9.79167 10.625 10.0715 10.625 10.4167V14.1667C10.625 14.5118 10.3452 14.7917 10 14.7917C9.65482 14.7917 9.375 14.5118 9.375 14.1667V10.4167C9.375 10.0715 9.65482 9.79167 10 9.79167Z" fill="#F44240"/></svg><span>4 misrouted shipments delivered within your service area will add as penalty.</span></div>
+          <div class="vp-layerrow" data-target="same-dc" onclick="var c=this.querySelector('.vp-cbx');c.classList.toggle('on');this.classList.toggle('off');var t=this.getAttribute('data-target'),m=this.closest('.vp-maparea');if(t&&m){var el=m.querySelector('[data-lyr=\''+t+'\']');if(el)el.style.display=c.classList.contains('on')?'':'none';}"><span class="vp-cbx on"></span><span class="lbl">Delivered within polygon by same DC (2)</span><span class="vp-legend-tri"></span></div>
+          <div class="vp-layerrow" data-target="diff-dc" onclick="var c=this.querySelector('.vp-cbx');c.classList.toggle('on');this.classList.toggle('off');var t=this.getAttribute('data-target'),m=this.closest('.vp-maparea');if(t&&m){var el=m.querySelector('[data-lyr=\''+t+'\']');if(el)el.style.display=c.classList.contains('on')?'':'none';}"><span class="vp-cbx on"></span><span class="lbl">Delivered within polygon by different DC (2)</span><span class="vp-legend-dot" style="background:#f44240;"></span></div>
+          <div class="vp-layerrow off" data-target="outside" onclick="var c=this.querySelector('.vp-cbx');c.classList.toggle('on');this.classList.toggle('off');var t=this.getAttribute('data-target'),m=this.closest('.vp-maparea');if(t&&m){var el=m.querySelector('[data-lyr=\''+t+'\']');if(el)el.style.display=c.classList.contains('on')?'':'none';}"><span class="vp-cbx"></span><span class="lbl">Delivered outside polygon (169)</span><span class="vp-legend-dot" style="background:#00a550;"></span></div>
+          <div class="vp-layerrow off" data-target="rto" onclick="var c=this.querySelector('.vp-cbx');c.classList.toggle('on');this.classList.toggle('off');var t=this.getAttribute('data-target'),m=this.closest('.vp-maparea');if(t&&m){var el=m.querySelector('[data-lyr=\''+t+'\']');if(el)el.style.display=c.classList.contains('on')?'':'none';}"><span class="vp-cbx"></span><span class="lbl">Not delivered and RTO marked (49)</span><span class="vp-legend-dot" style="background:#34353a;"></span></div>
+          <div class="vp-layerrow off" data-target="arrows" onclick="var c=this.querySelector('.vp-cbx');c.classList.toggle('on');this.classList.toggle('off');var t=this.getAttribute('data-target'),m=this.closest('.vp-maparea');if(t&&m){var el=m.querySelector('[data-lyr=\''+t+'\']');if(el)el.style.display=c.classList.contains('on')?'':'none';}"><span class="vp-cbx"></span><span class="lbl">Arrow to misrouted DC from shipments inside your area (42)</span><img src="../assets/icons/ic_dashed_lines.svg" style="width:18px;" alt=""></div>
+          <div class="vp-downloadbtn"><span class="lft"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="#092D5E" stroke-width="1.5" stroke-linejoin="round"><rect x="3.5" y="2.5" width="13" height="15" rx="1.5"/><path d="M7 7h6M7 10h6M7 13h4"/></svg>Download AWB Details</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="#092D5E" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3v10"/><path d="M6 10l4 4 4-4"/><path d="M3.5 16.5h13"/></svg></div>
+        </div>
+        <div class="vp-panel-toggle" onclick="var p=this.previousElementSibling;var col=p.style.display==='none';p.style.display=col?'':'none';this.style.left=col?'377px':'12px';this.innerHTML=col?'&#8249;':'&#8250;';">&#8249;</div>
+        <div class="vp-mapzoom"><span>&#43;</span><span>&#8722;</span></div>
+        <div class="vp-mapattrib">Map data &#169; OpenStreetMap contributors</div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+document.querySelectorAll("[data-goto]").forEach(function (el) {
+  el.style.cursor = "pointer";
+});
+document.addEventListener("click", function (e) {
+  var el = e.target.closest("[data-goto]");
+  if (el) location.href = el.getAttribute("data-goto") + ".html";
+});
+/* These pages must be served over http://, not double-clicked open. On file:// Chrome
+   refuses to load assets reached via ../ , so the map raster and every icon come up
+   blank with no explanation. Rather than let that happen silently, say so on the page
+   and give the exact command to fix it. */
+if (location.protocol === "file:") {
+  var b = document.createElement("div");
+  b.setAttribute("style", [
+    "position:fixed", "top:0", "left:0", "right:0", "z-index:99999",
+    "background:#fdecec", "border-bottom:1px solid #f0b7b4", "color:#7a1c17",
+    "font:500 13px/1.5 Inter,system-ui,sans-serif", "padding:10px 16px", "text-align:center"
+  ].join(";"));
+  b.innerHTML = "This page is open from a file, so the map and icons cannot load. " +
+    "Serve the folder instead \u2014 run <code style=\"background:#fff;padding:1px 5px;" +
+    "border-radius:3px;\">python3 -m http.server 8000</code> in the folder that contains " +
+    "<code style=\"background:#fff;padding:1px 5px;border-radius:3px;\">screens/</code>, " +
+    "then open <code style=\"background:#fff;padding:1px 5px;border-radius:3px;\">" +
+    "http://localhost:8000/screens/</code> and pick this file.";
+  document.body.appendChild(b);
+  document.body.style.paddingTop = "44px";
+}
+</script>
+</body>
+</html>
