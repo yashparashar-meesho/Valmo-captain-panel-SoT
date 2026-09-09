@@ -60,7 +60,6 @@
   "components": [
     "sidebar-navigation",
     "badge-new",
-    "page-header",
     "buttons",
     "callout-banner",
     "hero-stat",
@@ -83,6 +82,8 @@
     "inline-alert",
     "download-button",
     "awb-search-field",
-    "empty-state-card"
+    "empty-state-card",
+    "page-header-bar",
+    "table-footer"
   ]
 }
