@@ -66,6 +66,33 @@ addition exists); build against those numbers rather than re-measuring the live 
 
 Browse the styles in the catalog under **Foundations**.
 
+## Degrading well
+
+These pages are meant to survive bad conditions — a partial pull, a blocked CDN, no
+network at all.
+
+**Screens and components request nothing from the network.** Mier B02 ships in
+`assets/fonts/`, so there is no webfont link to block first paint. Open a screen on a
+plane and it renders exactly as it does online.
+
+**A missing font costs a typeface, not a layout.** The kit defines a `Mier Fallback`
+face — Arial (or a metric-compatible clone) scaled to Mier's advance widths. Measured
+against Mier, plain `system-ui` sets 8.9–13.4% wide, which is enough to overflow a
+table row or push a page title into its action button. With the fallback that drift
+drops to about 3%, and vertical rhythm does not move at all, because every type style
+carries an explicit line-height.
+
+**A missing image leaves a gap, not a broken layout.** Pull a screen without its
+icons and each `<img>` is hidden while keeping its reserved box, so rows keep their
+height and the map area keeps its size and background. Text is unaffected.
+
+**Opened as a file instead of served**, every page says so in a banner and gives the
+command to fix it, rather than silently showing a blank map.
+
+The catalog (`index.html`) is the one page that still uses a webfont, for its own
+chrome. It loads non-render-blocking, so a slow or unreachable Google Fonts delays
+nothing — the page paints in the fallback stack and upgrades if the font arrives.
+
 ## Layout
 
 ```

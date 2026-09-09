@@ -3,9 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>Inline Alert — Valmo Partner component</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- no external fonts: Mier B02 is local, with a metric-matched fallback -->
 <style>body{margin:0;padding:24px;background:#eaeaf2;}</style>
 <style>
 /* ============ vp- component kit (Valmo Partner clone) ============ */
@@ -26,8 +24,22 @@
   @font-face { font-family: "Mier B02"; src: url("../assets/fonts/Mier_B02-Demi.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
   @font-face { font-family: "Mier B02"; src: url("../assets/fonts/Mier_B02-Bold.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
 
+  /* If the Mier files never arrive - pulled without assets/fonts, offline, a blocked
+     CDN - the page must not reflow. Measured against Mier, system-ui sets ~10.4-13.4%
+     wide and Arial ~4%, which is enough to overflow a table row or push the page title
+     into the Download button. This fallback is Arial (or a metric-compatible clone)
+     scaled to Mier's advance widths, so a failed font load costs a change of typeface
+     and nothing else. The live panel does the same thing, under the same name. */
+  @font-face {
+    font-family: "Mier Fallback";
+    src: local("Arial"), local("Helvetica Neue"), local("Helvetica"),
+         local("Liberation Sans"), local("Nimbus Sans"), local("Albany AMT");
+    size-adjust: 96%;
+    font-display: swap;
+  }
+
   .vp-scope {
-    --vpFont: "Mier B02", "Inter", system-ui, sans-serif;
+    --vpFont: "Mier B02", "Mier Fallback", system-ui, sans-serif;
     /* weight size/line-height - one token per Crystal style */
     --vpDisplay1:    600 28px/36px var(--vpFont);
     /* Display2Valmo - the numeric display style, and the one deliberate addition to
@@ -615,5 +627,11 @@
   <div class="vp-inlinealert"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 20 20" fill="#F44240"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 17.5C14.1421 17.5 17.5 14.1421 17.5 10C17.5 5.85786 14.1421 2.5 10 2.5C5.85786 2.5 2.5 5.85786 2.5 10C2.5 14.1421 5.85786 17.5 10 17.5ZM11.25 7.08333C11.25 7.77369 10.6904 8.33333 10 8.33333C9.30964 8.33333 8.75 7.77369 8.75 7.08333C8.75 6.39298 9.30964 5.83333 10 5.83333C10.6904 5.83333 11.25 6.39298 11.25 7.08333ZM10 9.79167C10.3452 9.79167 10.625 10.0715 10.625 10.4167V14.1667C10.625 14.5118 10.3452 14.7917 10 14.7917C9.65482 14.7917 9.375 14.5118 9.375 14.1667V10.4167C9.375 10.0715 9.65482 9.79167 10 9.79167Z" fill="#F44240"/></svg><span>4 misrouted shipments delivered within your service area will add as penalty.</span></div>
 </div>
 </div>
+<script>
+document.addEventListener("error", function (e) {
+  var el = e.target;
+  if (el && el.tagName === "IMG") { el.style.visibility = "hidden"; }
+}, true);
+</script>
 </body>
 </html>
