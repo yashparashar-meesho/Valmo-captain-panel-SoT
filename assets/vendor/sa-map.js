@@ -86,7 +86,11 @@
         if (p.hasAttribute("data-area")) {
           function sync() {
             var on = getComputedStyle(p).display !== "none";
-            if (on) shape.addTo(target); else target.removeLayer ? target.removeLayer(shape) : map.removeLayer(shape);
+            if (!on) { target.removeLayer ? target.removeLayer(shape) : map.removeLayer(shape); return; }
+            shape.addTo(target);
+            // the current area stays put; a revision being compared against it is drawn
+            // over the top, the way live stacks the orange boundary on the blue one.
+            if (p.getAttribute("data-area") !== "0") shape.bringToFront();
           }
           sync();
           // the serviceable area reads on top of the neighbouring DC areas

@@ -85,6 +85,13 @@
     /* same 14px Book on a tighter 16px line - live's breadcrumbs. The coverage
        audit matched size+weight only, so this line-height was never surfaced. */
     --vpBody14TightValmo: 400 14px/16px var(--vpFont);
+    /* status tags in the rail: live sets 12px on an 18px line, which no
+       existing 12px style covers (Body3 is 12/16) and which is what makes
+       the tag 26px tall and the nav row 54px. */
+    --vpBody12TagValmo:   400 12px/18px var(--vpFont);
+    /* the demi companion to Body12TagValmo - live's "Current" pill. Heading7
+       is the only other 12px demi style and sits on a 16px line. */
+    --vpButtonText12TagValmo: 600 12px/18px var(--vpFont);
     --vpButtonText14DemiValmo: 600 14px/20px var(--vpFont);
     --vpButtonText14BoldValmo: 700 14px/20px var(--vpFont);
     --vpBody3:       400 12px/16px var(--vpFont);
@@ -115,6 +122,8 @@
   .vp-scope .vp-buttontext13boldvalmo { font: var(--vpButtonText13BoldValmo); }
   .vp-scope .vp-body14valmo     { font: var(--vpBody14Valmo); }
   .vp-scope .vp-body14tightvalmo { font: var(--vpBody14TightValmo); }
+  .vp-scope .vp-body12tagvalmo { font: var(--vpBody12TagValmo); }
+  .vp-scope .vp-buttontext12tagvalmo { font: var(--vpButtonText12TagValmo); }
   .vp-scope .vp-buttontext14demivalmo { font: var(--vpButtonText14DemiValmo); }
   .vp-scope .vp-buttontext14boldvalmo { font: var(--vpButtonText14BoldValmo); }
   .vp-scope .vp-body3       { font: var(--vpBody3); }
@@ -289,7 +298,7 @@
     /* Valmo additions to the ladder. Live does not sit on a 4px grid - these are
        the exact distances it measures, so the clone can stay pixel-true while still
        routing every value through the foundation. 15 steps. */
-    --vpSpace1: 1px;  --vpSpace2: 2px;  --vpSpace3: 3px;  --vpSpace5: 5px;  --vpSpace6: 6px;  --vpSpace7: 7px;  --vpSpace9: 9px;  --vpSpace10: 10px;  --vpSpace11: 11px;  --vpSpace13: 13px;  --vpSpace14: 14px;  --vpSpace15: 15px;  --vpSpace18: 18px;  --vpSpace22: 22px;  --vpSpace30: 30px;
+    --vpSpaceN1: -1px;  --vpSpace1: 1px;  --vpSpace2: 2px;  --vpSpace3: 3px;  --vpSpace5: 5px;  --vpSpace6: 6px;  --vpSpace7: 7px;  --vpSpace9: 9px;  --vpSpace10: 10px;  --vpSpace11: 11px;  --vpSpace13: 13px;  --vpSpace14: 14px;  --vpSpace15: 15px;  --vpSpace18: 18px;  --vpSpace22: 22px;  --vpSpace30: 30px;
 
     --vpSpacingInline20: var(--vpSpace20);
     /* inline - Valmo steps live needs */
@@ -297,11 +306,11 @@
     --vpSpacingStack28: var(--vpSpace28);
     --vpSpacingStack32: var(--vpSpace32);
     /* stack - Valmo steps live needs */
-    --vpSpacingStack01: var(--vpSpace1); --vpSpacingStack02: var(--vpSpace2); --vpSpacingStack03: var(--vpSpace3); --vpSpacingStack05: var(--vpSpace5); --vpSpacingStack06: var(--vpSpace6); --vpSpacingStack09: var(--vpSpace9); --vpSpacingStack10: var(--vpSpace10); --vpSpacingStack13: var(--vpSpace13); --vpSpacingStack14: var(--vpSpace14); --vpSpacingStack15: var(--vpSpace15); --vpSpacingStack18: var(--vpSpace18);
+    --vpSpacingStackN01: var(--vpSpaceN1); --vpSpacingStack01: var(--vpSpace1); --vpSpacingStack02: var(--vpSpace2); --vpSpacingStack03: var(--vpSpace3); --vpSpacingStack05: var(--vpSpace5); --vpSpacingStack06: var(--vpSpace6); --vpSpacingStack09: var(--vpSpace9); --vpSpacingStack10: var(--vpSpace10); --vpSpacingStack13: var(--vpSpace13); --vpSpacingStack14: var(--vpSpace14); --vpSpacingStack15: var(--vpSpace15); --vpSpacingStack18: var(--vpSpace18);
     /* verPad - Valmo steps live needs */
     --vpSpacingVerPad01: var(--vpSpace1); --vpSpacingVerPad02: var(--vpSpace2); --vpSpacingVerPad05: var(--vpSpace5); --vpSpacingVerPad06: var(--vpSpace6); --vpSpacingVerPad07: var(--vpSpace7); --vpSpacingVerPad09: var(--vpSpace9); --vpSpacingVerPad10: var(--vpSpace10); --vpSpacingVerPad11: var(--vpSpace11); --vpSpacingVerPad13: var(--vpSpace13); --vpSpacingVerPad14: var(--vpSpace14); --vpSpacingVerPad22: var(--vpSpace22); --vpSpacingVerPad30: var(--vpSpace30);
     /* horPad - Valmo steps live needs */
-    --vpSpacingHorPad00: var(--vpSpace0); --vpSpacingHorPad02: var(--vpSpace2); --vpSpacingHorPad05: var(--vpSpace5); --vpSpacingHorPad06: var(--vpSpace6); --vpSpacingHorPad11: var(--vpSpace11); --vpSpacingHorPad14: var(--vpSpace14); --vpSpacingHorPad18: var(--vpSpace18); --vpSpacingHorPad30: var(--vpSpace30);
+    --vpSpacingHorPad00: var(--vpSpace0); --vpSpacingHorPad02: var(--vpSpace2); --vpSpacingHorPad05: var(--vpSpace5); --vpSpacingHorPad06: var(--vpSpace6); --vpSpacingHorPad10: var(--vpSpace10); --vpSpacingHorPad11: var(--vpSpace11); --vpSpacingHorPad14: var(--vpSpace14); --vpSpacingHorPad18: var(--vpSpace18); --vpSpacingHorPad30: var(--vpSpace30);
 
     /* ---- navigation ---------------------------------------------------
        The rail is its own colour world - white type and pale tints on navy,
@@ -367,7 +376,7 @@
     display: flex;
     align-items: center;
     gap: var(--vpSpacingInline12);
-    height: 48px;
+    min-height: 48px;
     box-sizing: border-box;
     padding: var(--vpSpacingVerPad14) var(--vpSpacingHorPad20);
     color: var(--vpWhite);
@@ -399,6 +408,19 @@
     opacity: 0.6;
   }
   .vp-sidebar-footer .vp-logo-row img { width: 100px; height: 27px; object-fit: contain; }
+
+  /* status tag at the right end of a nav row - live marks the module whose data
+     changed under the captain ("Area Updated"). The row grows 48 -> 54px around it. */
+  .vp-navtag { font: var(--vpBody12TagValmo);
+    display: inline-flex; align-items: center; flex-shrink: 0; box-sizing: border-box;
+    padding: var(--vpSpacingVerPad04) var(--vpSpacingHorPad10);
+    border-radius: 4px; margin-left: auto;
+    background: var(--vpOrangeBg); color: var(--vpOrangeAction);
+  }
+  /* live sizes the label to its own text and lets the leftover space fall between
+     the label and the tag. Stretching the label instead leaves it 0.3px short of
+     "Service Area", which the ellipsis then eats a character to fit. */
+  .vp-navitem:has(.vp-navtag) .lbl { flex: 0 0 auto; }
 
   .vp-badge-new { display: inline-block; width: 34px; height: 16px; flex-shrink: 0; }
   .vp-badge-new img { display: block; width: 100%; height: 100%; }
@@ -742,17 +764,52 @@
   .vp-expand-ic i:nth-child(3) { bottom: -3px; left: -1px; }
   .vp-expand-ic i:nth-child(4) { bottom: -4px; right: -3px; }
 
+  /* Area Update History: the amber notice and the history box are one section -
+     live wraps them with margin 8px 0 16px and an 8px gap. */
+  .vp-areahistory { display: flex; flex-direction: column; gap: var(--vpSpacingStack08);
+    margin: var(--vpSpacingStack08) var(--vpSpacingInline00) var(--vpSpacingStack16); }
+
   /* collapsible section */
-  .vp-collapse { border: 1px solid var(--vpBrand); border-radius: 8px; margin: var(--vpSpacingStack10) var(--vpSpacingInline00) var(--vpSpacingStack14); overflow: hidden; }
+  .vp-collapse { border: 1px solid var(--vpBrand); border-radius: 8px; box-sizing: border-box;
+    padding: var(--vpSpacingVerPad12) var(--vpSpacingHorPad16); }
   .vp-collapse-head { font: var(--vpHeading4); display: flex; align-items: center;
-    gap: var(--vpSpacingInline08); padding: var(--vpSpacingVerPad12) var(--vpSpacingHorPad16); color: var(--vpBrand); cursor: pointer; }
+    gap: var(--vpSpacingInline08); padding: var(--vpSpacingVerPad00); color: var(--vpBrand); cursor: pointer; }
   .vp-collapse-head .chev { width: 24px; height: 24px; display: block; flex-shrink: 0;
     transition: transform 0.15s ease; }
   .vp-collapse.open .vp-collapse-head .chev { transform: rotate(180deg); }
-  .vp-collapse-body { padding: var(--vpSpacingVerPad00) var(--vpSpacingHorPad16) var(--vpSpacingVerPad08); }
-  .vp-optrow { font: var(--vpBody2); color: var(--vpBlack); display: flex; align-items: center; gap: var(--vpSpacingInline08); padding: var(--vpSpacingVerPad11) var(--vpSpacingHorPad00); border-top: 1px solid var(--vpBorder); }
-  .vp-optrow:first-child { border-top: none; }
-  /* Area Update History selector: always a radio, so the shape never changes on select
+  /* the rule between the header and the list is live's own separate 1px bar with
+     12px of air either side, hence margin-top + padding-top rather than one gap. */
+  .vp-collapse-body { display: flex; flex-direction: column; gap: var(--vpSpacingStack16);
+    padding: var(--vpSpacingVerPad12) var(--vpSpacingHorPad00) var(--vpSpacingVerPad00);
+    margin-top: var(--vpSpacingStack12); border-top: 1px solid var(--vpGreyMid01); }
+  .vp-optrow { font: var(--vpBody2); color: var(--vpBlack); display: flex; align-items: center;
+    gap: var(--vpSpacingInline08); padding: var(--vpSpacingVerPad00); min-height: 20px; cursor: pointer; }
+  /* the first entry is the area in force now. The ones below it are past revisions:
+     live drops them to a muted 14px label and swaps the radio for a checkbox. */
+  .vp-optrow.past { font: var(--vpBody14Valmo); color: var(--vpGreyDark01); }
+  .vp-optnote { font: var(--vpBody3); color: var(--vpGreyDark01); }
+  .vp-optsep { height: 0; border-top: 1px dashed var(--vpGreyMid01); }
+
+  /* Comparing a revision. The current area is the reference: live renders its radio as
+     disabled+checked so it can never be cleared, and marks the row with a "Current"
+     pill. The revision being compared gets an orange copy of the boundary glyph. Both
+     markers show only while a comparison is running. */
+  .vp-optrow.current, .vp-optrow.current .vp-sel { cursor: default; }
+  .vp-currentpill { font: var(--vpButtonText12TagValmo);
+    display: none; margin-left: auto; flex-shrink: 0; box-sizing: border-box;
+    border: 1px solid var(--vpBrand); border-radius: 4px; }
+  .vp-currentpill span { display: block; border-radius: 16px;
+    padding: var(--vpSpacingVerPad02) var(--vpSpacingHorPad08);
+    background: var(--vpValmoBlueT3); color: var(--vpValmoBlue); }
+  .vp-collapse-body.comparing .vp-optrow.current .vp-currentpill { display: block; }
+  /* the glyph is 21px in a 20px row and live lets it overhang rather than grow the
+     row - without the negative margins every row below it shifts down 1px. */
+  .vp-optrow .vp-expand-ic { display: none; margin-left: auto;
+    margin-top: var(--vpSpacingStackN01); margin-bottom: var(--vpSpacingStackN01); }
+  .vp-optrow.on .vp-expand-ic { display: block; }
+  .vp-expand-ic.amber { border-color: var(--vpOrangeAction); background: var(--vpOrangeBg); }
+  .vp-expand-ic.amber i { background: var(--vpOrangeAction); }
+  /* Area Update History selector: a radio, so the shape never changes on select
      - only the inner dot appears. */
   .vp-sel { width: 20px; height: 20px; border: 2px solid var(--vpGreyMid02); border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; }
   /* live renders the selected radio grey as well; brand navy is a deliberate
@@ -835,6 +892,11 @@
   .vp-inlinealert { font: var(--vpBody2); display: flex; gap: var(--vpSpacingInline09); background: var(--vpRedBg);
     border: 1px solid var(--vpRedBorder); border-radius: 8px; padding: var(--vpSpacingVerPad08); margin-top: var(--vpSpacingStack05); }
   .vp-inlinealert img, .vp-inlinealert svg { width: 20px; height: 20px; flex-shrink: 0; }
+  /* amber variant - the "your service area has been updated" notice. Live's fill is
+     #FFEFDE against the palette's #FFEDDE: a 2/255 green delta, not worth a token. */
+  .vp-inlinealert.amber { background: var(--vpOrangeBg); border-color: var(--vpOrangeAction);
+    gap: var(--vpSpacingInline08); margin-top: var(--vpSpacingStack00); align-items: flex-start; }
+  .vp-inlinealert.amber img { margin-top: var(--vpSpacingStack02); }
 
   /* download button (UI only) */
   .vp-downloadbtn { font: var(--vpBody2); display: flex; align-items: center; justify-content: space-between; gap: var(--vpSpacingInline10); border: 1px solid var(--vpBrand); border-radius: 4px; padding: var(--vpSpacingVerPad06); margin-top: var(--vpSpacingStack13); color: var(--vpBrand); cursor: pointer; }
@@ -868,7 +930,7 @@
       <div class="vp-navitem" data-goto="payments-list"><img class="ic" src="../assets/icons/ic_499fa6adb6.svg" alt=""><span class="lbl">Payments</span></div>
       <div class="vp-navitem"><img class="ic" src="../assets/icons/ic_c96a29e781.svg" alt=""><span class="lbl">DC Capacity</span><span class="vp-badge-new"><img src="../assets/icons/ic_139e5b8758.svg" alt="NEW"></span></div>
       <div class="vp-navitem"><img class="ic" src="../assets/icons/ic_82a75bf38b.svg" alt=""><span class="lbl">Growth Dashboard</span><span class="vp-badge-new"><img src="../assets/icons/ic_139e5b8758.svg" alt="NEW"></span></div>
-      <div class="vp-navitem"><img class="ic" src="../assets/icons/ic_eda39bed0f.svg" alt=""><span class="lbl">Service Area</span></div>
+      <div class="vp-navitem"><img class="ic" src="../assets/icons/ic_eda39bed0f.svg" alt=""><span class="lbl">Service Area</span><span class="vp-navtag">Area Updated</span></div>
       <div class="vp-navitem"><img class="ic" src="../assets/icons/ic_9e4feb432c.svg" alt=""><span class="lbl">Loss Management</span></div>
       <div class="vp-navitem"><img class="ic" src="../assets/icons/ic_5d34a47f1f.svg" alt=""><span class="lbl">Cash Pendency</span><span class="vp-badge-new"><img src="../assets/icons/ic_139e5b8758.svg" alt="NEW"></span></div>
       <div class="vp-navitem"><img class="ic" src="../assets/icons/ic_8ad2411e3d.svg" alt=""><span class="lbl">Pilot Rate Card</span><span class="vp-badge-new"><img src="../assets/icons/ic_139e5b8758.svg" alt="NEW"></span></div>
