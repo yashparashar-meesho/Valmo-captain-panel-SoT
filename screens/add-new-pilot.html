@@ -285,10 +285,14 @@
   .vp-navitem.divider-after { border-bottom: 1px solid var(--vpNavDivider); margin-bottom: 8px; }
 
   .vp-sidebar-footer { margin-top: auto; }
-  .vp-sidebar-footer .vp-navitem { font: var(--vpBody2); border-top: 1px solid var(--vpNavDivider); }
+  /* live gives the footer more air than the nav rows above it: the Log Out block is
+     65px (an 8px-padded 48px row) and the logo block 68px (20px padding all round),
+     against 48px for an ordinary nav item. */
+  .vp-sidebar-footer .vp-navitem { font: var(--vpBody2); height: 65px; padding: 22px 20px;
+    border-top: 1px solid var(--vpNavDivider); }
   .vp-sidebar-footer .vp-logo-row { font: var(--vpBody2);
     display: flex; align-items: center; gap: 12px;
-    height: 48px; box-sizing: border-box; padding: 14px 20px;
+    height: 68px; box-sizing: border-box; padding: 20px;
     color: var(--vpNavTextDim);
     border-top: 1px solid var(--vpNavDivider);
     /* live dims this whole row (logo + label) with opacity .6 - the wordmark
