@@ -301,7 +301,7 @@
     /* verPad - Valmo steps live needs */
     --vpSpacingVerPad01: var(--vpSpace1); --vpSpacingVerPad02: var(--vpSpace2); --vpSpacingVerPad05: var(--vpSpace5); --vpSpacingVerPad06: var(--vpSpace6); --vpSpacingVerPad07: var(--vpSpace7); --vpSpacingVerPad09: var(--vpSpace9); --vpSpacingVerPad10: var(--vpSpace10); --vpSpacingVerPad11: var(--vpSpace11); --vpSpacingVerPad13: var(--vpSpace13); --vpSpacingVerPad14: var(--vpSpace14); --vpSpacingVerPad22: var(--vpSpace22); --vpSpacingVerPad30: var(--vpSpace30);
     /* horPad - Valmo steps live needs */
-    --vpSpacingHorPad00: var(--vpSpace0); --vpSpacingHorPad02: var(--vpSpace2); --vpSpacingHorPad05: var(--vpSpace5); --vpSpacingHorPad06: var(--vpSpace6); --vpSpacingHorPad10: var(--vpSpace10); --vpSpacingHorPad11: var(--vpSpace11); --vpSpacingHorPad14: var(--vpSpace14); --vpSpacingHorPad18: var(--vpSpace18); --vpSpacingHorPad30: var(--vpSpace30);
+    --vpSpacingHorPad00: var(--vpSpace0); --vpSpacingHorPad01: var(--vpSpace1); --vpSpacingHorPad02: var(--vpSpace2); --vpSpacingHorPad05: var(--vpSpace5); --vpSpacingHorPad06: var(--vpSpace6); --vpSpacingHorPad10: var(--vpSpace10); --vpSpacingHorPad11: var(--vpSpace11); --vpSpacingHorPad14: var(--vpSpace14); --vpSpacingHorPad18: var(--vpSpace18); --vpSpacingHorPad30: var(--vpSpace30);
 
     /* ---- navigation ---------------------------------------------------
        The rail is its own colour world - white type and pale tints on navy,
@@ -788,7 +788,9 @@
   .vp-optrow.current, .vp-optrow.current .vp-sel { cursor: default; }
   .vp-currentpill { font: var(--vpButtonText12TagValmo);
     display: none; margin-left: auto; flex-shrink: 0; box-sizing: border-box;
-    border: 1px solid var(--vpBrand); border-radius: 4px; }
+    /* the visible pill is the capsule inside; a 1px pad stands in for the box's
+       old 1px border so the outer 58.59x24 and the 569 right edge are unchanged. */
+    padding: var(--vpSpacingVerPad01) var(--vpSpacingHorPad01); }
   .vp-currentpill span { display: block; border-radius: 16px;
     padding: var(--vpSpacingVerPad02) var(--vpSpacingHorPad08);
     background: var(--vpValmoBlueT3); color: var(--vpValmoBlue); }
@@ -803,10 +805,12 @@
   /* Area Update History selector: a radio, so the shape never changes on select
      - only the inner dot appears. */
   .vp-sel { width: 20px; height: 20px; border: 2px solid var(--vpGreyMid02); border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-  /* live renders the selected radio grey as well; brand navy is a deliberate
-     improvement on it - the selection now actually reads as selected. */
-  .vp-sel.on { border-color: var(--vpBrand); }
-  .vp-sel.on::after { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--vpBrand); }
+  /* Grey, like live. This radio marks the current area: it is pre-selected and
+     cannot be cleared, so it is a disabled control rather than a live selection -
+     an active navy dot would promise a choice that isn't there. User selection is
+     carried by the past revisions' navy checkboxes instead. */
+  .vp-sel.on { border-color: var(--vpGreyMid02); }
+  .vp-sel.on::after { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--vpGreyMid02); }
 
   /* toggleable map marker groups */
   .vp-lyr { position: absolute; inset: 0; pointer-events: none; }
