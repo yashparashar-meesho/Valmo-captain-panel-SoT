@@ -18,23 +18,6 @@
       ]
     },
     {
-      "id": "pilot-management",
-      "name": "Pilot Management",
-      "description": "How a captain views their roster of pilots and onboards a new one.",
-      "screens": [
-        {
-          "id": "pilot-management-list",
-          "name": "Pilot Management",
-          "order": 0
-        },
-        {
-          "id": "add-new-pilot",
-          "name": "Add New Pilot",
-          "order": 1
-        }
-      ]
-    },
-    {
       "id": "service-area",
       "name": "Service Area",
       "description": "Check captain panel - Service Area complete flow",
@@ -53,6 +36,23 @@
           "id": "service-area-misrouted",
           "name": "Misrouted Shipment",
           "order": 2
+        }
+      ]
+    },
+    {
+      "id": "pilot-management",
+      "name": "Pilot Management",
+      "description": "How a captain views their roster of pilots and onboards a new one.",
+      "screens": [
+        {
+          "id": "pilot-management-list",
+          "name": "Pilot Management",
+          "order": 0
+        },
+        {
+          "id": "add-new-pilot",
+          "name": "Add New Pilot",
+          "order": 1
         }
       ]
     }

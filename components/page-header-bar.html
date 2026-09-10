@@ -188,6 +188,7 @@
     --vpValmoBlueT3:      #DDE7FE;   /* segmented-control active fill */
     --vpValmoNavyMid:     #0D2B52;   /* map side-panel toggle */
     --vpValmoGreenDeep:   #1A7D3A;   /* positive metric hint */
+    --vpValmoInk:         #353543;   /* live's table + control text, a touch bluer than greyDark02 */
 
     /* ---- semantic aliases -------------------------------------------
        What a thing is *for*, pointing at what it *is*. Rules reference
@@ -289,8 +290,11 @@
        routing every value through the foundation. 15 steps. */
     --vpSpace1: 1px;  --vpSpace2: 2px;  --vpSpace3: 3px;  --vpSpace5: 5px;  --vpSpace6: 6px;  --vpSpace7: 7px;  --vpSpace9: 9px;  --vpSpace10: 10px;  --vpSpace11: 11px;  --vpSpace13: 13px;  --vpSpace14: 14px;  --vpSpace15: 15px;  --vpSpace18: 18px;  --vpSpace22: 22px;  --vpSpace30: 30px;
 
+    --vpSpacingInline20: var(--vpSpace20);
     /* inline - Valmo steps live needs */
     --vpSpacingInline02: var(--vpSpace2); --vpSpacingInline05: var(--vpSpace5); --vpSpacingInline06: var(--vpSpace6); --vpSpacingInline07: var(--vpSpace7); --vpSpacingInline09: var(--vpSpace9); --vpSpacingInline10: var(--vpSpace10); --vpSpacingInline22: var(--vpSpace22);
+    --vpSpacingStack28: var(--vpSpace28);
+    --vpSpacingStack32: var(--vpSpace32);
     /* stack - Valmo steps live needs */
     --vpSpacingStack01: var(--vpSpace1); --vpSpacingStack02: var(--vpSpace2); --vpSpacingStack03: var(--vpSpace3); --vpSpacingStack05: var(--vpSpace5); --vpSpacingStack06: var(--vpSpace6); --vpSpacingStack09: var(--vpSpace9); --vpSpacingStack10: var(--vpSpace10); --vpSpacingStack13: var(--vpSpace13); --vpSpacingStack14: var(--vpSpace14); --vpSpacingStack15: var(--vpSpace15); --vpSpacingStack18: var(--vpSpace18);
     /* verPad - Valmo steps live needs */
@@ -398,16 +402,19 @@
   .vp-badge-new { display: inline-block; width: 34px; height: 16px; flex-shrink: 0; }
   .vp-badge-new img { display: block; width: 100%; height: 100%; }
 
-    .vp-select { font: var(--vpHeading5);
-    display: inline-flex; align-items: center; gap: var(--vpSpacingInline08);
-    border: 1px solid var(--vpBorder); border-radius: 6px;
-    padding: var(--vpSpacingVerPad08) var(--vpSpacingHorPad12);
-    background: var(--vpWhite); color: var(--vpText); cursor: pointer;
-  }
-  .vp-select .chev { color: var(--vpMuted); font-size: 11px; }
+    /* live: 218x42 on a #c3c9d4 stroke, 6px radius, 8px 16px padding */
+    .vp-select { font: var(--vpBody14Valmo); color: var(--vpValmoInk);
+      display: inline-flex; align-items: center; justify-content: space-between;
+      gap: var(--vpSpacingInline08); min-width: 218px; height: 42px; box-sizing: border-box;
+      border: 1px solid var(--vpBorderStrong); border-radius: 6px;
+      padding: var(--vpSpacingVerPad08) var(--vpSpacingHorPad16);
+      background: var(--vpWhite); cursor: pointer; }
+  .vp-select .chev { width: 24px; height: 24px; display: block; flex-shrink: 0; color: var(--vpMuted); font-size: 11px; }
 
   /* 16px gutter all round - live panels start at x=266 against a 250px rail */
   .vp-content { flex: 1; padding: var(--vpSpacingVerPad16); min-width: 0; display: flex; flex-direction: column; }
+  /* Pilot Management runs a 12px gutter where the payments pages run 16px */
+  .vp-content-tight { padding: var(--vpSpacingVerPad12) var(--vpSpacingHorPad12); }
   /* live's crumb row measures 16 + 17 + 16 = 49. The 17 is its inner box, one pixel
      taller than the 16px line it holds; declare it so the row lands where live's does. */
   .vp-crumb { font: var(--vpBody14TightValmo); color: var(--vpMuted);
@@ -450,24 +457,35 @@
   .vp-btn-primary { background: var(--vpBrand); color: var(--vpWhite); }
   .vp-btn-outline { background: var(--vpWhite); color: var(--vpBrand); }
 
+  /* live paints this on a three-stop gradient rather than a flat peach, and the
+     illustration sits flush in the banner's left edge at its full 128x132. */
   .vp-banner {
-    background: var(--vpPeach);
-    border-radius: 6px;
-    padding: var(--vpSpacingVerPad14) var(--vpSpacingHorPad18);
+    background: linear-gradient(99.67deg, #FFF0D1 0%, #FFE8E1 84.74%, #FFE2EC 122.01%);
+    border-radius: 8px;
+    padding: var(--vpSpacingVerPad00) var(--vpSpacingHorPad16) var(--vpSpacingVerPad00) var(--vpSpacingHorPad00);
     display: flex;
     align-items: center;
-    gap: var(--vpSpacingInline16);
+    gap: var(--vpSpacingInline20);
     margin-bottom: var(--vpSpacingStack16);
+    min-height: 156px;
+    box-sizing: border-box;
   }
+  /* the banner is exempt from the palette by design - product may pick its own
+     colours here - which is why this gradient stays a literal. */
+  /* live's copy column sits 2px below the true centre - 16px of air above it
+     against 12px below - while the illustration stays centred. */
+  .vp-banner > div:last-child { flex: 1; min-width: 0; padding-top: var(--vpSpacingVerPad04); }
   .vp-banner .vp-illo {
-    width: 64px; height: 66px;
+    width: 128px; height: 132px;
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
   }
   .vp-banner .vp-illo img { width: 100%; height: 100%; object-fit: contain; }
-  .vp-banner h4 { font: var(--vpButtonText14BoldValmo); margin: var(--vpSpacingStack00) var(--vpSpacingInline00) var(--vpSpacingStack03); }
-  .vp-banner p { font: var(--vpBody3); margin: var(--vpSpacingStack00); color: var(--vpMuted); }
-  .vp-banner .vp-btn { margin-top: var(--vpSpacingStack08); }
+  .vp-banner h4 { font: var(--vpHeading1); margin: var(--vpSpacingStack00) var(--vpSpacingInline00) var(--vpSpacingStack04); }
+  .vp-banner p { font: var(--vpBody1); margin: var(--vpSpacingStack00) var(--vpSpacingInline00) var(--vpSpacingStack04); color: var(--vpMuted); }
+  .vp-banner p:last-of-type { margin-bottom: var(--vpSpacingStack00); }
+  .vp-banner a { color: var(--vpBrand); }
+  .vp-banner .vp-btn { margin-top: var(--vpSpacingStack16); }
 
   .vp-herostat { background: var(--vpSurface); border: 1px solid rgba(0,0,0,0.09); border-radius: 8px; padding: var(--vpSpacingVerPad20) var(--vpSpacingHorPad16) var(--vpSpacingVerPad16); }
   .vp-herostat .lbl { font: var(--vpBody2); color: var(--vpMuted); text-transform: uppercase; letter-spacing: 0.02em; display: inline-flex; align-items: center; gap: var(--vpSpacingInline05); }
@@ -490,6 +508,19 @@
   /* live: the All Payments panel is 8px-rounded white, like the hero and stat cards */
   .vp-panel { background: var(--vpWhite); padding: var(--vpSpacingVerPad16); border-radius: 8px; }
   .vp-panel-pad { padding: var(--vpSpacingVerPad16) var(--vpSpacingHorPad16) var(--vpSpacingVerPad00); border-radius: 8px; }
+
+  /* live titles this panel inside itself - 17/24 black with the action on the right -
+     rather than using the page band, which this page does not have at all. */
+  .vp-panel-head { display: flex; align-items: flex-start; justify-content: space-between;
+    gap: var(--vpSpacingInline12); margin-bottom: var(--vpSpacingStack16); }
+  .vp-panel-head h3 { font: var(--vpHeading3); color: var(--vpBlack); margin: var(--vpSpacingStack00); }
+  /* the sort/search row above a table */
+  .vp-tablebar { display: flex; align-items: flex-start; justify-content: space-between;
+    gap: var(--vpSpacingInline16); padding: var(--vpSpacingVerPad16) var(--vpSpacingHorPad16);
+    margin-top: var(--vpSpacingStack32); }
+  .vp-tablebar .lbl { font: var(--vpButtonText14DemiValmo); color: var(--vpMuted);
+    margin-right: var(--vpSpacingInline08); }
+  .vp-tablebar > div { display: flex; align-items: center; gap: var(--vpSpacingInline12); }
   .vp-statbar { display: flex; background: var(--vpSurface); border: 1px solid var(--vpBorder); border-radius: 8px; overflow: hidden; }
   .vp-statbar .stat { flex: 1; padding: var(--vpSpacingVerPad12); border-right: 1px solid var(--vpBorder); }
   .vp-statbar .stat:last-child { border-right: none; }
@@ -497,8 +528,13 @@
   .vp-statbar .stat .val { font: var(--vpBody17Valmo); }
 
   .vp-tabs { display: flex; gap: var(--vpSpacingInline22); border-bottom: 1px solid var(--vpBorder); }
+  /* live sizes each tab to a fixed 440px cell and centres the label in it */
+  .vp-tabs.wide { gap: var(--vpSpacingInline00); }
+  .vp-tabs.wide .vp-tab { width: 440px; box-sizing: border-box; text-align: center;
+    padding: var(--vpSpacingVerPad10) var(--vpSpacingHorPad12) var(--vpSpacingVerPad08); }
   .vp-tab { font: var(--vpBody2); padding: var(--vpSpacingVerPad09) var(--vpSpacingHorPad02) var(--vpSpacingVerPad11); color: var(--vpText); position: relative; cursor: pointer; }
-  .vp-tab.active { font: var(--vpButtonText13BoldValmo); color: var(--vpBrand); }
+  /* live marks the active tab by colour alone, not weight */
+  .vp-tab.active { font: var(--vpBody2); color: var(--vpBrand); }
   .vp-tab.active::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--vpBrand); }
 
   /* Outlined container. Live measures 1px #c3c9d4 with a 6px radius on a white
@@ -512,15 +548,30 @@
   .vp-table { font: var(--vpBody14Valmo); width: 100%; border-collapse: collapse; background: var(--vpSurface); }
   .vp-table th { font: var(--vpButtonText14DemiValmo);
     background: var(--vpHeadBg);
+    color: var(--vpBlack);
     text-align: left;
     padding: var(--vpSpacingVerPad16);
     border-bottom: 1px solid var(--vpBorder);
   }
   .vp-table td { padding: var(--vpSpacingVerPad16); border-bottom: 1px solid var(--vpBorder); vertical-align: top; }
+  /* live rules every column, and inks cell text a touch bluer than the page text */
+  .vp-table.ruled { color: var(--vpValmoInk); }
+  .vp-table.ruled th, .vp-table.ruled td { border-right: 1px solid var(--vpBorder); }
+  .vp-table.ruled th:last-child, .vp-table.ruled td:last-child { border-right: none; }
+  .vp-table-outlined { border: 1px solid var(--vpBorder); border-radius: 0; overflow: hidden; }
+  /* live's column proportions - measured 327/211/221/314/341/342 of 1756 */
+  .vp-table.ruled th:nth-child(1) { width: 18.62%; }
+  .vp-table.ruled th:nth-child(2) { width: 12.02%; }
+  .vp-table.ruled th:nth-child(3) { width: 12.59%; }
+  .vp-table.ruled th:nth-child(4) { width: 17.88%; }
+  .vp-table.ruled th:nth-child(5) { width: 19.42%; }
+  .vp-table.ruled th:nth-child(6) { width: 19.48%; }
+  .vp-table.ruled { table-layout: fixed; }
   /* in a table cell the button spans the full content box, as live does
      (live: 244px cell - 32px padding = 212px button) */
   .vp-table td .vp-btn { width: 100%; justify-content: center; box-sizing: border-box; }
   .vp-table .sub { font: var(--vpBody3); display: block; color: var(--vpMuted); margin-top: var(--vpSpacingStack02); }
+  .vp-table.ruled .sub { color: var(--vpGreyMid02); margin-top: var(--vpSpacingStack04); }
 
   .vp-back-btn { width: 24px; height: 24px; cursor: pointer; flex-shrink: 0; }
   .vp-titlerow { display: flex; align-items: center; gap: var(--vpSpacingInline10); }
@@ -540,12 +591,14 @@
   .vp-accrow-line { font: var(--vpBody1); display: flex; justify-content: space-between;
     gap: var(--vpSpacingInline12); color: var(--vpMuted); }
 
+  /* live: 300x32, a #c3c9d4 stroke on a 4px radius, and the placeholder in greyMid02 */
   .vp-search { font: var(--vpBody2);
     display: flex; align-items: center; gap: var(--vpSpacingInline08);
-    border: 1px solid var(--vpBorder); border-radius: 6px;
-    padding: var(--vpSpacingVerPad09) var(--vpSpacingHorPad12); background: var(--vpWhite); color: var(--vpMuted);
+    border: 1px solid var(--vpBorderStrong); border-radius: 4px;
+    padding: var(--vpSpacingVerPad06) var(--vpSpacingHorPad12); background: var(--vpWhite);
+    color: var(--vpGreyMid02); box-sizing: border-box; height: 32px; width: 300px;
   }
-  .vp-search svg { flex-shrink: 0; color: var(--vpMuted); }
+  .vp-search svg { width: 20px; height: 20px; flex-shrink: 0; color: var(--vpGreyMid02); }
 
   /* Table footer bar: an icon + note (and optional link) on the left, page controls on
      the right, on one row - the arrangement the live payments table uses. Either slot
@@ -561,12 +614,45 @@
   .vp-pagination .pg.active { color: var(--vpBrand); }
   .vp-pagination .pg.active::after { content: ""; position: absolute; left: 12px; right: 12px; bottom: 7px; height: 3px; background: var(--vpBrand); }
 
-  .vp-modal-backdrop { background: rgba(7,32,66,0.35); padding: var(--vpSpacingVerPad30); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
-  .vp-modal { background: var(--vpWhite); border-radius: 8px; width: 260px; box-shadow: 0 12px 32px rgba(0,0,0,0.18); }
-  .vp-modal .vp-modal-head { font: var(--vpButtonText13BoldValmo); display: flex; justify-content: space-between; align-items: center; padding: var(--vpSpacingVerPad14) var(--vpSpacingHorPad16); border-bottom: 1px solid var(--vpBorder); }
-  .vp-modal .vp-modal-body { padding: var(--vpSpacingVerPad16); display: flex; flex-direction: column; gap: var(--vpSpacingStack10); }
+  /* live: a 400px dialog on a 50% black scrim, 8px radius, header and footer each
+     divided off, the phone field carrying a floating label and its Verify button
+     beside it, and disabled actions filled greyMid01 with white 16px type. */
+  .vp-modal-backdrop { background: rgba(0,0,0,0.5); padding: var(--vpSpacingVerPad30);
+    border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+  .vp-modal { background: var(--vpWhite); border-radius: 8px; width: 400px;
+    box-shadow: 0 20px 25px -5px rgba(32,32,36,0.13), 0 8px 10px -6px rgba(32,32,36,0.13); }
+  .vp-modal .vp-modal-head { font: var(--vpHeading4); color: var(--vpBlack);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: var(--vpSpacingVerPad16) var(--vpSpacingHorPad16);
+    border-bottom: 1px solid var(--vpBorderStrong); }
+  .vp-modal .vp-modal-head .x { width: 16px; height: 16px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; color: var(--vpText); }
+  .vp-modal .vp-modal-body { padding: var(--vpSpacingVerPad16); display: flex;
+    flex-direction: column; gap: var(--vpSpacingStack16); }
+  .vp-modal .vp-modal-section { font: var(--vpHeading3); color: var(--vpBlack); }
+  .vp-modal .vp-field-row { display: flex; align-items: flex-end; gap: var(--vpSpacingInline06); }
+  .vp-modal .vp-field { position: relative; flex: 1; display: flex; align-items: center;
+    gap: var(--vpSpacingInline04); height: 46px; box-sizing: border-box;
+    border: 1px solid var(--vpBorderStrong); border-radius: 4px;
+    padding: var(--vpSpacingVerPad10) var(--vpSpacingHorPad12) var(--vpSpacingVerPad10) var(--vpSpacingHorPad16);
+    background: var(--vpWhite); }
+  .vp-modal .vp-field .lbl { font: var(--vpBody3); color: var(--vpMuted);
+    position: absolute; top: -8px; left: 12px; background: var(--vpWhite);
+    padding: var(--vpSpacingVerPad00) var(--vpSpacingHorPad04); }
+  .vp-modal .vp-field .pre { font: var(--vpBody1); color: var(--vpText); }
+  .vp-modal .vp-modal-foot { padding: var(--vpSpacingVerPad06) var(--vpSpacingHorPad16) var(--vpSpacingVerPad16);
+    border-top: 1px solid var(--vpBorder); display: flex; justify-content: flex-end; }
   .vp-modal label { font: var(--vpBody4); color: var(--vpMuted); }
-  .vp-modal input { font: var(--vpBody3); border: 1px solid var(--vpBorder); border-radius: 4px; padding: var(--vpSpacingVerPad07) var(--vpSpacingHorPad08); width: 100%; margin-top: var(--vpSpacingStack04); }
+  .vp-modal input { font: var(--vpBody1); border: none; outline: none; flex: 1;
+    width: 100%; background: transparent; color: var(--vpText); }
+  /* live fills a disabled action greyMid01 rather than fading the primary */
+  .vp-btn-disabled { background: var(--vpGreyMid01); border-color: var(--vpGreyMid01);
+    color: var(--vpWhite); height: 48px; padding: var(--vpSpacingVerPad12) var(--vpSpacingHorPad16);
+    font: var(--vpButtonText1); cursor: default; justify-content: center; }
+  /* live's labels are 16px where the library tops out at 15, so these two carry live's
+     measured widths - which is also what sets the phone field to its 274px */
+  .vp-modal .vp-field-row .vp-btn-disabled { width: 88px; }
+  .vp-modal .vp-modal-foot .vp-btn-disabled { width: 120px; }
 
   .vp-successbar { font: var(--vpBody2); background: var(--vpGreenBg); color: var(--vpBlack);
     border: 1px solid var(--vpGreenBorder); padding: var(--vpSpacingVerPad08); border-radius: 8px;
