@@ -336,7 +336,9 @@
   .vp-pagebar-row { display: flex; align-items: center; justify-content: space-between;
     gap: 4px; min-height: 36px; }
   /* flush containers already have no padding to escape */
-  .vp-content-flush .vp-pagebar { margin: 0; padding: 12px 16px; flex-shrink: 0; }
+  /* live pads the band 8px on the full-bleed map pages (44px tall) against
+     12px 16px on the scrolling pages (52px) */
+  .vp-content-flush .vp-pagebar { margin: 0; padding: 8px; flex-shrink: 0; }
 
   .vp-btn { font: var(--vpButtonText14BoldValmo);
     display: inline-flex;
@@ -495,12 +497,15 @@
      panel 353px wide (16px padding), titles 15/700, rows 14/500, metrics 13/500,
      hints & descriptions 12px, page title 21/700, tabs 301px wide at 15/500. */
   .vp-content-flush { padding: 0 !important; display: flex; flex-direction: column; }
-  .vp-sa-title { background: var(--vpSurface); padding: 6px 8px 8px; flex-shrink: 0; }
-  .vp-sa-title h3 { font: var(--vpHeading1); margin: 0; }
-  .vp-subtabbar { background: var(--vpSurface); display: flex; border-bottom: 1px solid var(--vpBorder); flex-shrink: 0; }
-  .vp-subtabbar .vp-tab { font: var(--vpBody2); width: 301px; padding: 16px 0 13px; text-align: center; }
+  /* .vp-sa-title retired - these pages use the shared .vp-pagebar band */
+  /* live: 38px tall, no bottom stroke; the active tab is marked by a 2px bar */
+  .vp-subtabbar { background: var(--vpSurface); display: flex; flex-shrink: 0; }
+  .vp-subtabbar .vp-tab { font: var(--vpBody1); width: 301px; padding: 10px 0 8px;
+    text-align: center; position: relative; }
   /* live marks the active sub-tab by colour only - all three stay Body1 */
   .vp-subtabbar .vp-tab.active { font: var(--vpBody1); color: var(--vpBrand); }
+  .vp-subtabbar .vp-tab.active::after { content: ""; position: absolute; left: 0; right: 0;
+    bottom: 0; height: 2px; background: var(--vpBrand); border-radius: 12px 12px 0 0; }
 
   .vp-maparea { position: relative; flex: 1; min-height: 700px; overflow: hidden; background: #eceae7; }
   /* stretched to fill, so a marker at N% of the map is at N% of the raster */
@@ -519,64 +524,107 @@
   .vp-dcpin .code { font: var(--vpButtonText4); margin-top: 1px; background: #fff; border-radius: 3px; padding: 1px 5px; color: var(--vpText); box-shadow: 0 1px 3px rgba(0,0,0,0.28); white-space: nowrap; }
   .vp-shipdot { position: absolute; width: 11px; height: 11px; border-radius: 50%; transform: translate(-50%, -50%); border: 1.5px solid #fff; box-shadow: 0 1px 2px rgba(0,0,0,0.35); }
   .vp-shipdot.diff-dc { background: #f44240; }
-  .vp-shipdot.outside { background: #00a550; }
-  .vp-shipdot.rto { background: #34353a; }
+  .vp-shipdot.outside { background: #038d63; }
+  .vp-shipdot.rto { background: #353543; }
   .vp-shiptri { position: absolute; transform: translate(-50%, -50%); width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-bottom: 12px solid #e11900; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.35)); }
 
   /* floating panel over the map */
-  .vp-mappanel { position: absolute; top: 12px; left: 12px; width: 353px; box-sizing: border-box; background: var(--vpSurface); border-radius: 8px; box-shadow: 0 4px 18px rgba(0,0,0,0.16); padding: 16px; max-height: calc(100% - 24px); overflow-y: auto; }
-  .vp-mappanel > h4 { font: var(--vpHeading4); margin: 0; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  /* live runs the panel to a fixed height, stopping just above the map's
+     attribution strip, rather than hugging its content */
+  .vp-mappanel { position: absolute; top: 8px; bottom: 45px; left: 0; width: 352px;
+    box-sizing: border-box; background: var(--vpSurface); border-radius: 6px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.16); padding: 16px; overflow-y: auto; }
+  .vp-mappanel > h4 { font: var(--vpHeading4); color: var(--vpBlack); margin: 0; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
   .vp-mappanel .p-sub { font: var(--vpBody3); color: var(--vpMuted); margin-top: 3px; }
-  .vp-mappanel .p-head { font: var(--vpHeading4); margin: 18px 0 4px; }
+  .vp-mappanel .p-head { font: var(--vpHeading4); color: var(--vpBlack); margin: 18px 0 4px; }
   .vp-mappanel .p-desc { font: var(--vpBody3); color: var(--vpMuted); }
-  .vp-panel-toggle { position: absolute; top: 50%; left: 377px; transform: translateY(-50%); width: 17px; height: 36px; background: var(--vpValmoNavyMid); color: var(--vpWhite); border-radius: 0 5px 5px 0; display: flex; align-items: center; justify-content: center; font-size: 13px; cursor: pointer; z-index: 3; }
-  .vp-expand-ic { width: 22px; height: 22px; border: 1.5px solid var(--vpBrand); border-radius: 3px; flex-shrink: 0; cursor: pointer; position: relative; }
-  .vp-expand-ic::before, .vp-expand-ic::after { content: ""; position: absolute; width: 5px; height: 5px; border: 1.5px solid var(--vpBrand); }
-  .vp-expand-ic::before { top: 3px; left: 3px; border-right: none; border-bottom: none; }
-  .vp-expand-ic::after { bottom: 3px; right: 3px; border-left: none; border-top: none; }
+  /* live sets the Misrouted tab's copy a size larger than My Service Area's */
+  .vp-mappanel .p-sub.wide, .vp-mappanel .p-desc.wide { font: var(--vpBody2); }
+  /* the handle rides the panel's edge; collapsed it parks at the map's left edge.
+     Geometry lives here, not in an inline handler, so it cannot drift again. */
+  .vp-maparea.panel-collapsed .vp-mappanel { display: none; }
+  .vp-maparea.panel-collapsed .vp-panel-toggle { left: 0; border-radius: 0 6px 6px 0; }
+  .vp-panel-toggle { position: absolute; top: 50%; left: 352px; transform: translateY(-50%); width: 24px; height: 40px; background: var(--vpBrand); color: var(--vpWhite); border-radius: 0 6px 6px 0; display: flex; align-items: center; justify-content: center; font-size: 13px; cursor: pointer; z-index: 3; }
+  /* live draws this in Valmo Blue on a pale blue fill, square-cornered, with four
+     solid corner blocks overlapping the edges - not a navy outline. */
+  .vp-expand-ic { width: 23px; height: 21px; box-sizing: border-box;
+    border: 2px solid var(--vpValmoBlue); background: var(--vpValmoBlueT3);
+    flex-shrink: 0; cursor: pointer; position: relative; margin-right: 4px; }
+  .vp-expand-ic i { position: absolute; width: 5px; height: 7px;
+    background: var(--vpValmoBlue); display: block; }
+  .vp-expand-ic i:nth-child(1) { top: -3px; left: -1px; }
+  .vp-expand-ic i:nth-child(2) { top: -4px; right: -3px; }
+  .vp-expand-ic i:nth-child(3) { bottom: -3px; left: -1px; }
+  .vp-expand-ic i:nth-child(4) { bottom: -4px; right: -3px; }
 
   /* collapsible section */
-  .vp-collapse { border: 1px solid var(--vpBorder); border-radius: 8px; margin: 13px 0 14px; overflow: hidden; }
-  .vp-collapse-head { font: var(--vpHeading4); display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; color: var(--vpBrand); cursor: pointer; }
-  .vp-collapse-head .chev { font-size: 11px; }
+  .vp-collapse { border: 1px solid var(--vpBrand); border-radius: 8px; margin: 10px 0 14px; overflow: hidden; }
+  .vp-collapse-head { font: var(--vpHeading4); display: flex; align-items: center;
+    gap: 8px; padding: 12px 16px; color: var(--vpBrand); cursor: pointer; }
+  .vp-collapse-head .chev { width: 24px; height: 24px; display: block; flex-shrink: 0;
+    transition: transform 0.15s ease; }
+  .vp-collapse.open .vp-collapse-head .chev { transform: rotate(180deg); }
   .vp-collapse-body { padding: 0 16px 8px; }
-  .vp-optrow { font: var(--vpBody14Valmo); display: flex; align-items: center; gap: 10px; padding: 11px 0; border-top: 1px solid var(--vpBorder); }
+  .vp-optrow { font: var(--vpBody2); color: var(--vpBlack); display: flex; align-items: center; gap: 8px; padding: 11px 0; border-top: 1px solid var(--vpBorder); }
   .vp-optrow:first-child { border-top: none; }
   /* Area Update History selector: always a radio, so the shape never changes on select
      - only the inner dot appears. */
-  .vp-sel { width: 17px; height: 17px; border: 1.5px solid var(--vpBrand); border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-  .vp-sel.on::after { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--vpBrand); }
+  .vp-sel { width: 20px; height: 20px; border: 2px solid var(--vpGreyMid02); border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+  /* live renders the selected radio grey as well; brand navy is a deliberate
+     improvement on it - the selection now actually reads as selected. */
+  .vp-sel.on { border-color: var(--vpBrand); }
+  .vp-sel.on::after { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--vpBrand); }
 
   /* toggleable map marker groups */
   .vp-lyr { position: absolute; inset: 0; pointer-events: none; }
 
   /* checkbox + label + legend token rows */
-  .vp-cbx { width: 17px; height: 17px; border: 1.5px solid var(--vpBrand); border-radius: 3px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .vp-cbx { width: 16px; height: 16px; border: 2px solid var(--vpBrand); border-radius: 3px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
   .vp-cbx.on { background: var(--vpBrand); }
   .vp-cbx.on::after { content: "\2713"; color: var(--vpWhite); font-size: 11px; font-weight: 700; line-height: 1; }
-  .vp-layerrow { font: var(--vpBody14Valmo); display: flex; align-items: center; gap: 10px; border: 1px solid var(--vpBorder); border-radius: 6px; padding: 11px 12px; margin-top: 9px; cursor: pointer; }
+  .vp-layerrow { font: var(--vpBody14Valmo); display: flex; align-items: center; gap: 10px;
+    border: 1px solid var(--vpGreyLight02); border-radius: 2px; padding: 10px 12px;
+    margin-top: 9px; cursor: pointer; }
+  /* the Misrouted tab draws the same control tighter and rounder */
+  .vp-layerrow.shipments { font: var(--vpBody2); border-radius: 4px; padding: 6px; gap: 7px; }
   .vp-layerrow .lbl { flex: 1; }
   .vp-layerrow.off .lbl { color: var(--vpMuted); }
   .vp-legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+
+  /* The live map. It sits under the existing overlays, so if Leaflet is absent or its
+     tiles never arrive the baked raster stays visible and nothing else changes -
+     .vp-leaflet-on is only set once tiles have actually painted. */
+  .vp-leaflet { position: absolute; inset: 0; z-index: 0; }
+  .vp-leaflet-on .vp-mapbase { visibility: hidden; }
+  .vp-leaflet-on > .vp-mapoverlay { display: none; }
+  /* the layer groups keep their display, because that is what the checkboxes toggle
+     and what the map mirrors - only their contents are hidden */
+  .vp-leaflet-on .vp-lyr > * { visibility: hidden; }
+  .vp-maparea .leaflet-container { background: var(--vpGreyLight02); font: var(--vpBody3); }
+  .vp-leaflet-pin { background: none; border: 0; }
+  .vp-leaflet-pin .vp-dcpin,
+  .vp-leaflet-pin .vp-shipdot,
+  .vp-leaflet-pin .vp-shiptri { position: static; transform: none; }
   /* the legend keys repeat the shipment-dot artwork colours */
   .vp-legend-dot.diff-dc { background: #f44240; }
-  .vp-legend-dot.outside { background: #00a550; }
-  .vp-legend-dot.rto     { background: #34353a; }
+  .vp-legend-dot.outside { background: #038d63; }
+  .vp-legend-dot.rto     { background: #353543; }
   .vp-legend-tri { width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-bottom: 12px solid #e11900; flex-shrink: 0; }
 
   /* key/value + metric rows */
   .vp-kv { font: var(--vpBody2); display: flex; justify-content: space-between; gap: 16px; margin-top: 13px; }
   .vp-kv .lbl { color: var(--vpMuted); flex-shrink: 0; display: inline-flex; align-items: center; gap: 5px; }
   .vp-kv .val { text-align: right; }
-  .vp-metric-hint { font: var(--vpHeading7); color: var(--vpValmoGreenDeep); margin-top: 4px; }
+  /* live measures this at greenAction, not the deeper green we had been carrying */
+  .vp-metric-hint { font: var(--vpHeading7); color: var(--vpGreenAction); margin-top: 4px; }
   .vp-info-dot { width: 13px; height: 13px; border-radius: 50%; border: 1.2px solid var(--vpMuted); color: var(--vpMuted); font-size: 9px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
 
   /* date range field + picker */
-  .vp-daterange { font: var(--vpBody2); display: flex; align-items: center; justify-content: space-between; gap: 10px; border: 1px solid var(--vpBorder); border-radius: 6px; padding: 11px 12px; margin-top: 7px; }
-  .vp-daterange .rng { font: var(--vpHeading5); display: flex; align-items: center; gap: 7px; color: var(--vpBrand); white-space: nowrap; }
-  .vp-daterange .rng img { width: 15px; height: 15px; }
-  .vp-daterange .edit { font: var(--vpButtonText13BoldValmo); display: flex; align-items: center; gap: 6px; color: var(--vpBrand); cursor: pointer; white-space: nowrap; }
-  .vp-daterange .edit img { width: 14px; height: 14px; }
+  .vp-daterange { font: var(--vpBody2); display: flex; align-items: center; justify-content: space-between; gap: 10px; border: 1px solid var(--vpBorder); border-radius: 8px; padding: 10px 12px; margin-top: 6px; }
+  .vp-daterange .rng { font: var(--vpBody4); display: flex; align-items: center; gap: 7px; color: var(--vpBrand); white-space: nowrap; }
+  .vp-daterange .rng img { width: 16px; height: 16px; }
+  .vp-daterange .edit { font: var(--vpBody2); display: flex; align-items: center; gap: 6px; color: var(--vpBrand); cursor: pointer; white-space: nowrap; }
+  .vp-daterange .edit img { width: 16px; height: 16px; }
 
   /* The picker is anchored under the field and taken out of flow, so opening it
      overlays the rest of the panel instead of growing the panel height. */
@@ -599,25 +647,29 @@
   .vp-dp-foot .note { font: var(--vpBody3); color: var(--vpMuted); }
 
   /* inline alert */
-  .vp-inlinealert { font: var(--vpBody2); display: flex; gap: 9px; background: var(--vpRedBg); border-radius: 6px; padding: 12px; margin-top: 13px; }
-  .vp-inlinealert img, .vp-inlinealert svg { width: 19px; height: 19px; flex-shrink: 0; }
+  .vp-inlinealert { font: var(--vpBody2); display: flex; gap: 9px; background: var(--vpRedBg);
+    border: 1px solid var(--vpRedBorder); border-radius: 8px; padding: 8px; margin-top: 5px; }
+  .vp-inlinealert img, .vp-inlinealert svg { width: 20px; height: 20px; flex-shrink: 0; }
 
   /* download button (UI only) */
-  .vp-downloadbtn { font: var(--vpButtonText14BoldValmo); display: flex; align-items: center; justify-content: space-between; gap: 10px; border: 1px solid var(--vpBrand); border-radius: 6px; padding: 12px; margin-top: 13px; color: var(--vpBrand); cursor: pointer; }
+  .vp-downloadbtn { font: var(--vpBody2); display: flex; align-items: center; justify-content: space-between; gap: 10px; border: 1px solid var(--vpBrand); border-radius: 4px; padding: 6px; margin-top: 13px; color: var(--vpBrand); cursor: pointer; }
   .vp-downloadbtn .lft { display: flex; align-items: center; gap: 8px; }
 
   /* AWB search + submit */
-  .vp-awbfield { display: flex; align-items: stretch; gap: 8px; margin-top: 12px; }
-  .vp-awbfield .inp { font: var(--vpBody14Valmo); flex: 1; border: 1px solid var(--vpBorder); border-radius: 6px; padding: 11px 12px; color: var(--vpMuted); }
-  .vp-awbfield .go { width: 34px; background: var(--vpBrand); border-radius: 5px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
-  .vp-awbfield .go img { width: 14px; height: 14px; filter: brightness(0) invert(1); }
+  .vp-awbfield { display: flex; align-items: center; gap: 4px; margin-top: 10px; }
+  .vp-awbfield .inp { font: var(--vpBody1); flex: 1; border: 1px solid var(--vpBorderStrong);
+    border-radius: 4px; padding: 10px 12px 10px 16px; color: var(--vpBlack); }
+  .vp-awbfield .go { width: 29px; height: 32px; background: var(--vpBrand); border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
+  .vp-awbfield .go img { width: 20px; height: 20px; filter: brightness(0) invert(1); }
 
   /* empty-state card */
-  .vp-emptycard { background: var(--vpGreyLight02); border-radius: 8px; padding: 16px; margin-top: 14px; }
-  .vp-emptycard .illo { display: block; width: 150px; margin: 0 auto 11px; }
-  .vp-emptycard h5 { font: var(--vpHeading4); margin: 0 0 11px; color: var(--vpBrand); text-align: center; }
-  .vp-emptystep { font: var(--vpBody14Valmo); display: flex; align-items: center; gap: 9px; margin-top: 8px; }
-  .vp-emptystep img { width: 16px; height: 16px; flex-shrink: 0; }
+  /* live outlines this card rather than filling it */
+  .vp-emptycard { border: 2px solid var(--vpGreyLight02); border-radius: 6px;
+    padding: 16px 6px; margin-top: 10px; }
+  .vp-emptycard .illo { display: block; width: 125px; margin: 0 auto 4px; }
+  .vp-emptycard h5 { font: var(--vpHeading3); margin: 0 0 4px; color: var(--vpBrand); text-align: center; }
+  .vp-emptystep { font: var(--vpButtonText1); color: var(--vpMuted); display: flex; align-items: center; gap: 4px; margin-top: 6px; }
+  .vp-emptystep img { width: 20px; height: 20px; flex-shrink: 0; }
 
 </style>
 </head>
