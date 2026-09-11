@@ -576,10 +576,14 @@
     border-bottom: 1px solid var(--vpBorder);
   }
   .vp-table td { padding: var(--vpSpacingVerPad16); border-bottom: 1px solid var(--vpBorder); vertical-align: top; }
-  /* live rules every column, and inks cell text a touch bluer than the page text */
+  /* Live rules every column in every table it has - Payments and Pilot Management
+     alike - so the vertical divider belongs to the table itself, not to a variant.
+     The last column has no rule: there is nothing to divide it from. */
+  .vp-table th, .vp-table td { border-right: 1px solid var(--vpBorder); }
+  .vp-table th:last-child, .vp-table td:last-child { border-right: none; }
+  /* .ruled adds what is specific to the wide Pilot Management table: live inks its
+     cell text a touch bluer than the page text, and fixes the column widths. */
   .vp-table.ruled { color: var(--vpValmoInk); }
-  .vp-table.ruled th, .vp-table.ruled td { border-right: 1px solid var(--vpBorder); }
-  .vp-table.ruled th:last-child, .vp-table.ruled td:last-child { border-right: none; }
   .vp-table-outlined { border: 1px solid var(--vpBorder); border-radius: 0; overflow: hidden; }
   /* live's column proportions - measured 327/211/221/314/341/342 of 1756 */
   .vp-table.ruled th:nth-child(1) { width: 18.62%; }
