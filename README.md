@@ -9,6 +9,34 @@ this repo grows.
 source catalog — left public as a deliberate call so the Flow Ledger catalog works for anyone
 regardless of Claude plan or team, without needing repo access to be granted per person.
 
+## Changing a screen
+
+Everything under `source/` is authored. Everything else at the root — `index.html`,
+`screens/`, `components/`, `assets/`, `manifest.json` — is generated from it by
+`scripts/export_to_github.py` and should never be hand-edited: the next export
+overwrites it, and CI fails the PR if the two disagree.
+
+You do not have to touch JSON. Edit the rendered page, then let the importer fold it back:
+
+```bash
+# 1. get the screen (or the whole flow) with the pull command from the Flow Ledger
+# 2. edit screens/<id>.html however you like, and check it in a browser
+# 3. fold it back into the source and rebuild the site
+python3 scripts/import_screen.py screens/<id>.html
+# 4. commit source/ and the regenerated files together, then open a PR
+```
+
+`import_screen.py` extracts the page body, turns the icon `<img src>` back into
+`data-icon` keys, writes `source/data-seed.json` and the copies embedded in the
+ledger, re-runs the export, and then proves the round trip — the screen it wrote
+must re-export byte-identically to the file you gave it. If anything is off it
+stops and says so rather than committing a half-applied change.
+
+**Reviewing a PR.** Vercel builds a preview for the branch and comments the URL on
+the PR. Open it, look at the actual screen, merge if it's right. That is why the
+generated files belong in the PR: a source-only change would leave the preview
+showing the previous build.
+
 ## Get one screen, one flow, or a component
 
 Don't `git clone` this repo — it pulls every screen and component every time, regardless of
