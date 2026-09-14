@@ -200,52 +200,70 @@
     padding: 2px 10px 8px;
   }
 
-  .spine-list { list-style: none; margin: 2px 0 0; padding: 0; }
+  .spine-list { list-style: none; margin: 4px 0 0; padding: 0; }
 
+  /* A module is a heavier thing than a screen inside it, and the rail was not
+     saying so: same weight, same ink, four pixels apart. Modules now carry the
+     page's own ink and a numbered blue chip; screens sit smaller, lighter and
+     further in, under a rule that visibly belongs to the module above. */
   .spine-item {
     display: flex;
     align-items: center;
-    gap: 9px;
-    padding: 7px 10px;
+    gap: 10px;
+    padding: 9px 10px;
+    margin-top: 2px;
     border-radius: var(--r-sm);
     cursor: pointer;
-    color: var(--ink-2);
-    font: 400 13px/1.35 var(--ui);
+    color: var(--ink);
+    font: 500 13.5px/1.35 var(--ui);
     position: relative;
     transition: background .12s ease, color .12s ease;
   }
-  .spine-item:hover { background: var(--sunken); color: var(--ink); }
-  .spine-item.active { background: var(--blue-soft); color: var(--navy); font-weight: 500; }
+  /* space before the next module, so a module and its screens read as one block */
+  .spine-item + .spine-item { margin-top: 6px; }
+  .spine-screens + .spine-item { margin-top: 10px; }
+  .spine-item:hover { background: var(--sunken); }
+  .spine-item.active { background: var(--blue-soft); color: var(--navy); font-weight: 600; }
   .spine-item.active::before {
     content: "";
-    position: absolute; left: -12px; top: 5px; bottom: 5px;
+    position: absolute; left: -12px; top: 4px; bottom: 4px;
     width: 3px; border-radius: 0 3px 3px 0;
     background: var(--blue);
   }
+  /* the index is an anchor, not a footnote - it carries colour so the eye can
+     count modules without reading them */
   .spine-item .n {
-    font: 400 10.5px/1 var(--mono);
-    color: var(--faint);
     flex-shrink: 0;
-    width: 15px;
+    width: 20px; height: 20px;
+    display: grid; place-items: center;
+    border-radius: var(--r-xs);
+    background: var(--blue-soft);
+    color: var(--blue);
+    font: 600 10px/1 var(--mono);
   }
-  .spine-item.active .n { color: var(--blue); }
+  .spine-item.active .n { background: var(--blue); color: #fff; }
   .spine-item .name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .spine-item .count {
-    font: 400 10.5px/1 var(--mono);
-    color: var(--faint);
+    font: 500 10.5px/1 var(--mono);
+    color: var(--muted);
     flex-shrink: 0;
+    background: var(--sunken);
+    border-radius: 100px;
+    padding: 3px 6px;
   }
+  .spine-item.active .count { background: #fff; color: var(--blue); }
 
   /* a flow's screens, revealed under the open flow */
-  .spine-screens { list-style: none; margin: 1px 0 4px; padding: 0 0 0 10px; position: relative; }
+  .spine-screens { list-style: none; margin: 4px 0 2px; padding: 0 0 0 20px; position: relative; }
   .spine-screens::before {
     content: "";
-    position: absolute; left: 14px; top: 2px; bottom: 6px;
-    width: 1px; background: var(--line);
+    position: absolute; left: 20px; top: 0; bottom: 8px;
+    width: 1.5px; border-radius: 2px;
+    background: var(--blue-line);
   }
   .spine-screen {
     display: flex; align-items: center; gap: 9px;
-    padding: 5px 10px 5px 18px;
+    padding: 6px 10px 6px 16px;
     border-radius: var(--r-sm);
     cursor: pointer;
     color: var(--muted);
@@ -257,13 +275,12 @@
   .spine-screen.active { color: var(--blue); font-weight: 500; }
   .spine-screen::before {
     content: "";
-    position: absolute; left: 4px; top: 50%; transform: translateY(-50%);
-    width: 5px; height: 5px; border-radius: 50%;
-    background: var(--line-2);
-    transition: background .12s ease, box-shadow .12s ease;
+    position: absolute; left: -3.5px; top: 50%; transform: translateY(-50%);
+    width: 8px; height: 1.5px; border-radius: 2px;
+    background: var(--blue-line);
+    transition: background .12s ease;
   }
-  .spine-screen:hover::before { background: var(--faint); }
-  .spine-screen.active::before { background: var(--blue); box-shadow: 0 0 0 3px var(--blue-soft); }
+  .spine-screen.active::before { background: var(--blue); }
   .spine-screen .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
   .rail-empty { padding: 10px; color: var(--faint); font-size: 12.5px; }
@@ -655,6 +672,278 @@
   .sp-row .px { font: 400 11.5px/1 var(--mono); color: var(--muted); width: 52px; flex-shrink: 0; text-align: right; }
   .sp-bar { height: 12px; border-radius: 3px; background: var(--blue); opacity: .8; }
   .sp-bar.neg { background: var(--amber); }
+
+  /* ---------------------------------------------------------- Learn index */
+  .learn-index { max-width: 1120px; margin: 0 auto; padding-bottom: 48px; }
+  .learn-index-head { margin-bottom: 30px; }
+  .learn-index-head h1 {
+    margin: 0 0 6px; font: 700 30px/1.2 var(--display);
+    letter-spacing: -.02em; color: var(--navy);
+  }
+  .learn-index-head p { margin: 0; font: 400 14.5px/1.7 var(--ui); color: var(--muted); max-width: 62ch; }
+
+  .learn-track { margin-bottom: 30px; }
+  .learn-track-head {
+    display: flex; align-items: baseline; gap: 12px;
+    margin-bottom: 14px; padding-bottom: 10px;
+    border-bottom: 1px solid var(--line);
+  }
+  .learn-track-head h2 {
+    margin: 0; font: 600 11px/1 var(--ui);
+    letter-spacing: .1em; text-transform: uppercase; color: var(--blue);
+    flex-shrink: 0;
+  }
+  .learn-track-head span { font: 400 12.5px/1.5 var(--ui); color: var(--faint); }
+
+  /* stacks horizontally while there is room, vertically when there is not */
+  .learn-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(258px, 1fr));
+    gap: 14px;
+  }
+
+  .learn-card {
+    position: relative;
+    display: flex; flex-direction: column; gap: 9px;
+    text-align: left;
+    padding: 18px 18px 16px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    box-shadow: var(--sh-1);
+    cursor: pointer;
+    font: inherit;
+    overflow: hidden;
+    transition: transform .14s ease, box-shadow .14s ease, border-color .14s ease;
+  }
+  /* a soft wash that only shows on approach, so a grid of fourteen stays calm */
+  .learn-card::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, var(--blue-soft) 0%, rgba(237,242,255,0) 58%);
+    opacity: 0;
+    transition: opacity .14s ease;
+    pointer-events: none;
+  }
+  .learn-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--sh-2);
+    border-color: var(--blue-line);
+  }
+  .learn-card:hover::before { opacity: 1; }
+
+  .lc-top { display: flex; align-items: center; justify-content: space-between; }
+  .lc-ic {
+    width: 38px; height: 38px;
+    display: grid; place-items: center;
+    border-radius: 10px;
+    background: var(--blue-soft);
+    color: var(--blue);
+    transition: background .14s ease, color .14s ease;
+  }
+  .lc-ic svg { width: 20px; height: 20px; display: block; }
+  .learn-card:hover .lc-ic { background: var(--navy); color: #fff; }
+  .lc-n { font: 500 11px/1 var(--mono); color: var(--faint); }
+
+  .lc-title { font: 700 15.5px/1.4 var(--display); color: var(--navy); letter-spacing: -.005em; }
+  /* the same label on the card, sized down to sit beside a 15.5px title */
+  .lc-badge {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: middle;
+    margin-left: 8px;
+    transform: translateY(-1px);
+    font: 600 8.5px/1 var(--ui);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--navy);
+    border-radius: 100px;
+    padding: 4px 8px;
+    white-space: nowrap;
+  }
+
+  .lc-sum { font: 400 12.5px/1.6 var(--ui); color: var(--muted); flex: 1; }
+  .lc-foot {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 3px; padding-top: 11px; border-top: 1px solid var(--line);
+  }
+  .lc-aud {
+    font: 600 9.5px/1 var(--ui); letter-spacing: .08em; text-transform: uppercase;
+    color: var(--amber); background: var(--amber-soft, #FFEDDE);
+    border-radius: 100px; padding: 4px 8px;
+  }
+  .lc-go {
+    font: 500 11.5px/1 var(--ui); color: var(--blue);
+    opacity: 0; transform: translateX(-4px);
+    transition: opacity .14s ease, transform .14s ease;
+  }
+  .learn-card:hover .lc-go { opacity: 1; transform: none; }
+  .lc-top, .lc-title, .lc-sum, .lc-foot { position: relative; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .learn-card:hover { transform: none; }
+    .lc-go { opacity: 1; transform: none; }
+  }
+
+  /* ---------------------------------------------------------- Learn
+     Prose, so it is set for reading: one measured column, a real scale, and
+     figures that use the same tokens as everything else in the catalog. */
+  .learn { max-width: 760px; margin: 0 auto; padding-bottom: 40px; }
+  .learn-head { margin-bottom: 26px; }
+  /* "One-time setup" - a label about the task, not the reader, so it is filled
+     rather than tinted. It shimmers four times on arrival and then stays still;
+     a badge that never stops moving is an irritation, not an invitation. */
+  .learn-badge {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: middle;
+    margin-left: 12px;
+    transform: translateY(-3px);
+    font: 600 10px/1 var(--ui);
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--navy);
+    border-radius: 100px;
+    padding: 6px 11px;
+    white-space: nowrap;
+  }
+  .shimmer::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(100deg,
+      rgba(255,255,255,0) 25%,
+      rgba(255,255,255,.55) 50%,
+      rgba(255,255,255,0) 75%);
+    transform: translateX(-110%);
+    animation: lb-shimmer 1.45s ease-in-out .4s 4;
+  }
+  @keyframes lb-shimmer { to { transform: translateX(110%); } }
+  @media (prefers-reduced-motion: reduce) { .shimmer::after { animation: none; } }
+
+  .learn-aud {
+    display: inline-block; margin-bottom: 10px;
+    font: 600 10px/1 var(--ui); letter-spacing: .09em; text-transform: uppercase;
+    color: var(--blue); background: var(--blue-soft);
+    border: 1px solid var(--blue-line); border-radius: 100px; padding: 5px 9px;
+  }
+  .learn h1 { margin: 0; font: 700 30px/1.25 var(--display); letter-spacing: -.02em; color: var(--navy); }
+  .learn h3 {
+    margin: 34px 0 12px; font: 700 17px/1.3 var(--display); color: var(--navy);
+    padding-top: 22px; border-top: 1px solid var(--line);
+  }
+  .learn h4 { margin: 0 0 7px; font: 600 14.5px/1.4 var(--ui); color: var(--ink); }
+  .learn p { margin: 0 0 14px; font: 400 14.5px/1.75 var(--ui); color: var(--ink-2); }
+  .learn p.lead { font-size: 16.5px; line-height: 1.65; color: var(--ink); margin-bottom: 20px; }
+  .learn b, .learn strong { color: var(--ink); font-weight: 600; }
+  .learn code {
+    font: 400 12.5px/1 var(--mono); color: var(--navy);
+    background: var(--sunken); border: 1px solid var(--line);
+    border-radius: var(--r-xs); padding: 2px 5px;
+  }
+  .learn-code {
+    font: 400 12.5px/1.75 var(--mono); color: var(--ink);
+    background: var(--sunken); border: 1px solid var(--line);
+    border-radius: var(--r); padding: 16px 18px; margin: 0 0 16px;
+    overflow-x: auto; white-space: pre;
+  }
+  .learn-code { position: relative; padding-right: 92px; }
+  .code-copy {
+    position: absolute; top: 9px; right: 9px;
+    display: inline-flex; align-items: center; gap: 5px;
+    height: 26px; padding: 0 9px;
+    border: 1px solid var(--line-2); border-radius: var(--r-sm);
+    background: var(--surface); color: var(--muted);
+    font: 500 11px/1 var(--ui); cursor: pointer;
+    transition: color .12s ease, border-color .12s ease, background .12s ease;
+  }
+  .code-copy svg { width: 13px; height: 13px; }
+  .code-copy:hover { color: var(--navy); border-color: var(--navy); }
+  .code-copy.ok { color: var(--green, #1A7D3A); border-color: var(--green, #1A7D3A); background: #fff; }
+
+  .learn-rules { margin: 0 0 16px; padding: 0; list-style: none; }
+  .learn-rules li {
+    position: relative; padding: 0 0 0 20px; margin-bottom: 10px;
+    font: 400 14.5px/1.7 var(--ui); color: var(--ink-2);
+  }
+  .learn-rules li::before {
+    content: ""; position: absolute; left: 2px; top: 10px;
+    width: 5px; height: 5px; border-radius: 50%; background: var(--blue-line);
+  }
+
+  .learn-ol { margin: 0 0 16px; padding-left: 20px; }
+  .learn-ol li {
+    font: 400 14.5px/1.7 var(--ui); color: var(--ink-2);
+    margin-bottom: 9px; padding-left: 4px;
+  }
+  .learn-ol li::marker { color: var(--blue); font-weight: 600; font-size: 13px; }
+  .learn-grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+  .learn-two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  .learn-cell {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--r); padding: 14px 16px;
+    display: flex; flex-direction: column; gap: 5px;
+  }
+  .learn-cell b { font: 600 13.5px/1.3 var(--ui); color: var(--ink); }
+  .learn-cell span { font: 400 12.5px/1.6 var(--ui); color: var(--muted); }
+  .learn-cell.good { border-color: var(--blue-line); background: var(--blue-soft); }
+  .learn-cell.warn { border-color: var(--vpOrangeBorder, #FFD2AB); background: var(--amber-soft, #FFEDDE); }
+
+  /* a trap, told as what happened then what to do */
+  .learn-trap {
+    background: var(--surface); border: 1px solid var(--line);
+    border-left: 3px solid var(--amber);
+    border-radius: var(--r); padding: 16px 18px; margin-bottom: 12px;
+  }
+  .learn-trap.ok { border-left-color: var(--blue); }
+  .learn-trap p { font-size: 13.5px; margin-bottom: 9px; }
+  .learn-trap p:last-child { margin-bottom: 0; }
+  .learn-trap .fix { color: var(--ink); }
+
+  .learn-note {
+    font: 400 13.5px/1.7 var(--ui) !important; color: var(--muted) !important;
+    background: var(--sunken); border-left: 3px solid var(--line-2);
+    border-radius: 0 var(--r-sm) var(--r-sm) 0; padding: 12px 16px; margin-bottom: 16px !important;
+  }
+  .learn-defs { display: grid; gap: 10px; margin-bottom: 16px; }
+  .learn-defs > div {
+    display: grid; grid-template-columns: 130px 1fr; gap: 14px; align-items: start;
+    padding: 11px 14px; background: var(--surface);
+    border: 1px solid var(--line); border-radius: var(--r);
+  }
+  .learn-defs b { font: 600 13px/1.5 var(--ui); color: var(--navy); }
+  .learn-defs span { font: 400 13px/1.6 var(--ui); color: var(--ink-2); }
+  @media (max-width: 700px) { .learn-defs > div { grid-template-columns: 1fr; gap: 4px; } }
+
+  .learn-trap .learn-code { margin: 9px 0 0; font-size: 12px; background: #fff; }
+  .learn-fig { margin: 0 0 20px; }
+  .learn-fig svg {
+    display: block; width: 100%; height: auto;
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--r);
+  }
+  .learn-fig figcaption {
+    margin-top: 9px; font: 400 12.5px/1.6 var(--ui); color: var(--muted); text-align: center;
+  }
+  .learn-fig .dg-h { font: 600 10px var(--ui); letter-spacing: .09em; fill: var(--muted); text-anchor: middle; }
+  .learn-fig .dg-t { font: 600 12px var(--ui); fill: var(--ink); text-anchor: middle; }
+  .learn-fig .dg-s { font: 400 10.5px var(--ui); fill: var(--muted); text-anchor: middle; }
+  /* on a navy block. A CSS fill beats the element's own fill attribute, which is
+     how the labels on the dark blocks ended up navy-on-navy and unreadable. */
+  .learn-fig .dg-t.inv { fill: #FFFFFF; }
+  .learn-fig .dg-h.inv { fill: #C7DCFF; }
+  .learn-fig .dg-s.inv { fill: #C7DCFF; }
+
+  .learn-next {
+    display: flex; justify-content: space-between; gap: 12px;
+    margin-top: 34px; padding-top: 22px; border-top: 1px solid var(--line);
+  }
+
+  @media (max-width: 900px) {
+    .learn-grid3, .learn-two { grid-template-columns: 1fr; }
+  }
 
   /* ---------------------------------------------------------- command palette
      The tree covers browsing; this covers knowing what you want. */
@@ -2337,13 +2626,156 @@
     "ic_success_circle": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDIwIDIwIiBmaWxsPSIjNDNBOTJDIj48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTEwIDE3LjVDMTQuMTQyMSAxNy41IDE3LjUgMTQuMTQyMSAxNy41IDEwQzE3LjUgNS44NTc4NiAxNC4xNDIxIDIuNSAxMCAyLjVDNS44NTc4NiAyLjUgMi41IDUuODU3ODYgMi41IDEwQzIuNSAxNC4xNDIxIDUuODU3ODYgMTcuNSAxMCAxNy41Wk0xMS4yNSA3LjA4MzMzQzExLjI1IDcuNzczNjkgMTAuNjkwNCA4LjMzMzMzIDEwIDguMzMzMzNDOS4zMDk2NCA4LjMzMzMzIDguNzUgNy43NzM2OSA4Ljc1IDcuMDgzMzNDOC43NSA2LjM5Mjk4IDkuMzA5NjQgNS44MzMzMyAxMCA1LjgzMzMzQzEwLjY5MDQgNS44MzMzMyAxMS4yNSA2LjM5Mjk4IDExLjI1IDcuMDgzMzNaTTEwIDkuNzkxNjdDMTAuMzQ1MiA5Ljc5MTY3IDEwLjYyNSAxMC4wNzE1IDEwLjYyNSAxMC40MTY3VjE0LjE2NjdDMTAuNjI1IDE0LjUxMTggMTAuMzQ1MiAxNC43OTE3IDEwIDE0Ljc5MTdDOS42NTQ4MiAxNC43OTE3IDkuMzc1IDE0LjUxMTggOS4zNzUgMTQuMTY2N1YxMC40MTY3QzkuMzc1IDEwLjA3MTUgOS42NTQ4MiA5Ljc5MTY3IDEwIDkuNzkxNjdaIiBmaWxsPSIjNDNBOTJDIi8+PC9zdmc+Cg==",
     "ic_info_circle": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDIwIDIwIiBmaWxsPSJub25lIj48cGF0aCBkPSJNMTAgOS43OTE2N0MxMC4zNDUyIDkuNzkxNjcgMTAuNjI1IDEwLjA3MTUgMTAuNjI1IDEwLjQxNjdWMTQuMTY2N0MxMC42MjUgMTQuNTExOCAxMC4zNDUyIDE0Ljc5MTcgMTAgMTQuNzkxN0M5LjY1NDgyIDE0Ljc5MTcgOS4zNzUgMTQuNTExOCA5LjM3NSAxNC4xNjY3VjEwLjQxNjdDOS4zNzUgMTAuMDcxNSA5LjY1NDgyIDkuNzkxNjcgMTAgOS43OTE2N1oiIGZpbGw9IiM1QTVFNjYiLz48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTE3LjUgMTBDMTcuNSAxNC4xNDIxIDE0LjE0MjEgMTcuNSAxMCAxNy41QzUuODU3ODYgMTcuNSAyLjUgMTQuMTQyMSAyLjUgMTBDMi41IDUuODU3ODYgNS44NTc4NiAyLjUgMTAgMi41QzE0LjE0MjEgMi41IDE3LjUgNS44NTc4NiAxNy41IDEwWk0xNi4yNSAxMEMxNi4yNSAxMy40NTE4IDEzLjQ1MTggMTYuMjUgMTAgMTYuMjVDNi41NDgyMiAxNi4yNSAzLjc1IDEzLjQ1MTggMy43NSAxMEMzLjc1IDYuNTQ4MjIgNi41NDgyMiAzLjc1IDEwIDMuNzVDMTMuNDUxOCAzLjc1IDE2LjI1IDYuNTQ4MjIgMTYuMjUgMTBaIiBmaWxsPSIjNUE1RTY2Ii8+PHBhdGggZD0iTTExLjI1IDcuMDgzMzNDMTEuMjUgNy43NzM2OSAxMC42OTA0IDguMzMzMzMgMTAgOC4zMzMzM0M5LjMwOTY0IDguMzMzMzMgOC43NSA3Ljc3MzY5IDguNzUgNy4wODMzM0M4Ljc1IDYuMzkyOTggOS4zMDk2NCA1LjgzMzMzIDEwIDUuODMzMzNDMTAuNjkwNCA1LjgzMzMzIDExLjI1IDYuMzkyOTggMTEuMjUgNy4wODMzM1oiIGZpbGw9IiM1QTVFNjYiLz48L3N2Zz4K",
     "ic_info_amber": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDIwIDIwIiBmaWxsPSIjRUM3NjAwIj48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTEwIDE3LjVDMTQuMTQyMSAxNy41IDE3LjUgMTQuMTQyMSAxNy41IDEwQzE3LjUgNS44NTc4NiAxNC4xNDIxIDIuNSAxMCAyLjVDNS44NTc4NiAyLjUgMi41IDUuODU3ODYgMi41IDEwQzIuNSAxNC4xNDIxIDUuODU3ODYgMTcuNSAxMCAxNy41Wk0xMS4yNSA3LjA4MzMzQzExLjI1IDcuNzczNjkgMTAuNjkwNCA4LjMzMzMzIDEwIDguMzMzMzNDOS4zMDk2NCA4LjMzMzMzIDguNzUgNy43NzM2OSA4Ljc1IDcuMDgzMzNDOC43NSA2LjM5Mjk4IDkuMzA5NjQgNS44MzMzMyAxMCA1LjgzMzMzQzEwLjY5MDQgNS44MzMzMyAxMS4yNSA2LjM5Mjk4IDExLjI1IDcuMDgzMzNaTTEwIDkuNzkxNjdDMTAuMzQ1MiA5Ljc5MTY3IDEwLjYyNSAxMC4wNzE1IDEwLjYyNSAxMC40MTY3VjE0LjE2NjdDMTAuNjI1IDE0LjUxMTggMTAuMzQ1MiAxNC43OTE3IDEwIDE0Ljc5MTdDOS42NTQ4MiAxNC43OTE3IDkuMzc1IDE0LjUxMTggOS4zNzUgMTQuMTY2N1YxMC40MTY3QzkuMzc1IDEwLjA3MTUgOS42NTQ4MiA5Ljc5MTY3IDEwIDkuNzkxNjdaIiBmaWxsPSIjRUM3NjAwIi8+PC9zdmc+"
-  }
+  },
+  "learn": [
+    {
+      "id": "start-here",
+      "name": "Start now",
+      "audience": "everyone",
+      "summary": "What to install and connect before you can use Copy flow or Copy screen. Ten minutes, once.",
+      "order": 0,
+      "html": "<p class=\"lead\">To use <b>Copy entire flow</b> or <b>Copy current screen</b>, four things need to be on your machine. This page assumes you have installed none of them and have never opened a terminal. It takes about ten minutes, once.</p>\n\n<h3>What the copy button actually does</h3>\n<p>It does not copy a picture. It copies a <em>set of instructions</em>. You paste those into Claude CODE, and Claude does the fetching, assembling and serving for you. So the things you install are the tools Claude needs in order to follow those instructions on your behalf.</p>\n\n<figure class=\"learn-fig\">\n<svg viewBox=\"0 0 660 190\" role=\"img\" aria-label=\"you copy from the ledger, paste into Claude Code, which uses gh and python to fetch from GitHub and serve the screen in your browser\">\n  <defs><marker id=\"a0arrow\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\">\n    <path d=\"M0,1 L7,4 L0,7 Z\" fill=\"#93A1B8\"/></marker></defs>\n\n  <rect x=\"14\" y=\"52\" width=\"120\" height=\"72\" rx=\"10\" fill=\"#fff\" stroke=\"#DDE3ED\"/>\n  <text x=\"74\" y=\"84\" class=\"dg-t\">Flow Ledger</text><text x=\"74\" y=\"103\" class=\"dg-s\">press Copy</text>\n\n  <line x1=\"138\" y1=\"88\" x2=\"164\" y2=\"88\" stroke=\"#93A1B8\" stroke-width=\"1.5\" marker-end=\"url(#a0arrow)\"/>\n\n  <rect x=\"170\" y=\"52\" width=\"130\" height=\"72\" rx=\"10\" fill=\"#092D5E\"/>\n  <text x=\"235\" y=\"84\" class=\"dg-t inv\">Claude CODE</text><text x=\"235\" y=\"103\" class=\"dg-s inv\">you paste here</text>\n\n  <line x1=\"304\" y1=\"88\" x2=\"330\" y2=\"88\" stroke=\"#93A1B8\" stroke-width=\"1.5\" marker-end=\"url(#a0arrow)\"/>\n\n  <rect x=\"336\" y=\"38\" width=\"140\" height=\"100\" rx=\"10\" fill=\"#EDF2FF\" stroke=\"#C7DCFF\"/>\n  <text x=\"406\" y=\"62\" class=\"dg-h\">ON YOUR MACHINE</text>\n  <rect x=\"352\" y=\"72\" width=\"108\" height=\"24\" rx=\"5\" fill=\"#fff\" stroke=\"#DDE3ED\"/><text x=\"406\" y=\"88\" class=\"dg-t\">gh — fetches</text>\n  <rect x=\"352\" y=\"102\" width=\"108\" height=\"24\" rx=\"5\" fill=\"#fff\" stroke=\"#DDE3ED\"/><text x=\"406\" y=\"118\" class=\"dg-t\">python3 — serves</text>\n\n  <line x1=\"480\" y1=\"88\" x2=\"506\" y2=\"88\" stroke=\"#93A1B8\" stroke-width=\"1.5\" marker-end=\"url(#a0arrow)\"/>\n\n  <rect x=\"512\" y=\"52\" width=\"134\" height=\"72\" rx=\"10\" fill=\"#fff\" stroke=\"#DDE3ED\"/>\n  <text x=\"579\" y=\"84\" class=\"dg-t\">Your browser</text><text x=\"579\" y=\"103\" class=\"dg-s\">the screen, running</text>\n</svg>\n</figure>\n\n<h3>The four things you need</h3>\n<div class=\"learn-defs\">\n  <div><b>Claude Code</b><span>Where you paste the copied instructions. The desktop app is the easiest option for designers — no terminal required to use it.</span></div>\n  <div><b>GitHub CLI (gh)</b><span>The tool that fetches the screen files. Has to be signed in to your GitHub account once.</span></div>\n  <div><b>Python 3</b><span>Runs a tiny local web server so the screen opens properly in your browser. Already on most Macs.</span></div>\n  <div><b>Git</b><span>Only needed if you want to contribute changes back. Already on most Macs.</span></div>\n</div>\n\n<h3>Step 1 — install Claude Code</h3>\n<p>Download the desktop app from <b>claude.ai/code</b> and sign in with your Meesho account. That is the whole step. This is the window you will paste into.</p>\n\n<h3>Step 2 — let Claude set up the rest</h3>\n<p>You do not have to install anything by hand. Open Claude Code, start a new chat, and paste this:</p>\n<pre class=\"learn-code\">Set me up to use the Valmo Flow Ledger. Please:\n1. Check whether python3, git and gh (GitHub CLI) are installed, and tell me which are missing.\n2. Install anything missing, using Homebrew if it is available. If Homebrew\n   itself is missing, tell me how to install it rather than doing it silently.\n3. Walk me through `gh auth login` — I will answer the prompts.\n4. Confirm I can reach github.com/yashparashar-meesho/Valmo-captain-panel-SoT\n5. Tell me clearly if anything still needs my attention.</pre>\n<p>Claude runs the checks, asks before installing anything, and stops where you need to act — signing in to GitHub has to be you, in a browser. Two or three minutes, and you can skip to step 5.</p>\n<p>If you would rather see what is happening, do it by hand instead:</p>\n\n<h3>Step 3 — the manual route: open a terminal</h3>\n<p>The terminal is a window where you type a command and press enter. On a Mac: press <b>⌘ + Space</b>, type <code>Terminal</code>, press <b>enter</b>. A window opens with a line of text ending in <code>%</code> or <code>$</code> — that is the prompt, waiting for you.</p>\n<p>Nothing in the next two steps can damage anything. Each command either prints information or installs a tool.</p>\n\n<h3>Step 4 — check, then install what is missing</h3>\n<p><b>4a.</b> Copy this, paste it into the terminal, press enter. Three lines run one after another.</p>\n<pre class=\"learn-code\">python3 --version\ngit --version\ngh --version</pre>\n<p>Each should print a version number. Any line that says <code>command not found</code> is a tool you need.</p>\n\n<p><b>4b.</b> Most things install through <b>Homebrew</b>, a package manager for macOS. Check whether you have it:</p>\n<pre class=\"learn-code\">brew --version</pre>\n<p>If that says <code>command not found</code>, install Homebrew first — go to <b>brew.sh</b> and copy the single command on that page into your terminal. It takes a few minutes and may ask for your Mac password.</p>\n\n<p><b>4c.</b> Install only what step 4a said was missing:</p>\n<pre class=\"learn-code\">brew install gh\nbrew install python\nbrew install git</pre>\n\n<h3>Step 5 — sign in to GitHub</h3>\n<p>This is the step people skip, and the one that causes confusing errors later. Run:</p>\n<pre class=\"learn-code\">gh auth login</pre>\n<p>It asks four questions. Use the arrow keys to move, enter to choose:</p>\n<div class=\"learn-defs\">\n  <div><b>Where do you use GitHub?</b><span>GitHub.com</span></div>\n  <div><b>Preferred protocol?</b><span>HTTPS</span></div>\n  <div><b>Authenticate Git with your GitHub credentials?</b><span>Yes — this is what lets you push changes later</span></div>\n  <div><b>How would you like to authenticate?</b><span>Login with a web browser</span></div>\n</div>\n<p>It then shows a short code like <code>A1B2-C3D4</code>. Press enter, your browser opens, paste the code, approve. You only do this once per machine.</p>\n<p>Confirm it worked:</p>\n<pre class=\"learn-code\">gh auth status</pre>\n<p>You want to see <code>Logged in to github.com account &lt;your-username&gt;</code>. Nothing else about <code>gh</code> needs configuring — no keys, no tokens to manage by hand.</p>\n\n<h3>Step 6 — check you can reach the repo</h3>\n<pre class=\"learn-code\">gh repo view yashparashar-meesho/Valmo-captain-panel-SoT</pre>\n<p>If that prints the repo description, you are ready. If it says <code>Could not resolve to a Repository</code>, your account has not been given access — ask for it.</p>\n\n<h3>Step 7 — try it for real</h3>\n<p>Open the ledger, pick any screen, press <b>Copy current screen</b>, and paste into a new Claude CODE chat. It will ask which folder to save into, fetch everything, start a local server and hand you a link. Open the link — you should see the screen, fully styled and clickable.</p>\n<p>If that works, you are set up. Everything else in these guides builds on this one loop.</p>\n\n<h3>When something goes wrong</h3>\n\n<div class=\"learn-trap ok\">\n  <h4><code>gh: command not found</code> — even though you installed it</h4>\n  <p>The program exists but your terminal does not know where to look. Find it and use the full path:</p>\n  <pre class=\"learn-code\">which gh                          # prints nothing if the terminal cannot see it\nls ~/bin/gh /opt/homebrew/bin/gh   # one of these usually exists</pre>\n  <p>Then make it permanent — replace the path with whichever one existed:</p>\n  <pre class=\"learn-code\">echo 'export PATH=\"$HOME/bin:$PATH\"' &gt;&gt; ~/.zshrc\nsource ~/.zshrc</pre>\n</div>\n\n<div class=\"learn-trap ok\">\n  <h4>The page loads but everything is unstyled, or icons are missing</h4>\n  <p>You opened the file by double-clicking it. Browsers block a page opened that way from loading its own stylesheet and images. It must be served over <code>http://</code> — which is exactly what the copied instructions set up. Use the <code>localhost</code> link Claude gives you, not the file.</p>\n</div>\n\n<div class=\"learn-trap ok\">\n  <h4>Claude says it cannot use <code>gh</code> and falls back to another method</h4>\n  <p>That fallback reads the public page instead and cannot fetch fonts, so type will render in a stand-in face. It still works, but it is not pixel-accurate. Finish step 5 and try again.</p>\n</div>\n\n<div class=\"learn-trap ok\">\n  <h4>“Refusing to allow an OAuth App… without workflow scope”</h4>\n  <p>Only appears if you are changing automation files. Your token needs one extra permission:</p>\n  <pre class=\"learn-code\">gh auth refresh -h github.com -s workflow</pre>\n  <p>If the browser prompt does not explicitly list <b>Workflow</b> among the permissions, an organisation policy is blocking it — add the file through the GitHub website instead.</p>\n</div>\n\n<h3>Only if you want to contribute</h3>\n<p>Fetching screens needs nothing more than the above. If you intend to send changes back, tell git who you are, once:</p>\n<pre class=\"learn-code\">git config --global user.name \"Your Name\"\ngit config --global user.email \"you@meesho.com\"</pre>\n<p>Then read <b>How to contribute</b>.</p>\n",
+      "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M10 8.5 16 12l-6 3.5Z\"/></svg>",
+      "track": "Orientation",
+      "badge": "One-time setup"
+    },
+    {
+      "id": "what-is-flow-ledger",
+      "name": "What is Flow Ledger",
+      "audience": "everyone",
+      "summary": "What it is, the problem it solves, and how the three layers fit together.",
+      "order": 1,
+      "html": "<p class=\"lead\">Flow Ledger is a catalogue of the Valmo Partner captain panel, rebuilt screen by screen so that anyone — a designer, a PM, an engineer, or Claude Code — can take a real screen and start working on it in under a minute.</p>\n\n<p>It is not a screenshot library and it is not a Figma file. Every screen in here is <strong>live HTML</strong>. You can click through it, toggle its layers, open its date picker. What you copy out is the same markup the page is made of, so whatever you build next starts from something real instead of something redrawn.</p>\n\n<h3>The problem it solves</h3>\n<p>Before this, answering “what does the Payments screen actually look like today?” meant opening the live panel, finding the right hub, and reading pixels off a screenshot. Every person did it again, and every person got slightly different answers.</p>\n\n<p><b>The same screens were being rebuilt over and over.</b> Someone needs Payments to try an idea in March. Someone else needs it in June. A third person needs it in September for a different reason. Each time it is reconstructed from nothing — the sidebar, the table, the stat cards, the spacing — and each rebuild costs hours that produce something that already existed.</p>\n\n<p>When that rebuilding is done with an AI assistant it costs more than hours: every reconstruction burns tokens describing, generating and correcting a screen the company has already built twice. And because each rebuild is a fresh interpretation, the copies do not even agree with each other — so the waste produces inconsistency as a by-product.</p>\n\n<p>The ledger turns that repeated cost into a one-off. The screen is built once, measured once, and every later use is a copy rather than a reconstruction.</p>\n\n<p>Small differences compound. A 13px label becomes 14px. A navy becomes a slightly different navy. Six months later the product has three greys that were all meant to be one, and nobody can point at the moment it happened. The ledger makes <strong>one answer, measured once</strong>, and keeps it.</p>\n\n<h3>What is inside</h3>\n<div class=\"learn-grid3\">\n  <div class=\"learn-cell\"><b>3 flows</b><span>Captain Payments, Service Area, Pilot Management — 7 screens end to end</span></div>\n  <div class=\"learn-cell\"><b>27 components</b><span>Every part the screens are built from, each viewable on its own</span></div>\n  <div class=\"learn-cell\"><b>3 foundations</b><span>Typography, colour and spacing — the rules everything else obeys</span></div>\n</div>\n\n<h3>How it is built</h3>\n<p>Three layers, each one built on the one below. Nothing skips a layer: a screen cannot invent a colour, and a component cannot invent a font size. That constraint is the whole design — it is what makes a single change ripple correctly instead of leaving inconsistencies behind.</p>\n\n<figure class=\"learn-fig\">\n<svg viewBox=\"0 0 640 300\" role=\"img\" aria-label=\"Foundations feed components, components build screens, screens make flows\">\n  <defs><marker id=\"a1arrow\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\">\n    <path d=\"M0,1 L7,4 L0,7 Z\" fill=\"#93A1B8\"/></marker></defs>\n\n  <rect x=\"20\" y=\"20\" width=\"160\" height=\"260\" rx=\"10\" fill=\"#EDF2FF\" stroke=\"#C7DCFF\"/>\n  <text x=\"100\" y=\"46\" class=\"dg-h\">FOUNDATIONS</text>\n  <rect x=\"38\" y=\"62\" width=\"124\" height=\"46\" rx=\"6\" fill=\"#fff\" stroke=\"#DDE3ED\"/>\n  <text x=\"100\" y=\"82\" class=\"dg-t\">Typography</text><text x=\"100\" y=\"98\" class=\"dg-s\">28 styles</text>\n  <rect x=\"38\" y=\"118\" width=\"124\" height=\"46\" rx=\"6\" fill=\"#fff\" stroke=\"#DDE3ED\"/>\n  <text x=\"100\" y=\"138\" class=\"dg-t\">Colour</text><text x=\"100\" y=\"154\" class=\"dg-s\">43 + 8 nav</text>\n  <rect x=\"38\" y=\"174\" width=\"124\" height=\"46\" rx=\"6\" fill=\"#fff\" stroke=\"#DDE3ED\"/>\n  <text x=\"100\" y=\"194\" class=\"dg-t\">Spacing</text><text x=\"100\" y=\"210\" class=\"dg-s\">30 steps</text>\n  <text x=\"100\" y=\"250\" class=\"dg-s\">the only place a value</text>\n  <text x=\"100\" y=\"264\" class=\"dg-s\">is allowed to be defined</text>\n\n  <line x1=\"184\" y1=\"150\" x2=\"222\" y2=\"150\" stroke=\"#93A1B8\" stroke-width=\"1.5\" marker-end=\"url(#a1arrow)\"/>\n\n  <rect x=\"230\" y=\"20\" width=\"160\" height=\"260\" rx=\"10\" fill=\"#F4F6FA\" stroke=\"#DDE3ED\"/>\n  <text x=\"310\" y=\"46\" class=\"dg-h\">COMPONENTS</text>\n  <rect x=\"248\" y=\"62\" width=\"124\" height=\"34\" rx=\"6\" fill=\"#fff\" stroke=\"#DDE3ED\"/><text x=\"310\" y=\"83\" class=\"dg-t\">Sidebar Nav</text>\n  <rect x=\"248\" y=\"104\" width=\"124\" height=\"34\" rx=\"6\" fill=\"#fff\" stroke=\"#DDE3ED\"/><text x=\"310\" y=\"125\" class=\"dg-t\">Data Table</text>\n  <rect x=\"248\" y=\"146\" width=\"124\" height=\"34\" rx=\"6\" fill=\"#fff\" stroke=\"#DDE3ED\"/><text x=\"310\" y=\"167\" class=\"dg-t\">Map Panel</text>\n  <text x=\"310\" y=\"200\" class=\"dg-s\">…and 24 more</text>\n  <text x=\"310\" y=\"250\" class=\"dg-s\">built only from</text>\n  <text x=\"310\" y=\"264\" class=\"dg-s\">foundation values</text>\n\n  <line x1=\"394\" y1=\"150\" x2=\"432\" y2=\"150\" stroke=\"#93A1B8\" stroke-width=\"1.5\" marker-end=\"url(#a1arrow)\"/>\n\n  <rect x=\"440\" y=\"20\" width=\"180\" height=\"260\" rx=\"10\" fill=\"#fff\" stroke=\"#DDE3ED\"/>\n  <text x=\"530\" y=\"46\" class=\"dg-h\">SCREENS → FLOWS</text>\n  <rect x=\"458\" y=\"62\" width=\"144\" height=\"30\" rx=\"6\" fill=\"#092D5E\"/><text x=\"530\" y=\"82\" class=\"dg-t inv\">Payments</text>\n  <line x1=\"530\" y1=\"92\" x2=\"530\" y2=\"104\" stroke=\"#2A67FF\" stroke-width=\"1.5\"/>\n  <rect x=\"458\" y=\"104\" width=\"144\" height=\"30\" rx=\"6\" fill=\"#092D5E\"/><text x=\"530\" y=\"124\" class=\"dg-t inv\">Payment Details</text>\n  <text x=\"530\" y=\"160\" class=\"dg-s\">one flow, start to finish</text>\n  <text x=\"530\" y=\"250\" class=\"dg-s\">what you copy</text>\n  <text x=\"530\" y=\"264\" class=\"dg-s\">and build on</text>\n</svg>\n<figcaption>Every value flows one way. Change a colour in Foundations and all 27 components and 7 screens move together.</figcaption>\n</figure>\n\n<h3>Why it is trustworthy</h3>\n<p>Each screen was matched against the live panel by <strong>measuring, not by eye</strong>. Computed styles were read off the real page and superimposed over ours, property by property — font size, weight, colour, padding, border, opacity. A screen is only called done when the numbers agree and the superimposition looks right.</p>\n<p>Where the live product disagrees with its own design system, the disagreement is <em>written down</em> rather than quietly resolved. Those notes turned out to be one of the most valuable things here: they are a list of inconsistencies nobody had ever collected.</p>\n<p>The screens also load nothing from the network. Fonts ship with the repo, icons are local files, the map falls back to a baked image. Open a screen on a plane and it renders exactly the same.</p>\n",
+      "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 3 21 7.5 12 12 3 7.5 12 3Z\"/><path d=\"M3 12l9 4.5L21 12\"/><path d=\"M3 16.5 12 21l9-4.5\"/></svg>",
+      "track": "Orientation"
+    },
+    {
+      "id": "features",
+      "name": "Features of Flow Ledger",
+      "audience": "everyone",
+      "summary": "Every feature, what it is, how it is built, and why it earns its place.",
+      "order": 2,
+      "html": "<p class=\"lead\">The catalogue is the point, but the features around it are what make it usable day to day. Here is what the ledger can do, and why each one earns its place.</p>\n\n<h3>Live, clickable screens</h3>\n<p><b>What it is.</b> Every screen in the stage is real HTML running in a real browser frame, not an image. Toggle a map layer, open a date picker, switch a tab — it responds.</p>\n<p><b>Why it matters.</b> A screenshot cannot answer “what happens when this is empty?” or “how wide does this get with a long name?”. A live screen can. It also means what you copy is genuinely what you saw.</p>\n\n<h3>Copy entire flow / Copy current screen</h3>\n<p><b>What it is.</b> Two buttons that put a complete instruction set on your clipboard. Paste it into a new Claude CODE chat and it fetches that screen — or every screen in the flow — along with the icons it uses, the Mier fonts and the stylesheet, then serves it locally and hands you a link.</p>\n<p><b>Why it matters.</b> This is the feature the whole tool exists for. It turns “I need the Payments screen to try an idea” from an afternoon into about a minute, and everyone starts from the same thing.</p>\n\n<h3>Version history</h3>\n<p><b>What it is.</b> Every screen keeps a history. Pick an earlier revision and the stage becomes that revision — its markup <em>and</em> its stylesheet from that commit, so you see it as it actually was, not today's styling over yesterday's markup.</p>\n<p><b>How it is built.</b> A script walks the git history and records only the commits that changed <em>that screen's own content</em> — not the sidebar every screen shares. Each entry is labelled by how wide the change was: <code>screen</code> (this one only), <code>module</code> (a few), <code>sweep</code> (everything).</p>\n<p><b>Why it matters.</b> “When did this change, and what did it look like before?” used to be unanswerable. It also protects you: if you copy while reading an old revision, the copied instructions are pinned to that exact commit, so you receive what you were looking at rather than the latest.</p>\n\n<h3>Auditing the live product in minutes</h3>\n<p><b>What it is.</b> Because the foundations are machine-readable — one file of named values — and a live web page is also machine-readable, comparing the two is a script rather than a person with a screenshot and a ruler. You can ask, across an entire product: which type sizes are actually in use? How many distinct greys? Which screens use a value that is not in the system?</p>\n\n<p><b>How you do it.</b> Open the live panel in a browser session Claude can drive, then ask it to audit that page against the foundations. It reads the computed style of every rendered element — not a screenshot, the real value — and reports what is covered and what is not, with the count for each.</p>\n<pre class=\"learn-code\">\"Here is the live panel. Audit every text element on these pages\n against our typography foundation. Report coverage per module,\n and list every size and weight combination that is not in the library.\"</pre>\n\n<p><b>What it found here.</b> That audit ran across <b>1,463 rendered text elements</b> on eight module landing pages. Coverage against the library was 84.6%. The entire shortfall was one cluster: a 14px family the design system did not have but the product used everywhere — table cells at 400, headers at 600, action links at 700. Adding that family took coverage to <b>99.0%</b>, and the 14 elements still outside it were left there deliberately, each with a written reason.</p>\n\n<p>The same method found that a registered font weight does nothing — the product writes <code>font-weight: 500</code> in many places, but the typeface has no 500, so the same string measures identically at 400 and 500. Nobody would find that by looking.</p>\n\n<p><b>Why it matters.</b> A design-system audit is normally a months-long project: someone opens every screen, screenshots it, eyeballs values into a spreadsheet, and by the time they finish the product has moved. Here it is an afternoon, it is exact rather than eyeballed, and it is repeatable — run it again after a release and you see precisely what drifted.</p>\n\n<p>It also inverts what an audit produces. The usual output is a list of things designers did wrong. This one produced a list of things the <em>design system</em> was missing, which is considerably more useful.</p>\n\n<h3>Foundations you can browse</h3>\n<p><b>What it is.</b> All 28 text styles rendered in Mier at their real sizes, all 51 colours as swatches with their hex and token name, all 30 spacing steps drawn to scale.</p>\n<p><b>Why it matters.</b> A design system written down in a document gets stale. One that is rendered from the same file the screens use cannot — if the swatch is wrong, the screens are wrong too, and you would see it.</p>\n\n<h3>Components on their own</h3>\n<p><b>What it is.</b> All 27 building blocks, each viewable in isolation with its own copy button.</p>\n<p><b>Why it matters.</b> Most new work is assembling existing parts. Being able to grab just the data table, or just the map side panel, is faster than pulling a whole screen and deleting the rest.</p>\n\n<h3>Search everything (⌘K)</h3>\n<p><b>What it is.</b> One box over every screen, component, foundation and guide. Type a few letters, hit enter.</p>\n<p><b>Why it matters.</b> Browsing works when a catalogue is small. This one already has 40-odd things in it and will keep growing.</p>\n\n<h3>Anyone can contribute</h3>\n<p><b>What it is.</b> A designer copies a screen, edits it, runs one command, and opens a pull request. A reviewer opens the automatic preview, looks at the real screen, and merges.</p>\n<p><b>Why it matters.</b> Without this the catalogue is only as current as one person's attention. With it, the people who notice a change are the people who can fix it.</p>\n\n<h3>It cannot silently drift</h3>\n<p><b>What it is.</b> Automated checks rebuild the site from the source on every pull request and fail if the two disagree. Other checks confirm every page links the stylesheet, every image has a source, and no file references something that is missing.</p>\n<p><b>Why it matters.</b> The failure mode of every catalogue is quiet staleness — the thing on screen no longer matching the thing people edit. Here that is a red cross on the pull request rather than a discovery six weeks later.</p>\n\n<h3>It works offline</h3>\n<p><b>What it is.</b> No fonts from a CDN, no icons from a server, no framework to download.</p>\n<p><b>Why it matters.</b> It loads instantly, it works on a bad connection, and a screen you pulled six months ago still renders identically today.</p>\n",
+      "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 3.5 13.9 9l5.6.4-4.3 3.6 1.4 5.5L12 15.6 7.4 18.5l1.4-5.5L4.5 9.4 10.1 9 12 3.5Z\"/></svg>",
+      "track": "Orientation"
+    },
+    {
+      "id": "why-built-this-way",
+      "name": "Why it is built this way",
+      "audience": "everyone",
+      "summary": "Why not Figma, Storybook or React — and what this arrangement actually buys you.",
+      "order": 3,
+      "html": "<p class=\"lead\">The obvious question is why this is a folder of HTML rather than a Figma file, a Storybook, or a React app. Each of those was considered. Here is the reasoning, and — more usefully — what this arrangement actually buys you.</p>\n\n<h3>Why not keep the truth in Figma?</h3>\n<p>Figma holds a <em>drawing</em> of the product. Drawings drift, silently and constantly: the engineer ships a 14px table where the file says 15px, nobody redraws the file, and within months the file describes a product that no longer exists. Worse, nothing tells you it happened.</p>\n<p>A Figma file also cannot be clicked through, cannot show you an empty state behaving, and cannot hand you anything an engineer can use. You can copy a frame; you cannot copy the thing itself.</p>\n<p>This is not an argument against Figma — it is the right tool for designing. It is an argument against Figma being the place you go to find out <em>what is currently true</em>.</p>\n\n<h3>Why not Storybook?</h3>\n<p>Storybook documents the components engineering <em>has built</em>. That is genuinely useful, and if your team has a maintained one, use it.</p>\n<p>But it answers a different question. Storybook tells you what the component library offers; this tells you what the product actually looks like in production, today — and the interesting part is usually the <b>gap between the two</b>. A component library with a perfect date picker does not tell you that one screen is using a hand-rolled one.</p>\n\n<h3>Why not React, or any framework?</h3>\n<p>Because the artifact has to outlive its tooling. A React app needs a build step, a package manager, and a lockfile that rots — try running a three-year-old front-end project and see how far you get. These screens are plain HTML and one stylesheet. They will open in a browser in five years with nothing installed.</p>\n<p>It also keeps the barrier low: a designer can edit a screen in any text editor without understanding a component tree.</p>\n\n<h3>Why HTML rather than images?</h3>\n<p>Because you can build on it. A screenshot is where an idea stops; a live screen is where one starts. Copy a screen, change the table, and you are looking at a real thing in minutes — not a mockup of a real thing.</p>\n\n<h3>Why a git repository?</h3>\n<p>It gives four things at once, none of which needed building: full history of every change, a review step before anything goes live, a way for several people to contribute without collisions, and hosting. There is no server to run and nothing to maintain.</p>\n\n<h3>What this actually buys you</h3>\n\n<div class=\"learn-trap ok\">\n  <h4>One measured answer instead of several opinions</h4>\n  <p>“What colour is that?” has exactly one answer, and it was measured off the live product rather than remembered. Every person who asks gets the same number.</p>\n</div>\n\n<div class=\"learn-trap ok\">\n  <h4>The gap between design system and product becomes visible</h4>\n  <p>This turned out to be the most valuable by-product. Matching screens to live surfaced things nobody had collected: that tables are 14px everywhere and the system says 15px, that a registered font weight does nothing, that active tabs are marked by colour and not weight. That list is a backlog that did not previously exist.</p>\n</div>\n\n<div class=\"learn-trap ok\">\n  <h4>From idea to working screen in about a minute</h4>\n  <p>Copy, paste, and you have the real screen running locally with its real type, colour and spacing. The expensive part of trying an idea — rebuilding the context around it — is gone.</p>\n</div>\n\n<div class=\"learn-trap ok\">\n  <h4>A design system that cannot drift from its own documentation</h4>\n  <p>The Foundations pages are rendered from the same file the screens use. If a swatch is wrong, the screens are wrong too — so the documentation cannot quietly become a lie, which is the usual fate of a design system document.</p>\n</div>\n\n<div class=\"learn-trap ok\">\n  <h4>Review by looking, not by reading code</h4>\n  <p>Every proposed change builds a full preview of the site at its own link. A reviewer opens the actual screen and looks at it. No one has to read a diff to approve a design change.</p>\n</div>\n\n<div class=\"learn-trap ok\">\n  <h4>It compounds</h4>\n  <p>One screen in a catalogue is a screenshot with extra steps. The value appears at the second module and grows: change one spacing token and twenty screens move together, correctly, and you can see that they did.</p>\n</div>\n\n<h3>What it is not good at</h3>\n<p>Worth being straight about. It is not a design tool — you cannot lay out a new idea here as comfortably as in Figma. It is not a component library engineering builds from. It takes real effort to keep current, which is why the contribution loop matters more than the catalogue itself. And for a product whose design system and shipped code are already tightly coupled, it would be duplicated effort.</p>\n",
+      "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M9.3 9.2a2.8 2.8 0 1 1 3.6 3.2c-.6.2-.9.8-.9 1.4v.5\"/><circle cx=\"12\" cy=\"17.6\" r=\".6\" fill=\"currentColor\"/></svg>",
+      "track": "Orientation"
+    },
+    {
+      "id": "how-github-works",
+      "name": "How it works on GitHub",
+      "audience": "everyone",
+      "summary": "GitHub from zero, where the truth lives, and how a change becomes a website.",
+      "order": 4,
+      "html": "<p class=\"lead\">This explains GitHub from the ground up, assuming you have never used it. If you already know git, skip to “The shape of the repo”.</p>\n\n<h3>First, what GitHub actually is</h3>\n<p>Think of it as <b>Google Drive with a memory</b>. Files live in a folder called a <b>repository</b> (or “repo”). The difference from Drive is that GitHub never forgets: every version of every file is kept forever, along with who changed it, when, and why.</p>\n<p>Four words are worth knowing, and they are all you need:</p>\n<div class=\"learn-defs\">\n  <div><b>Repository</b><span>The project folder. Ours holds the catalogue and the website it produces.</span></div>\n  <div><b>Commit</b><span>A saved change with a note attached. Like a save point you can return to.</span></div>\n  <div><b>Branch</b><span>A private copy of the project where you work without affecting anyone. Yours until you are ready.</span></div>\n  <div><b>Pull request</b><span>“Here is what I changed on my branch — please look and merge it.” A PR is a proposal, not a change.</span></div>\n</div>\n<p><b>Nothing you do is dangerous.</b> The live site only changes when a pull request is merged, and automated checks have to pass first. You cannot break the website by making a mistake on a branch.</p>\n\n<h3>The shape of the repo</h3>\n<p>There are two kinds of file here, and confusing them is the single easiest way to lose an afternoon's work.</p>\n<div class=\"learn-two\">\n  <div class=\"learn-cell good\"><b>source/ — you edit these</b><span><code>data-seed.json</code> is the catalogue itself — every screen's markup lives inside it. <code>flow-ledger.html</code> is the ledger you are reading right now. The fonts and the map library live here too.</span></div>\n  <div class=\"learn-cell warn\"><b>everything else — generated</b><span><code>index.html</code>, <code>screens/</code>, <code>components/</code>, <code>assets/</code>, <code>manifest.json</code>. A script writes these from <code>source/</code>. Edit one directly and the next build silently overwrites you.</span></div>\n</div>\n<p>Why keep both in the same place? Because a pull request has to show the <em>result</em> of your change, not just the intention. The preview site is built from the generated files, so if they were missing you would be reviewing last week's screen while approving this week's edit.</p>\n\n<h3>How a change becomes a website</h3>\n<figure class=\"learn-fig\">\n<svg viewBox=\"0 0 660 260\" role=\"img\" aria-label=\"source flows through the export script into the site, with CI checking the two agree\">\n  <defs><marker id=\"a2arrow\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\">\n    <path d=\"M0,1 L7,4 L0,7 Z\" fill=\"#93A1B8\"/></marker></defs>\n\n  <rect x=\"16\" y=\"56\" width=\"150\" height=\"104\" rx=\"10\" fill=\"#EDF2FF\" stroke=\"#C7DCFF\"/>\n  <text x=\"91\" y=\"82\" class=\"dg-h\">source/</text>\n  <text x=\"91\" y=\"106\" class=\"dg-t\">data-seed.json</text>\n  <text x=\"91\" y=\"126\" class=\"dg-t\">flow-ledger.html</text>\n  <text x=\"91\" y=\"148\" class=\"dg-s\">authored by hand</text>\n\n  <line x1=\"170\" y1=\"108\" x2=\"212\" y2=\"108\" stroke=\"#93A1B8\" stroke-width=\"1.5\" marker-end=\"url(#a2arrow)\"/>\n\n  <rect x=\"218\" y=\"70\" width=\"150\" height=\"76\" rx=\"10\" fill=\"#092D5E\"/>\n  <text x=\"293\" y=\"98\" class=\"dg-t inv\">export_to_github.py</text>\n  <text x=\"293\" y=\"120\" class=\"dg-s inv\">one command,</text>\n  <text x=\"293\" y=\"135\" class=\"dg-s inv\">always the same output</text>\n\n  <line x1=\"372\" y1=\"108\" x2=\"414\" y2=\"108\" stroke=\"#93A1B8\" stroke-width=\"1.5\" marker-end=\"url(#a2arrow)\"/>\n\n  <rect x=\"420\" y=\"56\" width=\"150\" height=\"104\" rx=\"10\" fill=\"#fff\" stroke=\"#DDE3ED\"/>\n  <text x=\"495\" y=\"82\" class=\"dg-h\">the site</text>\n  <text x=\"495\" y=\"106\" class=\"dg-t\">screens/ components/</text>\n  <text x=\"495\" y=\"126\" class=\"dg-t\">assets/kit.css</text>\n  <text x=\"495\" y=\"148\" class=\"dg-s\">served by Vercel</text>\n\n  <path d=\"M91,164 L91,206 L168,206\" fill=\"none\" stroke=\"#EC7600\" stroke-width=\"1.5\" stroke-dasharray=\"4 3\"/>\n  <path d=\"M495,164 L495,206 L492,206\" fill=\"none\" stroke=\"#EC7600\" stroke-width=\"1.5\" stroke-dasharray=\"4 3\"/>\n  <rect x=\"168\" y=\"188\" width=\"324\" height=\"36\" rx=\"8\" fill=\"#FFEDDE\" stroke=\"#EC7600\"/>\n  <text x=\"330\" y=\"211\" class=\"dg-t\" fill=\"#8a4a00\">CI rebuilds and fails the PR if these two disagree</text>\n</svg>\n<figcaption>The check is the important part. Without it, someone edits <code>source/</code>, forgets to rebuild, and the website quietly shows something else.</figcaption>\n</figure>\n\n<h3>Why the export script matters</h3>\n<p>It is <b>deterministic</b>: the same input always produces byte-identical output. That sounds academic, but it is what makes the automated check possible. The robot can rebuild the site from scratch and compare — if even one byte differs, something was hand-edited or forgotten, and the pull request fails.</p>\n\n<h3>Decisions worth knowing, and why</h3>\n\n<p><b>One stylesheet, not thirty-four copies.</b> Every screen used to carry its own inline copy of the design system — 62KB each. A one-line colour change rewrote all 34 pages: two megabytes of duplicated CSS, and pull requests 36 files wide for a single rule. Worse, more than half the commits touching a screen had not changed that screen at all, which made version history useless. Now they all link one <code>assets/kit.css</code>. A screen page went from 71,625 bytes to 9,071 — and a colour change touches exactly one file.</p>\n\n<p><b>Icons are real files, not text.</b> They used to be embedded as base64 — long strings of letters inside the HTML. That made pull requests unreadable and the security scanner slow, because a long random-looking string is exactly what a leaked password looks like, and each one gets checked.</p>\n\n<p><b>The screens fetch nothing.</b> Fonts ship with the repo, icons are local, and the map falls back to a baked image when tiles cannot load. A screen opened with no internet renders identically.</p>\n\n<p><b>Nothing is left behind on rename.</b> The build deletes files the catalogue no longer lists. Without that, a retired screen stays on the site forever, looking exactly as official as a real one.</p>\n\n<h3>Reviewing a change</h3>\n<p>Vercel — the service that hosts the site — builds a <b>preview</b> for every pull request and posts the link as a comment. It is a complete, real copy of the site with that change applied, at its own URL. Open it, click the actual screen, merge if it is right.</p>\n<p>That is the whole review process. You are not reading code; you are looking at the thing.</p>\n",
+      "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"7\" cy=\"5.5\" r=\"2.2\"/><circle cx=\"7\" cy=\"18.5\" r=\"2.2\"/><circle cx=\"17\" cy=\"12\" r=\"2.2\"/><path d=\"M7 7.7v8.6\"/><path d=\"M9.2 5.5h3.6A2.2 2.2 0 0 1 15 7.7v2.1\"/></svg>",
+      "track": "Working with it"
+    },
+    {
+      "id": "contributing",
+      "name": "How to contribute",
+      "audience": "designers",
+      "summary": "The loop, step by step, assuming you have never done it before.",
+      "order": 5,
+      "html": "<p class=\"lead\">You never have to edit JSON, and you do not need to know git. You edit an HTML file the way you would edit anything, run one command, and open a pull request. This page assumes you have done none of it before.</p>\n\n<figure class=\"learn-fig\">\n<svg viewBox=\"0 0 680 220\" role=\"img\" aria-label=\"copy a screen, edit it, run the importer, open a pull request\">\n  <defs><marker id=\"a3arrow\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\">\n    <path d=\"M0,1 L7,4 L0,7 Z\" fill=\"#93A1B8\"/></marker></defs>\n  <rect x=\"12\" y=\"46\" width=\"118\" height=\"76\" rx=\"10\" fill=\"#fff\" stroke=\"#DDE3ED\"/>\n  <text x=\"71\" y=\"82\" class=\"dg-t\">Copy screen</text><text x=\"71\" y=\"101\" class=\"dg-s\">from the ledger</text>\n  <line x1=\"134\" y1=\"84\" x2=\"160\" y2=\"84\" stroke=\"#93A1B8\" stroke-width=\"1.5\" marker-end=\"url(#a3arrow)\"/>\n  <rect x=\"166\" y=\"46\" width=\"118\" height=\"76\" rx=\"10\" fill=\"#fff\" stroke=\"#DDE3ED\"/>\n  <text x=\"225\" y=\"82\" class=\"dg-t\">Edit the HTML</text><text x=\"225\" y=\"101\" class=\"dg-s\">check it in a browser</text>\n  <line x1=\"288\" y1=\"84\" x2=\"314\" y2=\"84\" stroke=\"#93A1B8\" stroke-width=\"1.5\" marker-end=\"url(#a3arrow)\"/>\n  <rect x=\"320\" y=\"46\" width=\"130\" height=\"76\" rx=\"10\" fill=\"#092D5E\"/>\n  <text x=\"385\" y=\"82\" class=\"dg-t inv\">import_screen.py</text><text x=\"385\" y=\"101\" class=\"dg-s inv\">folds it back + rebuilds</text>\n  <line x1=\"454\" y1=\"84\" x2=\"480\" y2=\"84\" stroke=\"#93A1B8\" stroke-width=\"1.5\" marker-end=\"url(#a3arrow)\"/>\n  <rect x=\"486\" y=\"46\" width=\"118\" height=\"76\" rx=\"10\" fill=\"#fff\" stroke=\"#DDE3ED\"/>\n  <text x=\"545\" y=\"82\" class=\"dg-t\">Open a PR</text><text x=\"545\" y=\"101\" class=\"dg-s\">preview + review</text>\n  <rect x=\"166\" y=\"152\" width=\"438\" height=\"38\" rx=\"8\" fill=\"#F4F6FA\" stroke=\"#DDE3ED\"/>\n  <text x=\"385\" y=\"176\" class=\"dg-s\">the importer verifies its own work: what it writes must rebuild into exactly the file you gave it</text>\n</svg>\n</figure>\n\n<h3>What “fold it back into the source” means</h3>\n<p>Here is the thing that confuses everyone, explained plainly.</p>\n<p>The screen you edit is a file: <code>screens/payment-details.html</code>. But that file is <b>not the original</b>. It is <em>printed</em> from the real catalogue, the way a PDF is printed from a document. The real catalogue is <code>source/data-seed.json</code>, and inside it your screen exists as one long line of text — the same HTML, but stored as a value in a database-like file.</p>\n<div class=\"learn-two\">\n  <div class=\"learn-cell\"><b>What you edit</b><span><code>screens/payment-details.html</code> — a readable web page you can open in a browser</span></div>\n  <div class=\"learn-cell\"><b>Where it actually lives</b><span><code>source/data-seed.json</code> — the same markup, stored as text inside a much bigger file</span></div>\n</div>\n<p>If you only edit the printed page, the next build re-prints it from the catalogue and your change disappears. <b>“Folding it back” means copying your edit from the printed page into the catalogue</b>, so the catalogue becomes the new truth and every future print includes it.</p>\n<p>Doing that by hand would mean pasting HTML into a JSON string and escaping every quote. Nobody should do that. <code>import_screen.py</code> does it for you.</p>\n\n<h3>Step by step, from nothing</h3>\n\n<p><b>Step 1 — get the screen.</b> In the ledger, open the screen you want and press <b>Copy current screen</b> (or <b>Copy entire flow</b>). That copies a set of instructions to your clipboard.</p>\n\n<p><b>Step 2 — paste it into Claude CODE.</b> Open a new Claude CODE chat and paste. It will ask which folder to save into, fetch the screen with its icons, fonts and stylesheet, start a local server, and give you a link. Open the link — that is your screen, running.</p>\n\n<p><b>Step 3 — edit it.</b> Open <code>screens/&lt;id&gt;.html</code> in any editor, or just ask Claude in that same chat to make the change. Refresh the browser to see it. Iterate until it is right.</p>\n\n<p><b>Step 4 — fold it back.</b> This is the one command. In that same Claude chat, ask it to run:</p>\n<pre class=\"learn-code\">python3 scripts/import_screen.py screens/&lt;id&gt;.html</pre>\n<p>It prints what changed, rebuilds the site, and confirms the round trip. If it says <code>Round trip verified</code>, you are good. If it refuses, nothing is lost — your edited HTML is still on disk — and the message says what to fix.</p>\n\n<p><b>Step 5 — propose it.</b> Ask Claude to commit and open a pull request. It will run the security checks, push a branch, and give you a link. A preview build appears on the pull request within a minute.</p>\n\n<h3>Do I need to run anything before pushing?</h3>\n<p>Just the importer in step 4. It runs the rebuild for you, so there is nothing else to remember.</p>\n<p>If you only changed things by hand and skipped the importer, run the build yourself before committing:</p>\n<pre class=\"learn-code\">python3 scripts/export_to_github.py     # rebuild the site from source/\npython3 scripts/check_v2_sync.py        # confirm the catalogue is consistent</pre>\n<p>If you forget, nothing breaks — the automated check on the pull request catches it and tells you exactly what to run.</p>\n\n<h3>Rules that keep this working</h3>\n<ul class=\"learn-rules\">\n  <li><b>Never hand-edit <code>screens/</code> or <code>components/</code> and commit that alone.</b> That is printed output. Edit it, then import it.</li>\n  <li><b>Always commit <code>source/</code> and the regenerated files together.</b> The check fails otherwise, and the preview would show the wrong thing.</li>\n  <li><b>Do not put a literal closing script tag in screen markup.</b> It ends the catalogue's data block and breaks every page. Use inline <code>onclick</code> for interactions, as existing screens do.</li>\n  <li><b>Do not invent values.</b> If you need a colour, size or spacing that is not in Foundations, that is a conversation — not a hard-coded number.</li>\n</ul>\n\n<h3>If something goes wrong</h3>\n<p>Nothing you do in a pull request can affect the live site; it only changes on merge, and the checks must pass. If the importer refuses, your work is still on disk. Paste what it printed into the chat and it is usually a one-line fix.</p>\n",
+      "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 12h11\"/><path d=\"M11 8l4 4-4 4\"/><rect x=\"17\" y=\"4\" width=\"3.5\" height=\"16\" rx=\"1.2\"/></svg>",
+      "track": "Working with it"
+    },
+    {
+      "id": "adding-a-module",
+      "name": "Adding a new module",
+      "audience": "designers",
+      "summary": "The bigger job: a whole new flow, in the order that avoids rework.",
+      "order": 6,
+      "html": "<p class=\"lead\">The catalogue holds three of the panel's eight modules. Adding the next one is the main way this grows — and it is a bigger job than editing an existing screen, so it gets its own page.</p>\n\n<h3>Before you start</h3>\n<p>You need the setup from <b>Start here</b>, and you need to have read <b>Using the foundations</b> and <b>How to match a screen to live</b>. Adding a module is mostly the second of those, repeated.</p>\n<p>Budget roughly: a day for a simple two-screen module, considerably more if it contains a map, a chart, or anything with its own rendering engine.</p>\n\n<h3>The order that works</h3>\n<p>Do these in sequence. Doing screens before foundations means redoing the screens once the tokens exist.</p>\n\n<ol class=\"learn-ol\">\n  <li><b>Walk the module in the live product first.</b> Every screen, every tab, every state you can reach. Note what is genuinely new — a component that does not exist yet, a spacing value nothing else uses, a colour outside the palette. That list is your real scope.</li>\n  <li><b>Extend the foundations, if needed.</b> Add the tokens with a note on why, and the <code>Valmo</code> suffix if the design system does not cover them. Do this before building anything.</li>\n  <li><b>Build the new components.</b> Each one on its own, from foundation values, added to the catalogue so it appears under Components. Reuse aggressively — most “new” components turn out to be an existing one with a variant.</li>\n  <li><b>Build the first screen completely.</b> Measure, build, superimpose, run the checks. Do not start a second screen until the first passes — the first is where you discover the scale is missing a step.</li>\n  <li><b>Build the rest of the screens.</b> Faster, because the components now exist.</li>\n  <li><b>Wire the flow.</b> Give the clickable elements a <code>data-goto</code> pointing at the next screen's id, so the module can be walked end to end.</li>\n  <li><b>Add the sidebar entry to every screen in the catalogue</b>, not only your own — the nav is part of each screen's markup, so a new module has to appear in all of them.</li>\n</ol>\n\n<h3>What goes in the catalogue</h3>\n<p>A flow and its screens are entries in <code>source/data-seed.json</code>. You do not usually type these by hand — ask Claude in the chat where you built the screens — but it helps to know the shape:</p>\n<pre class=\"learn-code\">flows[]    { id, name, order, description }\nscreens[]  { id, flowId, order, name, description,\n             states[], components[], tags[], code }</pre>\n<div class=\"learn-defs\">\n  <div><b>id</b><span>lowercase with hyphens, and it becomes the filename: <code>service-area-my-area</code>. Stable forever — links and version history depend on it.</span></div>\n  <div><b>order</b><span>position within the flow, starting at 0. This drives the strip above the prototype.</span></div>\n  <div><b>description</b><span>one sentence on what the screen is. It appears in the ledger, so write it for a reader who has not seen the screen.</span></div>\n  <div><b>components</b><span>which components the screen uses. Keep it honest — it is how someone finds where a component is used.</span></div>\n</div>\n\n<h3>Before you open the pull request</h3>\n<ul class=\"learn-rules\">\n  <li>Every screen in the flow reachable by clicking, start to finish.</li>\n  <li>The new module appears in the sidebar of <b>every</b> screen, not just its own.</li>\n  <li>The eight fidelity checks pass on each new screen.</li>\n  <li>No new colour, type or spacing value outside the foundations — or if there is, it is a token with a written reason.</li>\n  <li>Components you added appear under Components and render correctly on their own.</li>\n  <li>Anything you deliberately did not match is written into <b>Deliberate differences from live</b>.</li>\n</ul>\n\n<h3>Things that will cost you time</h3>\n<ul class=\"learn-rules\">\n  <li><b>Maps, charts and canvases.</b> Anything with its own rendering engine needs a decision up front: reproduce it, or approximate it convincingly and say so. Do not discover this halfway.</li>\n  <li><b>The sidebar is duplicated in every screen.</b> Adding a nav entry touches all of them. It is a known wart, not something you are doing wrong.</li>\n  <li><b>Real data.</b> Decide early what you are willing to put in a public repository. Names, phone numbers and transaction IDs are easy to capture and hard to remove later.</li>\n  <li><b>Scope creep through states.</b> A screen has one rendering here. Resist building six variants before the module exists at all.</li>\n</ul>\n",
+      "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3.5\" y=\"3.5\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"3.5\" y=\"13.5\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"13.5\" y=\"3.5\" width=\"7\" height=\"7\" rx=\"1.5\"/><path d=\"M17 14v6.5M13.75 17.25h6.5\"/></svg>",
+      "track": "Working with it"
+    },
+    {
+      "id": "using-foundations",
+      "name": "Using the foundations",
+      "audience": "designers",
+      "summary": "The two-layer token model, the naming rule, the six spacing roles, and the exemptions.",
+      "order": 7,
+      "html": "<p class=\"lead\">Foundations are the rules every screen and component obeys. This explains how to use them — the model, the naming, and what to do when you need something that is not there.</p>\n\n<h3>Two layers, and why</h3>\n<p>Every value exists twice, deliberately.</p>\n<div class=\"learn-two\">\n  <div class=\"learn-cell\"><b>Palette — what a value <em>is</em></b><span><code>--vpValmoBlue: #2A67FF</code><br>A fact about the product's colours. Rarely changes.</span></div>\n  <div class=\"learn-cell good\"><b>Semantic — what it is <em>for</em></b><span><code>--vpBrand: var(--vpValmoBlue)</code><br>A decision about usage. This is what screens and components use.</span></div>\n</div>\n<p>The point is that you can change what “brand” means without hunting through fifty files, and you can read a rule and understand the intent. <code>color: var(--vpBrand)</code> says something; <code>color: #2A67FF</code> says nothing.</p>\n<p><b>The rule:</b> a component or screen should reach for a <em>semantic</em> token. Palette tokens are for defining semantic ones.</p>\n\n<h3>Typography: the category follows the weight</h3>\n<p>This trips people up, so it is worth stating plainly. A style's name tells you its <em>weight</em>, not where to use it.</p>\n<div class=\"learn-defs\">\n  <div><b>Body…</b><span>Mier Book, weight 400 — regardless of size or role</span></div>\n  <div><b>ButtonText…</b><span>Mier Demi or Bold, 600 or 700 — including table headers and links, not only buttons</span></div>\n  <div><b>Display…</b><span>Its own category, for large figures</span></div>\n  <div><b>…Valmo suffix</b><span>An addition the product needed that the design system does not cover</span></div>\n</div>\n<p>So a bold 14px table header is <code>ButtonText14BoldValmo</code> even though it is not a button. Naming by weight keeps the library from sprawling into one entry per usage.</p>\n<p><b>Applying it:</b> always the <code>font</code> shorthand, never the parts.</p>\n<pre class=\"learn-code\">font: var(--vpBody2);        /* family, size, weight, line-height in one */\n/* not: font-size: 13px; font-weight: 400; … */</pre>\n<p>One declaration is one thing to get right and one thing to check. Nothing outside the library may declare <code>font-family</code>, <code>font-size</code>, <code>font-weight</code> or <code>line-height</code>.</p>\n\n<h3>Spacing: six roles, not one scale</h3>\n<p>Most systems give you a scale of numbers. This one, taken from the Figma foundation, also gives every number a <em>role</em> — what kind of gap it is. That is unusual and genuinely useful, because it makes a rule self-describing.</p>\n<div class=\"learn-defs\">\n  <div><b>margin</b><span>space outside an element, pushing neighbours away</span></div>\n  <div><b>inline</b><span>between items sitting side by side, in a row</span></div>\n  <div><b>stack</b><span>between items sitting one above another, in a column</span></div>\n  <div><b>verPad</b><span>padding above and below, inside an element</span></div>\n  <div><b>horPad</b><span>padding left and right, inside an element</span></div>\n  <div><b>secGap</b><span>between whole sections of a page</span></div>\n</div>\n<p>Shorthands split by role, which is the part to remember:</p>\n<pre class=\"learn-code\">padding: 12px 16px\n  →  var(--vpSpacingVerPad12) var(--vpSpacingHorPad16)\n\ngap: 8px   in a row     →  var(--vpSpacingInline08)\ngap: 8px   in a column  →  var(--vpSpacingStack08)</pre>\n<p>The same 8px carries a different token depending on direction. That is intentional: it means you can read a stylesheet and know what a gap is <em>doing</em>.</p>\n\n<h3>What is deliberately outside the rules</h3>\n<p>Three exemptions, so you do not go looking for tokens that should not exist:</p>\n<ul class=\"learn-rules\">\n  <li><b>Glyphs.</b> A chevron, a tick, a plus sign — <code>▾ ‹ › + − ✓</code>. These are symbols sized to fit, not language. A text style would be the wrong tool.</li>\n  <li><b>Artwork and alpha.</b> Map pins, shipment dots, legend keys, shadows and scrims. These are illustration, not interface colour.</li>\n  <li><b>The hero banner.</b> Exempt from the palette entirely — product may choose its own colours there.</li>\n</ul>\n\n<h3>When you need a value that does not exist</h3>\n<p>This is the important part, and the answer is not “add it quietly”.</p>\n<p>First check whether an existing token is close enough — most new values turn out to be a rounding of one already there. If it is genuinely new, it goes into the foundation with a note saying why, and the <code>Valmo</code> suffix if the design system does not cover it. What it must <em>not</em> do is appear as a literal in a component.</p>\n<p>Two things that look like values but are not: <b>weight 500 does nothing</b> — Mier is registered at 400, 600 and 700 only, so live's 500 renders as 400. And an <b>undefined token is not a small bug</b> — CSS discards the entire declaration it appears in, silently.</p>\n\n<h3>Where to look them up</h3>\n<p>Foundations in the left rail renders all of it live: 28 text styles set in Mier at their real sizes, 51 colours as swatches with hex and token name, 30 spacing steps drawn to scale. It is generated from the same file the screens use, so it cannot be out of date.</p>\n",
+      "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3.5\" y=\"15\" width=\"17\" height=\"5\" rx=\"1.5\"/><rect x=\"5.5\" y=\"9.5\" width=\"13\" height=\"4\" rx=\"1.4\"/><rect x=\"8\" y=\"4\" width=\"8\" height=\"4\" rx=\"1.3\"/></svg>",
+      "track": "The craft"
+    },
+    {
+      "id": "matching-live",
+      "name": "How to match a screen to live",
+      "audience": "designers",
+      "summary": "The core skill: measure, build, superimpose, check. Not a drawing job.",
+      "order": 8,
+      "html": "<p class=\"lead\">This is the core skill the catalogue depends on: taking a screen in the live product and reproducing it accurately enough that the copy can be trusted. It is a measuring job, not a drawing job.</p>\n\n<h3>The method</h3>\n<figure class=\"learn-fig\">\n<svg viewBox=\"0 0 680 150\" role=\"img\" aria-label=\"measure live, build, superimpose, check, verify deployed\">\n  <defs><marker id=\"b3a\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0,1 L7,4 L0,7 Z\" fill=\"#93A1B8\"/></marker></defs>\n  <rect x=\"10\" y=\"40\" width=\"118\" height=\"62\" rx=\"10\" fill=\"#EDF2FF\" stroke=\"#C7DCFF\"/>\n  <text x=\"69\" y=\"68\" class=\"dg-t\">Measure live</text><text x=\"69\" y=\"86\" class=\"dg-s\">computed styles</text>\n  <line x1=\"132\" y1=\"71\" x2=\"154\" y2=\"71\" stroke=\"#93A1B8\" stroke-width=\"1.5\" marker-end=\"url(#b3a)\"/>\n  <rect x=\"160\" y=\"40\" width=\"118\" height=\"62\" rx=\"10\" fill=\"#fff\" stroke=\"#DDE3ED\"/>\n  <text x=\"219\" y=\"68\" class=\"dg-t\">Build</text><text x=\"219\" y=\"86\" class=\"dg-s\">from foundations</text>\n  <line x1=\"282\" y1=\"71\" x2=\"304\" y2=\"71\" stroke=\"#93A1B8\" stroke-width=\"1.5\" marker-end=\"url(#b3a)\"/>\n  <rect x=\"310\" y=\"40\" width=\"118\" height=\"62\" rx=\"10\" fill=\"#fff\" stroke=\"#DDE3ED\"/>\n  <text x=\"369\" y=\"68\" class=\"dg-t\">Superimpose</text><text x=\"369\" y=\"86\" class=\"dg-s\">their boxes on ours</text>\n  <line x1=\"432\" y1=\"71\" x2=\"454\" y2=\"71\" stroke=\"#93A1B8\" stroke-width=\"1.5\" marker-end=\"url(#b3a)\"/>\n  <rect x=\"460\" y=\"40\" width=\"118\" height=\"62\" rx=\"10\" fill=\"#fff\" stroke=\"#DDE3ED\"/>\n  <text x=\"519\" y=\"68\" class=\"dg-t\">Run the checks</text><text x=\"519\" y=\"86\" class=\"dg-s\">eight of them</text>\n  <line x1=\"582\" y1=\"71\" x2=\"604\" y2=\"71\" stroke=\"#93A1B8\" stroke-width=\"1.5\" marker-end=\"url(#b3a)\"/>\n  <rect x=\"610\" y=\"40\" width=\"60\" height=\"62\" rx=\"10\" fill=\"#092D5E\"/>\n  <text x=\"640\" y=\"68\" class=\"dg-t inv\">Verify</text><text x=\"640\" y=\"86\" class=\"dg-s inv\">deployed</text>\n</svg>\n</figure>\n\n<h3>1. Measure, do not look</h3>\n<p>Open the live screen and read <b>computed styles</b> off the real element. Not a screenshot, not an eyedropper. A screenshot gives you a composite: a colour at 20% opacity over a background is neither of the two colours involved, and no amount of squinting recovers the real value.</p>\n<p>Collect, for every element that matters: font size, weight, line-height, colour, background, border width and colour, radius, padding, margin, gap, width and height. Record the box as x / y / width / height so you can compare positions later, not just properties.</p>\n<p>Two specifics worth knowing. When live states a tint in <code>oklab()</code>, convert the <b>opaque</b> colour to get the exact hex — sampling the composited pixel gives a different number. And a stated <code>font-weight: 500</code> is rendering as 400, because the typeface is registered only at 400, 600 and 700.</p>\n\n<h3>2. Build it from the foundations</h3>\n<p>Every value you measured should resolve to a token. If it does not, that is information: either the token is missing, or live has drifted from its own system. Both are worth writing down rather than silently absorbing.</p>\n<p>Do not hard-code the measured number to make it match. A screen full of literals looks right today and is unmaintainable tomorrow — and it breaks the one property that makes the catalogue valuable, that a foundation change moves everything together.</p>\n\n<h3>3. Superimpose</h3>\n<p>Take the boxes you measured from live and draw them as outlines over your rendered screen — absolutely positioned, one-pixel borders. Then look.</p>\n<p>This catches what numbers do not. Two elements can each be correct while the gap between them is wrong, because the error lives in something you did not think to measure. Superimposition shows you the thing you were not looking for.</p>\n\n<h3>4. The checks before calling it done</h3>\n<ol class=\"learn-ol\">\n  <li>Inventory live and ours exhaustively — including every component's <b>inner</b> elements — and compare programmatically, not by eye.</li>\n  <li>Superimpose live's measured boxes over the render.</li>\n  <li>Every <code>var(--vp…)</code> referenced is actually defined. Run this <b>after</b> your last CSS edit, not before.</li>\n  <li>Tags balance: <code>&lt;div&gt;</code> against <code>&lt;/div&gt;</code>, <code>/*</code> against <code>*/</code>, on every exported page.</li>\n  <li>No raw pixel values in padding, margin or gap; no colour outside the palette; no type outside the library — except the documented exemptions.</li>\n  <li>Every image loads, and no <code>&lt;img&gt;</code> is missing its source.</li>\n  <li>All pages render with no console errors.</li>\n  <li>Re-verify on the <b>deployed</b> page after merging, not only locally.</li>\n</ol>\n\n<h3>Where measuring goes wrong</h3>\n<ul class=\"learn-rules\">\n  <li><b>Measuring containers only.</b> The banner matched live on all six outer measurements while the padding inside it was wrong. Measure the children.</li>\n  <li><b>Trusting a property that reports oddly.</b> A rotation once reported as identity while the render was plainly rotated. When a value contradicts your eyes, verify by pixels.</li>\n  <li><b>Assuming a difference is a mistake.</b> A grey radio can mean disabled rather than unselected. Work out what state live is expressing before correcting it.</li>\n  <li><b>Fixing one screen's detail as a special case.</b> Check whether it is a rule that belongs to the component before you make it an exception.</li>\n</ul>\n\n<h3>When live disagrees with the design system</h3>\n<p>It will. The default is to <b>reproduce live faithfully and write the disagreement down</b> — those notes are among the most valuable output here, because they are a list of inconsistencies nobody had collected.</p>\n<p>Deviating from live is allowed, but it must be deliberate and recorded. See <b>Deliberate differences from live</b> for the ones already agreed.</p>\n",
+      "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3.5\" y=\"3.5\" width=\"12\" height=\"12\" rx=\"1.6\"/><rect x=\"8.5\" y=\"8.5\" width=\"12\" height=\"12\" rx=\"1.6\" stroke-dasharray=\"3 2.5\"/></svg>",
+      "track": "The craft"
+    },
+    {
+      "id": "deliberate-differences",
+      "name": "Deliberate differences from live",
+      "audience": "everyone",
+      "summary": "What does not match the live product on purpose, and why — so nobody 'fixes' it.",
+      "order": 9,
+      "html": "<p class=\"lead\">Some things here do not match the live product, on purpose. Without this page they look like bugs, and someone helpfully “fixes” one. Each entry says what differs and why.</p>\n\n<h3>Deliberate deviations</h3>\n\n<div class=\"learn-trap\">\n  <h4>The hero banner ignores the colour palette</h4>\n  <p><b>Live:</b> a gradient that is not in the design system. <b>Ours:</b> the same gradient, exempt from the palette rules everything else obeys.</p>\n  <p class=\"fix\"><b>Why:</b> product may choose its own colours for banner artwork. Forcing it into the palette would misrepresent how the product actually works.</p>\n</div>\n\n<div class=\"learn-trap\">\n  <h4>The Service Area panel is content-sized, live fixes its height</h4>\n  <p><b>Live:</b> a fixed height, so the panel has empty space or clips. <b>Ours:</b> the panel is as tall as its contents.</p>\n  <p class=\"fix\"><b>Why:</b> judged a wrong implementation in live rather than a decision worth reproducing.</p>\n</div>\n\n<div class=\"learn-trap\">\n  <h4>The map is OpenStreetMap, not Google Maps</h4>\n  <p><b>Live:</b> Google Maps. <b>Ours:</b> Leaflet with OpenStreetMap tiles, and a baked raster underneath as an offline fallback.</p>\n  <p class=\"fix\"><b>Why:</b> every closer-styled tile provider requires an API key. Map <em>rendering</em> is explicitly out of scope; the overlays, boundaries, pins and layer toggles on top of it are what was matched.</p>\n</div>\n\n<div class=\"learn-trap\">\n  <h4>Numbers, names and dates are stale on purpose</h4>\n  <p><b>Live:</b> whatever the hub shows today. <b>Ours:</b> the values captured when the screen was built.</p>\n  <p class=\"fix\"><b>Why:</b> the catalogue records structure and styling, not data. Chasing live figures would mean rebuilding screens forever and would tell you nothing about the design.</p>\n</div>\n\n<div class=\"learn-trap\">\n  <h4>The hub is not the same hub</h4>\n  <p>Screens were built against one hub and later checked against another. Hub name, pincodes, order counts and boundary shapes differ.</p>\n  <p class=\"fix\"><b>Why:</b> irrelevant to what the catalogue is for. Ignore hub-specific values when comparing.</p>\n</div>\n\n<div class=\"learn-trap\">\n  <h4>States are recorded but not shown</h4>\n  <p>Each screen lists the states it can be in, but the ledger does not display them.</p>\n  <p class=\"fix\"><b>Why:</b> only some are reachable in what we render; the rest had nothing behind them. Showing them promised screens that do not exist. The data stays for when the variants are built.</p>\n</div>\n\n<div class=\"learn-trap ok\">\n  <h4>The catalogue's own chrome is not the product</h4>\n  <p>The ledger's interface — this page, the rail, the stage — uses Valmo's colours and typeface deliberately, but it is <em>not</em> part of the panel and is not held to live fidelity. Do not measure it against anything.</p>\n</div>\n\n<h3>Things that look like differences and are not</h3>\n<ul class=\"learn-rules\">\n  <li><b>Weight 500 renders as 400.</b> Live writes 500 in many places; the typeface has no 500. Not a difference — the same pixels.</li>\n  <li><b>Active sub-tabs are not bolder.</b> Colour alone marks them, in live and here. If ours looks lighter than you expect, that is correct.</li>\n  <li><b>Tables are 14px.</b> Not 15px. This surprises people who know the design system.</li>\n  <li><b>The notice fill is one step off.</b> Live uses <code>#FFEFDE</code>; the palette has <code>#FFEDDE</code>. A difference of 2/255 in green, using the palette token rather than adding a near-duplicate.</li>\n</ul>\n\n<h3>Adding to this list</h3>\n<p>If you decide not to match something, record it here in the same shape: what live does, what we do, and why. An undocumented deviation is indistinguishable from a mistake, and the next person will spend an afternoon “fixing” it.</p>\n",
+      "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"9\" cy=\"12\" r=\"5.5\"/><circle cx=\"15\" cy=\"12\" r=\"5.5\"/><path d=\"M19 5 5 19\"/></svg>",
+      "track": "The craft"
+    },
+    {
+      "id": "valuable-knowns",
+      "name": "Valuable knowns",
+      "audience": "everyone",
+      "summary": "Design calls that had to be corrected, and the technical traps that cost real time.",
+      "order": 10,
+      "html": "<p class=\"lead\">Two kinds of lesson live here. The first is design judgement — the calls that were got wrong, caught in review, and corrected. The second is technical: the ways HTML, CSS and tooling quietly lie to you. Both cost real time to learn.</p>\n\n<h3>Part one — design calls that had to be corrected</h3>\n<p class=\"learn-note\">These came out of review. Each one was built, looked at, found wanting, and changed. They are worth reading because the same instincts produce the same misses.</p>\n\n<div class=\"learn-trap\">\n  <h4>The banner's inner padding was missed while everything around it was right</h4>\n  <p>The Pilot Management banner matched live on 6 of 6 outer measurements — and the gap between the image and the text was still wrong. The check had compared containers only, never the elements inside them.</p>\n  <p class=\"fix\"><b>The lesson:</b> a container can be correct to the pixel while everything inside it is wrong. Measure the children, not just the box.</p>\n</div>\n\n<div class=\"learn-trap\">\n  <h4>A grey radio meant “disabled”, not “unselected”</h4>\n  <p>The current area in Area Update History renders grey. Read as an ordinary selection, that looks like a mistake, so it was “fixed” to navy. It was not a mistake: it is a <em>disabled, already-checked</em> radio — the reference area, which can never be cleared. Navy promised a choice that was not there.</p>\n  <p class=\"fix\"><b>The lesson:</b> before correcting live, work out what state it is actually expressing.</p>\n</div>\n\n<div class=\"learn-trap\">\n  <h4>Table dividers were treated as one table's quirk</h4>\n  <p>Vertical cell dividers were added as a variant for the Pilot Management table. But live rules <em>every</em> table it has — the dividers belong to the table component, not to a special case. Payments went without them for weeks.</p>\n  <p class=\"fix\"><b>The lesson:</b> when you find a detail on one screen, check whether it is a rule before you make it an exception.</p>\n</div>\n\n<div class=\"learn-trap\">\n  <h4>The footer looked wrong and the asset was innocent</h4>\n  <p>The sidebar logo read too bright against live. The instinct was to fix the image. The image was byte-identical — live applies <code>opacity: .6</code> to the whole row.</p>\n  <p class=\"fix\"><b>The lesson:</b> check the treatment before blaming the asset.</p>\n</div>\n\n<div class=\"learn-trap\">\n  <h4>States were shown that had no screens behind them</h4>\n  <p>Each screen listed its states as pills — loading, empty, AWB not found. Only some were reachable in what we render; the rest were labels with nothing behind them. The catalogue was promising screens that did not exist.</p>\n  <p class=\"fix\"><b>The lesson:</b> do not display information the tool cannot honour. Archive it until it is true.</p>\n</div>\n\n<div class=\"learn-trap\">\n  <h4>The copy confirmation was put where things get missed</h4>\n  <p>It sat at the bottom of the window as a small toast — the position you use for something you do not mind being missed. It is the one message in the tool that matters, because the whole point is what you do next with what was copied.</p>\n  <p class=\"fix\"><b>The lesson:</b> place feedback according to how much it matters, not by convention.</p>\n</div>\n\n<div class=\"learn-trap\">\n  <h4>Full screen lived furthest from the thing it acts on</h4>\n  <p>The control for enlarging the prototype was in the top bar, the far corner of the page. It now also sits on the prototype's own frame — and spelled out, because next to two round arrow buttons another icon reads as decoration.</p>\n  <p class=\"fix\"><b>The lesson:</b> put a control next to its object, and label it when its neighbours are already icons.</p>\n</div>\n\n<div class=\"learn-trap\">\n  <h4>Hierarchy was flattened in the navigation</h4>\n  <p>Modules and the screens inside them rendered at nearly the same weight, four pixels apart, with grey index numbers. Everything was present and nothing was legible as structure.</p>\n  <p class=\"fix\"><b>The lesson:</b> if two things are different kinds of thing, they must look like different kinds of thing.</p>\n</div>\n\n<div class=\"learn-trap\">\n  <h4>A pill inside a box left a white wedge</h4>\n  <p>The “Current” pill had a 16px-radius fill inside a 4px-radius outline. At the corners the fill pulled away from the outline and it read as two shapes.</p>\n  <p class=\"fix\"><b>The lesson:</b> nested radii have to agree, or the eye sees the gap before it sees the component.</p>\n</div>\n\n<div class=\"learn-trap ok\">\n  <h4>Not everything in live should be copied</h4>\n  <p>Some things were deliberately <em>not</em> matched: the hero banner is exempt from the palette because product may choose its own colours; a fixed panel height in live was judged wrong and ours stays content-sized. Fidelity is a default, not a law.</p>\n  <p class=\"fix\"><b>The lesson:</b> decide deliberately, and write down the exceptions so they do not look like errors later.</p>\n</div>\n\n<h3>Part two — the technical traps</h3>\n<p class=\"learn-note\">These are the ways the tools fail silently. None of them produced an error message.</p>\n\n<div class=\"learn-trap\">\n  <h4>An unterminated CSS comment ate the entire spacing scale</h4>\n  <p>A generated token block was missing its <code>*/</code>. Every <code>var()</code> after it became invalid, so padding collapsed to zero — a button went 36px to 22px, a tab bar 38px to 20px — and the page still looked <em>plausible</em>. Nothing errored.</p>\n  <p class=\"fix\"><b>Do this:</b> after any CSS edit, check that every <code>var(--vp…)</code> used is defined and that <code>/*</code> and <code>*/</code> balance. Run it <em>after</em> the edit — running it before is what let this through.</p>\n</div>\n\n<div class=\"learn-trap\">\n  <h4>A spacing token that did not exist deleted a whole declaration</h4>\n  <p><code>--vpSpacingInline20</code> was used but never defined. CSS does not warn; it discards the entire <code>gap</code> line. The banner copy sat 20px off with no sign of why.</p>\n  <p class=\"fix\"><b>Do this:</b> an undefined custom property is not a small bug — it removes the whole declaration.</p>\n</div>\n\n<div class=\"learn-trap\">\n  <h4>Writing one file and reading the other reverted three icons</h4>\n  <p>The catalogue exists as <code>data-seed.json</code> <em>and</em> as a copy embedded in the ledger. Updating one and then reading the other silently restored old values.</p>\n  <p class=\"fix\"><b>Do this:</b> never write one without the other. <code>import_screen.py</code> does both; <code>check_v2_sync.py</code> fails if they drift.</p>\n</div>\n\n<div class=\"learn-trap\">\n  <h4>Inline styles quietly beat the component</h4>\n  <p>Twice: a <code>height:14px</code> capping the footer logo, and <code>width/height: fit-content</code> on the search field. The component CSS was correct; something more specific was winning.</p>\n  <p class=\"fix\"><b>Do this:</b> when a property refuses to take, grep the markup for an inline override before touching the stylesheet.</p>\n</div>\n\n<div class=\"learn-trap\">\n  <h4>A class name collision made the later rule win</h4>\n  <p><code>.vp-downloadbtn</code> already existed elsewhere and was defined further down the sheet, so it beat the new button that reused the name.</p>\n  <p class=\"fix\"><b>Do this:</b> grep for a class name before you invent it.</p>\n</div>\n\n<div class=\"learn-trap\">\n  <h4>Stroke width multiplied for no reason</h4>\n  <p>The map polygons carry <code>vector-effect=\"non-scaling-stroke\"</code>, which means the width is <em>already</em> in screen pixels. Scaling it made every boundary four times too heavy.</p>\n  <p class=\"fix\"><b>Do this:</b> read the attributes on the element before transforming its numbers.</p>\n</div>\n\n<div class=\"learn-trap\">\n  <h4>A 50-marker splice dropped one closing tag</h4>\n  <p>The entire side panel ended up nested inside a hidden layer and vanished. Eyeballing it was fooled by the last marker's own closing tag; counting found it — 193 opens against 192 closes.</p>\n  <p class=\"fix\"><b>Do this:</b> after generated-markup edits, count tags programmatically.</p>\n</div>\n\n<div class=\"learn-trap\">\n  <h4>Hiding with <code>!important</code> broke the layer toggles</h4>\n  <p>A map layer was hidden with <code>display: none !important</code> — but <code>display</code> was also what the checkbox used to carry its state. The boxes flipped and the map never changed.</p>\n  <p class=\"fix\"><b>Do this:</b> never style the property that is also holding the state.</p>\n</div>\n\n<div class=\"learn-trap\">\n  <h4>A CSS fill beat the element's own attribute</h4>\n  <p>Diagram labels written <code>fill=\"#fff\"</code> rendered navy-on-navy, because a stylesheet rule setting <code>fill</code> outranks a presentation attribute. Unreadable, with nothing in the console.</p>\n  <p class=\"fix\"><b>Do this:</b> presentation attributes lose to CSS. Use a class.</p>\n</div>\n\n<div class=\"learn-trap\">\n  <h4>Two megabytes of the same stylesheet, twice over</h4>\n  <p>Every screen inlined its own copy of the design system, and 62% of the catalogue file was 27 identical copies of the same CSS. A one-line change rewrote 34 files and made version history meaningless.</p>\n  <p class=\"fix\"><b>Do this:</b> when a diff is suspiciously wide, ask what is being duplicated.</p>\n</div>\n\n<h3>Facts about the product that surprised us</h3>\n<ul class=\"learn-rules\">\n  <li><b>Weight 500 does nothing.</b> Live writes it in many places, but Mier is registered only at 400, 600 and 700. The same string measures identically at 400 and 500 — treat live's 500 as 400.</li>\n  <li><b>Active sub-tabs are not bolder.</b> All three Service Area tabs are 15px Book; the active one is marked by <em>colour alone</em>.</li>\n  <li><b>Tables are 14px, not 15px.</b> Cells 400, headers 600, action links 700. The single biggest typographic fact about the panel, and not what the design system predicts.</li>\n</ul>\n\n<h3>How to measure live properly</h3>\n<ul class=\"learn-rules\">\n  <li>Read <b>computed styles</b>, not screenshots. A screenshot at 20% opacity is a lossy composite, never the real value.</li>\n  <li>When live states a tint in <code>oklab()</code>, convert the <b>opaque</b> colour for the exact hex. Sampling the composited pixel gives a different number.</li>\n  <li>Superimpose live's measured boxes over the render and look. Numbers agreeing is not the same as it looking right.</li>\n  <li>Verify the <b>deployed</b> page after merging, not only the local one.</li>\n</ul>\n\n<h3>The one process lesson</h3>\n<p>Almost every technical item above was found by a check that ran <em>after</em> the change, not by care taken before it. Writing carefully does not catch a missing <code>*/</code>. Running the guard does. And almost every design item was found by someone else looking — which is the argument for the review step, not against it.</p>\n",
+      "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 3 21.5 19.5H2.5L12 3Z\"/><path d=\"M12 10v4\"/><circle cx=\"12\" cy=\"16.8\" r=\".7\" fill=\"currentColor\"/></svg>",
+      "track": "The craft"
+    },
+    {
+      "id": "scaleable",
+      "name": "How this is scaleable",
+      "audience": "everyone",
+      "summary": "Nothing here is Valmo-specific. What transfers, in what order, and where it is not worth it.",
+      "order": 11,
+      "html": "<p class=\"lead\">Nothing in the machinery is specific to Valmo. The screens are, the tokens are — but the arrangement that produces them is a method, and it transfers to any panel you can open in a browser.</p>\n\n<p>What makes it portable is that the ledger never assumes a design tool, a component framework, or access to the original source. It only assumes the product exists somewhere you can look at it.</p>\n\n<h3>What is reusable, and what you replace</h3>\n<div class=\"learn-two\">\n  <div class=\"learn-cell good\"><b>Reuse as-is</b><span>The export pipeline, the importer, the CI check, the pull commands, the ledger UI itself, the version history, the whole contribution loop. None of it knows what product it is holding.</span></div>\n  <div class=\"learn-cell warn\"><b>Replace per product</b><span>The foundations (that product's type, colour, spacing), its components, its screens, its fonts. That is the work — and it is the only work.</span></div>\n</div>\n\n<h3>The order that works</h3>\n<p>This sequence matters. Doing it the other way round — screens first, foundations later — means going back and re-doing every screen once the tokens exist.</p>\n\n<figure class=\"learn-fig\">\n<svg viewBox=\"0 0 680 210\" role=\"img\" aria-label=\"five steps: measure foundations, build components, build one screen, wire the flow, then repeat per module\">\n  <defs><marker id=\"a5arrow\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\">\n    <path d=\"M0,1 L7,4 L0,7 Z\" fill=\"#93A1B8\"/></marker></defs>\n  <g>\n    <rect x=\"10\" y=\"40\" width=\"116\" height=\"86\" rx=\"10\" fill=\"#EDF2FF\" stroke=\"#C7DCFF\"/>\n    <text x=\"68\" y=\"86\" class=\"dg-t\">Foundations</text>\n    <text x=\"68\" y=\"105\" class=\"dg-s\">measure the real</text>\n    <text x=\"68\" y=\"120\" class=\"dg-s\">type, colour, spacing</text>\n  </g>\n  <line x1=\"130\" y1=\"83\" x2=\"152\" y2=\"83\" stroke=\"#93A1B8\" stroke-width=\"1.5\" marker-end=\"url(#a5arrow)\"/>\n  <g>\n    <rect x=\"158\" y=\"40\" width=\"116\" height=\"86\" rx=\"10\" fill=\"#fff\" stroke=\"#DDE3ED\"/>\n    <text x=\"216\" y=\"86\" class=\"dg-t\">Components</text>\n    <text x=\"216\" y=\"105\" class=\"dg-s\">built only from</text>\n    <text x=\"216\" y=\"120\" class=\"dg-s\">step 1's values</text>\n  </g>\n  <line x1=\"278\" y1=\"83\" x2=\"300\" y2=\"83\" stroke=\"#93A1B8\" stroke-width=\"1.5\" marker-end=\"url(#a5arrow)\"/>\n  <g>\n    <rect x=\"306\" y=\"40\" width=\"116\" height=\"86\" rx=\"10\" fill=\"#fff\" stroke=\"#DDE3ED\"/>\n    <text x=\"364\" y=\"86\" class=\"dg-t\">One screen</text>\n    <text x=\"364\" y=\"105\" class=\"dg-s\">prove the loop</text>\n    <text x=\"364\" y=\"120\" class=\"dg-s\">end to end</text>\n  </g>\n  <line x1=\"426\" y1=\"83\" x2=\"448\" y2=\"83\" stroke=\"#93A1B8\" stroke-width=\"1.5\" marker-end=\"url(#a5arrow)\"/>\n  <g>\n    <rect x=\"454\" y=\"40\" width=\"116\" height=\"86\" rx=\"10\" fill=\"#fff\" stroke=\"#DDE3ED\"/>\n    <text x=\"512\" y=\"86\" class=\"dg-t\">The flow</text>\n    <text x=\"512\" y=\"105\" class=\"dg-s\">wire click-through</text>\n    <text x=\"512\" y=\"120\" class=\"dg-s\">between screens</text>\n  </g>\n  <line x1=\"574\" y1=\"83\" x2=\"596\" y2=\"83\" stroke=\"#93A1B8\" stroke-width=\"1.5\" marker-end=\"url(#a5arrow)\"/>\n  <g>\n    <rect x=\"602\" y=\"40\" width=\"68\" height=\"86\" rx=\"10\" fill=\"#092D5E\"/>\n    <text x=\"636\" y=\"86\" class=\"dg-t inv\">Repeat</text>\n    <text x=\"636\" y=\"105\" class=\"dg-s inv\">per module</text>\n  </g>\n  <rect x=\"158\" y=\"156\" width=\"412\" height=\"36\" rx=\"8\" fill=\"#FFEDDE\" stroke=\"#EC7600\"/>\n  <text x=\"364\" y=\"179\" class=\"dg-s\" fill=\"#8a4a00\">screens first, foundations later = every screen re-done once the tokens arrive</text>\n</svg>\n</figure>\n\n<h3>Getting started on a new panel</h3>\n\n<p><b>1. Fork the machinery, empty the contents.</b> Take <code>scripts/</code>, the ledger shell, and the CI check. Empty <code>data-seed.json</code> down to <code>{\"flows\": [], \"screens\": [], \"components\": [], \"icons\": {}}</code>. You now have a working, empty ledger.</p>\n\n<p><b>2. Find the real values before drawing anything.</b> Open the product, read computed styles off the live pages — not screenshots. Group what you find: how many distinct font sizes are actually in use? How many greys? Most products have fewer real values than they think, and a handful of accidents. Write the accidents down; do not silently fix them.</p>\n\n<p><b>3. Check whether the company already has a design system.</b> If it does, reproduce it faithfully and record every place the live product disagrees with it. Those disagreements are the most valuable output of the whole exercise — they are the backlog nobody had written down.</p>\n\n<p><b>4. Do one screen completely before starting a second.</b> The first screen is where you discover that your spacing scale is missing a step, that the typeface has no 500 weight, that a component needs a variant. Finding that once is cheap; finding it after six screens means redoing six screens.</p>\n\n<p><b>5. Wire the flow, then hand it to someone else.</b> The test of a ledger is not whether it looks right to the person who built it. It is whether a second person can copy a screen and start working without asking a question.</p>\n\n<h3>What to expect</h3>\n<ul class=\"learn-rules\">\n  <li><b>Foundations take longer than you think, and everything after is faster than you think.</b> The first module is mostly foundation work wearing a screen's clothes.</li>\n  <li><b>Maps, charts and canvases are the expensive parts.</b> Plain pages are quick. Anything with its own rendering engine needs a decision: reproduce it, or fake it convincingly and say so.</li>\n  <li><b>Real data is a liability.</b> Decide early whether the catalogue carries real names and numbers, because it determines whether the repo can be public.</li>\n  <li><b>The value shows up at the second module, not the first.</b> One screen in a catalogue is a screenshot with extra steps. The compounding starts when a foundation change moves twenty screens at once.</li>\n</ul>\n\n<h3>Where it would not be worth it</h3>\n<p>If the product already has a maintained, trusted component library that engineering actually builds from, a ledger is duplicated effort — point people at the library instead. This is worth doing when the gap between the design system and the shipped product is real, unmeasured, and costing people time.</p>\n",
+      "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 20V9M4 9h11\"/><path d=\"M8.5 5.5 4 9l4.5 3.5\" transform=\"rotate(-45 4 9)\"/><rect x=\"12\" y=\"12\" width=\"4\" height=\"4\" rx=\"1\"/><rect x=\"17\" y=\"7\" width=\"4\" height=\"4\" rx=\"1\"/><rect x=\"17\" y=\"17\" width=\"4\" height=\"4\" rx=\"1\"/></svg>",
+      "track": "Reference"
+    },
+    {
+      "id": "for-engineers",
+      "name": "For engineers",
+      "audience": "engineers",
+      "summary": "Data model, build, CSS contract, version history, CI, and what will bite you.",
+      "order": 12,
+      "html": "<p class=\"lead\">The short version: a static site generated from one JSON file by one Python script, with no framework, no build step beyond that script, and no runtime dependencies on the screens themselves.</p>\n\n<h3>Data model</h3>\n<pre class=\"learn-code\">source/data-seed.json\n├─ flows[]       { id, name, order, description }\n├─ screens[]     { id, flowId, order, name, description,\n│                  states[], components[], tags[], code }   ← code is the markup\n├─ components[]  { id, name, category, description, sizing, html }\n└─ icons{}       { key: \"data:image/svg+xml;base64,…\" }</pre>\n<p><code>screens[].code</code> is the whole payload — a screen is its markup. Icons are referenced inside it as <code>data-icon=\"key\"</code> and resolved at export time to real files under <code>assets/icons/</code>, or at runtime to data URIs when the ledger renders a preview.</p>\n\n<h3>Build</h3>\n<p><code>scripts/export_to_github.py</code> is the only build step. It is pure and idempotent — same input, same bytes out — which is what lets CI assert reproducibility. It writes <code>index.html</code>, <code>screens/</code>, <code>components/</code>, <code>assets/</code> and <code>manifest.json</code>, and prunes anything the catalogue no longer lists.</p>\n<p>Two hard failures worth knowing: an <code>&lt;img&gt;</code> exported without a <code>src</code> aborts the build, and a literal closing script tag anywhere in the seed aborts it too — that would terminate the <code>&lt;script id=\"seed-data\"&gt;</code> element and break every embedding page.</p>\n\n<h3>The CSS contract</h3>\n<p>One stylesheet, <code>assets/kit.css</code>, extracted verbatim from the <code>&lt;style&gt;</code> block in <code>source/flow-ledger.html</code>. Screens and components link it; nothing inlines it. Its font URLs are relative to <code>assets/</code>, which is where it lives, so they resolve from any depth — do not \"fix\" them to <code>../assets/fonts/</code>.</p>\n<p>Inside it, three token layers:</p>\n<pre class=\"learn-code\">--vpValmoBlue: #2A67FF;          /* palette: what a value IS   */\n--vpBrand: var(--vpValmoPrimaryDark);  /* semantic: what it is FOR */\n.vp-btn { font: var(--vpButtonText2); }  /* usage: never a literal */</pre>\n<p>Type is applied with the <code>font</code> shorthand so family, size, weight and line-height arrive as one checkable declaration. Utilities are scoped <code>.vp-scope .vp-&lt;name&gt;</code> because a bare class loses to <code>.vp-pageheader h3</code> on specificity.</p>\n\n<h3>Screens are inert</h3>\n<p>No framework, no bundler, no hydration. Interactions are inline <code>onclick</code> handlers, deliberately: a literal <code>&lt;/script&gt;</code> in screen markup would close the seed element, so screens carry no script tags at all. Click-through between screens is a <code>data-goto</code> attribute plus one delegated listener injected at export time.</p>\n<p>Map screens are the exception: they get vendored Leaflet from <code>assets/vendor/</code> and <code>sa-map.js</code>, which reads the SVG overlays already in the page, projects them back to lat/lng, and hands them to Leaflet. If tiles cannot load, the baked raster underneath stays visible.</p>\n\n<h3>Version history</h3>\n<p><code>scripts/build_versions.py</code> walks git and writes <code>versions.json</code>. A commit counts as a version of a screen only if it changed that screen's own content region — everything from <code>&lt;div class=\"vp-content</code> onward — which excludes the sidebar every screen duplicates. Entries are labelled <code>screen</code> / <code>module</code> / <code>sweep</code> by how many screen files the commit touched.</p>\n<p>It is baked rather than queried at runtime because the unauthenticated GitHub API allows 60 requests an hour and answering the question costs one call per commit. It is fetched rather than embedded so it does not churn the seed, and it is deliberately <em>not</em> part of the export — it changes with every commit and would fight the CI reproducibility check. Regenerate it when you want history refreshed.</p>\n\n<h3>CI</h3>\n<pre class=\"learn-code\">.github/workflows/verify.yml\n  1. rebuild from source/\n  2. fail if the committed output differs   ← the drift guard\n  3. check_v2_sync.py: embedded seed == data-seed.json\n  4. every page links the stylesheet, no img without src,\n     no missing asset, no component carrying a kit copy</pre>\n<p>Step 2 is the one that matters. Without it the site can silently disagree with the thing people edit, and the Vercel preview on a pull request shows the previous build while the diff claims otherwise.</p>\n\n<h3>Things that will bite you</h3>\n<ul class=\"learn-rules\">\n  <li><b>The seed exists twice</b> — as <code>data-seed.json</code> and as a copy embedded in <code>flow-ledger.html</code> so the file opens by double-click. Write both or neither. <code>check_v2_sync.py</code> enforces it.</li>\n  <li><b>The embedded copy is pretty-printed on purpose.</b> It used to be one 2.7-million-character line, which made every diff unreviewable.</li>\n  <li><b>Per-component CSS copies are gone and should stay gone.</b> They were 62% of the seed — 27 identical copies of the same kit. CI fails if one comes back.</li>\n  <li><b>Structural regexes produce false positives on <code>index.html</code></b> — it writes <code>'&lt;' + '/script&gt;'</code>, sets <code>src</code> at runtime, and has <code>/*</code> inside strings. Verify it functionally instead.</li>\n</ul>\n",
+      "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M8.5 8.5 4.5 12l4 3.5\"/><path d=\"M15.5 8.5 19.5 12l-4 3.5\"/><path d=\"M13.3 5.5 10.7 18.5\"/></svg>",
+      "track": "Reference"
+    },
+    {
+      "id": "glossary",
+      "name": "Glossary",
+      "audience": "everyone",
+      "summary": "Every term used in these guides, including the Valmo domain words.",
+      "order": 13,
+      "html": "<p class=\"lead\">Terms used across these guides and in the repo. Roughly half are about this tool; the rest are Valmo domain words that a designer joining the team will not have met.</p>\n\n<h3>The catalogue</h3>\n<div class=\"learn-defs\">\n  <div><b>Flow</b><span>One journey through the product, as a sequence of screens — Captain Payments, Service Area, Pilot Management. Also called a module.</span></div>\n  <div><b>Screen</b><span>One page of the product, reproduced as live HTML. The unit you copy.</span></div>\n  <div><b>Component</b><span>A reusable part a screen is built from — the sidebar, a data table, a map panel. 27 of them.</span></div>\n  <div><b>Foundation</b><span>The rules everything obeys: typography, colour, spacing.</span></div>\n  <div><b>Stage</b><span>The framed area in the middle of the ledger where the live screen runs.</span></div>\n  <div><b>Pull command</b><span>The block of instructions the Copy buttons put on your clipboard.</span></div>\n</div>\n\n<h3>Design system</h3>\n<div class=\"learn-defs\">\n  <div><b>Token</b><span>A named value used instead of a literal — <code>var(--vpBrand)</code> rather than <code>#092D5E</code>.</span></div>\n  <div><b>Palette token</b><span>What a value <em>is</em>. <code>--vpValmoBlue: #2A67FF</code>.</span></div>\n  <div><b>Semantic token</b><span>What a value is <em>for</em>. <code>--vpBrand: var(--vpValmoBlue)</code>. This is the layer screens use.</span></div>\n  <div><b>The kit</b><span>The single stylesheet holding the foundations and every component rule. Ships as <code>assets/kit.css</code>.</span></div>\n  <div><b>Crystal</b><span>Meesho's design system, the source of the type scale and most of the palette.</span></div>\n  <div><b>Mier B02</b><span>The panel's actual typeface. Registered at 400 (Book), 600 (Demi) and 700 (Bold) — there is no 500.</span></div>\n  <div><b>Fidelity</b><span>How closely a screen matches the live product, measured rather than judged.</span></div>\n</div>\n\n<h3>Repo and build</h3>\n<div class=\"learn-defs\">\n  <div><b>The seed</b><span><code>source/data-seed.json</code> — the catalogue itself. Every screen's markup lives inside it.</span></div>\n  <div><b>Export</b><span>The script that turns the seed into the website. Deterministic: same input, same bytes.</span></div>\n  <div><b>Generated</b><span>Any file the export writes. Never hand-edited.</span></div>\n  <div><b>Import</b><span>Folding an edited screen file back into the seed, with <code>scripts/import_screen.py</code>.</span></div>\n  <div><b>CI</b><span>The automated checks that run on every pull request. Continuous integration.</span></div>\n  <div><b>Preview deployment</b><span>A complete copy of the site built from a pull request, at its own link, for review.</span></div>\n  <div><b>Repository</b><span>The project folder on GitHub, with full history.</span></div>\n  <div><b>Commit</b><span>A saved change with a note attached.</span></div>\n  <div><b>Branch</b><span>A private copy of the project where you work without affecting anyone else.</span></div>\n  <div><b>Pull request (PR)</b><span>A proposal: “here is what I changed, please review and merge”.</span></div>\n</div>\n\n<h3>Version history</h3>\n<div class=\"learn-defs\">\n  <div><b>Revision</b><span>A past version of a screen you can load into the stage and look at.</span></div>\n  <div><b>screen scope</b><span>A change that touched only that one screen — a decision about it.</span></div>\n  <div><b>module scope</b><span>A change that touched a few screens.</span></div>\n  <div><b>sweep scope</b><span>A change that touched every screen — a foundation, the sidebar, the export.</span></div>\n</div>\n\n<h3>Valmo domain</h3>\n<div class=\"learn-defs\">\n  <div><b>Captain</b><span>The person who runs a delivery hub. The panel is built for them — hence “captain panel”.</span></div>\n  <div><b>Pilot</b><span>A delivery rider. Captains onboard and manage pilots.</span></div>\n  <div><b>Hub / DC</b><span>Distribution centre — the physical site a captain runs. Shipments route through it.</span></div>\n  <div><b>BEU</b><span>A hub identifier, shown in the panel's top-left selector.</span></div>\n  <div><b>Service area</b><span>The geographic area a hub delivers to, drawn as a boundary on the map.</span></div>\n  <div><b>AWB</b><span>Air waybill — the tracking number on a shipment.</span></div>\n  <div><b>Misrouted shipment</b><span>A parcel that arrived at the wrong hub.</span></div>\n  <div><b>Settlement cycle</b><span>The weekly period a captain is paid for. Each row of the Payments table is one.</span></div>\n  <div><b>Base pay / adjustments / losses</b><span>The three parts of what a captain earns in a cycle.</span></div>\n  <div><b>Cash pendency</b><span>Cash collected on delivery and not yet deposited.</span></div>\n</div>\n",
+      "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4.5 5.5h15M4.5 10h15M4.5 14.5h10M4.5 19h7\"/></svg>",
+      "track": "Reference"
+    }
+  ]
 }
 </script>
 
 <script>
 (function () {
-  var state = { flows: [], screens: [], components: [], icons: {}, activeFlow: null, activeScreenIndex: 0, db: null, view: "flows", versions: null, atVersion: null };
+  var state = { flows: [], screens: [], components: [], learn: [], icons: {}, activeFlow: null, activeScreenIndex: 0, db: null, view: "flows", versions: null, atVersion: null };
 
   function esc(s) {
     return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
@@ -2597,14 +3029,17 @@
     { view: "components", label: "Components",
       ic: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg>' },
     { view: "foundations", label: "Foundations",
-      ic: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.8 14.5 5 8 8.2 1.5 5 8 1.8Z"/><path d="M1.5 8.5 8 11.7l6.5-3.2"/><path d="M1.5 11.8 8 15l6.5-3.2"/></svg>' }
+      ic: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.8 14.5 5 8 8.2 1.5 5 8 1.8Z"/><path d="M1.5 8.5 8 11.7l6.5-3.2"/><path d="M1.5 11.8 8 15l6.5-3.2"/></svg>' },
+    { view: "learn", label: "Learn",
+      ic: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3.2h4.2A1.8 1.8 0 0 1 8 5v8a1.5 1.5 0 0 0-1.5-1.3H2Z"/><path d="M14 3.2H9.8A1.8 1.8 0 0 0 8 5v8a1.5 1.5 0 0 1 1.5-1.3H14Z"/></svg>' }
   ];
 
   function renderSections() {
     var counts = {
       flows: state.flows.length,
       components: state.components.length,
-      foundations: 3
+      foundations: 3,
+      learn: (state.learn || []).length
     };
     document.getElementById("viewSwitch").innerHTML = SECTIONS.map(function (sec) {
       return '<button data-view="' + sec.view + '"' + (state.view === sec.view ? ' class="active"' : '') + '>' +
@@ -2654,6 +3089,14 @@
         html += railRow(c.id, String(i + 1).padStart(2, "0"), c.name, null, state.compFilter === c.id);
       });
       html += '</ul>';
+    } else if (state.view === "learn") {
+      var arts = state.learn || [];
+      html += '<div class="spine-kicker">' + arts.length + ' guides</div><ul class="spine-list">';
+      html += railRow("__all", "", "All", arts.length, !learnId);
+      arts.forEach(function (a, i) {
+        html += railRow(a.id, String(i + 1).padStart(2, "0"), a.name, null, learnId === a.id);
+      });
+      html += '</ul>';
     } else {
       html += '<div class="spine-kicker">3 foundations</div><ul class="spine-list">';
       [["all", "All"], ["type", "Typography"], ["color", "Colour"], ["space", "Spacing"]]
@@ -2681,6 +3124,8 @@
 
     if (state.view === "components") {
       bindRail(function (id) { state.compFilter = (id === "__all") ? null : id; renderMain(); renderRail(); });
+    } else if (state.view === "learn") {
+      bindRail(function (id) { learnId = (id === "__all") ? null : id; renderMain(); renderRail(); });
     } else if (state.view === "foundations") {
       bindRail(function (id) { foundTab = id; renderMain(); renderRail(); });
     }
@@ -2725,6 +3170,14 @@
         state.view = "foundations"; foundTab = t[0]; renderRail(); renderMain();
       } });
     });
+    (state.learn || []).forEach(function (a) {
+      out.push({ kind: "learn", name: a.name,
+        ctx: a.audience === "everyone" ? "" : a.audience,
+        extra: [a.summary, a.badge, a.track].join(" "),
+        go: function () {
+          state.view = "learn"; learnId = a.id; renderRail(); renderMain();
+        } });
+    });
     palItems = out;
   }
 
@@ -2733,7 +3186,8 @@
     q = (q || "").trim().toLowerCase();
     var hits = q
       ? palItems.filter(function (it) {
-          return (it.name + " " + it.ctx + " " + it.kind).toLowerCase().indexOf(q) > -1;
+          return (it.name + " " + it.ctx + " " + it.kind + " " + (it.extra || ""))
+            .toLowerCase().indexOf(q) > -1;
         })
       : palItems.slice(0, 12);
     if (palSel >= hits.length) palSel = 0;
@@ -3151,6 +3605,136 @@
     });
   }
 
+  /* ---- Learn ----------------------------------------------------------- */
+  var learnId = null;
+
+  /* The card index. Fourteen undifferentiated cards is a wall, so they are grouped
+     by what you would be doing when you reach for them. */
+  /* Anything a reader has to retype is a chance to mistype it. Every code block in
+     Learn gets its own copy button with quiet, local feedback - the big centred
+     confirmation is for the pull commands, where what happens next matters; here
+     it would be in the way. */
+  function attachCodeCopy(root) {
+    Array.prototype.forEach.call(root.querySelectorAll(".learn-code"), function (pre) {
+      if (pre.querySelector(".code-copy")) return;
+      var text = pre.textContent;
+      var btn = document.createElement("button");
+      btn.className = "code-copy";
+      btn.type = "button";
+      btn.setAttribute("aria-label", "Copy to clipboard");
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" ' +
+        'stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/>' +
+        '<path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg><span>Copy</span>';
+      btn.addEventListener("click", function () {
+        var done = function () {
+          btn.classList.add("ok");
+          btn.querySelector("span").textContent = "Copied";
+          clearTimeout(btn._t);
+          btn._t = setTimeout(function () {
+            btn.classList.remove("ok");
+            btn.querySelector("span").textContent = "Copy";
+          }, 1400);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done, function () { fallbackCopy(text); done(); });
+        } else { fallbackCopy(text); done(); }
+      });
+      pre.appendChild(btn);
+    });
+  }
+
+  function renderLearnIndex(arts) {
+    var main = document.getElementById("main");
+    renderTopbar(['<strong>Learn</strong>', "All guides"], "");
+
+    var order = ["Orientation", "Working with it", "The craft", "Reference"];
+    var blurb = {
+      "Orientation": "What this is, and why it is built the way it is.",
+      "Working with it": "Getting changes in, and adding to the catalogue.",
+      "The craft": "How to do the work well enough that the result can be trusted.",
+      "Reference": "Look things up, or go deeper."
+    };
+    var by = {};
+    arts.forEach(function (a) { (by[a.track] = by[a.track] || []).push(a); });
+
+    var html = '<div class="learn-index">' +
+      '<div class="learn-index-head"><h1>Learn</h1>' +
+      '<p>Fourteen guides. Start at the top if you are new \u2014 the first one gets you set up in about ten minutes.</p></div>';
+
+    order.forEach(function (t) {
+      if (!by[t]) return;
+      html += '<section class="learn-track">' +
+        '<div class="learn-track-head"><h2>' + esc(t) + '</h2><span>' + esc(blurb[t]) + '</span></div>' +
+        '<div class="learn-cards">';
+      by[t].forEach(function (a) {
+        html += '<button class="learn-card" data-go="' + a.id + '">' +
+          '<span class="lc-top">' +
+            '<span class="lc-ic">' + a.icon + '</span>' +
+            '<span class="lc-n">' + String(a.order + 1).padStart(2, "0") + '</span>' +
+          '</span>' +
+          '<span class="lc-title">' + esc(a.name) +
+            (a.badge ? '<span class="lc-badge shimmer">' + esc(a.badge) + '</span>' : '') +
+          '</span>' +
+          '<span class="lc-sum">' + esc(a.summary) + '</span>' +
+          '<span class="lc-foot">' +
+            (a.audience && a.audience !== "everyone"
+              ? '<span class="lc-aud">' + esc(a.audience) + '</span>' : '<span></span>') +
+            '<span class="lc-go">Read &#8250;</span>' +
+          '</span></button>';
+      });
+      html += '</div></section>';
+    });
+    main.innerHTML = html + '</div>';
+
+    Array.prototype.forEach.call(main.querySelectorAll("[data-go]"), function (b) {
+      b.addEventListener("click", function () {
+        learnId = b.getAttribute("data-go");
+        renderMain(); renderRail();
+        document.getElementById("main").scrollTop = 0;
+      });
+    });
+  }
+
+  function renderLearn() {
+    var main = document.getElementById("main");
+    var arts = state.learn || [];
+    if (!arts.length) {
+      renderTopbar(['<strong>Learn</strong>'], "");
+      main.innerHTML = '<div class="empty-state"><h2>Nothing written yet</h2></div>';
+      return;
+    }
+    if (learnId && !arts.some(function (x) { return x.id === learnId; })) learnId = null;
+    if (!learnId) { renderLearnIndex(arts); return; }
+    var a = arts.filter(function (x) { return x.id === learnId; })[0];
+    var i = arts.indexOf(a);
+
+    renderTopbar(['<strong>Learn</strong>', esc(a.name)], "");
+    main.innerHTML =
+      '<article class="learn">' +
+      '<div class="learn-head">' +
+      (a.audience && a.audience !== "everyone"
+        ? '<span class="learn-aud">for ' + esc(a.audience) + '</span>' : '') +
+      '<h1>' + esc(a.name) +
+        (a.badge ? '<span class="learn-badge shimmer">' + esc(a.badge) + '</span>' : '') +
+      '</h1>' +
+      '</div>' +
+      a.html +
+      '<nav class="learn-next">' +
+      (i > 0 ? '<button class="btn" data-go="' + arts[i - 1].id + '">&#8249; ' + esc(arts[i - 1].name) + '</button>' : '<span></span>') +
+      (i < arts.length - 1 ? '<button class="btn primary" data-go="' + arts[i + 1].id + '">' + esc(arts[i + 1].name) + ' &#8250;</button>' : '<span></span>') +
+      '</nav></article>';
+
+    attachCodeCopy(main);
+
+    Array.prototype.forEach.call(main.querySelectorAll("[data-go]"), function (b) {
+      b.addEventListener("click", function () {
+        learnId = b.getAttribute("data-go");
+        renderMain(); renderRail();
+        document.getElementById("main").scrollTop = 0;
+      });
+    });
+  }
+
   function renderMain() {
     var main = document.getElementById("main");
 
@@ -3165,6 +3749,11 @@
       );
       renderComponents();
       bindCompCopy(document.getElementById("topActions"));
+      return;
+    }
+
+    if (state.view === "learn") {
+      renderLearn();
       return;
     }
 
@@ -3515,6 +4104,7 @@
       state.flows = seed.flows || [];
       state.screens = seed.screens || [];
       state.components = seed.components || [];
+      state.learn = seed.learn || [];
       state.icons = seed.icons || {};
       if (!state.activeFlow && state.flows.length) state.activeFlow = state.flows[0];
       var counts = {};
