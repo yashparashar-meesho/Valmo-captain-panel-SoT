@@ -1,0 +1,525 @@
+{
+  "head": "ad6443f",
+  "since": null,
+  "screens": {
+    "payments-list": [
+      {
+        "sha": "2512655b88421c900dae40d0b45a0142abca4979",
+        "short": "2512655",
+        "date": "2026-09-10",
+        "subject": "Remove the View Older Payments link from the payments screen (#18)",
+        "scope": "screen"
+      },
+      {
+        "sha": "e7fe27dbb0a662ef511aa261ee314a788360f40d",
+        "short": "e7fe27d",
+        "date": "2026-09-10",
+        "subject": "Match the Service Area tabs to live, and make the map real (#14)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "6c4b2d44bebdc8895e4de7f81158addc0f9d374f",
+        "short": "6c4b2d4",
+        "date": "2026-09-10",
+        "subject": "Make every page render in bad conditions (#13)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "d586a4b88f4b8a96988eeb6313724cbbbed67b0f",
+        "short": "d586a4b",
+        "date": "2026-09-10",
+        "subject": "Map the clone onto the type library, and fix the components against live (#9)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "1f977772b9adb57da6ca525868428a5aeee63e5d",
+        "short": "1f97777",
+        "date": "2026-09-09",
+        "subject": "Add Service Area module (3 screens, 12 components) (#6)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "88b2a88d7e0260bb04d66fdd8f61f4493f6d5641",
+        "short": "88b2a88",
+        "date": "2026-09-07",
+        "subject": "Initial export: screens, components, icons, and kit.css mirrored from Flow Ledger artifact",
+        "scope": "sweep"
+      }
+    ],
+    "payment-details": [
+      {
+        "sha": "e7fe27dbb0a662ef511aa261ee314a788360f40d",
+        "short": "e7fe27d",
+        "date": "2026-09-10",
+        "subject": "Match the Service Area tabs to live, and make the map real (#14)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "6c4b2d44bebdc8895e4de7f81158addc0f9d374f",
+        "short": "6c4b2d4",
+        "date": "2026-09-10",
+        "subject": "Make every page render in bad conditions (#13)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "294f52e86947c4af66facf253b74505ace88c1ab",
+        "short": "294f52e",
+        "date": "2026-09-10",
+        "subject": "Match the Payment Details page to live (#11)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "d586a4b88f4b8a96988eeb6313724cbbbed67b0f",
+        "short": "d586a4b",
+        "date": "2026-09-10",
+        "subject": "Map the clone onto the type library, and fix the components against live (#9)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "1f977772b9adb57da6ca525868428a5aeee63e5d",
+        "short": "1f97777",
+        "date": "2026-09-09",
+        "subject": "Add Service Area module (3 screens, 12 components) (#6)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "a2c9bd58fa29ba50ad866abb15791ce7d93f070a",
+        "short": "a2c9bd5",
+        "date": "2026-09-07",
+        "subject": "Revert to real icon files (relative paths) instead of inline base64 (#1)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "4e3b31e9e448a3f7749737ffc28bdbb6fc9a7ea0",
+        "short": "4e3b31e",
+        "date": "2026-09-07",
+        "subject": "Inline icons as base64 in screens/components instead of relative file paths",
+        "scope": "sweep"
+      },
+      {
+        "sha": "88b2a88d7e0260bb04d66fdd8f61f4493f6d5641",
+        "short": "88b2a88",
+        "date": "2026-09-07",
+        "subject": "Initial export: screens, components, icons, and kit.css mirrored from Flow Ledger artifact",
+        "scope": "sweep"
+      }
+    ],
+    "pilot-management-list": [
+      {
+        "sha": "925b0e7926b4b8896f673daa4b66ccfa2209e40b",
+        "short": "925b0e7",
+        "date": "2026-09-10",
+        "subject": "Match the Pilot Management module to live, and reorder the flows (#17)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "e7fe27dbb0a662ef511aa261ee314a788360f40d",
+        "short": "e7fe27d",
+        "date": "2026-09-10",
+        "subject": "Match the Service Area tabs to live, and make the map real (#14)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "6c4b2d44bebdc8895e4de7f81158addc0f9d374f",
+        "short": "6c4b2d4",
+        "date": "2026-09-10",
+        "subject": "Make every page render in bad conditions (#13)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "ad166bdf925fc01fb6381fdb7b7e15ddb85c76d1",
+        "short": "ad166bd",
+        "date": "2026-09-10",
+        "subject": "Add the colour foundation, and route every rule through it (#12)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "d586a4b88f4b8a96988eeb6313724cbbbed67b0f",
+        "short": "d586a4b",
+        "date": "2026-09-10",
+        "subject": "Map the clone onto the type library, and fix the components against live (#9)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "1f977772b9adb57da6ca525868428a5aeee63e5d",
+        "short": "1f97777",
+        "date": "2026-09-09",
+        "subject": "Add Service Area module (3 screens, 12 components) (#6)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "6e196e759562cc822261c9335a44f5e862bca9f4",
+        "short": "6e196e7",
+        "date": "2026-09-08",
+        "subject": "Pilot Management styling pass + global sidebar name update (#5)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "a2c9bd58fa29ba50ad866abb15791ce7d93f070a",
+        "short": "a2c9bd5",
+        "date": "2026-09-07",
+        "subject": "Revert to real icon files (relative paths) instead of inline base64 (#1)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "4e3b31e9e448a3f7749737ffc28bdbb6fc9a7ea0",
+        "short": "4e3b31e",
+        "date": "2026-09-07",
+        "subject": "Inline icons as base64 in screens/components instead of relative file paths",
+        "scope": "sweep"
+      },
+      {
+        "sha": "88b2a88d7e0260bb04d66fdd8f61f4493f6d5641",
+        "short": "88b2a88",
+        "date": "2026-09-07",
+        "subject": "Initial export: screens, components, icons, and kit.css mirrored from Flow Ledger artifact",
+        "scope": "sweep"
+      }
+    ],
+    "add-new-pilot": [
+      {
+        "sha": "925b0e7926b4b8896f673daa4b66ccfa2209e40b",
+        "short": "925b0e7",
+        "date": "2026-09-10",
+        "subject": "Match the Pilot Management module to live, and reorder the flows (#17)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "e7fe27dbb0a662ef511aa261ee314a788360f40d",
+        "short": "e7fe27d",
+        "date": "2026-09-10",
+        "subject": "Match the Service Area tabs to live, and make the map real (#14)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "6c4b2d44bebdc8895e4de7f81158addc0f9d374f",
+        "short": "6c4b2d4",
+        "date": "2026-09-10",
+        "subject": "Make every page render in bad conditions (#13)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "d586a4b88f4b8a96988eeb6313724cbbbed67b0f",
+        "short": "d586a4b",
+        "date": "2026-09-10",
+        "subject": "Map the clone onto the type library, and fix the components against live (#9)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "1f977772b9adb57da6ca525868428a5aeee63e5d",
+        "short": "1f97777",
+        "date": "2026-09-09",
+        "subject": "Add Service Area module (3 screens, 12 components) (#6)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "a2c9bd58fa29ba50ad866abb15791ce7d93f070a",
+        "short": "a2c9bd5",
+        "date": "2026-09-07",
+        "subject": "Revert to real icon files (relative paths) instead of inline base64 (#1)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "4e3b31e9e448a3f7749737ffc28bdbb6fc9a7ea0",
+        "short": "4e3b31e",
+        "date": "2026-09-07",
+        "subject": "Inline icons as base64 in screens/components instead of relative file paths",
+        "scope": "sweep"
+      },
+      {
+        "sha": "88b2a88d7e0260bb04d66fdd8f61f4493f6d5641",
+        "short": "88b2a88",
+        "date": "2026-09-07",
+        "subject": "Initial export: screens, components, icons, and kit.css mirrored from Flow Ledger artifact",
+        "scope": "sweep"
+      }
+    ],
+    "service-area-my-area": [
+      {
+        "sha": "cc34d400ef1ba2e46d5dd553e84c2f12c521d032",
+        "short": "cc34d40",
+        "date": "2026-09-10",
+        "subject": "Match the Area Update History section and the rail's status tag to live (#19)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "e7fe27dbb0a662ef511aa261ee314a788360f40d",
+        "short": "e7fe27d",
+        "date": "2026-09-10",
+        "subject": "Match the Service Area tabs to live, and make the map real (#14)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "6c4b2d44bebdc8895e4de7f81158addc0f9d374f",
+        "short": "6c4b2d4",
+        "date": "2026-09-10",
+        "subject": "Make every page render in bad conditions (#13)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "d586a4b88f4b8a96988eeb6313724cbbbed67b0f",
+        "short": "d586a4b",
+        "date": "2026-09-10",
+        "subject": "Map the clone onto the type library, and fix the components against live (#9)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "1f977772b9adb57da6ca525868428a5aeee63e5d",
+        "short": "1f97777",
+        "date": "2026-09-09",
+        "subject": "Add Service Area module (3 screens, 12 components) (#6)",
+        "scope": "sweep"
+      }
+    ],
+    "service-area-find-shipment": [
+      {
+        "sha": "e7fe27dbb0a662ef511aa261ee314a788360f40d",
+        "short": "e7fe27d",
+        "date": "2026-09-10",
+        "subject": "Match the Service Area tabs to live, and make the map real (#14)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "6c4b2d44bebdc8895e4de7f81158addc0f9d374f",
+        "short": "6c4b2d4",
+        "date": "2026-09-10",
+        "subject": "Make every page render in bad conditions (#13)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "d586a4b88f4b8a96988eeb6313724cbbbed67b0f",
+        "short": "d586a4b",
+        "date": "2026-09-10",
+        "subject": "Map the clone onto the type library, and fix the components against live (#9)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "1f977772b9adb57da6ca525868428a5aeee63e5d",
+        "short": "1f97777",
+        "date": "2026-09-09",
+        "subject": "Add Service Area module (3 screens, 12 components) (#6)",
+        "scope": "sweep"
+      }
+    ],
+    "service-area-misrouted": [
+      {
+        "sha": "e7fe27dbb0a662ef511aa261ee314a788360f40d",
+        "short": "e7fe27d",
+        "date": "2026-09-10",
+        "subject": "Match the Service Area tabs to live, and make the map real (#14)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "6c4b2d44bebdc8895e4de7f81158addc0f9d374f",
+        "short": "6c4b2d4",
+        "date": "2026-09-10",
+        "subject": "Make every page render in bad conditions (#13)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "ad166bdf925fc01fb6381fdb7b7e15ddb85c76d1",
+        "short": "ad166bd",
+        "date": "2026-09-10",
+        "subject": "Add the colour foundation, and route every rule through it (#12)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "d586a4b88f4b8a96988eeb6313724cbbbed67b0f",
+        "short": "d586a4b",
+        "date": "2026-09-10",
+        "subject": "Map the clone onto the type library, and fix the components against live (#9)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "1f977772b9adb57da6ca525868428a5aeee63e5d",
+        "short": "1f97777",
+        "date": "2026-09-09",
+        "subject": "Add Service Area module (3 screens, 12 components) (#6)",
+        "scope": "sweep"
+      }
+    ]
+  },
+  "flows": {
+    "captain-payments": [
+      {
+        "sha": "2512655b88421c900dae40d0b45a0142abca4979",
+        "short": "2512655",
+        "date": "2026-09-10",
+        "subject": "Remove the View Older Payments link from the payments screen (#18)",
+        "scope": "screen"
+      },
+      {
+        "sha": "e7fe27dbb0a662ef511aa261ee314a788360f40d",
+        "short": "e7fe27d",
+        "date": "2026-09-10",
+        "subject": "Match the Service Area tabs to live, and make the map real (#14)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "6c4b2d44bebdc8895e4de7f81158addc0f9d374f",
+        "short": "6c4b2d4",
+        "date": "2026-09-10",
+        "subject": "Make every page render in bad conditions (#13)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "d586a4b88f4b8a96988eeb6313724cbbbed67b0f",
+        "short": "d586a4b",
+        "date": "2026-09-10",
+        "subject": "Map the clone onto the type library, and fix the components against live (#9)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "294f52e86947c4af66facf253b74505ace88c1ab",
+        "short": "294f52e",
+        "date": "2026-09-10",
+        "subject": "Match the Payment Details page to live (#11)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "1f977772b9adb57da6ca525868428a5aeee63e5d",
+        "short": "1f97777",
+        "date": "2026-09-09",
+        "subject": "Add Service Area module (3 screens, 12 components) (#6)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "88b2a88d7e0260bb04d66fdd8f61f4493f6d5641",
+        "short": "88b2a88",
+        "date": "2026-09-07",
+        "subject": "Initial export: screens, components, icons, and kit.css mirrored from Flow Ledger artifact",
+        "scope": "sweep"
+      },
+      {
+        "sha": "a2c9bd58fa29ba50ad866abb15791ce7d93f070a",
+        "short": "a2c9bd5",
+        "date": "2026-09-07",
+        "subject": "Revert to real icon files (relative paths) instead of inline base64 (#1)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "4e3b31e9e448a3f7749737ffc28bdbb6fc9a7ea0",
+        "short": "4e3b31e",
+        "date": "2026-09-07",
+        "subject": "Inline icons as base64 in screens/components instead of relative file paths",
+        "scope": "sweep"
+      }
+    ],
+    "service-area": [
+      {
+        "sha": "cc34d400ef1ba2e46d5dd553e84c2f12c521d032",
+        "short": "cc34d40",
+        "date": "2026-09-10",
+        "subject": "Match the Area Update History section and the rail's status tag to live (#19)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "e7fe27dbb0a662ef511aa261ee314a788360f40d",
+        "short": "e7fe27d",
+        "date": "2026-09-10",
+        "subject": "Match the Service Area tabs to live, and make the map real (#14)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "6c4b2d44bebdc8895e4de7f81158addc0f9d374f",
+        "short": "6c4b2d4",
+        "date": "2026-09-10",
+        "subject": "Make every page render in bad conditions (#13)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "d586a4b88f4b8a96988eeb6313724cbbbed67b0f",
+        "short": "d586a4b",
+        "date": "2026-09-10",
+        "subject": "Map the clone onto the type library, and fix the components against live (#9)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "ad166bdf925fc01fb6381fdb7b7e15ddb85c76d1",
+        "short": "ad166bd",
+        "date": "2026-09-10",
+        "subject": "Add the colour foundation, and route every rule through it (#12)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "1f977772b9adb57da6ca525868428a5aeee63e5d",
+        "short": "1f97777",
+        "date": "2026-09-09",
+        "subject": "Add Service Area module (3 screens, 12 components) (#6)",
+        "scope": "sweep"
+      }
+    ],
+    "pilot-management": [
+      {
+        "sha": "925b0e7926b4b8896f673daa4b66ccfa2209e40b",
+        "short": "925b0e7",
+        "date": "2026-09-10",
+        "subject": "Match the Pilot Management module to live, and reorder the flows (#17)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "e7fe27dbb0a662ef511aa261ee314a788360f40d",
+        "short": "e7fe27d",
+        "date": "2026-09-10",
+        "subject": "Match the Service Area tabs to live, and make the map real (#14)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "6c4b2d44bebdc8895e4de7f81158addc0f9d374f",
+        "short": "6c4b2d4",
+        "date": "2026-09-10",
+        "subject": "Make every page render in bad conditions (#13)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "ad166bdf925fc01fb6381fdb7b7e15ddb85c76d1",
+        "short": "ad166bd",
+        "date": "2026-09-10",
+        "subject": "Add the colour foundation, and route every rule through it (#12)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "d586a4b88f4b8a96988eeb6313724cbbbed67b0f",
+        "short": "d586a4b",
+        "date": "2026-09-10",
+        "subject": "Map the clone onto the type library, and fix the components against live (#9)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "1f977772b9adb57da6ca525868428a5aeee63e5d",
+        "short": "1f97777",
+        "date": "2026-09-09",
+        "subject": "Add Service Area module (3 screens, 12 components) (#6)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "6e196e759562cc822261c9335a44f5e862bca9f4",
+        "short": "6e196e7",
+        "date": "2026-09-08",
+        "subject": "Pilot Management styling pass + global sidebar name update (#5)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "a2c9bd58fa29ba50ad866abb15791ce7d93f070a",
+        "short": "a2c9bd5",
+        "date": "2026-09-07",
+        "subject": "Revert to real icon files (relative paths) instead of inline base64 (#1)",
+        "scope": "sweep"
+      },
+      {
+        "sha": "4e3b31e9e448a3f7749737ffc28bdbb6fc9a7ea0",
+        "short": "4e3b31e",
+        "date": "2026-09-07",
+        "subject": "Inline icons as base64 in screens/components instead of relative file paths",
+        "scope": "sweep"
+      },
+      {
+        "sha": "88b2a88d7e0260bb04d66fdd8f61f4493f6d5641",
+        "short": "88b2a88",
+        "date": "2026-09-07",
+        "subject": "Initial export: screens, components, icons, and kit.css mirrored from Flow Ledger artifact",
+        "scope": "sweep"
+      }
+    ]
+  }
+}
