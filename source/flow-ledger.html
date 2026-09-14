@@ -107,7 +107,7 @@
   }
 
   .spine-brand {
-    padding: 20px 20px 16px;
+    padding: 18px 20px;
     border-bottom: 1px solid var(--line);
   }
   .spine-brand h1 {
@@ -115,13 +115,6 @@
     letter-spacing: -0.01em;
     margin: 0;
     color: var(--navy);
-  }
-  .spine-brand .org {
-    display: block;
-    margin-top: 4px;
-    font: 400 11.5px/1.4 var(--ui);
-    color: var(--faint);
-    letter-spacing: 0.02em;
   }
 
   .spine-search {
@@ -370,7 +363,23 @@
     color: var(--faint);
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
-  .stage-bar .walk { display: flex; gap: 6px; flex-shrink: 0; }
+  .stage-bar .walk { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+  /* spelled out rather than a lone glyph: on the stage bar an icon alone reads as
+     decoration, and this is the control people look for most after the arrows */
+  .stage-fs {
+    display: inline-flex; align-items: center; gap: 5px;
+    height: 24px; padding: 0 10px;
+    margin-left: 4px;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    background: var(--surface);
+    color: var(--ink-2);
+    font: 500 11.5px/1 var(--ui);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background .12s ease, color .12s ease, border-color .12s ease;
+  }
+  .stage-fs:hover { background: var(--navy); color: #fff; border-color: var(--navy); }
   .stage-nav {
     width: 24px; height: 24px;
     display: grid; place-items: center;
@@ -740,30 +749,56 @@
   .panel .row .field { flex: 1; }
   .panel-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 18px; }
 
+  /* Centred rather than tucked at the bottom: this reports something that just
+     happened and is worth reading before carrying on. It is deliberately not a
+     dialog - there is nothing to decide, so there is no confirm button, only a
+     way to close it. The scrim is light enough that the page stays legible. */
   .toast {
-    position: fixed; left: 50%; bottom: 26px;
-    transform: translate(-50%, 14px);
+    /* centred on the work area rather than the window - the spine is not what
+       this is about, and centring across it throws the card off to the left */
+    position: fixed; top: 0; right: 0; bottom: 0; left: var(--spine-w);
     z-index: 95;
-    display: flex; align-items: flex-start; gap: 12px;
-    background: var(--navy);
-    color: #fff;
-    border-radius: var(--r);
-    padding: 13px 15px;
-    box-shadow: var(--sh-pop);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity .18s ease, transform .18s ease;
-    max-width: min(560px, calc(100vw - 40px));
+    display: none;
+    align-items: center; justify-content: center;
+    background: rgba(9, 45, 94, 0.18);
+    backdrop-filter: blur(2px);
   }
-  .toast.show { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
-  .toast-msg { font: 500 13px/1.4 var(--ui); }
-  .toast-sub { font: 400 12px/1.5 var(--ui); color: rgba(255,255,255,.7); margin-top: 3px; }
+  .toast.show { display: flex; }
+  .toast-card {
+    position: relative;
+    width: min(440px, calc(100vw - 40px));
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    box-shadow: var(--sh-pop);
+    padding: 26px 26px 24px;
+    text-align: center;
+    animation: toast-in .16s ease-out;
+  }
+  @keyframes toast-in {
+    from { opacity: 0; transform: translateY(6px) scale(.985); }
+    to   { opacity: 1; transform: none; }
+  }
+  .toast-mark {
+    width: 40px; height: 40px;
+    margin: 0 auto 14px;
+    display: grid; place-items: center;
+    border-radius: 50%;
+    background: var(--blue-soft);
+    color: var(--blue);
+  }
+  .toast-mark svg { width: 20px; height: 20px; }
+  .toast-msg { font: 600 15px/1.4 var(--ui); color: var(--ink); }
+  .toast-sub { font: 400 13px/1.6 var(--ui); color: var(--muted); margin-top: 6px; }
   .toast-sub:empty { display: none; }
   .toast-close {
-    background: none; border: 0; color: rgba(255,255,255,.6);
-    cursor: pointer; font-size: 13px; padding: 2px 4px; line-height: 1;
+    position: absolute; top: 10px; right: 10px;
+    width: 26px; height: 26px;
+    display: grid; place-items: center;
+    background: none; border: 0; border-radius: var(--r-sm);
+    color: var(--faint); cursor: pointer; font-size: 13px; line-height: 1;
   }
-  .toast-close:hover { color: #fff; }
+  .toast-close:hover { background: var(--sunken); color: var(--ink); }
 
   .fs-overlay {
     position: fixed; inset: 0; z-index: 100;
@@ -800,6 +835,7 @@
     .spine { display: none; }
     .main { padding: 16px 16px 40px; }
     .main.stage-view { overflow-y: auto; }
+    .toast { left: 0; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -1730,7 +1766,6 @@
   <aside class="spine">
     <div class="spine-brand">
       <h1>Flow Ledger</h1>
-      <span class="org">Meesho · internal · Valmo Partner captain panel</span>
     </div>
     <button class="spine-search" id="palOpen">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -1758,11 +1793,12 @@
 </div>
 
 <div class="toast" id="toast">
-  <div class="toast-body">
+  <div class="toast-card" role="status" aria-live="polite">
+    <button class="toast-close" id="toastClose" aria-label="Close">&#10005;</button>
+    <div class="toast-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
     <div class="toast-msg" id="toastMsg"></div>
     <div class="toast-sub" id="toastSub"></div>
   </div>
-  <button class="toast-close" id="toastClose" aria-label="Dismiss" title="Dismiss">&#10005;</button>
 </div>
 
 <div class="fs-overlay" id="fsOverlay">
@@ -2285,7 +2321,7 @@
     t.classList.add("show");
     clearTimeout(t._h);
     if (!opts.persistent) {
-      t._h = setTimeout(function () { t.classList.remove("show"); }, 1800);
+      t._h = setTimeout(function () { t.classList.remove("show"); }, 3200);
     }
   }
   function dismissToast() {
@@ -2294,12 +2330,19 @@
     t.classList.remove("show");
   }
   document.getElementById("toastClose").addEventListener("click", dismissToast);
+  // it covers the page, so give it the two ways out people expect from one
+  document.getElementById("toast").addEventListener("click", function (e) {
+    if (e.target.id === "toast") dismissToast();
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && document.getElementById("toast").classList.contains("show")) dismissToast();
+  });
 
-  var COPIED_TOAST_OPTS = { sub: "Paste it to new claude code chat and start working", persistent: true };
+  var COPIED_TOAST_OPTS = { sub: "Paste it into a new Claude CODE chat and start working.", persistent: true };
 
   function copyText(text) {
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(function () { toast("Copied — paste into a new Claude chat", COPIED_TOAST_OPTS); },
+      navigator.clipboard.writeText(text).then(function () { toast("Copied — paste into a new Claude CODE chat", COPIED_TOAST_OPTS); },
         function () { fallbackCopy(text); });
     } else {
       fallbackCopy(text);
@@ -2312,7 +2355,7 @@
     ta.style.opacity = "0";
     document.body.appendChild(ta);
     ta.select();
-    try { document.execCommand("copy"); toast("Copied — paste into a new Claude chat", COPIED_TOAST_OPTS); }
+    try { document.execCommand("copy"); toast("Copied — paste into a new Claude CODE chat", COPIED_TOAST_OPTS); }
     catch (e) { toast("Copy failed — select and copy manually"); }
     document.body.removeChild(ta);
   }
@@ -2999,7 +3042,7 @@
        '<span class="id">' + esc(s.id) + '</span>'],
       '<button class="btn small primary" id="pullFlowBtn">Copy entire flow</button>' +
       '<button class="btn small copy-cmd" data-id="' + s.id + '">Copy current screen</button>' +
-      '<button class="btn small ghost" id="fullscreenBtn">&#10530; Full screen</button>'
+      '<button class="btn small ghost js-fullscreen">&#10530; Full screen</button>'
     );
 
     /* The strip and the summary come first: how many screens this module has, and
@@ -3040,6 +3083,7 @@
           '<span class="walk">' +
             '<button class="stage-nav" id="prevScreenBtn" ' + (idx === 0 ? "disabled" : "") + ' title="Previous screen" aria-label="Previous screen">&#8249;</button>' +
             '<button class="stage-nav" id="nextScreenBtn" ' + (idx === screens.length - 1 ? "disabled" : "") + ' title="Next screen" aria-label="Next screen">&#8250;</button>' +
+            '<button class="stage-fs js-fullscreen" title="Full screen">&#10530; Full screen</button>' +
           '</span>' +
         '</div>' +
         '<iframe class="stage-frame" id="screenFrame" title="' + esc(s.name) + '"></iframe>' +
@@ -3054,8 +3098,10 @@
     if (frame) frame.srcdoc = screenIframeDoc(s);
     state._currentScreen = s;
 
-    var fsBtn = document.getElementById("fullscreenBtn");
-    if (fsBtn) fsBtn.addEventListener("click", function () { openFullscreen(s); });
+    // the same control sits on the stage and in the top bar, so bind both
+    Array.prototype.forEach.call(document.querySelectorAll(".js-fullscreen"), function (b) {
+      b.addEventListener("click", function () { openFullscreen(s); });
+    });
 
     Array.prototype.forEach.call(main.querySelectorAll(".film"), function (el) {
       el.addEventListener("click", function () {
