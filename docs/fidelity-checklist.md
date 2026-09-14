@@ -138,3 +138,26 @@ which trip naive structural checks. Verify functionally instead.
 6. Every image loads; no `<img>` without a `src`.
 7. All 34 pages render with no console errors.
 8. Re-verify on the deployed URL after merging.
+
+## 8. One stylesheet, not thirty-four copies
+
+Screens and components **link** `assets/kit.css`; they do not carry their own copy of
+the kit. Until 2026-09-15 each of the 34 pages inlined the whole 62KB kit, which meant:
+
+- a one-line change to a shared token rewrote all 34 pages (~2MB of duplicated CSS),
+- PR diffs were 36 files wide for a single rule, and
+- **half the commits touching a screen never changed that screen** — measured at 53%
+  across `payments-list`, `service-area-my-area` and `pilot-management-list`. That is
+  what made per-screen version history unusable.
+
+Consequences to keep in mind:
+
+- A markup change to one screen now touches exactly one file. A kit change touches
+  `assets/kit.css` alone.
+- **The pull commands must fetch `assets/kit.css`.** Without it a pulled screen renders
+  as unstyled HTML. It sits alongside the icons, the three Mier fonts, and (map screens
+  only) the three `assets/vendor` files. All three pull commands do this; if you touch
+  them, re-verify by actually following the instructions into a scratch folder and
+  opening the result, not by reading them.
+- `kit.css` lives in `assets/`, so its `url("fonts/…")` references resolve from there
+  no matter how deep the page linking it sits. Don't "fix" them to `../assets/fonts/`.
