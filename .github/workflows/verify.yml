@@ -1,0 +1,58 @@
+# Everything at the repo root is generated from source/. This checks that what is
+# committed is exactly what source/ produces, so the site can never quietly drift
+# from the thing people edit - and so the Vercel preview on a PR is showing the
+# real change rather than the previous build.
+name: verify
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  export-is-reproducible:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Rebuild the site from source/
+        run: python3 scripts/export_to_github.py
+
+      - name: The committed output must match
+        run: |
+          if ! git diff --quiet; then
+            echo "::error::The generated files do not match source/."
+            echo "Run 'python3 scripts/export_to_github.py' and commit the result."
+            echo
+            git diff --stat
+            exit 1
+          fi
+          echo "Generated output matches source/."
+
+      - name: Source integrity
+        run: python3 scripts/check_v2_sync.py
+
+      - name: Every page is whole
+        run: |
+          python3 - <<'PY'
+          import glob, json, os, re, sys
+          bad = []
+          for f in sorted(glob.glob("screens/*.html") + glob.glob("components/*.html")):
+              h = open(f, encoding="utf-8").read()
+              if re.findall(r'<img(?![^>]*\ssrc=)[^>]*>', h):
+                  bad.append((f, "an <img> with no src"))
+              if "assets/kit.css" not in h:
+                  bad.append((f, "does not link the stylesheet"))
+              for src in set(re.findall(r'(?:src|href)="\.\./(assets/[^"]+)"', h)):
+                  if not os.path.exists(src):
+                      bad.append((f, "references missing " + src))
+          seed = json.load(open("source/data-seed.json", encoding="utf-8"))
+          if any("css" in c for c in seed["components"]):
+              bad.append(("source/data-seed.json", "a component carries a copy of the kit again"))
+          for f, why in bad:
+              print("::error file=%s::%s" % (f, why))
+          sys.exit(1 if bad else 0)
+          PY
