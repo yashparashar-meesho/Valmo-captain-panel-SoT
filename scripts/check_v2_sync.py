@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
-"""Guard against the two files drifting while v2 is being designed.
+"""The live ledger and data-seed.json must agree.
 
-source/flow-ledger.html is canonical: export_to_github.py reads the vp- kit and
-the seed blob out of it. flow-ledger-v2.html is a design copy of the *chrome* only — its
-kit CSS and seed data must stay byte-identical, or we would be maintaining two
-design systems without noticing.
+(The filename is historical: this used to compare flow-ledger.html against a
+flow-ledger-v2.html while v2 was being designed. v2 is now the live ledger, so
+the check is different — but the name stays because .github/workflows/verify.yml
+calls it by name.)
 
-Run before committing either file:
+source/flow-ledger.html carries a copy of the catalog embedded in its seed-data
+element, so the file still opens by double-click. That copy and source/data-seed.json
+have to be written together — when they drifted once before, three icons silently
+reverted and nothing noticed until the pages were opened. This is the guard.
+
     python3 scripts/check_v2_sync.py
 """
 import json
@@ -14,45 +18,63 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-V1, V2 = ROOT / "source" / "flow-ledger.html", ROOT / "source" / "flow-ledger-v2.html"
+SOURCE = ROOT / "source"
+SEED = SOURCE / "data-seed.json"
+LIVE = SOURCE / "flow-ledger.html"
+ARCHIVE = SOURCE / "flow-ledger-v1.html"
 TAG = '<script id="seed-data" type="application/json">'
-MARK = "/* ============ vp- component kit"
 
 
-def parts(path):
+def embedded(path):
     s = path.read_text(encoding="utf-8")
-    i = s.find(MARK)
-    if i == -1:
-        sys.exit("%s: no vp- kit marker" % path.name)
-    kit = s[i:s.find("</style>", i)]
     a = s.find(TAG)
     if a == -1:
-        sys.exit("%s: no seed blob" % path.name)
+        sys.exit("%s: no seed-data element" % path.name)
     a += len(TAG)
-    return kit, s[a:s.find("</script>", a)]
+    return s[a:s.find("</script>", a)]
 
 
-if not V2.exists():
-    print("source/flow-ledger-v2.html not present — nothing to check.")
-    sys.exit(0)
+def main():
+    problems = []
 
-k1, b1 = parts(V1)
-k2, b2 = parts(V2)
-bad = []
-if k1 != k2:
-    bad.append("the vp- kit CSS differs (%d vs %d bytes) — the design system must "
-               "live in one place; edit source/flow-ledger.html and re-copy the block" % (len(k1), len(k2)))
-if b1 != b2:
-    bad.append("the seed blob differs — regenerate v2's blob from source/data-seed.json")
-for name, blob in (("v1", b1), ("v2", b2)):
     try:
-        json.loads(blob)
+        seed = json.loads(SEED.read_text(encoding="utf-8"))
     except ValueError as e:
-        bad.append("%s seed blob does not parse: %s" % (name, e))
+        sys.exit("source/data-seed.json does not parse: %s" % e)
 
-if bad:
-    print("v1/v2 OUT OF SYNC:")
-    for b in bad:
-        print("  - " + b)
-    sys.exit(1)
-print("v1 and v2 agree: kit %d bytes, seed %d bytes, both parse." % (len(k1), len(b1)))
+    blob = embedded(LIVE)
+    try:
+        inline = json.loads(blob)
+    except ValueError as e:
+        sys.exit("the seed embedded in flow-ledger.html does not parse: %s" % e)
+
+    if inline != seed:
+        problems.append(
+            "flow-ledger.html's embedded catalog differs from data-seed.json — "
+            "they must be written together. scripts/import_screen.py does this for you.")
+
+    if any("css" in c for c in seed["components"]):
+        problems.append(
+            "a component carries its own copy of the kit again — that duplication was "
+            "62%% of this file. The kit lives once, in flow-ledger.html's <style>.")
+
+    if ARCHIVE.exists():
+        try:
+            json.loads(embedded(ARCHIVE))
+        except ValueError as e:
+            problems.append("the archived v1 ledger's seed no longer parses: %s" % e)
+
+    if problems:
+        print("SOURCE OUT OF SYNC:")
+        for p in problems:
+            print("  - " + p)
+        sys.exit(1)
+
+    print("Source is consistent: %d flows, %d screens, %d components, %d icons; "
+          "the ledger's embedded copy matches data-seed.json."
+          % (len(seed["flows"]), len(seed["screens"]),
+             len(seed["components"]), len(seed["icons"])))
+
+
+if __name__ == "__main__":
+    main()
