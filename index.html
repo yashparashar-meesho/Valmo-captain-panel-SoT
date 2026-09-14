@@ -713,6 +713,44 @@
   .pal-row.sel .kind { background: #fff; border-color: var(--blue-line); color: var(--blue); }
   .pal-empty { padding: 26px; text-align: center; color: var(--faint); font-size: 13px; }
 
+  /* ---------------------------------------------------------- version history */
+  .stage-fs .vcount {
+    font: 500 10px/1 var(--mono);
+    background: var(--sunken); color: var(--muted);
+    border-radius: 100px; padding: 3px 5px; margin-left: 1px;
+  }
+  .stage-fs:hover .vcount { background: rgba(255,255,255,.16); color: #fff; }
+  .vpast { color: var(--amber); font: 400 11.5px/1 var(--ui); }
+  .vpast .vback {
+    background: none; border: 0; padding: 0 0 0 2px;
+    color: var(--blue); font: 500 11.5px/1 var(--ui); cursor: pointer; text-decoration: underline;
+  }
+
+  .vlist { list-style: none; margin: 0; padding: 0; max-height: 46vh; overflow-y: auto; }
+  .vrow {
+    display: flex; align-items: flex-start; gap: 11px;
+    padding: 11px 12px;
+    border-radius: var(--r-sm);
+    cursor: pointer;
+    transition: background .12s ease;
+  }
+  .vrow:hover { background: var(--sunken); }
+  .vrow.on { background: var(--blue-soft); }
+  .vmain { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+  .vmain b { font: 500 13px/1.4 var(--ui); color: var(--ink); }
+  .vmain em { font: 400 11px/1 var(--mono); color: var(--faint); font-style: normal; }
+  /* the badge says how wide the change was, so a sweep is not mistaken for a
+     decision someone made about this screen */
+  .vscope {
+    flex-shrink: 0; margin-top: 1px;
+    font: 500 9.5px/1 var(--ui); letter-spacing: .06em; text-transform: uppercase;
+    padding: 4px 7px; border-radius: 100px;
+    border: 1px solid var(--line); background: var(--sunken); color: var(--muted);
+  }
+  .vscope.screen { background: var(--blue-soft); border-color: var(--blue-line); color: var(--blue); }
+  .vscope.now { background: var(--navy); border-color: var(--navy); color: #fff; }
+  .vscope.sweep { color: var(--faint); }
+
   /* ---------------------------------------------------------- overlays kept from v1 */
   .overlay {
     position: fixed; inset: 0; z-index: 80;
@@ -1810,7 +1848,7 @@
 
 <script>
 (function () {
-  var state = { flows: [], screens: [], components: [], icons: {}, activeFlow: null, activeScreenIndex: 0, db: null, view: "flows" };
+  var state = { flows: [], screens: [], components: [], icons: {}, activeFlow: null, activeScreenIndex: 0, db: null, view: "flows", versions: null, atVersion: null };
 
   function esc(s) {
     return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
@@ -1890,6 +1928,27 @@
         "fetched — the baked map stays and nothing breaks. Mention to me which of the two you " +
         "ended up with."
     ];
+  }
+
+  /* If you are reading an old revision, the copy must hand over that revision.
+     Fetching main while the stage shows something else is a silent mismatch:
+     you would look at one screen and receive another, and never be told. */
+  function pinToVersion(text) {
+    var sha = state.atVersion;
+    if (!sha) return text;
+    var short = sha.slice(0, 7);
+    text = text.replace(/(\/contents\/[^\s`"]+?)( --jq)/g, "$1?ref=" + sha + "$2");
+    text = text.replace(/git clone --depth 1 --filter=blob:none --sparse/g,
+                        "git clone --filter=blob:none --sparse");
+    text = text.replace(/then `git -C <tmp> sparse-checkout set/g,
+                        "then `git -C <tmp> checkout " + sha + "` and `git -C <tmp> sparse-checkout set");
+    return "IMPORTANT \u2014 this is revision " + short + ", not the current version. Every " +
+      "fetch below is pinned to that commit with ?ref=" + short + ", so what you get is what I " +
+      "was looking at. If you want the current version instead, say so and drop the ref.\n\n" +
+      text +
+      "\n\nNote on fallback method B: it reads the deployed page, which is always the current " +
+      "version, so it cannot give you revision " + short + ". If you end up on method B, tell me " +
+      "\u2014 you will have the latest rather than what I asked for.";
   }
 
   function pullCommand(screen) {
@@ -2118,6 +2177,7 @@
         var si = el.getAttribute("data-screen");
         state.activeFlow = f;
         state.activeScreenIndex = si == null ? 0 : Number(si);
+        state.atVersion = null;
         state.view = "flows";
         renderRail();
         renderMain();
@@ -2155,6 +2215,7 @@
         .forEach(function (s, i) {
           out.push({ kind: "screen", name: s.name, ctx: f.name, go: function () {
             state.activeFlow = f; state.activeScreenIndex = i; state.view = "flows";
+            state.atVersion = null;
             renderRail(); renderMain();
           } });
         });
@@ -2490,6 +2551,111 @@
     });
   }
 
+  /* ---- version history ----------------------------------------------------
+     versions.json is built by scripts/build_versions.py from git, filtered to
+     commits that changed a screen's own content. It is fetched rather than
+     embedded because it changes with every commit and would otherwise churn the
+     seed; when it cannot be fetched (opened from file://) the control simply
+     does not appear. */
+  var RAW = "https://raw.githubusercontent.com/" + SOT_REPO_SLUG + "/";
+
+  function versionsFor(kind, id) {
+    var v = state.versions;
+    if (!v || !v[kind]) return [];
+    return v[kind][id] || [];
+  }
+
+  function loadVersions() {
+    fetch("versions.json", { cache: "no-store" })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) { if (j) { state.versions = j; renderMain(); } })
+      .catch(function () { /* offline or file:// - history just stays hidden */ });
+  }
+
+  /* Render an old revision the way it actually was: its own markup, its own
+     stylesheet from that commit. Icons come from today's catalog by key, because
+     their keys are stable and a raw.githubusercontent SVG is served as plain
+     text, which browsers refuse to draw. */
+  function oldScreenDoc(screen, sha) {
+    var base = RAW + sha + "/";
+    return fetch(base + "screens/" + screen.id + ".html")
+      .then(function (r) {
+        if (!r.ok) throw new Error("that revision is not reachable");
+        return r.text();
+      })
+      .then(function (page) {
+        var i = page.indexOf("<body>");
+        var j = page.indexOf("<script", i);
+        if (j === -1) j = page.indexOf("</body>", i);
+        var body = page.slice(i + 6, j);
+        body = body.replace(/src="\.\.\/assets\/icons\/([^"]+)"/g, function (m, f) {
+          var key = f.replace(/\.[a-z0-9]+$/i, "");
+          var uri = state.icons && state.icons[key];
+          return uri ? 'src="' + uri + '"' : m;
+        });
+        if (page.indexOf("assets/kit.css") > -1) {
+          return fetch(base + "assets/kit.css")
+            .then(function (r) { return r.ok ? r.text() : ""; })
+            .then(function (css) {
+              return "<style>" + css.replace(/url\("fonts\//g, 'url("assets/fonts/') + "</style>" + body;
+            });
+        }
+        var s0 = page.indexOf("<style>", page.indexOf("</title>"));
+        var s1 = page.lastIndexOf("</style>");
+        return (s0 > -1 ? page.slice(s0, s1 + 8) : "") + body;
+      })
+      .then(function (inner) {
+        return '<!doctype html><html><head><meta charset="utf-8">' +
+          '<base href="' + location.origin + location.pathname.replace(/[^/]*$/, "") + '">' +
+          '<style>body{margin:0;background:#eaeaf2;}</style>' + inner +
+          '</body></html>';
+      });
+  }
+
+  function openHistory(kind, id, label) {
+    var list = versionsFor(kind, id);
+    // panels in this app create their own overlay; closePanel removes it
+    closePanel();
+    var ov = document.createElement("div");
+    ov.className = "overlay";
+    ov.id = "overlay";
+    var scopeWord = { screen: "this screen only", module: "a few screens", sweep: "every screen" };
+    ov.innerHTML =
+      '<div class="panel">' +
+      '<h3>History — ' + esc(label) + '</h3>' +
+      '<p class="sub">' + list.length + ' version' + (list.length === 1 ? "" : "s") +
+      ', newest first. Only commits that changed this ' + kind.replace(/s$/, "") +
+      "'s own content are listed." +
+      '</p>' +
+      (list.length
+        ? '<ul class="vlist">' +
+          '<li class="vrow' + (state.atVersion ? "" : " on") + '" data-sha="">' +
+            '<span class="vscope now">latest</span>' +
+            '<span class="vmain"><b>Current</b><em>what the catalog holds now</em></span>' +
+          '</li>' +
+          list.map(function (v) {
+            return '<li class="vrow' + (state.atVersion === v.sha ? " on" : "") + '" data-sha="' + v.sha + '">' +
+              '<span class="vscope ' + v.scope + '" title="' + scopeWord[v.scope] + '">' + v.scope + '</span>' +
+              '<span class="vmain"><b>' + esc(v.subject) + '</b>' +
+              '<em>' + v.date + ' &middot; ' + v.short + '</em></span>' +
+              '</li>';
+          }).join("") + '</ul>'
+        : '<p class="sub">No recorded versions yet — run <code>scripts/build_versions.py</code>.</p>') +
+      '<div class="panel-actions"><button class="btn" id="vClose">Close</button></div>' +
+      '</div>';
+    document.body.appendChild(ov);
+    ov.classList.add("show");
+    document.getElementById("vClose").addEventListener("click", closePanel);
+    ov.addEventListener("click", function (e) { if (e.target === ov) closePanel(); });
+    Array.prototype.forEach.call(ov.querySelectorAll(".vrow"), function (row) {
+      row.addEventListener("click", function () {
+        state.atVersion = row.getAttribute("data-sha") || null;
+        closePanel();
+        renderMain();
+      });
+    });
+  }
+
   function renderMain() {
     var main = document.getElementById("main");
 
@@ -2584,10 +2750,17 @@
     html += '<div class="stage-outer"><div class="stage">' +
         '<div class="stage-bar">' +
           '<span class="stage-dots"><i></i><i></i><i></i></span>' +
-          '<span class="title">' + esc(s.id) + '</span>' +
+          '<span class="title">' + (state.atVersion
+            ? '<span class="vpast">viewing ' + state.atVersion.slice(0, 7) + ' &mdash; ' +
+              '<button class="vback">back to current</button></span>'
+            : esc(s.id)) + '</span>' +
           '<span class="walk">' +
             '<button class="stage-nav" id="prevScreenBtn" ' + (idx === 0 ? "disabled" : "") + ' title="Previous screen" aria-label="Previous screen">&#8249;</button>' +
             '<button class="stage-nav" id="nextScreenBtn" ' + (idx === screens.length - 1 ? "disabled" : "") + ' title="Next screen" aria-label="Next screen">&#8250;</button>' +
+            (versionsFor("screens", s.id).length
+              ? '<button class="stage-fs js-history" title="Version history">&#8635; History <span class="vcount">' +
+                  versionsFor("screens", s.id).length + '</span></button>'
+              : '') +
             '<button class="stage-fs js-fullscreen" title="Full screen">&#10530; Full screen</button>' +
           '</span>' +
         '</div>' +
@@ -2600,33 +2773,55 @@
     main.innerHTML = html;
 
     var frame = document.getElementById("screenFrame");
-    if (frame) frame.srcdoc = screenIframeDoc(s);
+    if (frame) {
+      if (state.atVersion) {
+        frame.srcdoc = '<!doctype html><body style="margin:0;font:400 13px system-ui;color:#6B7C96;' +
+          'display:grid;place-items:center;height:100vh">Loading that revision\u2026</body>';
+        oldScreenDoc(s, state.atVersion).then(function (doc) {
+          if (state.atVersion) frame.srcdoc = doc;
+        }).catch(function (e) {
+          toast("Couldn't load that revision", { sub: String(e.message || e) });
+          state.atVersion = null;
+          renderMain();
+        });
+      } else {
+        frame.srcdoc = screenIframeDoc(s);
+      }
+    }
     state._currentScreen = s;
 
     // the same control sits on the stage and in the top bar, so bind both
     Array.prototype.forEach.call(document.querySelectorAll(".js-fullscreen"), function (b) {
       b.addEventListener("click", function () { openFullscreen(s); });
     });
+    Array.prototype.forEach.call(document.querySelectorAll(".js-history"), function (b) {
+      b.addEventListener("click", function () { openHistory("screens", s.id, s.name); });
+    });
+    var vb = document.querySelector(".vback");
+    if (vb) vb.addEventListener("click", function () { state.atVersion = null; renderMain(); });
 
     Array.prototype.forEach.call(main.querySelectorAll(".film"), function (el) {
       el.addEventListener("click", function () {
         state.activeScreenIndex = Number(el.dataset.idx);
+        state.atVersion = null;
         renderMain(); renderRail();
       });
     });
 
     var prevBtn = document.getElementById("prevScreenBtn");
     var nextBtn = document.getElementById("nextScreenBtn");
-    if (prevBtn) prevBtn.addEventListener("click", function () { state.activeScreenIndex = Math.max(0, idx - 1); renderMain(); renderRail(); });
-    if (nextBtn) nextBtn.addEventListener("click", function () { state.activeScreenIndex = Math.min(screens.length - 1, idx + 1); renderMain(); renderRail(); });
+    // any move to a different screen lands you on its current version, not on
+    // whatever revision you were reading of the previous one
+    if (prevBtn) prevBtn.addEventListener("click", function () { state.activeScreenIndex = Math.max(0, idx - 1); state.atVersion = null; renderMain(); renderRail(); });
+    if (nextBtn) nextBtn.addEventListener("click", function () { state.activeScreenIndex = Math.min(screens.length - 1, idx + 1); state.atVersion = null; renderMain(); renderRail(); });
 
     var pullFlowBtn = document.getElementById("pullFlowBtn");
-    if (pullFlowBtn) pullFlowBtn.addEventListener("click", function () { copyText(flowPullCommand(state.activeFlow, screens)); });
+    if (pullFlowBtn) pullFlowBtn.addEventListener("click", function () { copyText(pinToVersion(flowPullCommand(state.activeFlow, screens))); });
 
     Array.prototype.forEach.call(document.querySelectorAll(".copy-cmd"), function (btn) {
       btn.addEventListener("click", function () {
         var sc = screens.find(function (x) { return x.id === btn.dataset.id; });
-        copyText(pullCommand(sc));
+        copyText(pinToVersion(pullCommand(sc)));
       });
     });
   }
@@ -2833,6 +3028,7 @@
       state.db = makeLocalDb(seed);
       renderRail();
       renderMain();
+      loadVersions();
       return;
     }
     state.db = db;
