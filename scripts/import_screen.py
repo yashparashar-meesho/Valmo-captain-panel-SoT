@@ -28,8 +28,6 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 SOURCE = ROOT / "source"
 SEED = SOURCE / "data-seed.json"
-# only the live ledger; flow-ledger-v1.html is an archived copy of the previous
-# design and is deliberately frozen at the catalog it shipped with
 LEDGERS = [SOURCE / "flow-ledger.html"]
 TAG = '<script id="seed-data" type="application/json">'
 

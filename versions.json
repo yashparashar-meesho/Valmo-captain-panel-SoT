@@ -1,5 +1,5 @@
 {
-  "head": "ad6443f",
+  "head": "add8e32",
   "since": null,
   "screens": {
     "payments-list": [
@@ -521,5 +521,37 @@
         "scope": "sweep"
       }
     ]
-  }
+  },
+  "ledger": [
+    {
+      "sha": "add8e32b3ba1e34580c4828f2c4963c78998212c",
+      "short": "add8e32",
+      "date": "2026-09-15",
+      "subject": "Add Learn, and make the rail say which things are modules (#29)"
+    },
+    {
+      "sha": "19c7106fcf0b9f000e81bf32ff652f7fe883eefd",
+      "short": "19c7106",
+      "date": "2026-09-15",
+      "subject": "Add version history: read any screen as it was (#28)"
+    },
+    {
+      "sha": "ad6443f3c55cfa502e1e0d1c9154cefe4aeeb6a3",
+      "short": "ad6443f",
+      "date": "2026-09-15",
+      "subject": "Centre the copy confirmation, label the full-screen control, drop the org line (#27)"
+    },
+    {
+      "sha": "15e953ea4de8da2f0893959db200b5878fe59cea",
+      "short": "15e953e",
+      "date": "2026-09-15",
+      "subject": "Promote v2 to the live ledger (#26)"
+    },
+    {
+      "sha": "d653e6a3795d142f0e980448f868ad40c3e866a2",
+      "short": "d653e6a",
+      "date": "2026-09-15",
+      "subject": "Move the source into the repo, and add the importer that closes the loop (#25)"
+    }
+  ]
 }
