@@ -56,6 +56,27 @@ def main():
             "a component carries its own copy of the kit again — that duplication was "
             "62%% of this file. The kit lives once, in flow-ledger.html's <style>.")
 
+    # versions.json is the one generated file git history feeds rather than
+    # source/, so the reproducible-export check cannot police it. It froze once
+    # already - three merges went by with the catalogue still reporting five
+    # versions - so say plainly when it is behind. Not fatal: during a pull
+    # request it is *always* behind by that branch's own commits, and the
+    # post-merge workflow is what brings it current.
+    try:
+        import subprocess
+        vj = json.loads((ROOT / "versions.json").read_text(encoding="utf-8"))
+        head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=str(ROOT),
+                              capture_output=True, text=True).stdout.strip()
+        if head and vj.get("head") and not head.startswith(vj["head"]):
+            behind = subprocess.run(
+                ["git", "rev-list", "--count", vj["head"] + "..HEAD"],
+                cwd=str(ROOT), capture_output=True, text=True).stdout.strip()
+            print("NOTE: versions.json was built at %s, %s commit(s) ago. "
+                  "Run scripts/build_versions.py, or let the versions workflow "
+                  "do it after the merge." % (vj["head"][:8], behind or "?"))
+    except Exception:
+        pass
+
     if problems:
         print("SOURCE OUT OF SYNC:")
         for p in problems:

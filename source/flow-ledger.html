@@ -1390,6 +1390,16 @@
     border-bottom: 1px solid var(--line);
   }
   .fs-bar .name { font: 600 13px var(--ui); color: var(--ink); }
+  /* A build's arrival plays once, on load, and is easy to miss - especially
+     when the page being loaded is 2.6MB over the network. This runs it again
+     without refetching. */
+  .fs-replay {
+    margin-left: auto; margin-right: 10px;
+    font: 500 12px/1 var(--ui); color: var(--muted);
+    background: transparent; border: 1px solid var(--line-2);
+    border-radius: 100px; padding: 7px 12px; cursor: pointer;
+  }
+  .fs-replay:hover { color: var(--navy); border-color: var(--blue); }
   .fs-close {
     margin-left: auto;
     font: 500 12.5px/1 var(--ui);
@@ -2390,7 +2400,7 @@
 </div>
 
 <div class="fs-overlay" id="fsOverlay">
-  <div class="fs-bar"><span class="name" id="fsName"></span><button class="fs-close" id="fsCloseBtn">Close &#10005;</button></div>
+  <div class="fs-bar"><span class="name" id="fsName"></span><button class="fs-replay" id="fsReplayBtn" hidden>&#8635; Replay arrival</button><button class="fs-close" id="fsCloseBtn">Close &#10005;</button></div>
   <iframe class="fs-frame" id="fsFrame"></iframe>
 </div>
 
@@ -3253,14 +3263,19 @@
     }
   });
 
+  /* This overlay is shared: a screen at full size, and a past build of the
+     catalogue. Replay belongs only to the second, so both other entry points
+     clear it rather than leaving a dead control in the bar. */
   function openFullscreen(screen) {
     document.getElementById("fsName").textContent = screen.name;
     document.getElementById("fsFrame").srcdoc = screenIframeDoc(screen);
+    hideReplay();
     document.getElementById("fsOverlay").classList.add("show");
   }
   function closeFullscreen() {
     document.getElementById("fsOverlay").classList.remove("show");
     document.getElementById("fsFrame").srcdoc = "";
+    hideReplay();
   }
   document.getElementById("fsCloseBtn").addEventListener("click", closeFullscreen);
 
@@ -3964,6 +3979,11 @@
      full-screen frame rather than stored anywhere. A <base> is injected so its
      icon paths resolve against today's site; a raw git URL serves an SVG as
      plain text, which a browser will not draw. */
+  function hideReplay() {
+    var r = document.getElementById("fsReplayBtn");
+    if (r) { r.hidden = true; r.onclick = null; }
+  }
+
   function openLedgerHistory() {
     var list = (state.versions && state.versions.ledger) || [];
     closePanel();
@@ -4003,16 +4023,25 @@
   function openLedgerVersion(sha, label) {
     var ov = document.getElementById("fsOverlay");
     var frame = document.getElementById("fsFrame");
+    var replay = document.getElementById("fsReplayBtn");
     document.getElementById("fsName").textContent = "Slipstream as of " + label;
     frame.srcdoc = '<!doctype html><body style="margin:0;font:400 13px system-ui;color:#6B7C96;' +
       'display:grid;place-items:center;height:100vh">Fetching that version\u2026</body>';
+    replay.hidden = true;
     ov.classList.add("show");
     fetch(RAW + sha + "/index.html")
       .then(function (r) { if (!r.ok) throw new Error("not reachable"); return r.text(); })
       .then(function (page) {
         var base = '<base href="' + location.origin +
           location.pathname.replace(/[^/]*$/, "") + '">';
-        frame.srcdoc = page.replace(/<head>/i, "<head>" + base);
+        var doc = page.replace(/<head>/i, "<head>" + base);
+        frame.srcdoc = doc;
+        /* Whatever that build did on load - drafting the name in, shimmering
+           the line, a splash - happens once and is easy to miss. Re-assigning
+           srcdoc re-runs it from the document we already have, so it can be
+           watched as many times as you like without fetching 2.6MB again. */
+        replay.hidden = false;
+        replay.onclick = function () { frame.srcdoc = doc; };
       })
       .catch(function (e) {
         frame.srcdoc = '<!doctype html><body style="margin:0;font:400 13px system-ui;color:#B3462C;' +
