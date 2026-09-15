@@ -1,5 +1,5 @@
 {
-  "head": "1ab9f03",
+  "head": "7d3e671",
   "since": null,
   "screens": {
     "payments-list": [
@@ -523,6 +523,12 @@
     ]
   },
   "ledger": [
+    {
+      "sha": "0e90b887b1b8d9e3e3c007f420352a433d10e15f",
+      "short": "0e90b88",
+      "date": "2026-09-15",
+      "subject": "Stop the catalogue's own history going stale, and let a build be watched (#34)"
+    },
     {
       "sha": "1ab9f03c1294cc5d5c99b3ef5a699dd94ebe8d5d",
       "short": "1ab9f03",
