@@ -876,17 +876,6 @@
      figures that use the same tokens as everything else in the catalog. */
   .learn { max-width: 760px; margin: 0 auto; padding-bottom: 40px; }
   .learn-head { margin-bottom: 26px; }
-  /* Leaving a guide needed a control of its own. The rail's "All" row does it,
-     but it sits above the numbered list and reads as a heading. */
-  .learn-back {
-    display: inline-flex; align-items: center; justify-content: center;
-    width: 30px; height: 30px; margin-bottom: 14px;
-    background: transparent; border: 1px solid var(--line-2); border-radius: 50%;
-    color: var(--muted); cursor: pointer;
-    transition: border-color .14s ease, color .14s ease;
-  }
-  .learn-back svg { width: 15px; height: 15px; display: block; }
-  .learn-back:hover { border-color: var(--blue); color: var(--blue); }
   /* "One-time setup" - a label about the task, not the reader, so it is filled
      rather than tinted. It shimmers four times on arrival and then stays still;
      a badge that never stops moving is an irritation, not an invitation. */
@@ -3308,10 +3297,6 @@
     main.innerHTML =
       '<article class="learn">' +
       '<div class="learn-head">' +
-      '<button type="button" class="learn-back" data-learn-all aria-label="Back to all guides">' +
-        '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" ' +
-        'stroke-linecap="round" stroke-linejoin="round">' +
-        '<path d="M9.5 3.5 5 8l4.5 4.5"/></svg></button>' +
       (a.audience && a.audience !== "everyone"
         ? '<span class="learn-aud">for ' + esc(a.audience) + '</span>' : '') +
       '<h1>' + esc(a.title || a.name) +
@@ -3327,8 +3312,11 @@
     attachCodeCopy(main);
     attachScopeFilter(main);
 
+    /* The way back out of a guide is the "Learn" crumb, which is where people
+       click anyway. A separate back control above the title was tried and
+       removed - it competed with the title for the top of the column. */
     Array.prototype.forEach.call(
-      document.querySelectorAll("#crumb [data-learn-all], #main [data-learn-all]"),
+      document.querySelectorAll("#crumb [data-learn-all]"),
       function (up) {
         up.addEventListener("click", function () {
           learnId = null; renderMain(); renderRail();
