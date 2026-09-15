@@ -683,8 +683,16 @@
      Deliberately NOT .vp-downloadbtn - that class is the Service Area panel's own
      download control, and it is defined further down, so it would win. */
   .vp-btn-download { height: 36px; padding: var(--vpSpacingVerPad00) var(--vpSpacingHorPad16); gap: var(--vpSpacingInline02); }
-  .vp-btn-download img { width: 16px; height: 16px; display: block; flex-shrink: 0; }
-  .vp-btn-download img.chev { width: 12px; height: 12px; filter: brightness(0) invert(1); }
+  /* Live ships both marks navy - the same #092D5E as the button itself - and
+     inverts them in CSS (`class="brightness-0 invert"` on each <img>). Only the
+     chevron carried that filter here, so the Excel mark was painting navy on
+     navy: present, correctly sized, and invisible. The artwork was never the
+     problem; it is byte-identical to live's. */
+  .vp-btn-download img {
+    width: 16px; height: 16px; display: block; flex-shrink: 0;
+    filter: brightness(0) invert(1);
+  }
+  .vp-btn-download img.chev { width: 12px; height: 12px; }
 
   /* live's Payment Breakup is not one panel of rows - it is three separate cards,
      each stroked #e6ebf2 and 8px-rounded on the panel's own white, 16px apart. */
