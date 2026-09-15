@@ -86,17 +86,22 @@ document.addEventListener("click", function (e) {
 /* Copy current screen fetches one screen. Its tabs and breadcrumbs still point
    at the screens either side of it, which are not in the folder - so clicking
    one used to land on the server's 404 page, which tells a designer nothing
-   about what went wrong or how to fix it.
+   about what went wrong.
 
-   So ask first. Each distinct target is probed once with a HEAD request; the
-   ones that are not there are dimmed, made unclickable, and given a title
-   saying which command would have included them. Everything present behaves
-   exactly as before.
+   So ask first. Each distinct target is probed once with a HEAD request, and
+   the ones that are not there simply stop navigating.
 
-   This never runs inside the catalogue: the ledger builds its own iframe from
-   the markup alone and supplies its own navigation, so this script is only
-   ever live in an exported copy. On file:// HEAD is not meaningful, and the
-   banner below already explains that case, so the probe is skipped. */
+   Nothing is dimmed, greyed or restyled. An earlier attempt faded the absent
+   links, which made a copied screen look different from the panel it is a copy
+   of - and on the Service Area screen it greyed the Service Area row itself,
+   reading as "unavailable" for the module you were standing in. Pixel fidelity
+   is the whole point of these files, so the only change is that the click does
+   nothing. The title attribute says why, for anyone who wonders.
+
+   This never runs inside the catalogue: the ledger builds its iframe from the
+   markup alone and supplies its own navigation, so this script is only ever
+   live in an exported copy. On file:// HEAD is not meaningful, and the banner
+   below already explains that case, so the probe is skipped. */
 if (location.protocol !== "file:") {
   var targets = {};
   document.querySelectorAll("[data-goto]").forEach(function (el) {
@@ -109,14 +114,13 @@ if (location.protocol !== "file:") {
       .catch(function () {
         targets[id].forEach(function (el) {
           el.setAttribute("data-goto-absent", "");
-          el.style.cursor = "default";
-          el.style.opacity = "0.45";
           el.title = "“" + id + "” was not copied with this screen — " +
                      "use Copy entire flow to get the whole journey.";
         });
       });
   });
 }
+
 /* These pages must be served over http://, not double-clicked open. On file:// Chrome
    refuses to load assets reached via ../ , so the map raster and every icon come up
    blank with no explanation. Rather than let that happen silently, say so on the page
