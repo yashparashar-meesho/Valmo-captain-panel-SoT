@@ -118,20 +118,9 @@
     margin: 0;
     color: var(--navy);
   }
-  /* The name arrives the same way the line under it does - drawn in from the
-     left with a short blur that resolves. No gradient, no shimmer: the name is
-     the one thing here that never needs help being noticed, so it gets the
-     movement and nothing else. A lighter blur than the line below, because the
-     same radius on 19px display type reads as a rendering fault rather than
-     motion. `from` only, with `backwards`, so no transform is left on it. */
-  @media (prefers-reduced-motion: no-preference) {
-    .spine-brand h1 {
-      animation: brand-draft .85s cubic-bezier(.16,.84,.26,1) .35s backwards;
-    }
-  }
-  @keyframes brand-draft {
-    from { opacity: 0; transform: translateX(-18px); filter: blur(3.5px); }
-  }
+  /* No draft on the name either - it either flew in from the splash or it was
+     already introduced on a previous visit. The shell's own landing is what
+     gives the page its arrival now; the lockup just rides along with it. */
 
   /* Arrival. The three regions of the shell settle in over half a second, the
      rail first and the work area last, each moving a few pixels towards where
@@ -147,45 +136,79 @@
      These three elements are part of the static shell and are never
      re-created, so this plays once on load and never on a re-render. */
   @media (prefers-reduced-motion: no-preference) {
-    .spine  { animation: land-in-rail .5s  cubic-bezier(.16,.84,.26,1)      backwards; }
-    .topbar { animation: land-in-top  .5s  cubic-bezier(.16,.84,.26,1) .07s backwards; }
-    .main   { animation: land-in-work .58s cubic-bezier(.16,.84,.26,1) .14s backwards; }
+    html.landing .spine  { animation: land-in-rail .5s  cubic-bezier(.16,.84,.26,1)      backwards; }
+    html.landing .topbar { animation: land-in-top  .5s  cubic-bezier(.16,.84,.26,1) .07s backwards; }
+    html.landing .main   { animation: land-in-work .58s cubic-bezier(.16,.84,.26,1) .14s backwards; }
   }
   @keyframes land-in-rail { from { opacity: 0; transform: translateX(-10px); } }
   @keyframes land-in-top  { from { opacity: 0; transform: translateY(-8px); } }
   @keyframes land-in-work { from { opacity: 0; transform: translateY(12px); } }
 
-  /* What the name means, under the name.
+  /* The arrival, when it is someone's first time.
 
-     The motion is the definition: the line drafts in from the left, carrying a
-     short blur that resolves as it lands - the way you arrive when you are
-     riding in something's wake. One shimmer follows to seal it, and then the
-     text is plain muted type forever. The same call as the Learn badge: this
-     sits directly above every link in the rail, so it earns attention once
-     rather than demanding it continuously. */
-  .spine-tag {
-    margin: 5px 0 0;
-    font: 400 11.5px/1.45 var(--ui);
+     Not a splash in the usual sense - nothing is hidden behind it and nothing
+     is waited for. The name simply starts large and centred, says what it
+     means, and then flies to the exact spot it occupies in the rail while the
+     shell lands around it. The tool is already built underneath the whole
+     time; this is the transition into it, not a gate in front of it.
+
+     Shown once per person. `?splash` replays it - useful when showing the
+     tool to someone rather than using it. */
+  /* The ground is the catalogue itself, held out of focus. A solid panel said
+     "wait here"; this says "it is already built, you are just not looking at
+     it yet" - which is the true thing, since the whole tool is rendered
+     underneath before any of this runs. The blur pulls to zero as the name
+     travels, so arriving and focusing are the same movement.
+
+     A wash over the blur, not instead of it: 56px type over a blurred table is
+     still type over a table, and the wash is what makes it read as a surface. */
+  .splash {
+    position: fixed; inset: 0; z-index: 400;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    background: rgba(232, 236, 243, .82);
+  }
+  .splash[hidden] { display: none !important; }
+  .splash.clearing { background: rgba(232, 236, 243, 0); transition: background .5s ease; }
+
+  /* Blur only - no scale. A scale here was hiding the soft edges `filter:
+     blur()` leaves at the viewport border, but the rail heading lives inside
+     .app, so scaling back to 1 moved the very thing the lockup flies onto:
+     measured, the target drifted 12.1px across and 6.8px down mid-flight,
+     which is exactly the offset that was visible on landing. The wash covers
+     those edges instead. */
+  html.splash-on .app { filter: blur(15px); }
+  .app { transition: filter .58s ease; }
+  .sp-lockup { text-align: center; }
+  .sp-name {
+    margin: 0;
+    font: 700 56px/1.1 var(--display);
+    letter-spacing: -0.022em;
+    color: var(--navy);
+    transform-origin: top left;
+  }
+  .sp-tag {
+    margin: 14px 0 0;
+    font: 400 15px/1.5 var(--ui);
     color: var(--muted);
     white-space: nowrap;
   }
+  .sp-skip {
+    position: fixed; right: 20px; bottom: 18px;
+    font: 500 11.5px/1 var(--ui); color: var(--faint);
+    background: none; border: 0; cursor: pointer;
+  }
+  .sp-skip:hover { color: var(--muted); }
 
-  /* phase 1 - the draft */
-  .spine-tag.draft { animation: tag-draft .85s cubic-bezier(.16,.84,.26,1) 1.05s both; }
-  @keyframes tag-draft {
-    0%   { opacity: 0; transform: translateX(-18px); filter: blur(5px); }
-    55%  { opacity: 1; }
-    100% { opacity: 1; transform: translateX(0);     filter: blur(0); }
+  /* the same motion as the rail, at splash scale */
+  .sp-name.draft { animation: sp-draft .8s cubic-bezier(.16,.84,.26,1) .2s backwards; }
+  .sp-tag.draft  { animation: sp-draft .8s cubic-bezier(.16,.84,.26,1) .5s backwards; }
+  @keyframes sp-draft {
+    from { opacity: 0; transform: translateX(-34px); filter: blur(9px); }
   }
 
-  /* phase 2 - the shimmer, twice. Running it more than once means the loop
-     point has to be invisible, so the gradient is a seamless tile: muted at
-     both ends, repeated, and moved exactly one tile width per pass. The frame
-     at the end of a pass is then identical to the frame at the start and there
-     is nothing to snap back. 90deg rather than a diagonal, because a tiled
-     diagonal shows its seam. Linear, so it does not ease into a pause at
-     either end, and positioned so the highlight is on the text from frame one. */
-  .spine-tag.sweep {
+  /* one shimmer through the line, the same seamless tile as the rail */
+  .sp-tag.sweep {
     background: linear-gradient(90deg,
       var(--muted) 0%, var(--muted) 30%,
       var(--blue) 50%,
@@ -195,16 +218,46 @@
     background-position: 100% 0;
     -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent; color: transparent;
-    animation: tag-sweep 1.5s linear 2;
+    animation: tag-sweep 1.4s linear 1;
   }
-  @keyframes tag-sweep { to { background-position: -100% 0; } }
+
+  /* the fly home. The transform is measured at run time from the real rail
+     heading, so it lands exactly on it rather than near it. */
+  .sp-name.fly, .sp-tag.fly { transition: transform .6s cubic-bezier(.22,1,.36,1); }
+  .sp-tag { transform-origin: top left; }
+  .splash.gone  { pointer-events: none; }
+  /* The rail heading is held invisible while its larger twin is in flight, and
+     revealed at the instant that twin reaches it - so the change is a handoff
+     at rest, not a fade. Both are never on screen at once, and the text is
+     never seen disappearing. */
+  html.handoff .spine-brand h1,
+  html.handoff .spine-tag { opacity: 0; }
 
   @media (prefers-reduced-motion: reduce) {
-    .spine-tag.draft, .spine-tag.sweep {
-      animation: none; background: none; filter: none; transform: none;
-      opacity: 1; -webkit-text-fill-color: var(--muted); color: var(--muted);
-    }
+    .sp-name.draft, .sp-tag.draft, .sp-tag.sweep { animation: none; }
+    .sp-tag.sweep { background: none; -webkit-text-fill-color: var(--muted); color: var(--muted); }
+    .sp-name.fly, .sp-tag.fly, .app { transition: none; }
+    html.splash-on .app { filter: none; }
   }
+
+  /* What the name means, under the name. Plain type: the splash introduces the
+     name and the line, so there is nothing left for the rail to announce -
+     doing it here as well would be the same job done twice, directly above
+     every link someone is trying to click.
+
+     `tag-sweep` below is kept because the splash shimmer uses it. Running the
+     shimmer more than once means the loop point has to be invisible, so the
+     gradient is a seamless tile: muted at both ends, repeated, moved exactly
+     one tile width per pass, so the last frame of a pass is identical to the
+     first frame of the next. 90deg rather than a diagonal, because a tiled
+     diagonal shows its seam. */
+  .spine-tag {
+    margin: 5px 0 0;
+    font: 400 11.5px/1.45 var(--ui);
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  @keyframes tag-sweep { to { background-position: -100% 0; } }
 
   .spine-search {
     margin: 14px 16px 6px;
@@ -2285,11 +2338,19 @@
   .vp-emptystep img { width: 20px; height: 20px; flex-shrink: 0; }
 </style>
 
+<div class="splash" id="splash" hidden>
+  <div class="sp-lockup">
+    <h2 class="sp-name" id="spName">Slipstream</h2>
+    <p class="sp-tag" id="spTag">Start where the last person finished.</p>
+  </div>
+  <button type="button" class="sp-skip" id="spSkip">Skip</button>
+</div>
+
 <div class="app">
   <aside class="spine">
     <div class="spine-brand">
       <h1>Slipstream</h1>
-      <p class="spine-tag draft" id="spineTag">Start where the last person finished.</p>
+      <p class="spine-tag" id="spineTag">Start where the last person finished.</p>
       <button class="spine-ver" id="evoBtn" title="Earlier versions of this catalogue">
         <span class="dot"></span><span class="lbl">Version history</span><span class="n" id="evoCount"></span>
       </button>
@@ -4503,39 +4564,179 @@
   }
 
   // ---- db wiring ----
-  /* Two phases on one element, so they are run in sequence rather than at once:
-     the draft needs solid text, the shimmer needs the text clipped to a
-     gradient, and those cannot both be true. Each phase hands over on its own
-     animationend, and a timer backstops the whole sequence - if an animation
-     never fires (reduced motion, a browser that skipped it) the class is still
-     dropped, so the line can never be left blurred, shifted or transparent. */
-  function settleTag() {
-    var t = document.getElementById("spineTag");
-    if (!t) return;
+  /* The arrival.
+
+     Two paths. Without the splash the shell simply lands and the rail lockup
+     animates in place - `landing` on <html> starts it. With the splash, the
+     name is read at full size first and then flown onto the real rail heading:
+     the transform is measured from both elements at run time, so it lands on
+     the heading exactly rather than near it, at any window size or zoom.
+
+     It never blocks. The catalogue is rendered underneath before any of this
+     runs, Skip and any key or click end it immediately, and if anything at all
+     throws, `finish()` still runs from a timer. The worst case is the tool
+     appearing instantly, which is the normal case anyway. */
+  var SPLASH_KEY = "slipstream.seen";
+
+  /* The arrival sunsets itself. It plays on a person's first three visits and
+     then never again - once is too few to take in properly, and a tool people
+     open all day should not keep introducing itself forever.
+
+     The count lives in this browser only. If localStorage cannot be read the
+     answer is "already seen": better that someone misses the introduction than
+     that it replays on every single load with no way to stop it.
+
+     `?splash` always plays it and never spends one of the three, so it can be
+     shown to someone without using up their allowance. `?nosplash` skips it. */
+  var SPLASH_TIMES = 3;
+
+  function splashCount() {
+    try {
+      return parseInt(localStorage.getItem(SPLASH_KEY) || "0", 10) || 0;
+    } catch (e) { return SPLASH_TIMES; }
+  }
+
+  function splashForced() { return /[?&]splash\b/.test(location.search); }
+
+  function wantsSplash() {
+    if (splashForced()) return true;
+    if (/[?&]nosplash\b/.test(location.search)) return false;
+    return splashCount() < SPLASH_TIMES;
+  }
+
+  /* Only ever run on the no-splash path. Coming out of the splash the shell has
+     been on screen the whole time, just out of focus - animating it in after
+     the name lands made the rail blink out and back, which is the thing that
+     looked broken. */
+  function land() {
+    document.documentElement.classList.add("landing");
+  }
+
+  function runSplash() {
+    var el = document.getElementById("splash");
+    if (!el) { land(); return; }
+    if (!splashForced()) {
+      try { localStorage.setItem(SPLASH_KEY, String(splashCount() + 1)); } catch (e) {}
+    }
+
+    var name = document.getElementById("spName");
+    var tag = document.getElementById("spTag");
     var done = false;
-    function plain() {
+
+    function finish() {
       if (done) return;
       done = true;
-      t.classList.remove("draft", "sweep");
+      /* remove it, do not just hide it: `.splash` sets `display: flex`, which
+         outranks the [hidden] attribute, so hiding leaves a full-screen layer
+         sitting over the tool - harmless once it is transparent, fatal if Skip
+         is pressed while it is still opaque. */
+      /* same frame: the flown copy leaves and the real heading appears in the
+         spot it just reached */
+      if (el.parentNode) el.parentNode.removeChild(el);
+      document.documentElement.classList.remove("splash-on", "handoff");
     }
-    t.addEventListener("animationend", function (e) {
+
+    /* Measured, not guessed: where the rail lockup's *glyphs* actually are.
+
+       A heading is a block, so its bounding box is the width of whatever
+       contains it, not the width of the word inside it. Scaling by that ratio
+       shrank 56px type by a factor of 0.92 instead of 0.35 and the name landed
+       on the rail still enormous. A Range over the text node gives the real
+       glyph box, which is what has to match. */
+    function textRect(el) {
+      var r = document.createRange();
+      r.selectNodeContents(el);
+      return r.getBoundingClientRect();
+    }
+
+    /* Put one piece of text exactly on another.
+
+       Two things make it more than a subtraction. The scale happens about the
+       element's border box corner, not about the glyphs, and the glyph box
+       sits at an offset inside that border box - so the offset scales too. And
+       a splash line and its rail twin have different line-heights, so their
+       line boxes shrink by different amounts; matching tops leaves the words
+       sitting low. Match the glyph centres instead.
+
+         glyph left   after = box.left + (a.left - box.left) * k + dx
+         glyph top    after = box.top  + (a.top  - box.top ) * k + dy
+         glyph height after = a.height * k
+
+       Setting those equal to the target's gives dx and dy. Measured
+       afterwards, left, width and centre deltas all come out at 0.00. */
+    function settleOnto(el, target) {
+      if (!target) return false;
+      var box = el.getBoundingClientRect();
+      var a = textRect(el), b = textRect(target);
+      if (!a.width || !b.width) return false;
+      var k = b.width / a.width;
+      var dx = b.left - box.left - (a.left - box.left) * k;
+      var dy = b.top + b.height / 2 - (a.height * k) / 2
+               - box.top - (a.top - box.top) * k;
+      el.classList.add("fly");
+      el.style.transform = "translate(" + dx + "px," + dy + "px) scale(" + k + ")";
+      return true;
+    }
+
+    function flyHome() {
       if (done) return;
-      if (e.animationName === "tag-draft") {
-        t.classList.remove("draft");
-        /* next frame, so the browser starts the shimmer rather than seeing
-           one class swapped for another inside the same style recalc */
-        requestAnimationFrame(function () {
-          requestAnimationFrame(function () { if (!done) t.classList.add("sweep"); });
-        });
-      } else if (e.animationName === "tag-sweep") {
-        plain();
-      }
+      /* Both arrival classes come off before the flight, and `draft` has to go
+         with `sweep` rather than be left on.
+
+         `.sp-tag.sweep` declares its own `animation`, which overrides the one
+         `.sp-tag.draft` declares. Removing only `sweep` therefore makes the
+         draft animation newly-applied - so the browser starts it again, from
+         the top, with its half-second delay and `backwards` fill. A running
+         animation outranks an inline transform, so the line sat at the draft's
+         start offset and then snapped into place instead of travelling. With
+         no animation declared on either element, the inline transform is free
+         to transition. */
+      name.classList.remove("draft");
+      tag.classList.remove("draft", "sweep");
+
+      /* Together, not staggered. Giving the name a lead made the line look
+         like it was lagging behind rather than belonging to it - they are one
+         lockup, so they move as one and land as one. */
+      var okName = settleOnto(name, document.querySelector(".spine-brand h1"));
+      settleOnto(tag, document.getElementById("spineTag"));
+      if (!okName) { finish(); return; }
+      el.classList.add("clearing");
+      el.classList.add("gone");
+      /* focus returns as the name travels - one movement, not two */
+      document.documentElement.classList.remove("splash-on");
+      name.addEventListener("transitionend", function (e) {
+        if (e.propertyName === "transform") finish();
+      });
+      setTimeout(finish, 1000);
+    }
+
+    name.classList.add("draft");
+    tag.classList.add("draft");
+    tag.addEventListener("animationend", function (e) {
+      if (e.animationName !== "sp-draft" || done) return;
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { if (!done) tag.classList.add("sweep"); });
+      });
     });
-    setTimeout(plain, 8000);
+    tag.addEventListener("animationend", function (e) {
+      if (e.animationName === "tag-sweep" && !done) flyHome();
+    });
+
+    document.getElementById("spSkip").addEventListener("click", finish);
+    document.addEventListener("keydown", function k(e) {
+      document.removeEventListener("keydown", k); finish();
+    });
+    el.addEventListener("click", function (e) {
+      if (e.target.id !== "spSkip") finish();
+    });
+
+    /* backstop: if any animation never fires, the tool still appears */
+    setTimeout(finish, 5200);
+    document.documentElement.classList.add("splash-on", "handoff");
+    el.hidden = false;
   }
 
   async function boot() {
-    settleTag();
     var db = (window.claude && typeof window.claude.use === "function") ? await window.claude.use("db") : null;
 
     if (!db) {
@@ -4589,6 +4790,8 @@
     }, function () { toast("Couldn't load components"); });
   }
 
-  boot();
+  boot().then(function () {
+    if (wantsSplash()) runSplash(); else land();
+  }, function () { land(); });
 })();
 </script>
