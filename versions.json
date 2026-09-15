@@ -1,5 +1,5 @@
 {
-  "head": "0fde049",
+  "head": "70f73e8",
   "since": null,
   "screens": {
     "payments-list": [
@@ -523,6 +523,12 @@
     ]
   },
   "ledger": [
+    {
+      "sha": "70f73e83a2715c30962fd5a383d8797cc0563573",
+      "short": "70f73e8",
+      "date": "2026-09-15",
+      "subject": "Make the Excel mark visible on the Download button (#36)"
+    },
     {
       "sha": "0e90b887b1b8d9e3e3c007f420352a433d10e15f",
       "short": "0e90b88",
