@@ -1,5 +1,5 @@
 {
-  "head": "0fde049",
+  "head": "70f73e8",
   "since": null,
   "screens": {
     "payments-list": [
@@ -11,31 +11,10 @@
         "scope": "screen"
       },
       {
-        "sha": "e7fe27dbb0a662ef511aa261ee314a788360f40d",
-        "short": "e7fe27d",
-        "date": "2026-09-10",
-        "subject": "Match the Service Area tabs to live, and make the map real (#14)",
-        "scope": "sweep"
-      },
-      {
-        "sha": "6c4b2d44bebdc8895e4de7f81158addc0f9d374f",
-        "short": "6c4b2d4",
-        "date": "2026-09-10",
-        "subject": "Make every page render in bad conditions (#13)",
-        "scope": "sweep"
-      },
-      {
         "sha": "d586a4b88f4b8a96988eeb6313724cbbbed67b0f",
         "short": "d586a4b",
         "date": "2026-09-10",
         "subject": "Map the clone onto the type library, and fix the components against live (#9)",
-        "scope": "sweep"
-      },
-      {
-        "sha": "1f977772b9adb57da6ca525868428a5aeee63e5d",
-        "short": "1f97777",
-        "date": "2026-09-09",
-        "subject": "Add Service Area module (3 screens, 12 components) (#6)",
         "scope": "sweep"
       },
       {
@@ -48,20 +27,6 @@
     ],
     "payment-details": [
       {
-        "sha": "e7fe27dbb0a662ef511aa261ee314a788360f40d",
-        "short": "e7fe27d",
-        "date": "2026-09-10",
-        "subject": "Match the Service Area tabs to live, and make the map real (#14)",
-        "scope": "sweep"
-      },
-      {
-        "sha": "6c4b2d44bebdc8895e4de7f81158addc0f9d374f",
-        "short": "6c4b2d4",
-        "date": "2026-09-10",
-        "subject": "Make every page render in bad conditions (#13)",
-        "scope": "sweep"
-      },
-      {
         "sha": "294f52e86947c4af66facf253b74505ace88c1ab",
         "short": "294f52e",
         "date": "2026-09-10",
@@ -73,13 +38,6 @@
         "short": "d586a4b",
         "date": "2026-09-10",
         "subject": "Map the clone onto the type library, and fix the components against live (#9)",
-        "scope": "sweep"
-      },
-      {
-        "sha": "1f977772b9adb57da6ca525868428a5aeee63e5d",
-        "short": "1f97777",
-        "date": "2026-09-09",
-        "subject": "Add Service Area module (3 screens, 12 components) (#6)",
         "scope": "sweep"
       },
       {
@@ -113,20 +71,6 @@
         "scope": "sweep"
       },
       {
-        "sha": "e7fe27dbb0a662ef511aa261ee314a788360f40d",
-        "short": "e7fe27d",
-        "date": "2026-09-10",
-        "subject": "Match the Service Area tabs to live, and make the map real (#14)",
-        "scope": "sweep"
-      },
-      {
-        "sha": "6c4b2d44bebdc8895e4de7f81158addc0f9d374f",
-        "short": "6c4b2d4",
-        "date": "2026-09-10",
-        "subject": "Make every page render in bad conditions (#13)",
-        "scope": "sweep"
-      },
-      {
         "sha": "ad166bdf925fc01fb6381fdb7b7e15ddb85c76d1",
         "short": "ad166bd",
         "date": "2026-09-10",
@@ -138,13 +82,6 @@
         "short": "d586a4b",
         "date": "2026-09-10",
         "subject": "Map the clone onto the type library, and fix the components against live (#9)",
-        "scope": "sweep"
-      },
-      {
-        "sha": "1f977772b9adb57da6ca525868428a5aeee63e5d",
-        "short": "1f97777",
-        "date": "2026-09-09",
-        "subject": "Add Service Area module (3 screens, 12 components) (#6)",
         "scope": "sweep"
       },
       {
@@ -185,31 +122,10 @@
         "scope": "sweep"
       },
       {
-        "sha": "e7fe27dbb0a662ef511aa261ee314a788360f40d",
-        "short": "e7fe27d",
-        "date": "2026-09-10",
-        "subject": "Match the Service Area tabs to live, and make the map real (#14)",
-        "scope": "sweep"
-      },
-      {
-        "sha": "6c4b2d44bebdc8895e4de7f81158addc0f9d374f",
-        "short": "6c4b2d4",
-        "date": "2026-09-10",
-        "subject": "Make every page render in bad conditions (#13)",
-        "scope": "sweep"
-      },
-      {
         "sha": "d586a4b88f4b8a96988eeb6313724cbbbed67b0f",
         "short": "d586a4b",
         "date": "2026-09-10",
         "subject": "Map the clone onto the type library, and fix the components against live (#9)",
-        "scope": "sweep"
-      },
-      {
-        "sha": "1f977772b9adb57da6ca525868428a5aeee63e5d",
-        "short": "1f97777",
-        "date": "2026-09-09",
-        "subject": "Add Service Area module (3 screens, 12 components) (#6)",
         "scope": "sweep"
       },
       {
@@ -250,13 +166,6 @@
         "scope": "sweep"
       },
       {
-        "sha": "6c4b2d44bebdc8895e4de7f81158addc0f9d374f",
-        "short": "6c4b2d4",
-        "date": "2026-09-10",
-        "subject": "Make every page render in bad conditions (#13)",
-        "scope": "sweep"
-      },
-      {
         "sha": "d586a4b88f4b8a96988eeb6313724cbbbed67b0f",
         "short": "d586a4b",
         "date": "2026-09-10",
@@ -280,13 +189,6 @@
         "scope": "sweep"
       },
       {
-        "sha": "6c4b2d44bebdc8895e4de7f81158addc0f9d374f",
-        "short": "6c4b2d4",
-        "date": "2026-09-10",
-        "subject": "Make every page render in bad conditions (#13)",
-        "scope": "sweep"
-      },
-      {
         "sha": "d586a4b88f4b8a96988eeb6313724cbbbed67b0f",
         "short": "d586a4b",
         "date": "2026-09-10",
@@ -307,13 +209,6 @@
         "short": "e7fe27d",
         "date": "2026-09-10",
         "subject": "Match the Service Area tabs to live, and make the map real (#14)",
-        "scope": "sweep"
-      },
-      {
-        "sha": "6c4b2d44bebdc8895e4de7f81158addc0f9d374f",
-        "short": "6c4b2d4",
-        "date": "2026-09-10",
-        "subject": "Make every page render in bad conditions (#13)",
         "scope": "sweep"
       },
       {
@@ -349,20 +244,6 @@
         "scope": "screen"
       },
       {
-        "sha": "e7fe27dbb0a662ef511aa261ee314a788360f40d",
-        "short": "e7fe27d",
-        "date": "2026-09-10",
-        "subject": "Match the Service Area tabs to live, and make the map real (#14)",
-        "scope": "sweep"
-      },
-      {
-        "sha": "6c4b2d44bebdc8895e4de7f81158addc0f9d374f",
-        "short": "6c4b2d4",
-        "date": "2026-09-10",
-        "subject": "Make every page render in bad conditions (#13)",
-        "scope": "sweep"
-      },
-      {
         "sha": "d586a4b88f4b8a96988eeb6313724cbbbed67b0f",
         "short": "d586a4b",
         "date": "2026-09-10",
@@ -374,13 +255,6 @@
         "short": "294f52e",
         "date": "2026-09-10",
         "subject": "Match the Payment Details page to live (#11)",
-        "scope": "sweep"
-      },
-      {
-        "sha": "1f977772b9adb57da6ca525868428a5aeee63e5d",
-        "short": "1f97777",
-        "date": "2026-09-09",
-        "subject": "Add Service Area module (3 screens, 12 components) (#6)",
         "scope": "sweep"
       },
       {
@@ -421,13 +295,6 @@
         "scope": "sweep"
       },
       {
-        "sha": "6c4b2d44bebdc8895e4de7f81158addc0f9d374f",
-        "short": "6c4b2d4",
-        "date": "2026-09-10",
-        "subject": "Make every page render in bad conditions (#13)",
-        "scope": "sweep"
-      },
-      {
         "sha": "d586a4b88f4b8a96988eeb6313724cbbbed67b0f",
         "short": "d586a4b",
         "date": "2026-09-10",
@@ -458,20 +325,6 @@
         "scope": "sweep"
       },
       {
-        "sha": "e7fe27dbb0a662ef511aa261ee314a788360f40d",
-        "short": "e7fe27d",
-        "date": "2026-09-10",
-        "subject": "Match the Service Area tabs to live, and make the map real (#14)",
-        "scope": "sweep"
-      },
-      {
-        "sha": "6c4b2d44bebdc8895e4de7f81158addc0f9d374f",
-        "short": "6c4b2d4",
-        "date": "2026-09-10",
-        "subject": "Make every page render in bad conditions (#13)",
-        "scope": "sweep"
-      },
-      {
         "sha": "ad166bdf925fc01fb6381fdb7b7e15ddb85c76d1",
         "short": "ad166bd",
         "date": "2026-09-10",
@@ -483,13 +336,6 @@
         "short": "d586a4b",
         "date": "2026-09-10",
         "subject": "Map the clone onto the type library, and fix the components against live (#9)",
-        "scope": "sweep"
-      },
-      {
-        "sha": "1f977772b9adb57da6ca525868428a5aeee63e5d",
-        "short": "1f97777",
-        "date": "2026-09-09",
-        "subject": "Add Service Area module (3 screens, 12 components) (#6)",
         "scope": "sweep"
       },
       {
@@ -523,6 +369,12 @@
     ]
   },
   "ledger": [
+    {
+      "sha": "70f73e83a2715c30962fd5a383d8797cc0563573",
+      "short": "70f73e8",
+      "date": "2026-09-15",
+      "subject": "Make the Excel mark visible on the Download button (#36)"
+    },
     {
       "sha": "0e90b887b1b8d9e3e3c007f420352a433d10e15f",
       "short": "0e90b88",

@@ -297,8 +297,44 @@ document.querySelectorAll("[data-goto]").forEach(function (el) {
 });
 document.addEventListener("click", function (e) {
   var el = e.target.closest("[data-goto]");
-  if (el) location.href = el.getAttribute("data-goto") + ".html";
+  if (!el || el.hasAttribute("data-goto-absent")) return;
+  location.href = el.getAttribute("data-goto") + ".html";
 });
+
+/* Copy current screen fetches one screen. Its tabs and breadcrumbs still point
+   at the screens either side of it, which are not in the folder - so clicking
+   one used to land on the server's 404 page, which tells a designer nothing
+   about what went wrong or how to fix it.
+
+   So ask first. Each distinct target is probed once with a HEAD request; the
+   ones that are not there are dimmed, made unclickable, and given a title
+   saying which command would have included them. Everything present behaves
+   exactly as before.
+
+   This never runs inside the catalogue: the ledger builds its own iframe from
+   the markup alone and supplies its own navigation, so this script is only
+   ever live in an exported copy. On file:// HEAD is not meaningful, and the
+   banner below already explains that case, so the probe is skipped. */
+if (location.protocol !== "file:") {
+  var targets = {};
+  document.querySelectorAll("[data-goto]").forEach(function (el) {
+    var id = el.getAttribute("data-goto");
+    (targets[id] = targets[id] || []).push(el);
+  });
+  Object.keys(targets).forEach(function (id) {
+    fetch(id + ".html", { method: "HEAD" })
+      .then(function (r) { if (!r.ok) throw 0; })
+      .catch(function () {
+        targets[id].forEach(function (el) {
+          el.setAttribute("data-goto-absent", "");
+          el.style.cursor = "default";
+          el.style.opacity = "0.45";
+          el.title = "“" + id + "” was not copied with this screen — " +
+                     "use Copy entire flow to get the whole journey.";
+        });
+      });
+  });
+}
 /* These pages must be served over http://, not double-clicked open. On file:// Chrome
    refuses to load assets reached via ../ , so the map raster and every icon come up
    blank with no explanation. Rather than let that happen silently, say so on the page

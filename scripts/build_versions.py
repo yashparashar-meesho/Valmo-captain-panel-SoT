@@ -59,7 +59,17 @@ def content_of(blob):
         i = blob.find("<body>")
     body = blob[i:] if i > -1 else blob
     m = re.search(r'<div class="vp-content.*', body, re.S)
-    return m.group(0) if m else body
+    content = m.group(0) if m else body
+    # Stop before the scripts the exporter appends to every page - the image
+    # fallback, the navigation handler, and on map screens the Leaflet tag.
+    # They are shared boilerplate, so a change to them touches all seven files
+    # at once; counting that as a change to each screen is how a history fills
+    # up with commits that never altered the screen you are looking at, which
+    # is the thing this file exists to avoid. Screen markup may not contain a
+    # script tag (the seed forbids it), so the first one is always the
+    # exporter's.
+    j = content.find("<script")
+    return content[:j] if j > -1 else content
 
 
 def history_for(path, since=None):
