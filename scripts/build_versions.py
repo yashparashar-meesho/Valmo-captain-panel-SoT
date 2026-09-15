@@ -83,6 +83,25 @@ def history_for(path, since=None):
     return out
 
 
+def ledger_history():
+    """The catalog's own evolution — commits that changed the ledger UI itself.
+
+    The file was called flow-ledger-v2.html while it was being designed and became
+    flow-ledger.html when it was promoted, so --follow is what keeps the two halves
+    of the story joined up. Nothing is stored: an old index.html is self-contained,
+    so the ledger fetches it from git and runs it in a frame.
+    """
+    log = git("log", "--follow", "--format=%H\x1f%cI\x1f%s",
+              "--", "source/flow-ledger.html").strip()
+    if not log:
+        return []
+    out = []
+    for line in log.splitlines():
+        sha, date, subject = line.split("\x1f")
+        out.append({"sha": sha, "short": sha[:7], "date": date[:10], "subject": subject})
+    return out
+
+
 def main():
     since = None
     if "--since" in sys.argv:
@@ -103,9 +122,12 @@ def main():
                 seen.setdefault(v["sha"], v)
         flows[f["id"]] = sorted(seen.values(), key=lambda v: v["date"], reverse=True)
 
+    ledger = ledger_history()
+
     head = git("rev-parse", "HEAD").strip()
     OUT.write_text(json.dumps(
-        {"head": head[:7], "since": since, "screens": screens, "flows": flows},
+        {"head": head[:7], "since": since, "screens": screens, "flows": flows,
+         "ledger": ledger},
         indent=2), encoding="utf-8")
 
     print("versions.json written (cutoff: %s)\n" % (since or "none — full history"))
@@ -114,6 +136,8 @@ def main():
     print()
     for fid, vs in flows.items():
         print("  %-30s %2d versions" % (fid + " (flow)", len(vs)))
+    print()
+    print("  %-30s %2d versions" % ("the ledger itself", len(ledger)))
 
 
 if __name__ == "__main__":
