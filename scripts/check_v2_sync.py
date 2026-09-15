@@ -68,12 +68,18 @@ def main():
         head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=str(ROOT),
                               capture_output=True, text=True).stdout.strip()
         if head and vj.get("head") and not head.startswith(vj["head"]):
-            behind = subprocess.run(
-                ["git", "rev-list", "--count", vj["head"] + "..HEAD"],
+            # Count only commits that changed something versions.json records.
+            # It can never contain the hash of the commit that writes it, so a
+            # plain HEAD comparison reports "1 behind" forever - and a warning
+            # that always fires is one people stop reading.
+            missed = subprocess.run(
+                ["git", "rev-list", "--count", vj["head"] + "..HEAD",
+                 "--", "source/flow-ledger.html", "screens"],
                 cwd=str(ROOT), capture_output=True, text=True).stdout.strip()
-            print("NOTE: versions.json was built at %s, %s commit(s) ago. "
-                  "Run scripts/build_versions.py, or let the versions workflow "
-                  "do it after the merge." % (vj["head"][:8], behind or "?"))
+            if missed and missed != "0":
+                print("NOTE: versions.json is missing %s commit(s) that changed "
+                      "the ledger or a screen. Run scripts/build_versions.py, or "
+                      "let the versions workflow do it after the merge." % missed)
     except Exception:
         pass
 
