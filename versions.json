@@ -1,5 +1,5 @@
 {
-  "head": "add8e32",
+  "head": "1ab9f03",
   "since": null,
   "screens": {
     "payments-list": [
@@ -523,6 +523,30 @@
     ]
   },
   "ledger": [
+    {
+      "sha": "1ab9f03c1294cc5d5c99b3ef5a699dd94ebe8d5d",
+      "short": "1ab9f03",
+      "date": "2026-09-15",
+      "subject": "Introduce the name on arrival, then get out of the way (#33)"
+    },
+    {
+      "sha": "11971b88eb2977a15184ede07b043eca88999fcc",
+      "short": "11971b8",
+      "date": "2026-09-15",
+      "subject": "Name it Slipstream, and let the page land (#32)"
+    },
+    {
+      "sha": "265be83509b9c902a1654470dca28eb0869641b7",
+      "short": "265be83",
+      "date": "2026-09-15",
+      "subject": "Make one screen fit any laptop, and sort Valuable knowns by product (#31)"
+    },
+    {
+      "sha": "fcf44beb92790347da39a2f0b43b99f5bd5e6dce",
+      "short": "fcf44be",
+      "date": "2026-09-15",
+      "subject": "Give the catalogue its own version history, and stop prose going stale (#30)"
+    },
     {
       "sha": "add8e32b3ba1e34580c4828f2c4963c78998212c",
       "short": "add8e32",
