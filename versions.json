@@ -1,5 +1,5 @@
 {
-  "head": "d7a4c98",
+  "head": "7a069b5",
   "since": null,
   "screens": {
     "payments-list": [
@@ -369,6 +369,12 @@
     ]
   },
   "ledger": [
+    {
+      "sha": "7a069b54d824c046dc827cc2623f26494ab32fbb",
+      "short": "7a069b5",
+      "date": "2026-09-16",
+      "subject": "Set the table to the 13px Crystal specifies (#39)"
+    },
     {
       "sha": "70f73e83a2715c30962fd5a383d8797cc0563573",
       "short": "70f73e8",
