@@ -559,8 +559,8 @@
   .vp-segtoggle .seg { font: var(--vpBody2); min-width: 133px; padding: var(--vpSpacingVerPad09) var(--vpSpacingHorPad12); text-align: center; color: var(--vpText); cursor: pointer; }
   .vp-segtoggle .seg.active { font: var(--vpHeading5); background: var(--vpSegActive); color: var(--vpBrand); }
 
-  .vp-table { font: var(--vpBody14Valmo); width: 100%; border-collapse: collapse; background: var(--vpSurface); }
-  .vp-table th { font: var(--vpButtonText14DemiValmo);
+  .vp-table { font: var(--vpBody2); width: 100%; border-collapse: collapse; background: var(--vpSurface); }
+  .vp-table th { font: var(--vpButtonText2);
     background: var(--vpHeadBg);
     color: var(--vpBlack);
     text-align: left;
