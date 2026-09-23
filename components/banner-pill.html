@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Banner Pill — Valmo Partner component</title>
+<!-- no external fonts: Mier B02 is local, with a metric-matched fallback -->
+<style>body{margin:0;padding:24px;background:#eaeaf2;}</style>
+<link rel="stylesheet" href="../assets/kit.css">
+</head>
+<body>
+<div class="vp-scope">
+<div style="display:flex;gap:10px;flex-wrap:wrap;"><span class="vp-gdd-pill up"><svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M1 8.5 4.5 5l2 2L11 2.5" stroke="#43A92C" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 2.5h3v3" stroke="#43A92C" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg><b>525 Orders Increased</b> due to RTO reduction</span><span class="vp-gdd-pill down"><svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M1 3.5 4.5 7l2-2L11 9.5" stroke="#F44240" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 9.5h3v-3" stroke="#F44240" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg><b>50 Orders Missed</b> due to high RTO</span></div>
+</div>
+<script>
+document.addEventListener("error", function (e) {
+  var el = e.target;
+  if (el && el.tagName === "IMG") { el.style.visibility = "hidden"; }
+}, true);
+</script>
+</body>
+</html>

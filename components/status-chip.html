@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Status Chip — Valmo Partner component</title>
+<!-- no external fonts: Mier B02 is local, with a metric-matched fallback -->
+<style>body{margin:0;padding:24px;background:#eaeaf2;}</style>
+<link rel="stylesheet" href="../assets/kit.css">
+</head>
+<body>
+<div class="vp-scope">
+<div style="display:flex;gap:10px;"><span class="vp-statchip good">Good<svg viewBox="0 0 12 12" aria-hidden="true" fill="none"><path d="M2.4 11V1" stroke="#43A92C" stroke-width="1.2" stroke-linecap="round"/><path d="M2.4 1.6h6.2l-1.5 2 1.5 2H2.4z" fill="#43A92C"/></svg></span><span class="vp-statchip bad">Not Good<svg viewBox="0 0 12 12" aria-hidden="true" fill="none"><path d="M2.4 11V1" stroke="#F44240" stroke-width="1.2" stroke-linecap="round"/><path d="M2.4 1.6h6.2l-1.5 2 1.5 2H2.4z" fill="#F44240"/></svg></span></div>
+</div>
+<script>
+document.addEventListener("error", function (e) {
+  var el = e.target;
+  if (el && el.tagName === "IMG") { el.style.visibility = "hidden"; }
+}, true);
+</script>
+</body>
+</html>
