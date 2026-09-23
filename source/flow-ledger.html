@@ -2917,7 +2917,7 @@
   function pullCommand(screen) {
     var url = window.location.href;
     var lines = [
-      'Pull screen "' + screen.name + '" (doc id: ' + screen.id + ') for the Valmo Partner captain panel.',
+      'Pull screen "' + screen.name + '" (doc id: ' + screen.id + ') for the Valmo Partner captain panel. This is one specific screen — build this one only, not its sibling states.',
       "Primary method — fetch only this screen's files, not the whole repo (this repo is private and will keep growing with more flows/screens, so don't `git clone` it — that pulls every screen and component every time regardless of what was actually asked for):",
       "1. Ask me which folder to save into — use the AskUserQuestion tool if you have it (a real question box with an input, not just a plain chat message), so this is a consistent, clear prompt every time.",
       "2. Create `<folder>/screens/`, `<folder>/assets/icons/` and `<folder>/assets/fonts/` subfolders (that mirrors the repo's own layout, which is what the screen file's relative icon and font paths expect).",
@@ -2934,20 +2934,48 @@
     return lines.join("\n");
   }
 
+  /* A module can hold more than one version, and a version's screens are not always a
+     sequence - the design version's happy and sad are alternative states of the same
+     screen, with no click-through between them. Handing those over as "all 2 screens, in
+     order" made the receiving agent build the first one and call it done. So: name the
+     version, and only call it an ordered flow when the screens actually link to each
+     other. */
+  function versionSuffix(flow) {
+    var vs = flowVersions(flow.id);
+    if (vs.length < 2) return "";
+    var v = vs.indexOf(state.version) > -1 ? state.version : vs[0];
+    return " — " + VERSION_LABEL[v] + " version";
+  }
+
+  function isSequence(screens) {
+    if (screens.length < 2) return true;
+    var ids = screens.map(function (s) { return s.id; });
+    return screens.some(function (s) {
+      return ids.some(function (other) {
+        return other !== s.id && (s.code || "").indexOf('data-goto="' + other + '"') > -1;
+      });
+    });
+  }
+
   function flowPullCommand(flow, screens) {
     var url = window.location.href;
     var ids = screens.map(function (s) { return '"' + s.id + '"'; }).join(", ");
-    var order = screens.map(function (s) { return s.id; }).join(" → ");
+    var seq = isSequence(screens);
+    var order = screens.map(function (s) { return s.id; }).join(seq ? " → " : ", ");
     var pathList = screens.map(function (s) { return "screens/" + s.id + ".html"; }).join(" ");
     var lines = [
-      'Pull the entire "' + flow.name + '" flow (all ' + screens.length + ' screens, in order: ' + order + ') for the Valmo Partner captain panel.',
+      seq
+        ? 'Pull the entire "' + flow.name + versionSuffix(flow) + '" flow (all ' + screens.length + ' screens, in order: ' + order + ') for the Valmo Partner captain panel.'
+        : 'Pull all ' + screens.length + ' states of "' + flow.name + versionSuffix(flow) + '" for the Valmo Partner captain panel: ' + order + '. These are alternative states of the same screen, NOT a sequence — nothing navigates between them. Build every one of them as its own page. If I asked you for one state in particular, build that one and leave the others alone; do not assume the first is the one I meant.',
       "Primary method — fetch only this flow's files, not the whole repo (this repo is private and will keep growing with more flows/screens, so don't `git clone` it — that pulls every screen and component every time regardless of which flow was actually asked for):",
       "1. Ask me which folder to save into — use the AskUserQuestion tool if you have it (a real question box with an input, not just a plain chat message), so this is a consistent, clear prompt every time.",
       "2. Create `<folder>/screens/`, `<folder>/assets/icons/` and `<folder>/assets/fonts/` subfolders (that mirrors the repo's own layout, which is what each screen file's relative icon and font paths expect).",
       "3. Fetch just this flow's screen files from the private repo `" + SOT_REPO_SLUG + "` — with the `gh` CLI (already authenticated the same way it would be for a git clone), once per file: `gh api repos/" + SOT_REPO_SLUG + "/contents/screens/<id>.html --jq .content | base64 -d > <folder>/screens/<id>.html`, for each of: " + pathList + ". If `gh` isn't available but plain `git` is, use a sparse+shallow clone instead so you still only pull these files plus their icons, fonts and stylesheet, not the whole repo: `git clone --depth 1 --filter=blob:none --sparse " + SOT_REPO + " <tmp>` then `git -C <tmp> sparse-checkout set " + pathList + " assets/icons assets/fonts assets/kit.css`, copy what you need out, then delete `<tmp>`. If neither works, stop and fall back to method B below, and tell me you're doing so and why.",
       "4. Open each fetched screen file and find every `assets/icons/<filename>` reference across all of them — fetch just the union of those icon files the same way (`gh api repos/" + SOT_REPO_SLUG + "/contents/assets/icons/<filename> --jq .content | base64 -d > <folder>/assets/icons/<filename>`) into `<folder>/assets/icons/`. Don't fetch icons none of this flow's screens reference. Then fetch the three Mier B02 font files the same way into `<folder>/assets/fonts/` \u2014 `Mier_B02-Book.woff2`, `Mier_B02-Demi.woff2` and `Mier_B02-Bold.woff2` (`gh api repos/" + SOT_REPO_SLUG + "/contents/assets/fonts/<file> --jq .content | base64 -d > <folder>/assets/fonts/<file>`), and fetch the one shared stylesheet the page links, `assets/kit.css`, into `<folder>/assets/` (`gh api repos/" + SOT_REPO_SLUG + "/contents/assets/kit.css --jq .content | base64 -d > <folder>/assets/kit.css`) \u2014 without it the page renders as unstyled HTML, so this one is not optional. There is no list to scan for these \u2014 it is always those three, and the stylesheet already points at them. Mier B02 is the panel's real typeface: without the files the page silently falls back to a metrics-matched stand-in, so the layout stays correct but the letterforms are not the real ones.",
       "5. Check `manifest.json`'s \"" + flow.id + "\" entry if you want to double-check screen order (should match: " + order + " — but you don't need to fetch the whole manifest file if you already trust this order). Start a simple local server rooted at `<folder>` (e.g. `python3 -m http.server 8080`) \u2014 this is required, not optional: opened as a plain file the browser refuses to load assets reached via `../`, so the map raster and every icon come up blank, and on the map screens the layer toggles and date picker do nothing and give me the link to the first screen, e.g. http://localhost:8080/screens/" + screens[0].id + ".html — ask me to open it myself in my own browser. Don't try to preview or open it yourself through any built-in browser/preview tool: those commonly render a file outside their own project directory as a static snapshot with no JavaScript execution, which silently breaks the click-through navigation between this flow's screens even though the page looks fine. Click-through navigation between these screens is already wired — the only thing that matters is that a real browser tab (mine) loads and executes it.",
-      "6. Treat all of this flow's screen files together as one module — this is the whole flow, start to finish. Only after I confirm I've opened it and it looks right, ask me what I want to build here.",
+      seq
+        ? "6. Treat all of this flow's screen files together as one module — this is the whole flow, start to finish. Only after I confirm I've opened it and it looks right, ask me what I want to build here."
+        : "6. Treat these files as separate states of one screen, not as steps in a flow — there is no order to them and no navigation between them. Only after I confirm I've opened them and they look right, ask me what I want to build here.",
       "",
       "Fallback method B — only if neither gh nor git access is available here (tell me you're using this and why):",
       "This is a plain public page, no special Claude access needed — fetch " + url + " directly (curl, WebFetch, whatever you have). It embeds all flow/screen/component/icon data as JSON inside `<script id=\"seed-data\" type=\"application/json\">`. Parse that JSON (a small python/node one-liner is easiest — don't eyeball-copy it by hand) and pull out: `screens` filtered to these ids, in this order: " + ids + "; from `icons`, only the keys these screens' `code` fields actually reference via `data-icon=\"key\"` (not the whole map); the stylesheet is the `<style>` block in the page you just fetched \u2014 everything from `/* ============ vp- component kit` to the closing `</style>`. It is there once, not per component.",
