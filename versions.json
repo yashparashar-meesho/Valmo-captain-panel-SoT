@@ -1,5 +1,5 @@
 {
-  "head": "7a069b5",
+  "head": "63377a8",
   "since": null,
   "screens": {
     "payments-list": [
@@ -64,6 +64,13 @@
     ],
     "pilot-management-list": [
       {
+        "sha": "c3f769767738faf88279affbc74add2c0cb68e09",
+        "short": "c3f7697",
+        "date": "2026-09-23",
+        "subject": "Add Growth Dashboard module, design equivalent, and the universal layout rules",
+        "scope": "sweep"
+      },
+      {
         "sha": "925b0e7926b4b8896f673daa4b66ccfa2209e40b",
         "short": "925b0e7",
         "date": "2026-09-10",
@@ -114,6 +121,13 @@
       }
     ],
     "add-new-pilot": [
+      {
+        "sha": "c3f769767738faf88279affbc74add2c0cb68e09",
+        "short": "c3f7697",
+        "date": "2026-09-23",
+        "subject": "Add Growth Dashboard module, design equivalent, and the universal layout rules",
+        "scope": "sweep"
+      },
       {
         "sha": "925b0e7926b4b8896f673daa4b66ccfa2209e40b",
         "short": "925b0e7",
@@ -232,6 +246,33 @@
         "subject": "Add Service Area module (3 screens, 12 components) (#6)",
         "scope": "sweep"
       }
+    ],
+    "growth-dashboard": [
+      {
+        "sha": "c3f769767738faf88279affbc74add2c0cb68e09",
+        "short": "c3f7697",
+        "date": "2026-09-23",
+        "subject": "Add Growth Dashboard module, design equivalent, and the universal layout rules",
+        "scope": "sweep"
+      }
+    ],
+    "growth-dashboard-design-happy": [
+      {
+        "sha": "c3f769767738faf88279affbc74add2c0cb68e09",
+        "short": "c3f7697",
+        "date": "2026-09-23",
+        "subject": "Add Growth Dashboard module, design equivalent, and the universal layout rules",
+        "scope": "sweep"
+      }
+    ],
+    "growth-dashboard-design-sad": [
+      {
+        "sha": "c3f769767738faf88279affbc74add2c0cb68e09",
+        "short": "c3f7697",
+        "date": "2026-09-23",
+        "subject": "Add Growth Dashboard module, design equivalent, and the universal layout rules",
+        "scope": "sweep"
+      }
     ]
   },
   "flows": {
@@ -318,6 +359,13 @@
     ],
     "pilot-management": [
       {
+        "sha": "c3f769767738faf88279affbc74add2c0cb68e09",
+        "short": "c3f7697",
+        "date": "2026-09-23",
+        "subject": "Add Growth Dashboard module, design equivalent, and the universal layout rules",
+        "scope": "sweep"
+      },
+      {
         "sha": "925b0e7926b4b8896f673daa4b66ccfa2209e40b",
         "short": "925b0e7",
         "date": "2026-09-10",
@@ -366,9 +414,24 @@
         "subject": "Initial export: screens, components, icons, and kit.css mirrored from Flow Ledger artifact",
         "scope": "sweep"
       }
+    ],
+    "growth-dashboard": [
+      {
+        "sha": "c3f769767738faf88279affbc74add2c0cb68e09",
+        "short": "c3f7697",
+        "date": "2026-09-23",
+        "subject": "Add Growth Dashboard module, design equivalent, and the universal layout rules",
+        "scope": "sweep"
+      }
     ]
   },
   "ledger": [
+    {
+      "sha": "c3f769767738faf88279affbc74add2c0cb68e09",
+      "short": "c3f7697",
+      "date": "2026-09-23",
+      "subject": "Add Growth Dashboard module, design equivalent, and the universal layout rules"
+    },
     {
       "sha": "7a069b54d824c046dc827cc2623f26494ab32fbb",
       "short": "7a069b5",
