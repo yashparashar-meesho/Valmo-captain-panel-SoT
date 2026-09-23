@@ -1,5 +1,5 @@
 {
-  "head": "63377a8",
+  "head": "6a3feb1",
   "since": null,
   "screens": {
     "payments-list": [
@@ -426,6 +426,12 @@
     ]
   },
   "ledger": [
+    {
+      "sha": "753b70b62610b8b6399607c83a84eddcc1802f6b",
+      "short": "753b70b",
+      "date": "2026-09-24",
+      "subject": "Copy commands: name the version, and stop calling alternative states a sequence"
+    },
     {
       "sha": "c3f769767738faf88279affbc74add2c0cb68e09",
       "short": "c3f7697",
