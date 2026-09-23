@@ -55,6 +55,28 @@
           "order": 1
         }
       ]
+    },
+    {
+      "id": "growth-dashboard",
+      "name": "Growth Dashboard",
+      "description": "How a captain sees the orders they are winning against the ceiling their area can produce, and what is costing them the difference.",
+      "screens": [
+        {
+          "id": "growth-dashboard",
+          "name": "Growth Dashboard",
+          "order": 0
+        },
+        {
+          "id": "growth-dashboard-design-happy",
+          "name": "Design Equivalent \u2014 Happy",
+          "order": 1
+        },
+        {
+          "id": "growth-dashboard-design-sad",
+          "name": "Design Equivalent \u2014 Sad",
+          "order": 2
+        }
+      ]
     }
   ],
   "components": [
@@ -84,6 +106,27 @@
     "awb-search-field",
     "empty-state-card",
     "page-header-bar",
-    "table-footer"
+    "table-footer",
+    "language-button",
+    "status-chip",
+    "metric-card",
+    "orders-banner",
+    "section-header",
+    "note-banner",
+    "waterfall-chart",
+    "reason-group",
+    "info-strip",
+    "breadcrumb",
+    "success-banner",
+    "page-footer-bar",
+    "sub-tabs",
+    "status-dot",
+    "banner-pill",
+    "note-banner-outcome",
+    "step-chart",
+    "chart-tooltip",
+    "praise-card",
+    "reason-card",
+    "capacity-card"
   ]
 }

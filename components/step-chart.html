@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Step Chart — Valmo Partner component</title>
+<!-- no external fonts: Mier B02 is local, with a metric-matched fallback -->
+<style>body{margin:0;padding:24px;background:#eaeaf2;}</style>
+<link rel="stylesheet" href="../assets/kit.css">
+</head>
+<body>
+<div class="vp-scope">
+<div style="max-width:620px;"><div class="vp-gdd-chart"><div class="vp-gdd-grid"><i style="top:0%"></i><i style="top:18%"></i><i style="top:35%"></i><i style="top:52%"></i><i style="top:70%"></i><i style="top:88%"></i><i style="top:100%"></i></div><div class="vp-gdd-cols"><div class="vp-gdd-col" tabindex="0"><div class="v">225</div><div class="vp-gdd-bar" style="height:313px"></div><div class="vp-gdd-tip"><b>225 Orders you can receive if your:</b><ul><li>RTO is less than 19%</li><li>Pilot Rate Card is less than ₹12</li></ul></div></div><div class="vp-gdd-col"><div class="vp-gdd-step down" style="margin-bottom:262px"><svg viewBox="0 0 20 24" fill="none" aria-hidden="true"><path d="M10 2v17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="3 3"/><path d="M6 15.5 10 20l4-4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="blk" style="height:51px">-37</div></div></div><div class="vp-gdd-col"><div class="v">188</div><div class="vp-gdd-bar" style="height:262px"></div></div><div class="vp-gdd-col"><div class="vp-gdd-step down" style="margin-bottom:189px"><svg viewBox="0 0 20 24" fill="none" aria-hidden="true"><path d="M10 2v17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="3 3"/><path d="M6 15.5 10 20l4-4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="blk" style="height:72px">-52</div></div></div><div class="vp-gdd-col"><div class="v">136</div><div class="vp-gdd-bar" style="height:189px"></div></div></div></div><div class="vp-gdd-caps"><span>Maximum<br>Potential</span><span>Orders Missed<br>in Allocation</span><span>Current<br>Eligible</span><span>Orders Missed in<br>Capacity Cut</span><span>Final Manifested<br>Orders</span></div></div>
+</div>
+<script>
+document.addEventListener("error", function (e) {
+  var el = e.target;
+  if (el && el.tagName === "IMG") { el.style.visibility = "hidden"; }
+}, true);
+</script>
+</body>
+</html>

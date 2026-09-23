@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Waterfall Chart — Valmo Partner component</title>
+<!-- no external fonts: Mier B02 is local, with a metric-matched fallback -->
+<style>body{margin:0;padding:24px;background:#eaeaf2;}</style>
+<link rel="stylesheet" href="../assets/kit.css">
+</head>
+<body>
+<div class="vp-scope">
+<div style="max-width:640px;"><div class="vp-waterfall"><div class="col"><div class="val">7058</div><div class="bar" style="height:242px"></div><div class="cap">Max. Possible<br>Orders</div></div><div class="col"><div class="val">0</div><div class="bar zero"></div><div class="cap">Orders not received<br>due to RTO and Rate Card</div></div><div class="col"><div class="val">7058</div><div class="bar" style="height:242px"></div><div class="cap">Current<br>Eligible</div></div><div class="col"><div class="val">+525</div><div class="bar add" style="height:18px;margin-bottom:242px"></div><div class="cap">Extra<br>Orders</div></div><div class="col"><div class="val">7583</div><div class="bar" style="height:260px"></div><div class="cap">Final Manifested<br>Orders</div></div></div><div class="vp-waterfall-date">Graph Date: 16th Sept - 22nd Sept</div></div>
+</div>
+<script>
+document.addEventListener("error", function (e) {
+  var el = e.target;
+  if (el && el.tagName === "IMG") { el.style.visibility = "hidden"; }
+}, true);
+</script>
+</body>
+</html>
