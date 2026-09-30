@@ -1,5 +1,5 @@
 {
-  "head": "6a3feb1",
+  "head": "d71e8a6",
   "since": null,
   "screens": {
     "payments-list": [
@@ -426,6 +426,12 @@
     ]
   },
   "ledger": [
+    {
+      "sha": "f82c847f92aaffc49cdc4dae0d6fe82281661208",
+      "short": "f82c847",
+      "date": "2026-10-01",
+      "subject": "Add the five DC Capacity components to the library"
+    },
     {
       "sha": "753b70b62610b8b6399607c83a84eddcc1802f6b",
       "short": "753b70b",
