@@ -77,6 +77,18 @@
           "order": 2
         }
       ]
+    },
+    {
+      "id": "dc-capacity",
+      "name": "DC Capacity",
+      "description": "How a captain sets the delivery and pickup volume their DC will take, against the demand in their area and the pilots they have.",
+      "screens": [
+        {
+          "id": "dc-capacity",
+          "name": "DC Capacity",
+          "order": 0
+        }
+      ]
     }
   ],
   "components": [

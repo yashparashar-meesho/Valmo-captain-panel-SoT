@@ -13,6 +13,7 @@ reverted and nothing noticed until the pages were opened. This is the guard.
     python3 scripts/check_v2_sync.py
 """
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -55,6 +56,60 @@ def main():
         problems.append(
             "a component carries its own copy of the kit again — that duplication was "
             "62%% of this file. The kit lives once, in flow-ledger.html's <style>.")
+
+    # A screen's code is markup. Behaviour is vendored under assets/vendor and pulled
+    # in per screen by the exporter and the ledger, the way sa-map.js and
+    # dc-capacity.js are — one home to fix it in, and a seed that stays reviewable.
+    # This also keeps a literal "</script>" out of the seed, which rides inside a
+    # <script> element and would be closed early by one. That surfaces as an
+    # unterminated-JSON error two checks up, which says nothing about the real cause.
+    # Small inline handlers (onclick=) are long-standing here and are not covered.
+    scripted = [s["id"] for s in seed["screens"] if "<script" in s.get("code", "")]
+    if scripted:
+        problems.append(
+            "these screens carry a <script> in their code: %s. Move the behaviour to "
+            "source/assets/vendor/<name>.js and have the exporter and "
+            "screenIframeDoc() pull it in when the screen needs it."
+            % ", ".join(scripted))
+
+    # VENDOR_RULES names the behaviour files a screen's markup pulls in. A name in
+    # that table with no file behind it 404s in the browser with nothing on screen to
+    # say so - the page renders perfectly and its inputs never respond. Cheap to check
+    # here, invisible everywhere else.
+    m = re.search(r"var VENDOR_RULES = (\[.*?\]);", LIVE.read_text(encoding="utf-8"), re.S)
+    if not m:
+        problems.append("flow-ledger.html no longer has a VENDOR_RULES table; the exporter "
+                        "reads it out of that file and will fail.")
+    else:
+        for r in json.loads(m.group(1)):
+            for f in r["head"] + r["tail"]:
+                if not (SOURCE / "assets" / "vendor" / f).exists():
+                    problems.append("VENDOR_RULES names %s, but source/assets/vendor/%s "
+                                    "does not exist." % (f, f))
+
+    # Every module in the rail must be reachable from every screen. The rail is
+    # copied into each screen's markup, so adding a module means editing eleven
+    # files - DC Capacity shipped wired on its own screen only, and from anywhere
+    # else the new module simply did not exist. Rather than hardcode the module
+    # list here, compare the screens against each other: a rail entry that is a
+    # link on one screen and dead on another is the bug, whatever the module.
+    NAV = re.compile(r'<div class="vp-navitem[^"]*"(?P<goto>\s+data-goto="[^"]*")?[^>]*>'
+                     r'.*?<span class="lbl">(?P<label>[^<]*)</span>', re.S)
+    linked, dead = set(), {}
+    for s in seed["screens"]:
+        for m in NAV.finditer(s.get("code", "")):
+            label = m.group("label").strip()
+            if m.group("goto"):
+                linked.add(label)
+            else:
+                dead.setdefault(label, []).append(s["id"])
+    for label in sorted(linked & set(dead)):
+        problems.append(
+            "the rail item %r links to a module on some screens but is dead on: %s. "
+            "Every module we have built has to be reachable from every screen - "
+            "someone in fullscreen cannot go back to switch. Add data-goto to the "
+            "<div class=\"vp-navitem\"> for it there too."
+            % (label, ", ".join(dead[label])))
 
     # versions.json is the one generated file git history feeds rather than
     # source/, so the reproducible-export check cannot police it. It froze once
