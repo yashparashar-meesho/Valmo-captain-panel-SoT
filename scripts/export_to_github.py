@@ -85,8 +85,17 @@ if (location.protocol !== "file:") {
       .catch(function () {
         targets[id].forEach(function (el) {
           el.setAttribute("data-goto-absent", "");
-          el.title = "\u201C" + id + "\u201D was not copied with this screen \u2014 " +
-                     "use Copy entire flow to get the whole journey.";
+          /* Two different absences, two different answers. A sibling step of this
+             same flow arrives with Copy entire flow. A rail link to another module
+             never will - no copy of THIS module contains it - so sending someone to
+             Copy entire flow for one would waste their time. The exporter marks the
+             cross-module ones, because only it knows which flow a target belongs to. */
+          el.title = el.hasAttribute("data-goto-external")
+            ? "\u201C" + id + "\u201D is part of another module, so no copy of this one " +
+              "includes it. Pull that module from the Flow Ledger as well \u2014 into this " +
+              "same folder, and the link starts working."
+            : "\u201C" + id + "\u201D was not copied with this screen \u2014 " +
+              "use Copy entire flow to get the whole journey.";
         });
       });
   });
@@ -164,6 +173,38 @@ def build_index_html(out_dir, data, manifest):
     (out_dir / "index.html").write_text(new_html, encoding="utf-8")
 
 
+VENDOR_RULES_RE = re.compile(r"var VENDOR_RULES = (\[.*?\]);", re.S)
+
+
+def vendor_rules():
+    """The single table, read out of flow-ledger.html rather than copied here.
+
+    Keeping a second copy in this file is exactly how the map and the capacity
+    fields ended up with three slightly different ideas of which screen needs
+    which script. One literal, three readers.
+    """
+    m = VENDOR_RULES_RE.search(FLOW_LEDGER_HTML.read_text(encoding="utf-8"))
+    if not m:
+        sys.exit("flow-ledger.html: no VENDOR_RULES table to read")
+    return json.loads(m.group(1))
+
+
+def vendor_for(html):
+    head, tail = [], []
+    for r in vendor_rules():
+        if r["marker"] in html:
+            head += r["head"]
+            tail += r["tail"]
+    return {"head": head, "tail": tail}
+
+
+def vendor_tags(files):
+    return "\n".join(
+        '<link rel="stylesheet" href="../assets/vendor/%s">' % f if f.endswith(".css")
+        else '<script src="../assets/vendor/%s"></script>' % f
+        for f in files)
+
+
 def main():
     out_dir = Path(sys.argv[1]) if len(sys.argv) > 1 else PROJECT_ROOT
     (out_dir / "assets" / "icons").mkdir(parents=True, exist_ok=True)
@@ -237,15 +278,32 @@ def main():
         # this those <img>s exported with no src at all and rendered broken.
         return expand_screen_code(html)
 
+    flow_of = {s["id"]: s["flowId"] for s in screens}
+
+    def mark_external(body, screen):
+        """Flag every data-goto that leaves this module.
+
+        The rail links all five modules from every screen, which is right in the
+        panel and in the catalogue. In a copied folder holding one module the
+        other four are simply not there, and the page has no way to tell that
+        kind of absence from a missing sibling step unless we say so here.
+        """
+        return re.sub(
+            r'data-goto="([^"]+)"',
+            lambda m: m.group(0) + " data-goto-external"
+            if flow_of.get(m.group(1), screen["flowId"]) != screen["flowId"]
+            else m.group(0),
+            body)
+
     def screen_page(screen):
-        body = expand_screen_code(screen["code"])
-        # Only the map screens pay for Leaflet, and it is served from assets/vendor so
-        # the library itself needs no CDN. Tiles do need the network; when they cannot
-        # be reached the baked raster underneath stays visible.
-        maps = ""
-        if 'class="vp-maparea"' in body:
-            maps = ('<link rel="stylesheet" href="../assets/vendor/leaflet.css">\n'
-                    '<script src="../assets/vendor/leaflet.js"></script>')
+        body = mark_external(expand_screen_code(screen["code"]), screen)
+        # Behaviour is vendored, never inlined into a screen's markup, so each screen
+        # only pays for what it actually uses: Leaflet on the map screens, the capacity
+        # fields on DC Capacity. Which file goes with which markup is VENDOR_RULES in
+        # flow-ledger.html, read below - the ledger's preview and the copy commands use
+        # that same table, so the three cannot drift apart again.
+        maps = vendor_tags(vendor_for(body)["head"])
+        extra = vendor_tags(vendor_for(body)["tail"])
         return f"""<!doctype html>
 <html>
 <head>
@@ -260,7 +318,7 @@ def main():
 {body}
 {ROBUST_SCRIPT}
 {NAV_SCRIPT}
-{'<script src="../assets/vendor/sa-map.js"></script>' if maps else ''}
+{extra}
 </body>
 </html>
 """
