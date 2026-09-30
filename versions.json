@@ -1,5 +1,5 @@
 {
-  "head": "d71e8a6",
+  "head": "e60eaf7",
   "since": null,
   "screens": {
     "payments-list": [
@@ -273,6 +273,15 @@
         "subject": "Add Growth Dashboard module, design equivalent, and the universal layout rules",
         "scope": "sweep"
       }
+    ],
+    "dc-capacity": [
+      {
+        "sha": "9d5710be57aa84d50b3c88c004e1c4a26525d88b",
+        "short": "9d5710b",
+        "date": "2026-10-01",
+        "subject": "Add the DC Capacity module, and connect every module in the panel's rail",
+        "scope": "sweep"
+      }
     ]
   },
   "flows": {
@@ -423,9 +432,24 @@
         "subject": "Add Growth Dashboard module, design equivalent, and the universal layout rules",
         "scope": "sweep"
       }
+    ],
+    "dc-capacity": [
+      {
+        "sha": "9d5710be57aa84d50b3c88c004e1c4a26525d88b",
+        "short": "9d5710b",
+        "date": "2026-10-01",
+        "subject": "Add the DC Capacity module, and connect every module in the panel's rail",
+        "scope": "sweep"
+      }
     ]
   },
   "ledger": [
+    {
+      "sha": "9d5710be57aa84d50b3c88c004e1c4a26525d88b",
+      "short": "9d5710b",
+      "date": "2026-10-01",
+      "subject": "Add the DC Capacity module, and connect every module in the panel's rail"
+    },
     {
       "sha": "f82c847f92aaffc49cdc4dae0d6fe82281661208",
       "short": "f82c847",
