@@ -1,5 +1,5 @@
 {
-  "head": "e60eaf7",
+  "head": "505fa5b",
   "since": null,
   "screens": {
     "payments-list": [
@@ -276,6 +276,13 @@
     ],
     "dc-capacity": [
       {
+        "sha": "30f01ed29d753449f62907d87af60c6dfee64e61",
+        "short": "30f01ed",
+        "date": "2026-10-01",
+        "subject": "Match live's button sizes, and delete a 939KB orphaned catalogue",
+        "scope": "screen"
+      },
+      {
         "sha": "9d5710be57aa84d50b3c88c004e1c4a26525d88b",
         "short": "9d5710b",
         "date": "2026-10-01",
@@ -435,6 +442,13 @@
     ],
     "dc-capacity": [
       {
+        "sha": "30f01ed29d753449f62907d87af60c6dfee64e61",
+        "short": "30f01ed",
+        "date": "2026-10-01",
+        "subject": "Match live's button sizes, and delete a 939KB orphaned catalogue",
+        "scope": "screen"
+      },
+      {
         "sha": "9d5710be57aa84d50b3c88c004e1c4a26525d88b",
         "short": "9d5710b",
         "date": "2026-10-01",
@@ -444,6 +458,12 @@
     ]
   },
   "ledger": [
+    {
+      "sha": "30f01ed29d753449f62907d87af60c6dfee64e61",
+      "short": "30f01ed",
+      "date": "2026-10-01",
+      "subject": "Match live's button sizes, and delete a 939KB orphaned catalogue"
+    },
     {
       "sha": "9d5710be57aa84d50b3c88c004e1c4a26525d88b",
       "short": "9d5710b",
