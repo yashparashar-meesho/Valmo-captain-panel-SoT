@@ -1297,3 +1297,94 @@
   .vp-gdd-cta a { color: var(--vpBrand); font: var(--vpButtonText2); text-decoration: underline; }
 
   .vp-gdd-side .vp-gdstrip { margin-top: auto; }
+
+  /* ============ DC Capacity module ============ */
+  /* Measured off the live panel. Four values there sit just off a Crystal token and are
+     held to ours rather than matched: the section strip is #F5F5F5 against
+     --vpGreyLight02 #F2F5FA, the field stroke #E8E8E8 against --vpGreyLight01 #E6EBF2,
+     the notice #FFFDE7 against --vpYellowBg #FFF7D6, and the save label 16/700 against
+     Crystal's 14/700, whose scale stops at 15. */
+
+  /* Demand and headcount, the two numbers the capacity is judged against. */
+  .vp-dcc-stats .stat .val { font: var(--vpHeading2); color: var(--vpGreyDark02);
+    display: flex; align-items: baseline; gap: var(--vpSpacingInline06); }
+  .vp-dcc-stats .stat .val .unit { font: var(--vpBody2); }
+
+  /* One capacity is a card in its own right, sitting on the panel's white: a 10px
+     radius on a 1px stroke, clipped, so the grey strip meets its top corners and the
+     notice meets its bottom ones with no gap at either edge. */
+  .vp-dcc-sec { background: var(--vpWhite); border: 1px solid var(--vpGreyLight01);
+    border-radius: 10px; overflow: hidden; }
+  .vp-dcc-sec + .vp-dcc-sec { margin-top: var(--vpSpacingStack24); }
+  .vp-dcc-sechead { background: var(--vpGreyLight02);
+    padding: var(--vpSpacingVerPad10) var(--vpSpacingHorPad12);
+    display: flex; align-items: center; gap: var(--vpSpacingInline12); min-height: 60px;
+    box-sizing: border-box; }
+  .vp-dcc-sechead .ic { width: 36px; height: 36px; flex-shrink: 0; }
+  .vp-dcc-sechead h4 { font: var(--vpHeading3); color: var(--vpGreyDark02);
+    margin: var(--vpSpacingStack00); }
+  .vp-dcc-sechead .sub { font: var(--vpBody3); color: var(--vpGreyDark01);
+    margin-top: var(--vpSpacingStack02); }
+  .vp-dcc-sechead .txt { min-width: 0; }
+
+  /* The field and the recommendation sit side by side: what you are asking for, and
+     what the panel thinks you can do. */
+  .vp-dcc-row { display: grid; grid-template-columns: 1fr 1fr;
+    gap: var(--vpSpacingInline16); align-items: start;
+    padding: var(--vpSpacingVerPad12) var(--vpSpacingHorPad12); }
+  .vp-dcc-field .lbl { font: var(--vpBody3); color: var(--vpGreyDark01);
+    margin-bottom: var(--vpSpacingStack06); }
+  .vp-dcc-input { display: flex; align-items: center; background: var(--vpWhite);
+    border: 1px solid var(--vpGreyLight01); border-radius: 6px;
+    padding: var(--vpSpacingVerPad12) var(--vpSpacingHorPad16); gap: var(--vpSpacingInline12); }
+  .vp-dcc-input input { font: var(--vpBody2); color: var(--vpGreyDark02);
+    border: 0; outline: 0; background: transparent; flex: 1; min-width: 0; padding: 0; }
+  .vp-dcc-input .unit { font: var(--vpBody2); color: var(--vpGreyDark02); flex-shrink: 0; }
+
+  /* The field answers back on every keystroke, in one of three ways: below the band it
+     says how many more orders the pilots could take, above it how many more pilots the
+     orders would need, and inside it confirms the choice in green. */
+  .vp-dcc-msg { font: var(--vpBody3); color: var(--vpRedAction);
+    display: flex; align-items: flex-start; gap: var(--vpSpacingInline06);
+    margin-top: var(--vpSpacingStack08); }
+  .vp-dcc-msg.good { color: var(--vpGreenAction); }
+  .vp-dcc-msg svg { width: 14px; height: 14px; flex-shrink: 0; margin-top: 1px; }
+  .vp-dcc-msg.good svg { width: 16px; height: 16px; }
+
+  .vp-dcc-rec { background: var(--vpGreyLight02); border-radius: 6px;
+    padding: var(--vpSpacingVerPad16); }
+  .vp-dcc-rec .top { display: flex; align-items: center; gap: var(--vpSpacingInline06);
+    font: var(--vpBody1); color: var(--vpGreyDark01); }
+  .vp-dcc-rec .top b { font: var(--vpButtonText2); color: var(--vpBlack); }
+  .vp-dcc-rec .top svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .vp-dcc-rec .sub { font: var(--vpBody3); color: var(--vpGreyDark01);
+    margin-top: var(--vpSpacingStack08); }
+
+  /* When the change lands, and when the volume follows. */
+  .vp-dcc-notice { background: var(--vpYellowBg); font: var(--vpBody2);
+    color: var(--vpGreyDark01); min-height: 32px; box-sizing: border-box;
+    padding: var(--vpSpacingVerPad06) var(--vpSpacingHorPad12);
+    display: flex; align-items: center; gap: var(--vpSpacingInline08); }
+  .vp-dcc-notice svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+  /* The page cannot be left half-set, so the totals and the commit sit in a bar pinned
+     to the bottom of the work area rather than scrolling away with the form. */
+  /* Runs the full width of the work area, rail edge to right edge, and sits on its
+     bottom edge whether or not the form is long enough to scroll: margin-top auto puts
+     it there in the flex column, sticky keeps it there once the page does scroll. The
+     negative side and bottom margins cancel the work area's gutter so it bleeds out. */
+  /* bottom is negative, not 0: sticky measures from the scrollport's padding edge, and
+     the work area carries a 16px bottom gutter the bar has to sit through. */
+  .vp-dcc-actionbar { position: sticky; bottom: var(--vpSpacingStackN16); z-index: 4;
+    background: var(--vpWhite); border-top: 1px solid var(--vpGreyLight01);
+    margin: auto var(--vpSpacingInlineN16) var(--vpSpacingStackN16);
+    padding: var(--vpSpacingVerPad16) var(--vpSpacingHorPad16);
+    display: flex; align-items: center; gap: var(--vpSpacingInline20); }
+  .vp-dcc-actionbar .sum { display: flex; gap: var(--vpSpacingInline20); }
+  .vp-dcc-actionbar .sum > div { padding-right: var(--vpSpacingHorPad20);
+    border-right: 1px solid var(--vpGreyLight01); }
+  .vp-dcc-actionbar .sum > div:last-child { border-right: 0; }
+  .vp-dcc-actionbar .k { font: var(--vpBody3); color: var(--vpGreyDark01); }
+  .vp-dcc-actionbar .v { font: var(--vpHeading3); color: var(--vpGreyDark02);
+    margin-top: var(--vpSpacingStack02); }
+  .vp-dcc-actionbar .vp-btn { margin-left: auto; }
