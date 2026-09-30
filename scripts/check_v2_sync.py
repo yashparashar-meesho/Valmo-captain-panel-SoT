@@ -72,6 +72,30 @@ def main():
             "screenIframeDoc() pull it in when the screen needs it."
             % ", ".join(scripted))
 
+    # Nothing but whitespace may sit between the seed element and the next script.
+    #
+    # Every tool that rewrites the catalogue finds the seed's end with
+    # find("</script>"). If the seed ever contains that string itself, the splice
+    # cuts there and the rest of the old catalogue is left stranded in the body as
+    # loose text - and because the next splice cuts at the same place, it stays
+    # stranded. One of those went unnoticed long enough to reach 939KB: it shipped
+    # in every page load, rendered as garbage text below the fold, and was stale
+    # enough to still describe the button scale as it stood several modules ago.
+    live_src = LIVE.read_text(encoding="utf-8")
+    a = live_src.find(TAG)
+    if a > -1:
+        end = live_src.find("</script>", a + len(TAG)) + len("</script>")
+        nxt = live_src.find("<script", end)
+        between = live_src[end:nxt if nxt > -1 else len(live_src)]
+        if between.strip():
+            problems.append(
+                "%d characters of loose text sit between the seed element and the next "
+                "script in flow-ledger.html. That is an orphaned catalogue: a splice cut "
+                "at a \"</script>\" inside the seed and stranded the remainder. It renders "
+                "as text on the page. Delete everything from the seed's closing tag up to "
+                "the next <script, and find the \"</script>\" that caused the cut."
+                % len(between.strip()))
+
     # VENDOR_RULES names the behaviour files a screen's markup pulls in. A name in
     # that table with no file behind it 404s in the browser with nothing on screen to
     # say so - the page renders perfectly and its inputs never respond. Cheap to check
