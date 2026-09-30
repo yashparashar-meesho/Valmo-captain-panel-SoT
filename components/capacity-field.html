@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Capacity Field — Valmo Partner component</title>
+<!-- no external fonts: Mier B02 is local, with a metric-matched fallback -->
+<style>body{margin:0;padding:24px;background:#eaeaf2;}</style>
+<link rel="stylesheet" href="../assets/kit.css">
+</head>
+<body>
+<div class="vp-scope">
+<div style="max-width:420px;"><div class="vp-dcc-field" style="margin-bottom:16px;"><div class="lbl">How many orders to deliver?</div><div class="vp-dcc-input"><input type="number" value="600" aria-label="How many orders to deliver?"><span class="unit">Orders/Day</span></div><div class="vp-dcc-msg"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 1.6 13 12.4H1z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M7 5.6v3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="7" cy="10.4" r="0.7" fill="currentColor"/></svg><span>Input is very low, you can do 649 more orders with your active pilots</span></div></div><div class="vp-dcc-field" style="margin-bottom:16px;"><div class="lbl">How many orders to deliver?</div><div class="vp-dcc-input"><input type="number" value="1249" aria-label="How many orders to deliver?"><span class="unit">Orders/Day</span></div><div class="vp-dcc-msg good"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M5 7.4 7.4 2c1 0 1.7.7 1.7 1.6v2.1h3.4c.8 0 1.4.7 1.2 1.5l-.8 4c-.1.6-.6 1-1.2 1H5z" fill="currentColor"/><rect x="1.9" y="7.2" width="2.4" height="6.4" rx="0.8" fill="currentColor" opacity=".55"/></svg><span>Best capacity for you, your earnings will increase</span></div></div><div class="vp-dcc-field" style="margin-bottom:16px;"><div class="lbl">How many orders to deliver?</div><div class="vp-dcc-input"><input type="number" value="1990" aria-label="How many orders to deliver?"><span class="unit">Orders/Day</span></div><div class="vp-dcc-msg"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 1.6 13 12.4H1z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M7 5.6v3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="7" cy="10.4" r="0.7" fill="currentColor"/></svg><span>Input is very high, you will need 15 extra pilots to do these deliveries</span></div></div></div>
+</div>
+<script>
+document.addEventListener("error", function (e) {
+  var el = e.target;
+  if (el && el.tagName === "IMG") { el.style.visibility = "hidden"; }
+}, true);
+</script>
+</body>
+</html>

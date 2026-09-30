@@ -127,6 +127,11 @@
     "chart-tooltip",
     "praise-card",
     "reason-card",
-    "capacity-card"
+    "capacity-card",
+    "capacity-section",
+    "capacity-field",
+    "recommendation-card",
+    "notice-bar",
+    "sticky-action-bar"
   ]
 }

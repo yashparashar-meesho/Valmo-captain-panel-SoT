@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Recommendation Card — Valmo Partner component</title>
+<!-- no external fonts: Mier B02 is local, with a metric-matched fallback -->
+<style>body{margin:0;padding:24px;background:#eaeaf2;}</style>
+<link rel="stylesheet" href="../assets/kit.css">
+</head>
+<body>
+<div class="vp-scope">
+<div style="max-width:420px;"><div class="vp-dcc-rec"><div class="top"><svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M9 1.8a4.6 4.6 0 0 0-2.7 8.3c.4.3.6.7.6 1.2v.4h4.2v-.4c0-.5.2-.9.6-1.2A4.6 4.6 0 0 0 9 1.8z" fill="#F5C518"/><path d="M7 13.4h4M7.6 15.4h2.8" stroke="#8A6D1F" stroke-width="1.2" stroke-linecap="round"/></svg><span>Recommended Capacity: <b>1,249 Orders/Day</b></span></div><div class="sub">The recommendation is based on your delivery performance and no. of active pilots</div></div></div>
+</div>
+<script>
+document.addEventListener("error", function (e) {
+  var el = e.target;
+  if (el && el.tagName === "IMG") { el.style.visibility = "hidden"; }
+}, true);
+</script>
+</body>
+</html>
