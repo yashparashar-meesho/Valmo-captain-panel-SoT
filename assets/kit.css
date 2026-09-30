@@ -85,6 +85,12 @@
     --vpButtonText12TagValmo: 600 12px/18px var(--vpFont);
     --vpButtonText14DemiValmo: 600 14px/20px var(--vpFont);
     --vpButtonText14BoldValmo: 700 14px/20px var(--vpFont);
+    /* Live's save CTA is 16px, one step past the top of Crystal's own scale (15).
+       Added deliberately rather than rounding the button down: the panel ships a
+       large button and the scale had no size for it. Line height stays on the
+       24px grid; live runs `normal`, which lands at 23.2px on Mier and would
+       change height if the font ever fell back. */
+    --vpButtonText16BoldValmo: 700 16px/24px var(--vpFont);
     --vpBody3:       400 12px/16px var(--vpFont);
     --vpBody4:       400 11px/16px var(--vpFont);
     --vpBody5:       400 10px/16px var(--vpFont);
@@ -985,11 +991,25 @@
   .vp-btn-sm { font: var(--vpButtonText2);
     padding: var(--vpSpacingVerPad05) var(--vpSpacingHorPad12); }
 
+  /* Large, the step above the medium .vp-btn. Live's Save Delivery & Pickup
+     Capacity is the only place the panel uses it: 16/700 on 12px of padding,
+     measuring 47.2px because its line-height is `normal`. Ours is 11px of
+     padding against an explicit 24px line-height, which lands at 48px - 0.8px
+     taller, and stable if Mier is ever replaced by the fallback. Same 6px
+     radius and 1px border as the other two sizes. */
+  .vp-btn-lg { font: var(--vpButtonText16BoldValmo);
+    padding: var(--vpSpacingVerPad11) var(--vpSpacingHorPad16); }
+
   /* The per-section Hindi explainer. Live sets its label at 16px, which is past the
      top of Crystal's scale (15) - held at --vpBody1 rather than adding a 16th size. */
   .vp-langbtn { font: var(--vpBody2); color: var(--vpBrand);
     background: var(--vpGreyLight02); border: 1px solid var(--vpBrand);
-    border-radius: 6px; padding: var(--vpSpacingVerPad06) var(--vpSpacingHorPad10);
+    /* 5 + 20 line-height + 5 + 2 borders = 32px, live's control height. Live gets
+       the same 32 from 6px of padding because its box is border-box; ours follows
+       the kit's own convention - content-box, padding picked to land on the target,
+       the way .vp-btn's 7px lands it on 36. Label and height match; only the padding
+       number differs, and that is the box model, not the design. */
+    border-radius: 6px; padding: var(--vpSpacingVerPad05) var(--vpSpacingHorPad10);
     display: inline-flex; align-items: center; gap: var(--vpSpacingInline06);
     cursor: pointer; white-space: nowrap; }
   .vp-langbtn svg { width: 11px; height: 11px; flex-shrink: 0; fill: var(--vpBrand); }
@@ -1337,7 +1357,7 @@
   .vp-dcc-input { display: flex; align-items: center; background: var(--vpWhite);
     border: 1px solid var(--vpGreyLight01); border-radius: 6px;
     padding: var(--vpSpacingVerPad12) var(--vpSpacingHorPad16); gap: var(--vpSpacingInline12); }
-  .vp-dcc-input input { font: var(--vpBody2); color: var(--vpGreyDark02);
+  .vp-dcc-input input { font: var(--vpButtonText12TagValmo);  /* live sets the typed value 12/600, not body 13/400 */ color: var(--vpGreyDark02);
     border: 0; outline: 0; background: transparent; flex: 1; min-width: 0; padding: 0; }
   .vp-dcc-input .unit { font: var(--vpBody2); color: var(--vpGreyDark02); flex-shrink: 0; }
 
