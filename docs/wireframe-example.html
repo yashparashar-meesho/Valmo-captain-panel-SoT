@@ -1,30 +1,59 @@
-<!doctype html><html><head><meta charset="utf-8"><title>Wireframe demo</title>
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Wireframe — the standard</title>
 <link rel="stylesheet" href="../assets/kit.css">
 <link rel="stylesheet" href="../assets/wireframe.css">
-<style>body{margin:0}</style></head><body>
-<div class="vp-scope wf"><div class="vp-shell">
-  <div class="vp-sidebar"><div class="vp-navlist">
-    <div class="vp-navitem"><span class="lbl">Payments</span></div>
-    <div class="vp-navitem active"><span class="lbl">DC Capacity</span></div>
-  </div></div>
-  <div class="vp-content">
-    <div class="vp-pagebar"><h3>DC Capacity</h3></div>
-    <div class="wf-flag">Wireframe — shape only. Grey means undecided, not unstyled.</div>
-    <div class="vp-panel wf-stack">
-      <div class="wf-box exists"><span class="lbl">stat-summary-bar</span>
-        <span class="says">Pilots over 280 DRS · pilots idle · cut size this week</span></div>
-      <div class="wf-row">
-        <div class="wf-box"><span class="lbl">productivity state tracker</span>
-          <span class="says">OK → Warning → Cut → Restored</span>
-          <span class="note">new — no component for this yet</span></div>
-        <div class="wf-box"><span class="lbl">cut card</span>
-          <span class="says">reason, size, lock date, how to restore</span></div>
+<style>body{margin:0}</style></head>
+<body>
+<div class="vp-scope wf">
+  <div class="vp-shell">
+<div class="vp-sidebar">
+      <div class="vp-acct"><div class="vp-avatar"><img data-icon="ic_66aed9e0a5" alt=""></div><div><div class="vp-acct-name">Yash P</div><span class="vp-beu">BEU<img data-icon="ic_chevron_down" alt=""></span></div></div>
+      <div class="vp-navlist">
+      <div class="vp-navitem divider-after"><img class="ic" data-icon="ic_7220aba916" alt=""><span class="lbl">Valmo Support</span></div>
+      <div class="vp-navitem" data-goto="payments-list"><img class="ic" data-icon="ic_499fa6adb6" alt=""><span class="lbl">Payments</span></div>
+      <div class="vp-navitem active" data-goto="dc-capacity"><img class="ic" data-icon="ic_c96a29e781" alt=""><span class="lbl">DC Capacity</span><span class="vp-badge-new"><img data-icon="ic_139e5b8758" alt="NEW"></span></div>
+      <div class="vp-navitem" data-goto="growth-dashboard"><img class="ic" data-icon="ic_82a75bf38b" alt=""><span class="lbl">Growth Dashboard</span><span class="vp-badge-new"><img data-icon="ic_139e5b8758" alt="NEW"></span></div>
+      <div class="vp-navitem" data-goto="service-area-my-area"><img class="ic" data-icon="ic_eda39bed0f" alt=""><span class="lbl">Service Area</span><span class="vp-navtag">Area Updated</span></div>
+      <div class="vp-navitem"><img class="ic" data-icon="ic_9e4feb432c" alt=""><span class="lbl">Loss Management</span></div>
+      <div class="vp-navitem"><img class="ic" data-icon="ic_5d34a47f1f" alt=""><span class="lbl">Cash Pendency</span><span class="vp-badge-new"><img data-icon="ic_139e5b8758" alt="NEW"></span></div>
+      <div class="vp-navitem"><img class="ic" data-icon="ic_8ad2411e3d" alt=""><span class="lbl">Pilot Rate Card</span><span class="vp-badge-new"><img data-icon="ic_139e5b8758" alt="NEW"></span></div>
+      <div class="vp-navitem" data-goto="pilot-management-list"><img class="ic" data-icon="ic_94023365dd" alt=""><span class="lbl">Pilot Management</span><span class="vp-badge-new"><img data-icon="ic_139e5b8758" alt="NEW"></span></div>
       </div>
-      <div class="wf-box tall"><span class="lbl">pilot table</span>
-        <span class="says">name · DRS this week · on pace for · status</span>
-        <table class="wf-table"><tr><th>Pilot</th><th>DRS</th><th>Status</th></tr>
-        <tr><td><span class="wf-bar w110"></span></td><td><span class="wf-bar w40"></span></td><td><span class="wf-bar w70"></span></td></tr>
-        <tr><td><span class="wf-bar w160"></span></td><td><span class="wf-bar w40"></span></td><td><span class="wf-bar w70"></span></td></tr></table></div>
+      <div class="vp-sidebar-footer">
+        <div class="vp-navitem"><img class="ic" data-icon="ic_fa48a28bbd" alt=""><span class="lbl">Log Out</span></div>
+        <div class="vp-logo-row"><img data-icon="ic_df11d316c7" alt=""><span>Captain Panel</span></div>
+      </div>
+    </div>
+    <div class="vp-content">
+      <div class="vp-pagebar"><h3>DC Capacity</h3></div>
+      <div class="wf-flag"><b>Wireframe.</b> Shape only — grey means undecided, not unstyled.
+        Solid blocks are real components from the catalogue, rendered without colour.
+        Dashed blocks are things that do not exist yet.</div>
+      <div class="vp-tabs"><div class="vp-tab">Set Your DC Capacity</div><div class="vp-tab active">Pilot Productivity</div></div>
+      <div class="vp-panel wf-stack">
+
+        <div class="wf-row">
+          <div class="wf-box"><span class="lbl">where this DC stands</span>
+            <span class="says">OK → Warning → Cut → Restored, and which one is true now</span>
+            <span class="note">no component for a state track yet</span></div>
+          <div class="wf-box"><span class="lbl">the cut</span>
+            <span class="says">why it happened, how big, when it lifts, what undoes it</span></div>
+        </div>
+        <table class="vp-table">
+          <thead><tr><th>Pilot</th><th>Orders this week</th><th>On pace for</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><span class="wf-bar w160"></span></td><td><span class="wf-bar w40"></span></td>
+                <td><span class="wf-bar w40"></span></td><td><span class="wf-bar w70"></span></td></tr>
+            <tr><td><span class="wf-bar w110"></span></td><td><span class="wf-bar w40"></span></td>
+                <td><span class="wf-bar w40"></span></td><td><span class="wf-bar w70"></span></td></tr>
+            <tr><td><span class="wf-bar w160"></span></td><td><span class="wf-bar w40"></span></td>
+                <td><span class="wf-bar w40"></span></td><td><span class="wf-bar w70"></span></td></tr>
+          </tbody>
+        </table>
+        <div class="wf-box short"><span class="lbl">last five weeks</span>
+          <span class="says">one mark per week, so a pattern is visible at a glance</span></div>
+      </div>
     </div>
   </div>
-</div></div></body></html>
+</div>
+</body></html>

@@ -109,14 +109,33 @@ Only then does anything get fetched or built.
 screen, only the icons it references, the three fonts, `kit.css`, and any
 vendor script its markup links. Not before, not drip-fed.
 
-**One wireframe per approach — all five.** Not the one you prefer. The point
-of five approaches is seeing five, and a shape is unarguable on screen in a
-way it never is in a sentence. If a single approach has more than one sensible
-IA, **say so and ask** rather than picking one quietly.
+Two artefacts, in order. Each does a job the other is bad at.
+
+### 2a — the comparison sheet
+
+**All five approaches on one page**, each a small schematic beside what it
+does, what it costs, and what it rules out. Build it with the `wfc-` classes
+in `wireframe.css`; [comparison-example.html](comparison-example.html) is the
+standard.
+
+Schematic on purpose: at this stage the question is *which shape*, not *is
+this spacing right*. Five full-size pages is too much scrolling to compare,
+which is exactly why they are small here.
+
+**Gate — the reviewer picks one or two.**
+
+### 2b — full-size wireframes for the survivors
+
+Only now, and only for what survived. Real skeleton, real size, every existing
+component shown in grey — because this is the layout that is about to be
+built, and layout problems that surface after promotion are expensive.
+
+If a surviving approach has more than one sensible IA, **say so and ask**
+rather than picking one quietly.
 
 1. **IA outline first** — header, then sections in order, then what is in each.
    Check it against [section-rules.md](section-rules.md) before building.
-2. **Build it grey.** Real skeleton, no design:
+2. **Build it grey**, on the real skeleton:
 
    ```html
    <link rel="stylesheet" href="../assets/kit.css">
@@ -124,12 +143,19 @@ IA, **say so and ask** rather than picking one quietly.
    <div class="vp-scope wf"> … </div>
    ```
 
-   `wireframe.css` keeps the rail, header, work area, gutter and radius — the
-   layout being judged is the layout that will be built — and removes every
-   other bit of paint. Each block is a `.wf-box` with a label saying **what
-   goes there and what information it carries**, never what it looks like. Add
-   `.exists` to a box whose pattern the catalogue already has, so a reviewer
-   can tell *new* from *already built* at a glance.
+   `wireframe.css` remaps the colour tokens, so **every real component renders
+   in grey, unchanged in structure, spacing and type**. If the catalogue has a
+   stat bar, a table, tabs or the nav rail, show the real one — greyed. Never
+   draw a box with `stat-summary-bar` written in it; a label naming a component
+   tells a reviewer less than the component does.
+
+   The rail is real and carries **every module**, not a two-item stub — a page
+   has to look like a page inside the panel, not a prototype of the panel.
+
+   Only things the catalogue does **not** have become a `.wf-box`, which leaves
+   the dashed boxes as an exact list of what must be built. Label each one with
+   **what the reader sees** — "where this DC stands" — never with a component
+   name or a visual description.
 
    > **A wireframe is for choosing a shape, not for admiring a design.** The
    > first real run produced near-final pages — real components, real colour —
