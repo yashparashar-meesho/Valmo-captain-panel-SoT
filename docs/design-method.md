@@ -124,12 +124,19 @@ IA, **say so and ask** rather than picking one quietly.
    <div class="vp-scope wf"> … </div>
    ```
 
-   `wireframe.css` keeps the rail, header, work area, gutter and radius — the
-   layout being judged is the layout that will be built — and removes every
-   other bit of paint. Each block is a `.wf-box` with a label saying **what
-   goes there and what information it carries**, never what it looks like. Add
-   `.exists` to a box whose pattern the catalogue already has, so a reviewer
-   can tell *new* from *already built* at a glance.
+   `wireframe.css` remaps the colour tokens, so **every real component renders
+   in grey, unchanged in structure, spacing and type**. If the catalogue has a
+   stat bar, a table, tabs or the nav rail, show the real one — greyed. Never
+   draw a box with `stat-summary-bar` written in it; a label naming a component
+   tells a reviewer less than the component does.
+
+   The rail is real and carries **every module**, not a two-item stub — a page
+   has to look like a page inside the panel, not a prototype of the panel.
+
+   Only things the catalogue does **not** have become a `.wf-box`, which leaves
+   the dashed boxes as an exact list of what must be built. Label each one with
+   **what the reader sees** — "where this DC stands" — never with a component
+   name or a visual description.
 
    > **A wireframe is for choosing a shape, not for admiring a design.** The
    > first real run produced near-final pages — real components, real colour —
