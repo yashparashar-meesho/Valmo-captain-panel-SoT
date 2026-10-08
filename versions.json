@@ -1,5 +1,5 @@
 {
-  "head": "505fa5b",
+  "head": "40d471e",
   "since": null,
   "screens": {
     "payments-list": [
@@ -458,6 +458,12 @@
     ]
   },
   "ledger": [
+    {
+      "sha": "b9074a7a33ceb1c68e594c31e4a2b33f8f18192a",
+      "short": "b9074a7",
+      "date": "2026-10-09",
+      "subject": "Add the design pack, the UX context, and the slipstream skill"
+    },
     {
       "sha": "30f01ed29d753449f62907d87af60c6dfee64e61",
       "short": "30f01ed",
