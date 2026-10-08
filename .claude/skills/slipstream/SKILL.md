@@ -56,11 +56,15 @@ what the skill adds.
 
 Match the KRD against `pages.md` and `components.md`. Report:
 
+Candidates are **shapes of change, not only screens**. Walk all four and say
+why each is in or out — never skip straight to two of them:
+
 ```
 TARGET CANDIDATES
-  1. <screen-id>  — <why this one>
-  2. <screen-id>  — <why this one>
-  3. none of these — a new page, because <why>
+  1. extend a section on <screen-id>        — <in/out, why>
+  2. a new section on <screen-id>           — <in/out, why>
+  3. a new screen (tab) inside <module>     — <in/out, why>
+  4. a new module                           — <in/out, why>
 
 CONVENTIONS THAT BIND THIS WORK
   <the framework, the layout rules, the foundations that apply>
@@ -69,8 +73,16 @@ WHAT ALREADY EXISTS THAT YOU CAN REUSE
   <components from the inventory that this problem will need>
 ```
 
-Then **ask the user to confirm the target**. Never pick one silently. Never
-present only one candidate.
+Then **ask the user to confirm the target**. Never pick one silently.
+
+Two traps, both of which cost a real run:
+
+- **A screen's `notHere` is that screen's, not the module's.** "DC Capacity
+  does not show per-pilot detail" excludes it from *that screen*. A tab is a
+  different screen in the same module, so the exclusion never reached it.
+- **Judge by the catalogue's patterns, not the target page's current shape.**
+  A module with no tabs today is not evidence against a tab — `tabs` exists
+  and two modules already use it.
 
 ### Once a target is confirmed — fetch it directly
 
@@ -96,7 +108,15 @@ for i in $(grep -o 'assets/icons/[A-Za-z0-9_.-]*' $D/screens/<id>.html \
 for `assets/vendor/`) and fetch what it references. A missing one 404s silently
 — the page renders perfectly and its inputs do nothing.
 
-Serve it (`python3 -m http.server 8080`) and give the user the link. **Never
+Serve it, and **check the port is free and the page returns 200 before you
+send the link** — a link was once handed over for a server that never started
+because the port was taken:
+
+```bash
+PORT=8080; while lsof -i :$PORT >/dev/null 2>&1; do PORT=$((PORT+1)); done
+(cd $D && python3 -m http.server $PORT >/dev/null 2>&1 &) ; sleep 1
+curl -s -o /dev/null -w "%{http_code}\n" http://localhost:$PORT/screens/<id>.html
+``` **Never
 preview it yourself through a built-in browser tool** — those commonly render a
 file outside their project directory as a static snapshot with no JavaScript,
 which silently breaks click-through while looking fine.
@@ -105,6 +125,11 @@ which silently breaks click-through while looking fine.
 
 Per `design-method.md`. The things most often got wrong:
 
+- **Section 1 writes a `DRD.md`, always.** The method says the DRD does not
+  block — that means *do not wait for sign-off*, not *skip it*. **Do not open
+  an editor on a wireframe until `DRD.md` exists on disk.** On the first real
+  run it was skipped, and the approach that was built had been compared
+  against nothing written down, including an option that had been missed.
 - **Section 1** diverges on *approach*, not structure. Do not produce a fixed
   number of approaches.
 - **Section 2** uses real components where the catalogue has them and **grey

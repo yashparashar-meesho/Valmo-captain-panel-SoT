@@ -56,6 +56,18 @@ Anything that submits is not.
 | Push explorations to `main` | Losing wireframes go to the Idea Wall or a branch that is never merged. The catalogue is the source of truth; the wall is a photo of an idea. |
 | Let Figma become the source | Figma is the gallery. Screenshots cannot be diffed, measured or promoted from. HTML stays the artifact. |
 
+## Running the method
+
+Each of these happened on the first real run of the `slipstream` skill.
+
+| never | because |
+|---|---|
+| Skip the DRD because Section 1 "does not block" | Not blocking means *do not wait for sign-off*. The artefact is still required. Skipped once already, and the chosen approach was then compared against nothing on paper — including the option that had been missed. Section 2 does not start until `DRD.md` exists. |
+| Offer only "extend this page" or "a new page" | There are **four** shapes of change, and the third — *a new screen inside an existing module*, i.e. a tab — is the one that gets missed. `tabs` already exists and two modules use it. |
+| Read a screen's `notHere` as the module's | `answers` and `notHere` are scoped to **one screen**. A second screen in the same module is not covered by them. This is what made a tab invisible as an option. |
+| Judge what is possible by the target module's current shape | A module having no tabs today is not evidence against a tab. Check `components.md` for the patterns available, not the page for what it happens to use. |
+| Give out a URL before the server is actually serving it | A link was handed over for a server that never started, because the port was in use. Check the port is free and the page returns 200 *before* sending the link. |
+
 ## Working style
 
 | never | because |

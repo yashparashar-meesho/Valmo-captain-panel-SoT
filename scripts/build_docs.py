@@ -71,6 +71,11 @@ def pages_md(seed):
          "- listed under **not here** -> it was considered and rejected; read why before "
          "re-proposing it",
          "- in neither -> genuinely new, and the decision above is the test", "",
+         "**answers and not here are scoped to one screen, never to the module.** "
+         "\"DC Capacity does not show per-pilot detail\" excludes it from *that screen*. "
+         "A second screen in the same module - a tab - is a different screen, and the "
+         "exclusion does not reach it. Reading a screen's exclusions as the module's is "
+         "how a tab stops being considered.", "",
          "Once the page is settled, [section-rules.md](section-rules.md) decides whether it "
          "is a new section or baked into an existing one.", "",
          "%d modules, %d screens, %d components."

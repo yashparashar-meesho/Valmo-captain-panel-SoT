@@ -23,8 +23,16 @@ how approaches get invented in a vacuum and the final UI lands off-spec.
 
 1. Read [pages.md](pages.md) and [components.md](components.md).
 2. Match the KRD against them.
-3. Produce **2–3 candidate target screens, each with a reason**, plus an
-   explicit *"none of these — new page"* option.
+3. Produce candidates — **and candidates are shapes of change, not only
+   screens.** Walk all four, in this order, and say why each is in or out:
+
+   | # | shape | looks like |
+   |---|---|---|
+   | 1 | extend a section on an existing screen | a field, a column, a state |
+   | 2 | a new section on an existing screen | its own heading and data scope |
+   | 3 | **a new screen inside an existing module** | **a tab — `tabs` already exists and two modules use it** |
+   | 4 | a new module | nothing in the rail fits |
+
 4. Name the conventions that will bind this work: the framework, the layout
    rules, the relevant foundations.
 
@@ -32,11 +40,28 @@ how approaches get invented in a vacuum and the final UI lands off-spec.
 "no, it's X." If wrong, re-run with the correction.
 
 > Never present a single confident answer. One option invites acceptance of a
-> wrong one; three invite a decision.
+> wrong one; several invite a decision.
+
+> **Shape 3 is the one that gets missed.** It was missed on the very first
+> real run. Two traps cause it, and both are easy to fall into again:
+>
+> - **Reading a screen's `notHere` as the module's.** `notHere` is scoped to
+>   **one screen**. "DC Capacity does not show per-pilot detail" excludes it
+>   from *that screen*, and says nothing about a second screen in the same
+>   module. A new tab is a new screen, so the exclusion never applied to it.
+> - **Reading the module's current shape instead of the catalogue's patterns.**
+>   A module having no tabs today is not evidence against a tab. Check
+>   [components.md](components.md) for what is available, not the target page
+>   for what it happens to use.
 
 ## Section 1 — Diverge
 
-**You drive. Shared, but does not block.**
+**You drive. The DRD is required; waiting for approval of it is not.**
+
+> **"Does not block" means do not wait for sign-off. It does not mean skip.**
+> On the first real run the DRD was never written, and the chosen approach was
+> compared against nothing on paper — including the option that had been
+> missed. Section 2 does not start until the DRD file exists.
 
 1. **Interrogate the gaps** — ask only what the KRD left out *and* Section 0
    could not answer. Do not re-ask what the catalogue already knows.
@@ -51,9 +76,16 @@ how approaches get invented in a vacuum and the final UI lands off-spec.
 > Structure comes next. Diverging on both axes at once gives fifteen options
 > that are really three, and nobody can review that.
 
-Share the DRD. **Do not wait on it.** Comments fold into Section 2 as they
-arrive. Two blocking gates turns this into a multi-day loop, and cycle time is
-what kills design methods.
+**Write the DRD to a file** — `DRD.md` beside the work — and share it. Then
+keep going: comments fold into Section 2 as they arrive. Two blocking gates
+turns this into a multi-day loop, and cycle time is what kills design methods.
+
+So the rule has two halves, and they are easy to confuse:
+
+| | |
+|---|---|
+| **required** | the DRD exists as a written artefact before Section 2 starts |
+| **not required** | anyone approving it before Section 2 starts |
 
 ## Section 2 — Shape
 
