@@ -1,1 +1,14 @@
 __pycache__/
+
+# Review artefacts. Both are regenerated on demand and neither is the source:
+#   docs-preview.html     -> python3 scripts/build_docs_preview.py
+#   review-comments.json  -> written by the review server when you hit Send
+docs-preview.html
+review-comments.json
+
+# Local-only. Untracked on purpose, and listed here so `git add -A` cannot
+# sweep them in by accident - which is exactly how they would have been
+# committed one day.
+scripts/collect_elements.py
+.claude/skills/log-exploration/
+.DS_Store
