@@ -84,7 +84,26 @@ Two traps, both of which cost a real run:
   A module with no tabs today is not evidence against a tab — `tabs` exists
   and two modules already use it.
 
-### Once a target is confirmed — fetch it directly
+### Section 0 fetches nothing
+
+The pack is all Section 0 needs. No screen files, no icons, no fonts, no
+stylesheet — those may belong to a screen the user is about to rule out. One
+batched fetch happens later, after the DRD is approved.
+
+### Section 1 — the DRD, and a hard stop
+
+Write `DRD.md` with **five genuinely different approaches** (what each does,
+what it costs, what it rules out), then render and open it:
+
+```bash
+python3 scripts/render_doc.py DRD.md
+```
+
+Never hand over the raw `.md`. **Then stop.** Nothing is fetched and nothing
+is built until the user says the DRD is good to go. Revise and re-render until
+they do.
+
+### After the DRD is approved — fetch, in one pass
 
 No website, no clicking. The repo is public, so:
 
@@ -132,9 +151,16 @@ Per `design-method.md`. The things most often got wrong:
   against nothing written down, including an option that had been missed.
 - **Section 1** diverges on *approach*, not structure. Do not produce a fixed
   number of approaches.
-- **Section 2** uses real components where the catalogue has them and **grey
-  boxes where it does not**. Grey boxes are the point — never narrow an idea to
-  fit the existing library.
+- **Section 2 wireframes are grey, all of them.** Load `kit.css` then
+  `assets/wireframe.css`, put `wf` on the scope, and make every block a
+  `.wf-box` whose label says what information goes there. Add `.exists` where
+  the catalogue already has the pattern. A wireframe that looks finished turns
+  review into proofreading instead of choosing — colour returns at promotion.
+  Open `docs/wireframe-example.html` first — it is the standard, and guessing
+  what "grey box" means is what produced near-final pages on the first run.
+- **One wireframe per approach — all five.** Not the favourite. If a single
+  approach has more than one sensible IA, say so and ask rather than choosing
+  quietly.
 - **Section 3** turns every grey box into a real Crystal component, **lists them
   back to the user for approval**, and ships them in their own PR *before* the
   module.

@@ -1,0 +1,96 @@
+/* ============ wireframe kit ============================================
+   A wireframe is for choosing a shape, not for admiring a design.
+
+   The first real run produced near-final pages: real components, real type,
+   real colour. They looked finished, so there was nothing to diverge about -
+   reviewing them became proofreading instead of choosing. Everything here is
+   deliberately grey and deliberately plain.
+
+   Load it AFTER kit.css. The page keeps the real skeleton - rail, header,
+   work area, sections, the 16px gutter, the 8px radius - so the layout being
+   judged is the layout that will be built. Only the paint is removed.
+
+       <link rel="stylesheet" href="../assets/kit.css">
+       <link rel="stylesheet" href="../assets/wireframe.css">
+
+   Promotion is where colour comes back: the chosen wireframe is rebuilt with
+   real Crystal components, and every .wf-box becomes one of them.
+   ===================================================================== */
+
+.wf {
+  --wfInk:   #5B6472;
+  --wfInk2:  #8A93A1;
+  --wfLine:  #B9C0CA;
+  --wfFill:  #ECEFF3;
+  --wfFill2: #E2E6EC;
+  --wfPage:  #F4F5F7;
+}
+
+/* Strip the panel's colour. Structure stays: the real skeleton underneath is
+   the point of wireframing on it. */
+.wf .vp-scope,
+.wf .vp-content            { background: var(--wfPage); }
+.wf .vp-panel,
+.wf .vp-pagebar            { background: #FFF; }
+.wf .vp-sidebar            { background: #DFE3E8; color: var(--wfInk); }
+.wf .vp-sidebar *          { color: var(--wfInk) !important; }
+.wf .vp-navitem .ic,
+.wf .vp-sidebar img        { opacity: .25; filter: grayscale(1); }
+.wf .vp-badge-new,
+.wf .vp-navtag             { background: var(--wfFill2) !important; color: var(--wfInk2) !important; }
+
+/* Everything that is not yet a real component is a labelled grey box. The
+   label says what goes there, never what it looks like. */
+.wf-box {
+  border: 1.5px dashed var(--wfLine);
+  background: var(--wfFill);
+  border-radius: 6px;
+  min-height: 56px;
+  padding: var(--vpSpacingVerPad12) var(--vpSpacingHorPad12);
+  display: flex;
+  flex-direction: column;
+  gap: var(--vpSpacingStack04);
+  color: var(--wfInk);
+}
+.wf-box > .lbl {
+  font: var(--vpButtonText3);
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--wfInk2);
+}
+.wf-box > .says { font: var(--vpBody2); color: var(--wfInk); }
+.wf-box > .note { font: var(--vpBody3); color: var(--wfInk2); }
+
+/* A box standing in for something the catalogue already has. Solid border,
+   so a reviewer can tell "this exists" from "this is new" at a glance - and
+   so the grey boxes left over are exactly the component backlog. */
+.wf-box.exists { border-style: solid; background: var(--wfFill2); }
+.wf-box.exists > .lbl::after { content: " · exists"; color: var(--wfInk2); }
+
+.wf-row  { display: flex; gap: var(--vpSpacingInline12); }
+.wf-row > * { flex: 1; min-width: 0; }
+.wf-stack > * + * { margin-top: var(--vpSpacingStack12); }
+.wf-box.tall { min-height: 160px; }
+.wf-box.short { min-height: 40px; }
+
+/* A table nobody should read as final: real structure, grey bars for data. */
+.wf-table { width: 100%; border-collapse: collapse; }
+.wf-table th, .wf-table td {
+  border-bottom: 1px solid var(--wfLine);
+  padding: var(--vpSpacingVerPad10) var(--vpSpacingHorPad12);
+  text-align: left;
+}
+.wf-table th { font: var(--vpButtonText3); text-transform: uppercase;
+  letter-spacing: .06em; color: var(--wfInk2); }
+.wf-bar { height: 10px; border-radius: 99px; background: var(--wfFill2);
+  display: inline-block; vertical-align: middle; }
+.wf-bar.w40 { width: 40px; } .wf-bar.w70 { width: 70px; }
+.wf-bar.w110 { width: 110px; } .wf-bar.w160 { width: 160px; }
+
+/* The banner every wireframe carries, so nobody mistakes one for a design. */
+.wf-flag {
+  background: #FFF4E0; border: 1px solid #E8C98E; color: #7A4F12;
+  border-radius: 6px; font: var(--vpBody3);
+  padding: var(--vpSpacingVerPad08) var(--vpSpacingHorPad12);
+  margin-bottom: var(--vpSpacingStack16);
+}

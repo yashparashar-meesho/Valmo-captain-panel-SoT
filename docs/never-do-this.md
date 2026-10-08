@@ -67,6 +67,12 @@ Each of these happened on the first real run of the `slipstream` skill.
 | Read a screen's `notHere` as the module's | `answers` and `notHere` are scoped to **one screen**. A second screen in the same module is not covered by them. This is what made a tab invisible as an option. |
 | Judge what is possible by the target module's current shape | A module having no tabs today is not evidence against a tab. Check `components.md` for the patterns available, not the page for what it happens to use. |
 | Give out a URL before the server is actually serving it | A link was handed over for a server that never started, because the port was in use. Check the port is free and the page returns 200 *before* sending the link. |
+| Hand over the DRD as a raw `.md` | That is the *source* of a document, not the document. It reads badly and approving it feels like reviewing a diff. Render it: `python3 scripts/render_doc.py DRD.md`. |
+| Build anything before the DRD is approved | The gate is blocking. Not "shared", not "sent" — approved in words. Fetch nothing until then either. |
+| Ship four approaches and call it five | Five means five genuinely different solutions. If two collapse into the same idea, say so and find another rather than padding. |
+| Build a wireframe that looks finished | Real components and real colour turn review into proofreading instead of choosing. Grey only: `kit.css` + `wireframe.css`, `.wf-box` with a label saying what information goes there. Colour returns at promotion. |
+| Wireframe only your favourite approach | One per approach — all five. A shape is unarguable on screen in a way it never is in a sentence. If one approach has several sensible IAs, say so and ask. |
+| Fetch screens, icons or fonts during Section 0 | Section 0 is reading and discussion. Those files may belong to a screen that is about to be ruled out. One batched fetch, after the DRD is approved. |
 
 ## Working style
 
