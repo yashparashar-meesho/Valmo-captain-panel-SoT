@@ -34,7 +34,10 @@ jobs:
 
       - name: Source integrity
         run: python3 scripts/check_v2_sync.py
-
+        
+      - name: Docs pack integrity
+        run: python3 scripts/check_docs.py
+        
       - name: Every page is whole
         run: |
           python3 - <<'PY'
