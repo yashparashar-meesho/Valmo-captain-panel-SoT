@@ -9,6 +9,31 @@ this repo grows.
 source catalog — left public as a deliberate call so the Flow Ledger catalog works for anyone
 regardless of Claude plan or team, without needing repo access to be granted per person.
 
+## Install the design skill
+
+One command, on any Mac with Claude Code. Public repo, so no login and no repo access:
+
+```bash
+mkdir -p ~/.claude/skills/slipstream && curl -fsSL https://raw.githubusercontent.com/yashparashar-meesho/Valmo-captain-panel-SoT/main/.claude/skills/slipstream/SKILL.md -o ~/.claude/skills/slipstream/SKILL.md
+```
+
+It is picked up immediately — no restart, and it works in every folder, not just a clone
+of this repo. Re-run the same command to update it.
+
+Then describe a problem in any Claude Code session:
+
+```
+Captains have no way to see which of their pilots are idle right now.
+```
+
+It will find what already exists in the catalogue, propose two or three target screens with
+reasons, and wait for you to confirm before designing anything. `/slipstream` invokes it by
+name if it does not trigger on its own, and `run slipstream check` verifies the setup.
+
+What it reads is `docs/` — fetched from this repo at the moment it runs, so the rules are
+always current even if your copy of the skill is a few weeks old. Start at
+[docs/README.md](docs/README.md).
+
 ## Changing a screen
 
 Everything under `source/` is authored. Everything else at the root — `index.html`,
