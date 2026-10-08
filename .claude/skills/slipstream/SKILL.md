@@ -1,6 +1,6 @@
 ---
 name: slipstream
-description: Design a page for the Valmo captain panel from a KRD, end to end — locate what exists, diverge, wireframe, promote. Also the checker that verifies the Slipstream pack and the other skills are working before and after. Use when someone gives a KRD or problem statement for the captain panel, says "design X for the panel", "new module", "new screen", "start a design", "run slipstream", or asks to check that Slipstream is set up correctly.
+description: Design a page for the Valmo captain panel from a KRD, end to end — locate what already exists, diverge, wireframe, promote. Also the checker that verifies the Slipstream pack and its skills are working. Use this whenever someone states a problem, a KRD, a feature idea or a user need that touches the Valmo captain panel or anything in its domain — captains, pilots, DCs, delivery centres, service areas, AWBs, shipments, misrouting, rate cards, payments, settlements, capacity, onboarding or the partner app — EVEN IF they never say "design", "Slipstream", "Valmo" or "panel", and even if the message is only a sentence describing something captains cannot do today. Also use on "design X", "new module", "new screen", "new page", "start a design", "run slipstream", or any request to check that Slipstream is set up correctly. When in doubt and the subject is the captain panel, use it.
 ---
 
 # Slipstream
