@@ -158,9 +158,14 @@ Per `design-method.md`. The things most often got wrong:
   review into proofreading instead of choosing — colour returns at promotion.
   Open `docs/wireframe-example.html` first — it is the standard, and guessing
   what "grey box" means is what produced near-final pages on the first run.
-- **One wireframe per approach — all five.** Not the favourite. If a single
-  approach has more than one sensible IA, say so and ask rather than choosing
-  quietly.
+- **Section 2 is two stages.** First a **comparison sheet** — all five
+  approaches as small schematics on one page, each beside what it does, costs
+  and rules out (`wfc-` classes; `docs/comparison-example.html` is the
+  standard). The reviewer picks one or two. *Then* full-size greyed wireframes
+  on the real skeleton, for the survivors only.
+- **Status tints are the one exception to grey** — muted warn/bad/good where a
+  state genuinely has to be told apart. Never brand colour.
+- If a surviving approach has more than one sensible IA, say so and ask.
 - **Section 3** turns every grey box into a real Crystal component, **lists them
   back to the user for approval**, and ships them in their own PR *before* the
   module.

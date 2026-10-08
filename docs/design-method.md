@@ -109,14 +109,33 @@ Only then does anything get fetched or built.
 screen, only the icons it references, the three fonts, `kit.css`, and any
 vendor script its markup links. Not before, not drip-fed.
 
-**One wireframe per approach — all five.** Not the one you prefer. The point
-of five approaches is seeing five, and a shape is unarguable on screen in a
-way it never is in a sentence. If a single approach has more than one sensible
-IA, **say so and ask** rather than picking one quietly.
+Two artefacts, in order. Each does a job the other is bad at.
+
+### 2a — the comparison sheet
+
+**All five approaches on one page**, each a small schematic beside what it
+does, what it costs, and what it rules out. Build it with the `wfc-` classes
+in `wireframe.css`; [comparison-example.html](comparison-example.html) is the
+standard.
+
+Schematic on purpose: at this stage the question is *which shape*, not *is
+this spacing right*. Five full-size pages is too much scrolling to compare,
+which is exactly why they are small here.
+
+**Gate — the reviewer picks one or two.**
+
+### 2b — full-size wireframes for the survivors
+
+Only now, and only for what survived. Real skeleton, real size, every existing
+component shown in grey — because this is the layout that is about to be
+built, and layout problems that surface after promotion are expensive.
+
+If a surviving approach has more than one sensible IA, **say so and ask**
+rather than picking one quietly.
 
 1. **IA outline first** — header, then sections in order, then what is in each.
    Check it against [section-rules.md](section-rules.md) before building.
-2. **Build it grey.** Real skeleton, no design:
+2. **Build it grey**, on the real skeleton:
 
    ```html
    <link rel="stylesheet" href="../assets/kit.css">

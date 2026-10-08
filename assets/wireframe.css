@@ -116,3 +116,72 @@
   border-radius: 6px; font: 13px/1.5 var(--vpFont, system-ui, sans-serif);
   padding: 10px 14px; margin: 0 0 12px;
 }
+
+/* ============ status tints ============================================
+   Muted, and only where a state genuinely has to be told apart. They are
+   the one exception to grey: a five-state tracker is unreadable without
+   them. They are not brand colour and never stand in for a design.
+   ===================================================================== */
+.wf   { --wfWarn:#F6E2B5; --wfBad:#F6C9C9; --wfGood:#CFECCF;
+        --wfWarnLine:#DCBE7C; --wfBadLine:#E3A3A3; --wfGoodLine:#9CCF9C; }
+.wf-box.warn, .wfc-box.warn { background: var(--wfWarn); border-color: var(--wfWarnLine); }
+.wf-box.bad,  .wfc-box.bad  { background: var(--wfBad);  border-color: var(--wfBadLine); }
+.wf-box.good, .wfc-box.good { background: var(--wfGood); border-color: var(--wfGoodLine); }
+
+/* ============ comparison sheet ========================================
+   Five approaches on one page, each a schematic beside its rationale.
+   This is what a reviewer chooses from; the full-size greyed wireframe
+   comes after, for the one or two that survive. Deliberately small and
+   deliberately abstract - at this stage the question is "which shape",
+   not "is this spacing right".
+   ===================================================================== */
+.wfc { --l:#C9C9D3; --ink:#222; --mute:#6B6B76; --fill:#E6E6EC; --acc:#5B4BD6;
+  max-width:1240px; margin:auto; padding:0 20px;
+  font:14px/1.45 -apple-system,system-ui,sans-serif; color:var(--ink); }
+.wfc h1 { margin:24px 0 6px; font-size:24px; }
+.wfc .lede { margin:0 0 6px; color:var(--mute); max-width:820px; }
+.wfc .rules { display:flex; flex-wrap:wrap; gap:8px; margin:12px 0 22px; }
+.wfc .rules span { background:#fff; border:1px solid var(--l); border-radius:20px;
+  padding:3px 10px; font-size:12px; }
+
+.wfc-opt { background:#fff; border:1px solid var(--l); border-radius:12px; padding:20px;
+  display:grid; grid-template-columns:1.7fr 1fr; gap:22px; margin-bottom:22px; }
+@media(max-width:900px){ .wfc-opt { grid-template-columns:1fr; } }
+.wfc-opt h2 { margin:0 0 2px; font-size:18px; }
+.wfc-opt .tag { font-size:12px; color:var(--mute); margin-bottom:12px; }
+
+.wfc-wf { border:1.5px dashed var(--l); border-radius:8px; display:grid;
+  grid-template-columns:78px 1fr; overflow:hidden; font-size:12px; }
+.wfc-side { background:var(--fill); padding:10px 8px; display:flex; flex-direction:column;
+  gap:6px; font-size:9px; color:#777; }
+.wfc-side i { display:block; height:9px; background:#CFCFD8; border-radius:3px; }
+.wfc-side i.on { background:var(--acc); }
+.wfc-main { padding:12px; display:flex; flex-direction:column; gap:10px; min-width:0; }
+.wfc-ttl { font-weight:700; font-size:13px; }
+.wfc-sub { color:var(--mute); font-size:11px; }
+.wfc-row { display:flex; gap:8px; flex-wrap:wrap; }
+.wfc-box { flex:1; min-width:0; border:1px solid var(--l); border-radius:6px; padding:8px;
+  background:#FAFAFC; }
+.wfc-box b { display:block; font-size:10px; color:var(--mute); font-weight:600;
+  margin-bottom:2px; text-transform:uppercase; letter-spacing:.03em; }
+.wfc-v { font-size:15px; font-weight:700; }
+.wfc-chip { display:inline-block; font-size:10px; border-radius:10px; padding:1px 7px;
+  border:1px solid var(--l); background:#fff; margin-top:3px; }
+.wfc-chip.bad { background:#F6C9C9; border-color:#E3A3A3; }
+.wfc-chip.good { background:#CFECCF; border-color:#9CCF9C; }
+.wfc-steps { display:flex; gap:4px; }
+.wfc-steps div { flex:1; text-align:center; padding:5px 2px; border:1px solid var(--l);
+  border-radius:4px; font-size:10px; }
+.wfc-table { width:100%; border-collapse:collapse; font-size:11px; }
+.wfc-table td, .wfc-table th { border-bottom:1px solid var(--l); padding:4px 5px;
+  text-align:left; vertical-align:top; }
+.wfc-table th { color:var(--mute); font-weight:600; }
+.wfc-meter { height:6px; background:var(--fill); border-radius:3px; position:relative; margin-top:5px; }
+.wfc-meter span { position:absolute; inset:0 auto 0 0; background:#9EA0A8; border-radius:3px; }
+.wfc-note { font-size:10px; color:var(--mute); }
+
+.wfc-pc h3 { margin:0 0 6px; font-size:12px; text-transform:uppercase; letter-spacing:.05em;
+  color:var(--mute); }
+.wfc-pc ul { margin:0 0 14px; padding-left:18px; }
+.wfc-pc li { margin-bottom:4px; }
+.wfc-fit { font-size:12px; border-top:1px solid var(--l); padding-top:10px; color:var(--mute); }
