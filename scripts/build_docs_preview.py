@@ -91,6 +91,10 @@ color:var(--ink3);font-weight:650;white-space:nowrap}
 background:#F4F8FF;color:#24405E;border-radius:0 6px 6px 0}
 .md blockquote p{margin:.35em 0}.md a{color:var(--accent)}
 .md hr{border:0;border-top:1px solid var(--line);margin:2em 0}.md strong{font-weight:650}
+/* A wide diagram scaled to fit this column takes its labels to ~6px. Let it
+   keep its size and scroll, the way the tables do. */
+.md p:has(> img){overflow-x:auto;margin:1.4em 0}
+.md img{max-width:none;display:block;border:1px solid var(--line);border-radius:8px;background:#fff}
 .note{background:#FFF6EC;border:1px solid #F0D4B4;color:#7A4312;border-radius:8px;
 padding:11px 15px;font-size:14px;margin:0 0 26px}
 @media(max-width:900px){nav{display:none}}
