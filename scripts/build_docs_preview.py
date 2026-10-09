@@ -291,7 +291,11 @@ def relink(rendered, included):
         frag = m.group(2) or ""
         return ('href="#%s"' % target.replace(".", "-")) if target in included \
             else m.group(0)
-    return re.sub(r'href="([A-Za-z0-9._-]+\.md)(#[^"]*)?"', sub, rendered)
+    rendered = re.sub(r'href="([A-Za-z0-9._-]+\.md)(#[^"]*)?"', sub, rendered)
+    # This page lives at the repo root, so an image path written relative to
+    # docs/ - correct on GitHub - resolves one directory too high here.
+    rendered = re.sub(r'src="(?!https?:|/|data:)([^"]+)"', r'src="docs/\1"', rendered)
+    return rendered
 
 
 def main():
