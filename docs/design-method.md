@@ -5,12 +5,7 @@ How a problem becomes a page. Four sections, **one** blocking gate.
 This file is the instruction set behind the `slipstream` skill. Reading it is
 enough to run the method by hand; the skill just removes the fetching.
 
-```
-KRD → [0] LOCATE → [1] DIVERGE → [2] SHAPE → [3] PROMOTE → Final UI
-                                                               │
-                              every shipped module ◄───────────┘
-                              makes the next LOCATE smarter
-```
+![The four sections, their gates, and where the one blocking stop is](flow.svg)
 
 ---
 
