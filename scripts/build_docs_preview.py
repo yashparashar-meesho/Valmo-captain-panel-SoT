@@ -91,10 +91,17 @@ color:var(--ink3);font-weight:650;white-space:nowrap}
 background:#F4F8FF;color:#24405E;border-radius:0 6px 6px 0}
 .md blockquote p{margin:.35em 0}.md a{color:var(--accent)}
 .md hr{border:0;border-top:1px solid var(--line);margin:2em 0}.md strong{font-weight:650}
-/* A wide diagram scaled to fit this column takes its labels to ~6px. Let it
-   keep its size and scroll, the way the tables do. */
-.md p:has(> img){overflow-x:auto;margin:1.4em 0}
-.md img{max-width:none;display:block;border:1px solid var(--line);border-radius:8px;background:#fff}
+/* A wide diagram shown end to end, never scrolled. Scaled inside the 820px
+   reading column its labels would be ~6px, so the figure breaks out of that
+   column and spans the whole main area instead - which is most of the window,
+   so the reduction is slight. */
+.md p:has(> img){position:relative;left:50%;transform:translateX(-50%);
+  width:calc(100vw - 270px - 52px);max-width:calc(100vw - 270px - 52px);margin:1.6em 0}
+.md img{width:100%;height:auto;max-width:100%;display:block;
+  border:1px solid var(--line);border-radius:8px;background:#fff}
+@media(max-width:900px){.md p:has(> img){left:auto;transform:none;width:100%;max-width:100%}}
+.md .cap{display:block;text-align:center;font-size:12px;color:var(--ink3);margin-top:7px}
+.md a:has(> img){display:block}
 .note{background:#FFF6EC;border:1px solid #F0D4B4;color:#7A4312;border-radius:8px;
 padding:11px 15px;font-size:14px;margin:0 0 26px}
 @media(max-width:900px){nav{display:none}}
@@ -299,6 +306,14 @@ def relink(rendered, included):
     # This page lives at the repo root, so an image path written relative to
     # docs/ - correct on GitHub - resolves one directory too high here.
     rendered = re.sub(r'src="(?!https?:|/|data:)([^"]+)"', r'src="docs/\1"', rendered)
+    # Fitting a wide diagram end to end means scaling it; on a narrow window
+    # that gets small. Clicking it opens the file at full size, which costs
+    # nothing and saves the one reader who needs to squint.
+    rendered = re.sub(
+        r'<img alt="([^"]*)" src="([^"]+)">',
+        r'<a href="\2" target="_blank" rel="noopener" title="open full size">'
+        r'<img alt="\1" src="\2"></a><span class="cap">\1 — click to open full size</span>',
+        rendered)
     return rendered
 
 
