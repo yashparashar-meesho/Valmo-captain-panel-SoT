@@ -28,9 +28,27 @@ how approaches get invented in a vacuum and the final UI lands off-spec.
    ever two answers, and the first has three placements inside it. Ask the
    module question first — it is the bigger decision, and it bounds the rest.
 
+   > **The prerequisite: understand the problem properly first.** This is not
+   > a step, it is the ground everything else stands on. A misread problem
+   > produces a correct-looking DRD, five careful approaches and a finished
+   > design that solves the wrong thing — and nothing downstream will catch
+   > it, because every later stage inherits the misreading. If the KRD is
+   > thin, the right move is to go back to it, not to proceed carefully.
+
    **1 — In an existing module.** Name which one, and why that one. The three
-   placements are not a menu of styles; each answers a different question
-   about whether the thing fits where it is going.
+   placements are a **ladder, not a menu**: each rung costs more than the one
+   below it, so take the lowest rung that genuinely serves the problem.
+
+   > **Before proposing any new surface at all, ask whether a control removes
+   > the need for one.** A date dropdown, a filter, a toggle or a sort on what
+   > is already there will often do the whole job. *"Show me last week"* is a
+   > date control, not a screen. A new tab or page proposed where a filter
+   > would have done is work nobody needed, in a place nobody will look.
+
+   > **Depth costs visibility, and that is a real trade — say it out loud.**
+   > A nested page is seen by whoever goes looking for it. If you recommend
+   > 1c, name that cost in the same breath: *"this fits here, but it will be
+   > seen less because it sits inside."* Let the person weigh it.
 
    | | placement | when it is right |
    |---|---|---|
@@ -66,6 +84,19 @@ how approaches get invented in a vacuum and the final UI lands off-spec.
 
    Within 1a, [section-rules.md](section-rules.md) decides *new section* from
    *extend what is there* — **own heading plus own data scope** is the test.
+
+   **Worked example — "show the capacity cut history, last five weeks".**
+   Both of the obvious answers are wrong, and for the same reason.
+
+   | reading | answer it suggests | why it is wrong |
+   |---|---|---|
+   | it is about the whole DC, not one item | a tab | if the ask is only *show the weeks*, a section on the page already there carries it — or it goes at the top of the first section. A tab buys nothing. |
+   | you would reach it from the "cut this week" card | a nested page | if the overview has a date control, clicking any week already shows that week. The page is not needed at all. |
+
+   The answer is **1a**, and the thing that decides it is the size of the
+   problem, not the shape of the navigation. Both wrong answers come from
+   reaching for a new surface before asking whether the existing one could
+   carry it.
 
 4. Name the conventions that will bind this work: the framework, the layout
    rules, the relevant foundations.
