@@ -63,6 +63,8 @@ Each of these happened on the first real run of the `slipstream` skill.
 | never | because |
 |---|---|
 | Skip the DRD because Section 1 "does not block" | Not blocking means *do not wait for sign-off*. The artefact is still required. Skipped once already, and the chosen approach was then compared against nothing on paper — including the option that had been missed. Section 2 does not start until `DRD.md` exists. |
+| Build the same thing in two modules | Two homes means two things to maintain and, soon, two versions of the truth. One module is the home; the others get a door — an entry point or a line that links to it. |
+| Reach for a new module because two modules both seem to own the subject | Shared ownership is a sign the subject has not been named sharply enough, not that it needs its own rail slot. Pick the better home, put a door in the other. |
 | Offer only "extend this page" or "a new page" | There are **four** shapes of change, and the third — *a new screen inside an existing module*, i.e. a tab — is the one that gets missed. `tabs` already exists and two modules use it. |
 | Read a screen's `notHere` as the module's | `answers` and `notHere` are scoped to **one screen**. A second screen in the same module is not covered by them. This is what made a tab invisible as an option. |
 | Judge what is possible by the target module's current shape | A module having no tabs today is not evidence against a tab — any module can take one. Which modules happen to use a pattern now says nothing about which may. Judge by whether the thing fits the page, never by the page's current furniture. |
