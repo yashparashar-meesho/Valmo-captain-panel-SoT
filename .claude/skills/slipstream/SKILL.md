@@ -80,6 +80,20 @@ WHAT ALREADY EXISTS THAT YOU CAN REUSE
   <components from the inventory that this problem will need>
 ```
 
+**Understand the problem before any of this.** Everything downstream inherits
+a misreading — the DRD will look right, the five approaches will be careful,
+and the design will solve the wrong thing. If the KRD is thin, go back to it
+rather than proceeding carefully.
+
+**The placements are a ladder, not a menu.** Take the lowest rung that
+genuinely serves the problem. Before proposing *any* new surface, ask whether
+a **control** removes the need for one — a date dropdown, a filter, a toggle
+or a sort on what is already there often does the whole job. "Show me last
+week" is a date control, not a screen.
+
+**Depth costs visibility.** If you recommend 1c, name the cost in the same
+breath: *it fits here, but it will be seen less because it sits inside.*
+
 The three placements answer different questions, so decide in this order:
 **does it fit on the page?** → 1a (stack another section, or extend one that
 is there — a column, a field, a state). **Does it not fit, but belong to the
