@@ -104,86 +104,58 @@ Only then does anything get fetched or built.
 screen, only the icons it references, the three fonts, `kit.css`, and any
 vendor script its markup links. Not before, not drip-fed.
 
-Two artefacts, in order. Each does a job the other is bad at.
-
-### 2a — the comparison sheet
-
 **All five approaches on one page**, each a small schematic beside what it
 does, what it costs, and what it rules out. Build it with the `wfc-` classes
-in `wireframe.css`; [comparison-example.html](comparison-example.html) is the
-standard.
-
-Schematic on purpose: at this stage the question is *which shape*, not *is
-this spacing right*. Five full-size pages is too much scrolling to compare,
-which is exactly why they are small here.
-
-**Gate — the reviewer picks one or two.**
-
-### 2b — full-size wireframes for the survivors
-
-Only now, and only for what survived. Real skeleton, real size, every existing
-component shown in grey — because this is the layout that is about to be
-built, and layout problems that surface after promotion are expensive.
-
-If a surviving approach has more than one sensible IA, **say so and ask**
-rather than picking one quietly.
+in `assets/wireframe.css`; [comparison-example.html](comparison-example.html)
+is the standard.
 
 1. **IA outline first** — header, then sections in order, then what is in each.
-   Check it against [section-rules.md](section-rules.md) before building.
-2. **Build it grey**, on the real skeleton:
-
-   ```html
-   <link rel="stylesheet" href="../assets/kit.css">
-   <link rel="stylesheet" href="../assets/wireframe.css">
-   <div class="vp-scope wf"> … </div>
-   ```
-
-   `wireframe.css` remaps the colour tokens, so **every real component renders
-   in grey, unchanged in structure, spacing and type**. If the catalogue has a
-   stat bar, a table, tabs or the nav rail, show the real one — greyed. Never
-   draw a box with `stat-summary-bar` written in it; a label naming a component
-   tells a reviewer less than the component does.
-
-   The rail is real and carries **every module**, not a two-item stub — a page
-   has to look like a page inside the panel, not a prototype of the panel.
-
-   Only things the catalogue does **not** have become a `.wf-box`, which leaves
-   the dashed boxes as an exact list of what must be built. Label each one with
-   **what the reader sees** — "where this DC stands" — never with a component
-   name or a visual description.
-
-   > **A wireframe is for choosing a shape, not for admiring a design.** The
-   > first real run produced near-final pages — real components, real colour —
-   > and reviewing them turned into proofreading instead of choosing. Colour
-   > comes back at promotion, not before.
-
-   A worked example is in [wireframe-example.html](wireframe-example.html) —
-   open it rather than guessing what "grey box" means. Dashed border = new,
-   solid = the catalogue already has it.
-
+   Check it against [section-rules.md](section-rules.md) before drawing.
+2. **Schematic, on purpose.** The question here is *which shape*, not *is this
+   spacing right*. Five full-size pages is too much scrolling to compare, and
+   the rationale ends up nowhere near the shape it belongs to.
 3. **Invent freely.** The catalogue never limits what can be proposed. A method
-   that only permits existing components cannot produce a new idea.
-4. **Publish for review** — a branch gives a preview link; full-page screenshots
-   go to the Figma gallery, named `<branch>-<approach>` so any frame traces back
-   to the wireframe that made it.
+   that only permits existing components cannot produce a new idea. Mark which
+   blocks are new — those are the component backlog.
 
-**Gate — reviewers pick one.** The only gate that stops work. Changes loop back
-to that wireframe.
+**Gate — the reviewer picks one or two.** Then build the real thing. There is
+no greyed full-size stage in between: once a shape is chosen, the next useful
+artefact is the design, and a full-size wireframe of a decided shape is a
+drawing of work already understood.
 
-Losing wireframes go to the **Idea Wall** (`log-exploration`): logged, never
+Losing approaches go to the **Idea Wall** (`log-exploration`): logged, never
 reviewed, allowed to go stale. Dead ends are the reason the wall exists.
 
 ## Section 3 — Promote
 
 **This half already works — it is the loop that shipped PRs #42 → #43 → #44.**
 
-1. **Every grey box becomes a real component.** Built properly in Crystal
+1. **Every new block becomes a real component.** Built properly in Crystal
    tokens, named, and **listed back to you for approval** — so additions to the
    library are a decision, not something discovered later.
-2. **PR 1 — the components**, on their own. The library gets them first, so
+
+2. **More than one approach promoted → one page, not several links.** Put each
+   version in a `.vsw-pane` behind a small switcher pinned above the panel
+   (`.vsw` in `assets/wireframe.css`, plus `assets/review-switch.js`):
+
+   ```html
+   <div class="vsw"><span class="vsw-k">Version</span>
+     <button data-v="v1" data-title="Capacity Cuts tab" class="on">V1</button>
+     <button data-v="v2" data-title="Columns in the roster">V2</button>
+     <span class="vsw-t">Capacity Cuts tab</span></div>
+   <div class="vsw-pane" id="v1"> …the whole panel UI… </div>
+   <div class="vsw-pane" id="v2" hidden> … </div>
+   <script src="../assets/review-switch.js"></script>
+   ```
+
+   Comparing two designs means flicking between them **in the same spot**. Two
+   tabs lose the alignment, and with it most of the comparison. Keys `1`–`9`
+   and the arrows switch; the version is kept in the URL so a link can point
+   at one.
+3. **PR 1 — the components**, on their own. The library gets them first, so
    nothing depends on something that is not upstream yet.
-3. **PR 2 — the module**, wired into every screen's rail.
-4. Regenerate: `build_docs.py`, `export_to_github.py`, `check_v2_sync.py`.
+4. **PR 2 — the module**, wired into every screen's rail.
+5. Regenerate: `build_docs.py`, `export_to_github.py`, `check_v2_sync.py`.
 
 The shipped module is now part of the catalogue, so the next Section 0 is
 better than this one. **That is the feedback loop** — and it only stays healthy
@@ -198,7 +170,7 @@ decaying.
 |---|---|---|
 | 0 Locate | confirm the target | yes, but seconds |
 | 1 Diverge | **the DRD is approved** | **yes — nothing is fetched or built until it is** |
-| 2 Shape | **reviewers pick a wireframe** | yes |
+| 2 Shape | **reviewers pick one or two approaches** | yes |
 | 3 Promote | approve the new components | yes, minutes |
 
 ## What this method assumes you have read

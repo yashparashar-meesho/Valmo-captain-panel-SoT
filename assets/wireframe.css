@@ -185,3 +185,39 @@
 .wfc-pc ul { margin:0 0 14px; padding-left:18px; }
 .wfc-pc li { margin-bottom:4px; }
 .wfc-fit { font-size:12px; border-top:1px solid var(--l); padding-top:10px; color:var(--mute); }
+
+/* ============ version switcher =========================================
+   When more than one approach is promoted, they ship as ONE page with a
+   small switcher pinned above the panel - not as several links. Comparing
+   two designs means flicking between them in the same spot; two browser
+   tabs lose the alignment and the argument.
+
+       <div class="vsw">
+         <span class="vsw-k">Version</span>
+         <button data-v="v1" class="on">V1</button>
+         <button data-v="v2">V2</button>
+         <span class="vsw-t">Capacity Cuts tab</span>
+       </div>
+       <div class="vsw-pane" id="v1"> …the whole panel UI… </div>
+       <div class="vsw-pane" id="v2" hidden> … </div>
+       <script src="../assets/review-switch.js"></script>
+
+   Deliberately small and plain: it is review furniture sitting above the
+   design, and it must never read as part of the product.
+   ===================================================================== */
+.vsw { display:flex; align-items:center; gap:6px; padding:7px 14px;
+  background:#1E293B; color:#E6EBF3; position:sticky; top:0; z-index:40;
+  font:12px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif; }
+.vsw-k { text-transform:uppercase; letter-spacing:.08em; font-size:10px;
+  color:#94A3B8; margin-right:2px; }
+.vsw button { font:600 11px/1 inherit; color:#CBD5E1; background:transparent;
+  border:1px solid #475569; border-radius:5px; padding:5px 10px; cursor:pointer; }
+.vsw button:hover { background:#334155; color:#F1F5F9; }
+.vsw button.on { background:#E6EBF3; border-color:#E6EBF3; color:#1E293B; }
+.vsw-t { margin-left:10px; color:#94A3B8; font-size:11px; }
+.vsw-t::before { content:"— "; }
+.vsw-pane[hidden] { display:none; }
+/* The bar sits above a shell that is 100vh tall, which would push the page
+   30px taller than the window and clip the top of the rail. Give the shell
+   what is left instead. */
+.vsw-pane .vp-shell { height: calc(100vh - 32px); }

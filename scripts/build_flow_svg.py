@@ -76,20 +76,20 @@ g1=section(S[1],"SECTION 1 — DIVERGE",None,[
 g2=section(S[2],"SECTION 2 — SHAPE",None,[
  ("#F3EEFF","#C9B6F2",1.4,[("Fetch — once, here, in one pass",11.5,"#4A2E9E","700",None),
    ("screen · icons · fonts · kit.css · vendor js",10,"#5B3FB0",None,None)],46),
- ("#FFFFFF","#D7DCE4",1.4,[("2a · Comparison sheet",12,C["ink"],"700",None),
+ ("#FFFFFF","#D7DCE4",1.4,[("Comparison sheet",12,C["ink"],"700",None),
    ("all five as schematics, one page,",10.5,C["ink2"],None,None),
    ("beside what each does / costs / rules out",10.5,C["ink2"],None,None)],68),
  ("#FDEBBE","#C9962B",1.5,[("Pick one or two",12,"#6B4D08","700",None),
-   ("the rest go to the Idea Wall",10,"#6B4D08",None,None)],46),
- ("#FFFFFF","#D7DCE4",1.4,[("2b · Full-size wireframes",12,C["ink"],"700",None),
-   ("real skeleton · real components, in grey",10.5,C["ink2"],None,None),
-   ("dashed boxes only for what is new",10.5,C["ink2"],None,None)],68)],
- "survivors only — the layout that gets built","a shape is unarguable on screen")
+   ("the rest go to the Idea Wall",10,"#6B4D08",None,None)],46)],
+ "no greyed full-size stage — next is the real design","a shape is unarguable on screen")
 section(S[3],"SECTION 3 — PROMOTE","ALREADY WORKS",[
  ("#F3EEFF","#C9B6F2",1.4,[("Every grey box → a component",12,"#4A2E9E","700",None),
    ("built in Crystal, named, and listed",10.5,"#5B3FB0",None,None),
    ("back to you for approval",10.5,"#5B3FB0",None,None),
    ("colour returns here, not before",10,C["ink3"],None,"italic")],88),
+ ("#FFFFFF","#D7DCE4",1.4,[("Two promoted → one page",12,C["ink"],"700",None),
+   ("small V1 / V2 switcher above the panel,",10.5,C["ink2"],None,None),
+   ("never several links",10.5,C["ink2"],None,None)],68),
  ("#FFFFFF","#D7DCE4",1.4,[("PR 1 — the components",12,C["ink"],"700",None),
    ("library first, on their own",10.5,C["ink2"],None,None)],52),
  ("#FFFFFF","#D7DCE4",1.4,[("PR 2 — the module",12,C["ink"],"700",None),

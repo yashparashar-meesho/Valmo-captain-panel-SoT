@@ -71,7 +71,8 @@ Each of these happened on the first real run of the `slipstream` skill.
 | Build anything before the DRD is approved | The gate is blocking. Not "shared", not "sent" — approved in words. Fetch nothing until then either. |
 | Ship four approaches and call it five | Five means five genuinely different solutions. If two collapse into the same idea, say so and find another rather than padding. |
 | Build a wireframe that looks finished | Real components and real colour turn review into proofreading instead of choosing. Grey only: `kit.css` + `wireframe.css`, `.wf-box` with a label saying what information goes there. Colour returns at promotion. |
-| Wireframe only your favourite approach | One per approach — all five. A shape is unarguable on screen in a way it never is in a sentence. If one approach has several sensible IAs, say so and ask. |
+| Build a greyed full-size wireframe of a chosen shape | There is no stage between picking an approach and building it. Once the shape is decided, the next useful artefact is the design — a full-size wireframe of work already understood is a drawing of a decision. |
+| Hand over several links for several promoted designs | Comparing two designs means flicking between them **in the same spot**. Two tabs lose the alignment and most of the comparison with it. One page, a small `V1 / V2` switcher above the panel. |
 | Fetch screens, icons or fonts during Section 0 | Section 0 is reading and discussion. Those files may belong to a screen that is about to be ruled out. One batched fetch, after the DRD is approved. |
 
 ## Working style
