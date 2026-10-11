@@ -48,7 +48,13 @@ how approaches get invented in a vacuum and the final UI lands off-spec.
    > **Depth costs visibility, and that is a real trade — say it out loud.**
    > A nested page is seen by whoever goes looking for it. If you recommend
    > 1c, name that cost in the same breath: *"this fits here, but it will be
-   > seen less because it sits inside."* Let the person weigh it.
+   > seen less because it sits inside."*
+   >
+   > **It is a cost to state, never grounds to rule a placement out** — not
+   > even when the problem itself is one of awareness. If the placement is the
+   > best fit and everyone agrees the visibility is enough for what is being
+   > built, it ships. The method's job is to put the trade in front of the
+   > person deciding, not to decide for them by quietly removing an option.
 
    | | placement | when it is right |
    |---|---|---|

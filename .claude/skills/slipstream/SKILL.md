@@ -92,7 +92,10 @@ or a sort on what is already there often does the whole job. "Show me last
 week" is a date control, not a screen.
 
 **Depth costs visibility.** If you recommend 1c, name the cost in the same
-breath: *it fits here, but it will be seen less because it sits inside.*
+breath: *it fits here, but it will be seen less because it sits inside.* It is
+a cost to state, **never grounds to rule the placement out** — not even when
+the problem itself is one of awareness. Put the trade in front of the person
+deciding; never decide for them by quietly dropping an option.
 
 The three placements answer different questions, so decide in this order:
 **does it fit on the page?** → 1a (stack another section, or extend one that
