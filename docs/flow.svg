@@ -52,20 +52,15 @@
   <text x="1043" y="124.5" text-anchor="middle" font-size="10" fill="#5B3FB0">screen · icons · fonts · kit.css · vendor js</text>
   <path d="M1043 136 V154" stroke="#8A94A6" stroke-width="1.6" fill="none" marker-end="url(#n)"/>
   <rect x="892" y="156" width="302" height="68" rx="8" fill="#FFFFFF" stroke="#D7DCE4" stroke-width="1.4"/>
-  <text x="1043" y="175" text-anchor="middle" font-size="12" fill="#16202E" font-weight="700">2a · Comparison sheet</text>
+  <text x="1043" y="175" text-anchor="middle" font-size="12" fill="#16202E" font-weight="700">Comparison sheet</text>
   <text x="1043" y="191" text-anchor="middle" font-size="10.5" fill="#5A6678">all five as schematics, one page,</text>
   <text x="1043" y="205.5" text-anchor="middle" font-size="10.5" fill="#5A6678">beside what each does / costs / rules out</text>
   <path d="M1043 224 V242" stroke="#8A94A6" stroke-width="1.6" fill="none" marker-end="url(#n)"/>
   <rect x="892" y="244" width="302" height="46" rx="8" fill="#FDEBBE" stroke="#C9962B" stroke-width="1.5"/>
   <text x="1043" y="263" text-anchor="middle" font-size="12" fill="#6B4D08" font-weight="700">Pick one or two</text>
   <text x="1043" y="279" text-anchor="middle" font-size="10" fill="#6B4D08">the rest go to the Idea Wall</text>
-  <path d="M1043 290 V308" stroke="#8A94A6" stroke-width="1.6" fill="none" marker-end="url(#n)"/>
-  <rect x="892" y="310" width="302" height="68" rx="8" fill="#FFFFFF" stroke="#D7DCE4" stroke-width="1.4"/>
-  <text x="1043" y="329" text-anchor="middle" font-size="12" fill="#16202E" font-weight="700">2b · Full-size wireframes</text>
-  <text x="1043" y="345" text-anchor="middle" font-size="10.5" fill="#5A6678">real skeleton · real components, in grey</text>
-  <text x="1043" y="359.5" text-anchor="middle" font-size="10.5" fill="#5A6678">dashed boxes only for what is new</text>
-  <text x="1043" y="404" text-anchor="middle" font-size="10" fill="#8A94A6" font-style="italic">survivors only — the layout that gets built</text>
-  <text x="1043" y="423" text-anchor="middle" font-size="10.5" fill="#5A6678" font-weight="600">a shape is unarguable on screen</text>
+  <text x="1043" y="316" text-anchor="middle" font-size="10" fill="#8A94A6" font-style="italic">no greyed full-size stage — next is the real design</text>
+  <text x="1043" y="335" text-anchor="middle" font-size="10.5" fill="#5A6678" font-weight="600">a shape is unarguable on screen</text>
   <rect x="1230" y="74" width="330" height="382" rx="11" fill="none" stroke="#2F6FED" stroke-width="1.6" stroke-dasharray="7 5"/>
   <text x="1230" y="64" text-anchor="start" font-size="12" fill="#2F6FED" font-weight="700">SECTION 3 — PROMOTE</text>
   <text x="1560" y="64" text-anchor="end" font-size="10" fill="#13874B" font-weight="600">ALREADY WORKS</text>
@@ -75,14 +70,19 @@
   <text x="1395" y="139.5" text-anchor="middle" font-size="10.5" fill="#5B3FB0">back to you for approval</text>
   <text x="1395" y="154" text-anchor="middle" font-size="10" fill="#8A94A6" font-style="italic">colour returns here, not before</text>
   <path d="M1395 178 V196" stroke="#8A94A6" stroke-width="1.6" fill="none" marker-end="url(#n)"/>
-  <rect x="1244" y="198" width="302" height="52" rx="8" fill="#FFFFFF" stroke="#D7DCE4" stroke-width="1.4"/>
-  <text x="1395" y="217" text-anchor="middle" font-size="12" fill="#16202E" font-weight="700">PR 1 — the components</text>
-  <text x="1395" y="233" text-anchor="middle" font-size="10.5" fill="#5A6678">library first, on their own</text>
-  <path d="M1395 250 V268" stroke="#8A94A6" stroke-width="1.6" fill="none" marker-end="url(#n)"/>
-  <rect x="1244" y="270" width="302" height="52" rx="8" fill="#FFFFFF" stroke="#D7DCE4" stroke-width="1.4"/>
-  <text x="1395" y="289" text-anchor="middle" font-size="12" fill="#16202E" font-weight="700">PR 2 — the module</text>
-  <text x="1395" y="305" text-anchor="middle" font-size="10.5" fill="#5A6678">wired into every screen’s rail</text>
-  <text x="1395" y="348" text-anchor="middle" font-size="10" fill="#8A94A6" font-style="italic">the loop that shipped #42 → #43 → #44</text>
+  <rect x="1244" y="198" width="302" height="68" rx="8" fill="#FFFFFF" stroke="#D7DCE4" stroke-width="1.4"/>
+  <text x="1395" y="217" text-anchor="middle" font-size="12" fill="#16202E" font-weight="700">Two promoted → one page</text>
+  <text x="1395" y="233" text-anchor="middle" font-size="10.5" fill="#5A6678">small V1 / V2 switcher above the panel,</text>
+  <text x="1395" y="247.5" text-anchor="middle" font-size="10.5" fill="#5A6678">never several links</text>
+  <path d="M1395 266 V284" stroke="#8A94A6" stroke-width="1.6" fill="none" marker-end="url(#n)"/>
+  <rect x="1244" y="286" width="302" height="52" rx="8" fill="#FFFFFF" stroke="#D7DCE4" stroke-width="1.4"/>
+  <text x="1395" y="305" text-anchor="middle" font-size="12" fill="#16202E" font-weight="700">PR 1 — the components</text>
+  <text x="1395" y="321" text-anchor="middle" font-size="10.5" fill="#5A6678">library first, on their own</text>
+  <path d="M1395 338 V356" stroke="#8A94A6" stroke-width="1.6" fill="none" marker-end="url(#n)"/>
+  <rect x="1244" y="358" width="302" height="52" rx="8" fill="#FFFFFF" stroke="#D7DCE4" stroke-width="1.4"/>
+  <text x="1395" y="377" text-anchor="middle" font-size="12" fill="#16202E" font-weight="700">PR 2 — the module</text>
+  <text x="1395" y="393" text-anchor="middle" font-size="10.5" fill="#5A6678">wired into every screen’s rail</text>
+  <text x="1395" y="436" text-anchor="middle" font-size="10" fill="#8A94A6" font-style="italic">the loop that shipped #42 → #43 → #44</text>
   <path d="M506 314 H522" stroke="#13874B" stroke-width="1.8" fill="none" marker-end="url(#g)"/>
   <path d="M188 314 H178 Q168 314 168 302 V126" stroke="#D1483C" stroke-width="1.4" fill="none" marker-end="url(#r)"/>
   <path d="M858 314 H874" stroke="#13874B" stroke-width="1.8" fill="none" marker-end="url(#g)"/>

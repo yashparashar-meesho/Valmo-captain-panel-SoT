@@ -158,11 +158,16 @@ Per `design-method.md`. The things most often got wrong:
   review into proofreading instead of choosing — colour returns at promotion.
   Open `docs/wireframe-example.html` first — it is the standard, and guessing
   what "grey box" means is what produced near-final pages on the first run.
-- **Section 2 is two stages.** First a **comparison sheet** — all five
-  approaches as small schematics on one page, each beside what it does, costs
-  and rules out (`wfc-` classes; `docs/comparison-example.html` is the
-  standard). The reviewer picks one or two. *Then* full-size greyed wireframes
-  on the real skeleton, for the survivors only.
+- **Section 2 is the comparison sheet, and only that.** All five approaches as
+  small schematics on one page, each beside what it does, costs and rules out
+  (`wfc-` classes; `docs/comparison-example.html` is the standard). The
+  reviewer picks one or two, and the next thing you build is **the real
+  design** — there is no greyed full-size stage in between.
+- **Two promoted designs ship as ONE page.** Each version in a `.vsw-pane`
+  behind a small `V1 / V2` switcher pinned above the panel (`.vsw` in
+  `assets/wireframe.css` + `assets/review-switch.js`;
+  `docs/promoted-example.html` is the standard). Never several links —
+  comparing means flicking between them in the same spot.
 - **Status tints are the one exception to grey** — muted warn/bad/good where a
   state genuinely has to be told apart. Never brand colour.
 - If a surviving approach has more than one sensible IA, say so and ask.
