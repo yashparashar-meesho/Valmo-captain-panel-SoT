@@ -7,6 +7,58 @@ enough to run the method by hand; the skill just removes the fetching.
 
 ![The four sections, their gates, and where the one blocking stop is](flow.svg)
 
+## Reading the diagram
+
+The four sections run left to right. Each one ends in a **gate** — the amber
+box — and nothing moves right until that gate is answered. The arrows carry
+meaning:
+
+| | |
+|---|---|
+| **green →** | the gate passed; go on |
+| **red ↰** | the gate failed; go back to the top of this section and re-run |
+| **green dashed, underneath** | the finished module becomes catalogue, which makes the next Section 0 better |
+
+### Section 0 — Locate · *what already exists*
+
+| step | what happens |
+|---|---|
+| **Match the KRD to the catalogue** | Read `pages.md` and `components.md` and find what this problem touches. **Nothing is fetched** — no screens, no icons, no fonts. They may belong to a page that is about to be ruled out. |
+| **Where can it live?** | Four answers, taken as a ladder — lowest rung that works. **1a** it fits the page (stack a section, or extend one). **1b** it does not fit but is the same subject, so a tab lets the module hold both. **1c** it belongs to one item's detail. **2** no module owns the subject at all. Before any of them: would a filter or a date control do the job instead? |
+| **🔒 Confirm the target** | Seconds, not a review. All four shown, what is out and why, and **one recommended**. |
+
+### Section 1 — Diverge · *what we could do*
+
+| step | what happens |
+|---|---|
+| **Interrogate the gaps** | Ask only what the KRD left out *and* Section 0 could not answer. Never re-ask what the catalogue already knows. |
+| **Write the DRD** | Five genuinely different approaches — what each does, what it costs, what it rules out. Rendered as a page and opened in the browser, never handed over as a raw `.md`. |
+| **🔒 The DRD is approved** | **The one hard stop.** Not *shared*, not *sent* — approved, in words. Nothing is fetched and nothing is built until it is. No converging before this either: shapes are compared on screen, not as sentences. |
+
+### Section 2 — Shape · *what it looks like*
+
+| step | what happens |
+|---|---|
+| **Fetch — once, here** | One batched pass: the screen, only the icons it references, the three fonts, `kit.css`, and any vendor script its markup links. |
+| **Comparison sheet** | All five approaches as small schematics on one page, each beside what it does, costs and rules out. Schematic on purpose — the question is *which shape*, not *is this spacing right*. |
+| **🔒 Pick one or two** | The losers go to the Idea Wall. **There is no greyed full-size stage after this** — once a shape is chosen, the next useful artefact is the design itself. |
+
+### Section 3 — Promote · *make it real*
+
+| step | what happens |
+|---|---|
+| **Every new block becomes a component** | Built in Crystal tokens, named, and listed back for approval. Colour returns here, and not before. |
+| **Two promoted → one page** | A small `V1 / V2` switcher above the panel. Comparing means flicking between them in the same spot; separate links lose the alignment. |
+| **PR 1, then PR 2** | Components first, on their own, so nothing depends on something not yet upstream. Then the module, wired into every screen's rail. |
+
+### The loop underneath
+
+The shipped module is now in the catalogue, so the next Section 0 starts from
+a better map. That is the whole point of the dashed line — and it only keeps
+working while promoting stays cheap. The moment it becomes a chore, the
+catalogue starts going stale and Section 0 starts lying.
+
+
 ---
 
 ## Section 0 — Locate
