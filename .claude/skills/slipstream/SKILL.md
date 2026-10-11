@@ -65,9 +65,9 @@ four, say why each is in or out, and **name the one you would pick**:
 WHERE CAN THIS LIVE?
 
   1 · IN AN EXISTING MODULE — <which one, and why that one>
-      1a  a new section on <screen-id>            — <in/out, why>
-      1b  a tab or sub-tab in <module>            — <in/out, why>
-      1c  inside <nested-page-id> of <module>     — <in/out, why>
+      1a  on <screen-id> — stack a section, or extend one   — <in/out, why>
+      1b  a tab or sub-tab in <module>                      — <in/out, why>
+      1c  inside <nested-page-id> of <module>               — <in/out, why>
 
   2 · A NEW MODULE IN THE RAIL                    — <in/out, why>
 
@@ -79,6 +79,17 @@ CONVENTIONS THAT BIND THIS WORK
 WHAT ALREADY EXISTS THAT YOU CAN REUSE
   <components from the inventory that this problem will need>
 ```
+
+The three placements answer different questions, so decide in this order:
+**does it fit on the page?** → 1a (stack another section, or extend one that
+is there — a column, a field, a state). **Does it not fit, but belong to the
+same subject?** → 1b, a tab, so the module holds both. **Does it belong to
+one item's detail rather than the module's main view?** → 1c.
+
+**A module having no tabs today is not an argument against a tab.** Any module
+can take one; which modules happen to use a pattern now says nothing about
+which may. Judge by whether the thing fits the page, never by the page's
+current furniture.
 
 Then **ask the user to confirm**. Never pick one silently, and never show
 four options with no opinion — that hands the decision back to the person who

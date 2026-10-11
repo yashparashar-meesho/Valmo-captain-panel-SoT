@@ -1,5 +1,5 @@
 from pathlib import Path
-SW, SH, GAP = 330, 398, 22
+SW, SH, GAP = 330, 414, 22
 KW, FW, PAD = 132, 142, 20
 S  = [PAD+KW+GAP + i*(SW+GAP) for i in range(4)]
 FX = S[3]+SW+GAP
@@ -57,9 +57,10 @@ g0=section(S[0],"SECTION 0 — LOCATE",None,[
    ("fetches nothing — reading only",10,C["red"],None,"italic")],70),
  ("#FFFFFF","#D7DCE4",1.4,[("Where can it live?",12,C["ink"],"700",None),
    ("1 · in an existing module —  which one?",10.5,C["ink2"],None,None),
-   ("1a a new section   1b a tab or sub-tab",11,C["purple"],"700",None),
-   ("1c inside one of its nested pages",11,C["purple"],"700",None),
-   ("2 · a new module in the rail",10.5,C["ink2"],None,None)],104),
+   ("1a fits the page — stack or extend a section",11,C["purple"],"700",None),
+   ("1b does not fit, same subject — a tab",11,C["purple"],"700",None),
+   ("1c belongs to one item — a nested page",11,C["purple"],"700",None),
+   ("2 · a new module in the rail",10.5,C["ink2"],None,None)],120),
  ("#FDEBBE","#C9962B",1.5,[("Confirm the target",12,"#6B4D08","700",None),
    ("seconds — just “yes, that one”",10,"#6B4D08",None,None)],52)],
  "wrong target → say which, re-run","show all four, recommend one, then ask")
