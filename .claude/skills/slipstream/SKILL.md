@@ -91,6 +91,13 @@ can take one; which modules happen to use a pattern now says nothing about
 which may. Judge by whether the thing fits the page, never by the page's
 current furniture.
 
+**If two modules both seem to own it** — common, and not a reason for a new
+module — pick the one where it makes more sense to live and build it there,
+once. At the other touchpoint add a door: an entry point or a line linking to
+it, so the two stay correlated. **Never build the same thing in both.** If you
+genuinely cannot pick, say so and ask, giving your reasoning for each side —
+a bare "which one?" teaches the user nothing.
+
 Then **ask the user to confirm**. Never pick one silently, and never show
 four options with no opinion — that hands the decision back to the person who
 asked you to make it.

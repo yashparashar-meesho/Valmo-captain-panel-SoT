@@ -38,6 +38,22 @@ how approaches get invented in a vacuum and the final UI lands off-spec.
    | **1b** | **a tab or sub-tab** | it does **not** fit on that page — adding to or removing from it stops making sense — but it belongs to the same subject, so a tab lets the module hold both |
    | **1c** | **inside a nested page the module already has** | it belongs to one item's detail, not to the module's main view |
 
+   > **When two modules both seem to own it.** This is common — pilot
+   > productivity touches capacity *and* the roster. It is not a reason to
+   > reach for a new module, and it is never a reason to build the thing twice.
+   >
+   > 1. **Pick the module where it makes more sense to live.** That is its
+   >    home, and it is built once, there.
+   > 2. **At the other touchpoint, add a door** — an entry point, or a line
+   >    explaining the new thing and linking to it. That keeps the two subjects
+   >    correlated and sends traffic to the home.
+   > 3. **Never build the same thing in both places.** Two homes means two
+   >    things to maintain and, before long, two versions of the truth.
+   > 4. **If you genuinely cannot pick, say so and ask** — and give your
+   >    reasoning for each side, not just the question. A decision made with
+   >    the reasoning in the open is one the next person can learn from; a bare
+   >    "which one?" teaches nobody anything.
+
    **2 — A new module in the rail.** Only when no module owns the subject.
    Expensive: it has to earn a permanent slot, which usually means someone
    opens it as part of a routine.
