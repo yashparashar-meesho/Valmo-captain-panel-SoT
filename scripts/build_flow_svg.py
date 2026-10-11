@@ -55,23 +55,20 @@ g0=section(S[0],"SECTION 0 — LOCATE",None,[
  ("#EFF5FF","#AFC8F5",1.4,[("Match the KRD to the catalogue",12,C["ink"],"700",None),
    ("5 modules · 11 screens · 53 components",10.5,C["ink2"],None,None),
    ("fetches nothing — reading only",10,C["red"],None,"italic")],70),
- ("#FFFFFF","#D7DCE4",1.4,[("Where can it live?",12,C["ink"],"700",None),
-   ("1 · in an existing module —  which one?",10.5,C["ink2"],None,None),
-   ("1a fits the page — stack or extend a section",11,C["purple"],"700",None),
-   ("1b does not fit, same subject — a tab",11,C["purple"],"700",None),
-   ("1c belongs to one item — a nested page",11,C["purple"],"700",None),
-   ("2 · a new module in the rail",10.5,C["ink2"],None,None)],120),
- ("#FDEBBE","#C9962B",1.5,[("Confirm the target",12,"#6B4D08","700",None),
-   ("seconds — just “yes, that one”",10,"#6B4D08",None,None)],52)],
- "wrong target → say which, re-run","show all four, recommend one, then ask")
+ ("#FFFFFF","#D7DCE4",1.4,[("Report, do not ask yet",12,C["ink"],"700",None),
+   ("the problem as you read it · what it touches",10.5,C["ink2"],None,None),
+   ("conventions that bind · what you can reuse",10.5,C["ink2"],None,None),
+   ("where it lives is NOT decided here",11,C["purple"],"700",None)],86)],
+ "no gate — Section 0 flows straight on","understand the problem, or all of it is wrong")
 g1=section(S[1],"SECTION 1 — DIVERGE",None,[
  ("#FFFFFF","#D7DCE4",1.4,[("Interrogate the gaps",12,C["ink"],"700",None),
    ("only what the KRD left out and",10.5,C["ink2"],None,None),
    ("Section 0 could not answer",10.5,C["ink2"],None,None)],70),
  ("#FFFFFF","#D7DCE4",1.4,[("Write the DRD",12,C["ink"],"700",None),
-   ("five genuinely different approaches",11,C["purple"],"700",None),
-   ("each: what it does, costs, rules out",10.5,C["ink2"],None,None),
-   ("rendered as a page, not a raw .md",10.5,C["ink"],None,None)],88),
+   ("five approaches, each naming where it lives",11,C["purple"],"700",None),
+   ("what it does · costs · rules out",10.5,C["ink2"],None,None),
+   ("open questions ask where it should live",10.5,C["ink2"],None,None),
+   ("rendered as a page, not a raw .md",10.5,C["ink"],None,None)],104),
  ("#FDEBBE","#C9962B",2.4,[("The DRD is approved",12.5,"#6B4D08","700",None),
    ("BLOCKING — nothing fetched or built",10.5,"#A6341F","700",None)],52)],
  "approved in words, not “shared”","no converging yet")
@@ -79,8 +76,9 @@ g2=section(S[2],"SECTION 2 — SHAPE",None,[
  ("#F3EEFF","#C9B6F2",1.4,[("Fetch — once, here, in one pass",11.5,"#4A2E9E","700",None),
    ("screen · icons · fonts · kit.css · vendor js",10,"#5B3FB0",None,None)],46),
  ("#FFFFFF","#D7DCE4",1.4,[("Comparison sheet",12,C["ink"],"700",None),
-   ("all five as schematics, one page,",10.5,C["ink2"],None,None),
-   ("beside what each does / costs / rules out",10.5,C["ink2"],None,None)],68),
+   ("all five as schematics, one page, beside",10.5,C["ink2"],None,None),
+   ("what each does / costs / rules out",10.5,C["ink2"],None,None),
+   ("never skipped because the DRD had a favourite",10.5,C["purple"],"700",None)],84),
  ("#FDEBBE","#C9962B",1.5,[("Pick one or two",12,"#6B4D08","700",None),
    ("the rest go to the Idea Wall",10,"#6B4D08",None,None)],46)],
  "no greyed full-size stage — next is the real design","a shape is unarguable on screen")
@@ -97,9 +95,13 @@ section(S[3],"SECTION 3 — PROMOTE","ALREADY WORKS",[
  ("#FFFFFF","#D7DCE4",1.4,[("PR 2 — the module",12,C["ink"],"700",None),
    ("wired into every screen’s rail",10.5,C["ink2"],None,None)],52)],
  "the loop that shipped #42 → #43 → #44",None)
+# A section without a gate - Section 0 no longer has one - hands off from its
+# own middle and has nothing to loop back to.
 for i,g in ((0,g0),(1,g1),(2,g2)):
-    arrow("M%g %g H%g"%(S[i]+SW+2,g,S[i+1]-4),C["green"],"g",1.8)
-    arrow("M%g %g H%g Q%g %g %g %g V%g"%(S[i]+14,g,S[i]+4,S[i]-6,g,S[i]-6,g-12,TOP+52),C["red"],"r",1.4)
+    y = g if g is not None else MID
+    arrow("M%g %g H%g"%(S[i]+SW+2,y,S[i+1]-4),C["green"],"g",1.8)
+    if g is not None:
+        arrow("M%g %g H%g Q%g %g %g %g V%g"%(S[i]+14,g,S[i]+4,S[i]-6,g,S[i]-6,g-12,TOP+52),C["red"],"r",1.4)
 box(FX,MID-26,FW,54,"#D8F3E3","#13874B",1.6,9)
 txt(FX+FW/2,MID-4,"Final UI",13,"#0B5E35","middle","700")
 txt(FX+FW/2,MID+13,"in the catalogue",10,"#0D6B3C")

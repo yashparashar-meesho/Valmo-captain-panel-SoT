@@ -62,6 +62,8 @@ Each of these happened on the first real run of the `slipstream` skill.
 
 | never | because |
 |---|---|
+| Skip the comparison sheet because the DRD already named a favourite | Liking an approach in the DRD is liking a paragraph. Shapes argued as sentences lose to shapes seen side by side — that is *why* Section 1 says not to converge. The preference is provisional until it has been looked at. The user may say "skip it"; it is never yours to decide for them by reading ahead. |
+| Decide where it lives before the approaches exist | Placement is one of the things the five approaches differ on. Settle it first and the DRD diverges inside a box nobody argued for. It goes in the DRD, and the question goes in its open questions. |
 | Skip the DRD because Section 1 "does not block" | Not blocking means *do not wait for sign-off*. The artefact is still required. Skipped once already, and the chosen approach was then compared against nothing on paper — including the option that had been missed. Section 2 does not start until `DRD.md` exists. |
 | Propose a new surface before asking whether a control would do | A date dropdown, a filter or a toggle on what is already there often does the whole job. *"Show me last week"* is a date control, not a screen. A tab proposed where a filter would have done is work nobody needed, in a place nobody will look. |
 | Recommend a nested page without naming what it costs | Depth costs visibility. 1c is seen by whoever goes looking for it. Say so in the same breath — *"it fits here, but it will be seen less"*. |
