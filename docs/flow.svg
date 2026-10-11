@@ -1,34 +1,35 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1744 584" width="1744" height="584" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Inter, system-ui, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1744 600" width="1744" height="600" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Inter, system-ui, sans-serif">
   <defs>
     <marker id="n" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#8A94A6"/></marker>
     <marker id="g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#13874B"/></marker>
     <marker id="r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#D1483C"/></marker>
   </defs>
-  <rect width="1744" height="584" fill="#FFFFFF"/>
-  <rect x="20" y="248" width="132" height="50" rx="9" fill="#DCE9FF" stroke="#2F6FED" stroke-width="1.5"/>
-  <text x="86" y="268" text-anchor="middle" font-size="13" fill="#143C8C" font-weight="700">KRD</text>
-  <text x="86" y="284" text-anchor="middle" font-size="9.5" fill="#2A5099">the problem</text>
-  <path d="M154 273 H170" stroke="#8A94A6" stroke-width="1.6" fill="none" marker-end="url(#n)"/>
-  <rect x="174" y="74" width="330" height="398" rx="11" fill="none" stroke="#2F6FED" stroke-width="1.6" stroke-dasharray="7 5"/>
+  <rect width="1744" height="600" fill="#FFFFFF"/>
+  <rect x="20" y="256" width="132" height="50" rx="9" fill="#DCE9FF" stroke="#2F6FED" stroke-width="1.5"/>
+  <text x="86" y="276" text-anchor="middle" font-size="13" fill="#143C8C" font-weight="700">KRD</text>
+  <text x="86" y="292" text-anchor="middle" font-size="9.5" fill="#2A5099">the problem</text>
+  <path d="M154 281 H170" stroke="#8A94A6" stroke-width="1.6" fill="none" marker-end="url(#n)"/>
+  <rect x="174" y="74" width="330" height="414" rx="11" fill="none" stroke="#2F6FED" stroke-width="1.6" stroke-dasharray="7 5"/>
   <text x="174" y="64" text-anchor="start" font-size="12" fill="#2F6FED" font-weight="700">SECTION 0 — LOCATE</text>
   <rect x="188" y="90" width="302" height="70" rx="8" fill="#EFF5FF" stroke="#AFC8F5" stroke-width="1.4"/>
   <text x="339" y="109" text-anchor="middle" font-size="12" fill="#16202E" font-weight="700">Match the KRD to the catalogue</text>
   <text x="339" y="125" text-anchor="middle" font-size="10.5" fill="#5A6678">5 modules · 11 screens · 53 components</text>
   <text x="339" y="139.5" text-anchor="middle" font-size="10" fill="#D1483C" font-style="italic">fetches nothing — reading only</text>
   <path d="M339 160 V178" stroke="#8A94A6" stroke-width="1.6" fill="none" marker-end="url(#n)"/>
-  <rect x="188" y="180" width="302" height="104" rx="8" fill="#FFFFFF" stroke="#D7DCE4" stroke-width="1.4"/>
+  <rect x="188" y="180" width="302" height="120" rx="8" fill="#FFFFFF" stroke="#D7DCE4" stroke-width="1.4"/>
   <text x="339" y="199" text-anchor="middle" font-size="12" fill="#16202E" font-weight="700">Where can it live?</text>
   <text x="339" y="215" text-anchor="middle" font-size="10.5" fill="#5A6678">1 · in an existing module —  which one?</text>
-  <text x="339" y="229.5" text-anchor="middle" font-size="11" fill="#7B5BD6" font-weight="700">1a a new section   1b a tab or sub-tab</text>
-  <text x="339" y="244.5" text-anchor="middle" font-size="11" fill="#7B5BD6" font-weight="700">1c inside one of its nested pages</text>
-  <text x="339" y="259.5" text-anchor="middle" font-size="10.5" fill="#5A6678">2 · a new module in the rail</text>
-  <path d="M339 284 V302" stroke="#8A94A6" stroke-width="1.6" fill="none" marker-end="url(#n)"/>
-  <rect x="188" y="304" width="302" height="52" rx="8" fill="#FDEBBE" stroke="#C9962B" stroke-width="1.5"/>
-  <text x="339" y="323" text-anchor="middle" font-size="12" fill="#6B4D08" font-weight="700">Confirm the target</text>
-  <text x="339" y="339" text-anchor="middle" font-size="10" fill="#6B4D08">seconds — just “yes, that one”</text>
-  <text x="339" y="382" text-anchor="middle" font-size="10" fill="#8A94A6" font-style="italic">wrong target → say which, re-run</text>
-  <text x="339" y="401" text-anchor="middle" font-size="10.5" fill="#5A6678" font-weight="600">show all four, recommend one, then ask</text>
-  <rect x="526" y="74" width="330" height="398" rx="11" fill="none" stroke="#2F6FED" stroke-width="1.6" stroke-dasharray="7 5"/>
+  <text x="339" y="229.5" text-anchor="middle" font-size="11" fill="#7B5BD6" font-weight="700">1a fits the page — stack or extend a section</text>
+  <text x="339" y="244.5" text-anchor="middle" font-size="11" fill="#7B5BD6" font-weight="700">1b does not fit, same subject — a tab</text>
+  <text x="339" y="259.5" text-anchor="middle" font-size="11" fill="#7B5BD6" font-weight="700">1c belongs to one item — a nested page</text>
+  <text x="339" y="274.5" text-anchor="middle" font-size="10.5" fill="#5A6678">2 · a new module in the rail</text>
+  <path d="M339 300 V318" stroke="#8A94A6" stroke-width="1.6" fill="none" marker-end="url(#n)"/>
+  <rect x="188" y="320" width="302" height="52" rx="8" fill="#FDEBBE" stroke="#C9962B" stroke-width="1.5"/>
+  <text x="339" y="339" text-anchor="middle" font-size="12" fill="#6B4D08" font-weight="700">Confirm the target</text>
+  <text x="339" y="355" text-anchor="middle" font-size="10" fill="#6B4D08">seconds — just “yes, that one”</text>
+  <text x="339" y="398" text-anchor="middle" font-size="10" fill="#8A94A6" font-style="italic">wrong target → say which, re-run</text>
+  <text x="339" y="417" text-anchor="middle" font-size="10.5" fill="#5A6678" font-weight="600">show all four, recommend one, then ask</text>
+  <rect x="526" y="74" width="330" height="414" rx="11" fill="none" stroke="#2F6FED" stroke-width="1.6" stroke-dasharray="7 5"/>
   <text x="526" y="64" text-anchor="start" font-size="12" fill="#2F6FED" font-weight="700">SECTION 1 — DIVERGE</text>
   <rect x="540" y="90" width="302" height="70" rx="8" fill="#FFFFFF" stroke="#D7DCE4" stroke-width="1.4"/>
   <text x="691" y="109" text-anchor="middle" font-size="12" fill="#16202E" font-weight="700">Interrogate the gaps</text>
@@ -46,7 +47,7 @@
   <text x="691" y="323.5" text-anchor="middle" font-size="10.5" fill="#A6341F" font-weight="700">BLOCKING — nothing fetched or built</text>
   <text x="691" y="366" text-anchor="middle" font-size="10" fill="#8A94A6" font-style="italic">approved in words, not “shared”</text>
   <text x="691" y="385" text-anchor="middle" font-size="10.5" fill="#5A6678" font-weight="600">no converging yet</text>
-  <rect x="878" y="74" width="330" height="398" rx="11" fill="none" stroke="#2F6FED" stroke-width="1.6" stroke-dasharray="7 5"/>
+  <rect x="878" y="74" width="330" height="414" rx="11" fill="none" stroke="#2F6FED" stroke-width="1.6" stroke-dasharray="7 5"/>
   <text x="878" y="64" text-anchor="start" font-size="12" fill="#2F6FED" font-weight="700">SECTION 2 — SHAPE</text>
   <rect x="892" y="90" width="302" height="46" rx="8" fill="#F3EEFF" stroke="#C9B6F2" stroke-width="1.4"/>
   <text x="1043" y="109" text-anchor="middle" font-size="11.5" fill="#4A2E9E" font-weight="700">Fetch — once, here, in one pass</text>
@@ -62,7 +63,7 @@
   <text x="1043" y="279" text-anchor="middle" font-size="10" fill="#6B4D08">the rest go to the Idea Wall</text>
   <text x="1043" y="316" text-anchor="middle" font-size="10" fill="#8A94A6" font-style="italic">no greyed full-size stage — next is the real design</text>
   <text x="1043" y="335" text-anchor="middle" font-size="10.5" fill="#5A6678" font-weight="600">a shape is unarguable on screen</text>
-  <rect x="1230" y="74" width="330" height="398" rx="11" fill="none" stroke="#2F6FED" stroke-width="1.6" stroke-dasharray="7 5"/>
+  <rect x="1230" y="74" width="330" height="414" rx="11" fill="none" stroke="#2F6FED" stroke-width="1.6" stroke-dasharray="7 5"/>
   <text x="1230" y="64" text-anchor="start" font-size="12" fill="#2F6FED" font-weight="700">SECTION 3 — PROMOTE</text>
   <text x="1560" y="64" text-anchor="end" font-size="10" fill="#13874B" font-weight="600">ALREADY WORKS</text>
   <rect x="1244" y="90" width="302" height="88" rx="8" fill="#F3EEFF" stroke="#C9B6F2" stroke-width="1.4"/>
@@ -84,16 +85,16 @@
   <text x="1395" y="377" text-anchor="middle" font-size="12" fill="#16202E" font-weight="700">PR 2 — the module</text>
   <text x="1395" y="393" text-anchor="middle" font-size="10.5" fill="#5A6678">wired into every screen’s rail</text>
   <text x="1395" y="436" text-anchor="middle" font-size="10" fill="#8A94A6" font-style="italic">the loop that shipped #42 → #43 → #44</text>
-  <path d="M506 330 H522" stroke="#13874B" stroke-width="1.8" fill="none" marker-end="url(#g)"/>
-  <path d="M188 330 H178 Q168 330 168 318 V126" stroke="#D1483C" stroke-width="1.4" fill="none" marker-end="url(#r)"/>
+  <path d="M506 346 H522" stroke="#13874B" stroke-width="1.8" fill="none" marker-end="url(#g)"/>
+  <path d="M188 346 H178 Q168 346 168 334 V126" stroke="#D1483C" stroke-width="1.4" fill="none" marker-end="url(#r)"/>
   <path d="M858 314 H874" stroke="#13874B" stroke-width="1.8" fill="none" marker-end="url(#g)"/>
   <path d="M540 314 H530 Q520 314 520 302 V126" stroke="#D1483C" stroke-width="1.4" fill="none" marker-end="url(#r)"/>
   <path d="M1210 267 H1226" stroke="#13874B" stroke-width="1.8" fill="none" marker-end="url(#g)"/>
   <path d="M892 267 H882 Q872 267 872 255 V126" stroke="#D1483C" stroke-width="1.4" fill="none" marker-end="url(#r)"/>
-  <rect x="1582" y="247" width="142" height="54" rx="9" fill="#D8F3E3" stroke="#13874B" stroke-width="1.6"/>
-  <text x="1653" y="269" text-anchor="middle" font-size="13" fill="#0B5E35" font-weight="700">Final UI</text>
-  <text x="1653" y="286" text-anchor="middle" font-size="10" fill="#0D6B3C">in the catalogue</text>
-  <path d="M1562 273 H1578" stroke="#13874B" stroke-width="1.8" fill="none" marker-end="url(#g)"/>
-  <path d="M1653 302 V506 Q1653 518 1641 518 H351 Q339 518 339 506 V478" stroke="#13874B" stroke-width="1.4" fill="none" marker-end="url(#g)" stroke-dasharray="6 5"/>
-  <text x="872" y="544" text-anchor="middle" font-size="11" fill="#13874B" font-weight="600">every shipped module makes the next Section 0 smarter</text>
+  <rect x="1582" y="255" width="142" height="54" rx="9" fill="#D8F3E3" stroke="#13874B" stroke-width="1.6"/>
+  <text x="1653" y="277" text-anchor="middle" font-size="13" fill="#0B5E35" font-weight="700">Final UI</text>
+  <text x="1653" y="294" text-anchor="middle" font-size="10" fill="#0D6B3C">in the catalogue</text>
+  <path d="M1562 281 H1578" stroke="#13874B" stroke-width="1.8" fill="none" marker-end="url(#g)"/>
+  <path d="M1653 310 V522 Q1653 534 1641 534 H351 Q339 534 339 522 V494" stroke="#13874B" stroke-width="1.4" fill="none" marker-end="url(#g)" stroke-dasharray="6 5"/>
+  <text x="872" y="560" text-anchor="middle" font-size="11" fill="#13874B" font-weight="600">every shipped module makes the next Section 0 smarter</text>
 </svg>

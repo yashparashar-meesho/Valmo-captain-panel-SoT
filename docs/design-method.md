@@ -28,20 +28,28 @@ how approaches get invented in a vacuum and the final UI lands off-spec.
    ever two answers, and the first has three placements inside it. Ask the
    module question first — it is the bigger decision, and it bounds the rest.
 
-   **1 — In an existing module.** Name which one, and why that one.
+   **1 — In an existing module.** Name which one, and why that one. The three
+   placements are not a menu of styles; each answers a different question
+   about whether the thing fits where it is going.
 
-   | | placement | looks like | precedent |
-   |---|---|---|---|
-   | 1a | a new section on an existing page | its own heading and its own data scope | every module |
-   | 1b | a tab or sub-tab | a sibling view of the same subject | `tabs` in Pilot Management and Growth Dashboard; sub-tabs in Service Area |
-   | 1c | inside a nested page of that module | a drill-down that already exists | `payment-details` under Captain Payments |
+   | | placement | when it is right |
+   |---|---|---|
+   | **1a** | **on the existing page** — stack another section vertically, *or* extend a section already there, horizontally or vertically (a column, a field, a state) | it fits on that page |
+   | **1b** | **a tab or sub-tab** | it does **not** fit on that page — adding to or removing from it stops making sense — but it belongs to the same subject, so a tab lets the module hold both |
+   | **1c** | **inside a nested page the module already has** | it belongs to one item's detail, not to the module's main view |
 
-   **2 — A new module in the rail.** Only when nothing in the rail owns the
-   subject. Expensive: it has to earn a permanent slot, which usually means
-   someone opens it as part of a routine.
+   **2 — A new module in the rail.** Only when no module owns the subject.
+   Expensive: it has to earn a permanent slot, which usually means someone
+   opens it as part of a routine.
 
-   Use [section-rules.md](section-rules.md) to choose between 1a and the
-   others — *own heading plus own data scope* is the test.
+   > **A module having no tabs today is not an argument against a tab.** Any
+   > module can take one — the component exists, and which modules happen to
+   > use it now says nothing about which may. The same goes for sub-tabs and
+   > nested pages. Judge by whether the thing fits the page, never by the
+   > page's current furniture.
+
+   Within 1a, [section-rules.md](section-rules.md) decides *new section* from
+   *extend what is there* — **own heading plus own data scope** is the test.
 
 4. Name the conventions that will bind this work: the framework, the layout
    rules, the relevant foundations.
