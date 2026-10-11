@@ -24,15 +24,15 @@ meaning:
 | step | what happens |
 |---|---|
 | **Match the KRD to the catalogue** | Read `pages.md` and `components.md` and find what this problem touches. **Nothing is fetched** — no screens, no icons, no fonts. They may belong to a page that is about to be ruled out. |
-| **Where can it live?** | Four answers, taken as a ladder — lowest rung that works. **1a** it fits the page (stack a section, or extend one). **1b** it does not fit but is the same subject, so a tab lets the module hold both. **1c** it belongs to one item's detail. **2** no module owns the subject at all. Before any of them: would a filter or a date control do the job instead? |
-| **🔒 Confirm the target** | Seconds, not a review. All four shown, what is out and why, and **one recommended**. |
+| **Report, do not ask yet** | The problem as you read it, what it touches, the conventions that bind the work, and what already exists to reuse. **No gate here** — Section 0 flows straight into Section 1. |
+| | **Where it lives is not decided here.** That is one of the things the five approaches differ on, so it belongs in the DRD. |
 
 ### Section 1 — Diverge · *what we could do*
 
 | step | what happens |
 |---|---|
 | **Interrogate the gaps** | Ask only what the KRD left out *and* Section 0 could not answer. Never re-ask what the catalogue already knows. |
-| **Write the DRD** | Five genuinely different approaches — what each does, what it costs, what it rules out. Rendered as a page and opened in the browser, never handed over as a raw `.md`. |
+| **Write the DRD** | Five genuinely different approaches — what each does, what it costs, what it rules out, and **where each one would live**. Rendered as a page and opened in the browser, never handed over as a raw `.md`. The open questions ask where it should live, with a recommendation. |
 | **🔒 The DRD is approved** | **The one hard stop.** Not *shared*, not *sent* — approved, in words. Nothing is fetched and nothing is built until it is. No converging before this either: shapes are compared on screen, not as sentences. |
 
 ### Section 2 — Shape · *what it looks like*
@@ -40,7 +40,7 @@ meaning:
 | step | what happens |
 |---|---|
 | **Fetch — once, here** | One batched pass: the screen, only the icons it references, the three fonts, `kit.css`, and any vendor script its markup links. |
-| **Comparison sheet** | All five approaches as small schematics on one page, each beside what it does, costs and rules out. Schematic on purpose — the question is *which shape*, not *is this spacing right*. |
+| **Comparison sheet** | All five approaches as small schematics on one page, each beside what it does, costs and rules out. Schematic on purpose — the question is *which shape*, not *is this spacing right*. **Never skipped because the DRD named a favourite**: liking an approach in prose is not the same as seeing it. |
 | **🔒 Pick one or two** | The losers go to the Idea Wall. **There is no greyed full-size stage after this** — once a shape is chosen, the next useful artefact is the design itself. |
 
 ### Section 3 — Promote · *make it real*
@@ -63,122 +63,35 @@ catalogue starts going stale and Section 0 starts lying.
 
 ## Section 0 — Locate
 
-**Automatic. No human input except a confirmation. Fetches nothing.**
+**Automatic. No human input, no gate, nothing fetched.**
 
-> Section 0 is reading and discussion. The pack is all you need — no screen
-> files, no icons, no fonts, no stylesheet. Those come in **one batched pass**
-> later, once the DRD has been approved and there is something to build
-> against. Fetching early spends the user's time on files that may belong to
-> a screen they are about to rule out.
+> Section 0 is reading. The pack is all you need — no screen files, no icons,
+> no fonts, no stylesheet. Those come in **one batched pass** later, once the
+> DRD has been approved. Fetching early spends the user's time on files that
+> may belong to a page they are about to rule out.
 
 Before anything is designed, establish what already exists. Skipping this is
 how approaches get invented in a vacuum and the final UI lands off-spec.
 
 1. Read [pages.md](pages.md) and [components.md](components.md).
 2. Match the KRD against them.
-3. Decide **where it can live**. Once the problem is understood, there are only
-   ever two answers, and the first has three placements inside it. Ask the
-   module question first — it is the bigger decision, and it bounds the rest.
+3. Report, without asking anything yet: **the problem as you read it**, the
+   modules and screens it touches, the conventions that will bind the work,
+   and what already exists that can be reused.
 
-   > **The prerequisite: understand the problem properly first.** This is not
-   > a step, it is the ground everything else stands on. A misread problem
-   > produces a correct-looking DRD, five careful approaches and a finished
-   > design that solves the wrong thing — and nothing downstream will catch
-   > it, because every later stage inherits the misreading. If the KRD is
-   > thin, the right move is to go back to it, not to proceed carefully.
+> **The prerequisite: understand the problem properly first.** This is not a
+> step, it is the ground everything else stands on. A misread problem produces
+> a correct-looking DRD, five careful approaches and a finished design that
+> solves the wrong thing — and nothing downstream will catch it, because every
+> later stage inherits the misreading. If the KRD is thin, the right move is
+> to go back to it, not to proceed carefully.
 
-   **1 — In an existing module.** Name which one, and why that one. The three
-   placements are a **ladder, not a menu**: each rung costs more than the one
-   below it, so take the lowest rung that genuinely serves the problem.
+> **Do not decide where it lives here.** Where a thing goes is one of the
+> things the five approaches *differ on* — settling it before they exist
+> collapses the design space to whatever seemed obvious first, and the DRD
+> then diverges inside a box nobody argued for. It belongs in the DRD, and
+> the question belongs in the DRD's open questions.
 
-   > **Before proposing any new surface at all, ask whether a control removes
-   > the need for one.** A date dropdown, a filter, a toggle or a sort on what
-   > is already there will often do the whole job. *"Show me last week"* is a
-   > date control, not a screen. A new tab or page proposed where a filter
-   > would have done is work nobody needed, in a place nobody will look.
-
-   > **Depth costs visibility, and that is a real trade — say it out loud.**
-   > A nested page is seen by whoever goes looking for it. If you recommend
-   > 1c, name that cost in the same breath: *"this fits here, but it will be
-   > seen less because it sits inside."*
-   >
-   > **It is a cost to state, never grounds to rule a placement out** — not
-   > even when the problem itself is one of awareness. If the placement is the
-   > best fit and everyone agrees the visibility is enough for what is being
-   > built, it ships. The method's job is to put the trade in front of the
-   > person deciding, not to decide for them by quietly removing an option.
-
-   | | placement | when it is right |
-   |---|---|---|
-   | **1a** | **on the existing page** — stack another section vertically, *or* extend a section already there, horizontally or vertically (a column, a field, a state) | it fits on that page |
-   | **1b** | **a tab or sub-tab** | it does **not** fit on that page — adding to or removing from it stops making sense — but it belongs to the same subject, so a tab lets the module hold both |
-   | **1c** | **inside a nested page the module already has** | it belongs to one item's detail, not to the module's main view |
-
-   > **When two modules both seem to own it.** This is common — pilot
-   > productivity touches capacity *and* the roster. It is not a reason to
-   > reach for a new module, and it is never a reason to build the thing twice.
-   >
-   > 1. **Pick the module where it makes more sense to live.** That is its
-   >    home, and it is built once, there.
-   > 2. **At the other touchpoint, add a door** — an entry point, or a line
-   >    explaining the new thing and linking to it. That keeps the two subjects
-   >    correlated and sends traffic to the home.
-   > 3. **Never build the same thing in both places.** Two homes means two
-   >    things to maintain and, before long, two versions of the truth.
-   > 4. **If you genuinely cannot pick, say so and ask** — and give your
-   >    reasoning for each side, not just the question. A decision made with
-   >    the reasoning in the open is one the next person can learn from; a bare
-   >    "which one?" teaches nobody anything.
-
-   **2 — A new module in the rail.** Only when no module owns the subject.
-   Expensive: it has to earn a permanent slot, which usually means someone
-   opens it as part of a routine.
-
-   > **A module having no tabs today is not an argument against a tab.** Any
-   > module can take one — the component exists, and which modules happen to
-   > use it now says nothing about which may. The same goes for sub-tabs and
-   > nested pages. Judge by whether the thing fits the page, never by the
-   > page's current furniture.
-
-   Within 1a, [section-rules.md](section-rules.md) decides *new section* from
-   *extend what is there* — **own heading plus own data scope** is the test.
-
-   **Worked example — "show the capacity cut history, last five weeks".**
-   Both of the obvious answers are wrong, and for the same reason.
-
-   | reading | answer it suggests | why it is wrong |
-   |---|---|---|
-   | it is about the whole DC, not one item | a tab | if the ask is only *show the weeks*, a section on the page already there carries it — or it goes at the top of the first section. A tab buys nothing. |
-   | you would reach it from the "cut this week" card | a nested page | if the overview has a date control, clicking any week already shows that week. The page is not needed at all. |
-
-   The answer is **1a**, and the thing that decides it is the size of the
-   problem, not the shape of the navigation. Both wrong answers come from
-   reaching for a new surface before asking whether the existing one could
-   carry it.
-
-4. Name the conventions that will bind this work: the framework, the layout
-   rules, the relevant foundations.
-
-**Gate — confirm the target.** Seconds, not a review. "Yes, that one," or
-"no, it's X." If wrong, re-run with the correction.
-
-4. **Recommend one**, and say why — then ask. Showing four options and no
-   opinion pushes the decision back to the person who asked you to make it.
-   Showing one option invites acceptance of a wrong one. Show all four, mark
-   which are out and why, and name the one you would pick.
-
-> **1b and 1c are the ones that get missed.** 1b was missed on the very first
-> real run. Two traps cause it, and both are easy to fall into again:
->
-> - **Reading a screen's `notHere` as the module's.** `notHere` is scoped to
->   **one screen**. "DC Capacity does not show per-pilot detail" excludes it
->   from *that screen*, and says nothing about a tab, a sub-tab or a nested
->   page in the same module. Those are different screens; the exclusion never
->   reached them.
-> - **Reading the module's current shape instead of the catalogue's patterns.**
->   A module having no tabs today is not evidence against a tab. Check
->   [components.md](components.md) for what is available, not the target page
->   for what it happens to use.
 
 ## Section 1 — Diverge
 
@@ -204,9 +117,98 @@ how approaches get invented in a vacuum and the final UI lands off-spec.
 3. **Five approaches.** Genuinely different ways to solve the problem, not one
    idea in five costumes. For each: what it does, what it costs, what it rules
    out. If two collapse into the same thing, say so and find another — do not
-   quietly ship four.
+   quietly ship four. **Each approach names its own placement**
+   from the ladder below.
 
-4. **Do not converge yet.** Converging here is what makes the whole exercise
+4. **Ask where it should live in the DRD's open questions**, with your
+   recommendation and the one reason that decides it. By then the approaches
+   are on the page, so the question gets answered against something real
+   instead of in the abstract.
+
+### Where it can live
+
+There are only ever two answers, and the first has three placements inside it.
+**Every approach in the DRD names its own placement** — that is part of what
+makes the approaches different from one another.
+
+> **The prerequisite: understand the problem properly first.** This is not
+> a step, it is the ground everything else stands on. A misread problem
+> produces a correct-looking DRD, five careful approaches and a finished
+> design that solves the wrong thing — and nothing downstream will catch
+> it, because every later stage inherits the misreading. If the KRD is
+> thin, the right move is to go back to it, not to proceed carefully.
+
+**1 — In an existing module.** Name which one, and why that one. The three
+placements are a **ladder, not a menu**: each rung costs more than the one
+below it, so take the lowest rung that genuinely serves the problem.
+
+> **Before proposing any new surface at all, ask whether a control removes
+> the need for one.** A date dropdown, a filter, a toggle or a sort on what
+> is already there will often do the whole job. *"Show me last week"* is a
+> date control, not a screen. A new tab or page proposed where a filter
+> would have done is work nobody needed, in a place nobody will look.
+
+> **Depth costs visibility, and that is a real trade — say it out loud.**
+> A nested page is seen by whoever goes looking for it. If you recommend
+> 1c, name that cost in the same breath: *"this fits here, but it will be
+> seen less because it sits inside."*
+>
+> **It is a cost to state, never grounds to rule a placement out** — not
+> even when the problem itself is one of awareness. If the placement is the
+> best fit and everyone agrees the visibility is enough for what is being
+> built, it ships. The method's job is to put the trade in front of the
+> person deciding, not to decide for them by quietly removing an option.
+
+| | placement | when it is right |
+|---|---|---|
+| **1a** | **on the existing page** — stack another section vertically, *or* extend a section already there, horizontally or vertically (a column, a field, a state) | it fits on that page |
+| **1b** | **a tab or sub-tab** | it does **not** fit on that page — adding to or removing from it stops making sense — but it belongs to the same subject, so a tab lets the module hold both |
+| **1c** | **inside a nested page the module already has** | it belongs to one item's detail, not to the module's main view |
+
+> **When two modules both seem to own it.** This is common — pilot
+> productivity touches capacity *and* the roster. It is not a reason to
+> reach for a new module, and it is never a reason to build the thing twice.
+>
+> 1. **Pick the module where it makes more sense to live.** That is its
+>    home, and it is built once, there.
+> 2. **At the other touchpoint, add a door** — an entry point, or a line
+>    explaining the new thing and linking to it. That keeps the two subjects
+>    correlated and sends traffic to the home.
+> 3. **Never build the same thing in both places.** Two homes means two
+>    things to maintain and, before long, two versions of the truth.
+> 4. **If you genuinely cannot pick, say so and ask** — and give your
+>    reasoning for each side, not just the question. A decision made with
+>    the reasoning in the open is one the next person can learn from; a bare
+>    "which one?" teaches nobody anything.
+
+**2 — A new module in the rail.** Only when no module owns the subject.
+Expensive: it has to earn a permanent slot, which usually means someone
+opens it as part of a routine.
+
+> **A module having no tabs today is not an argument against a tab.** Any
+> module can take one — the component exists, and which modules happen to
+> use it now says nothing about which may. The same goes for sub-tabs and
+> nested pages. Judge by whether the thing fits the page, never by the
+> page's current furniture.
+
+Within 1a, [section-rules.md](section-rules.md) decides *new section* from
+*extend what is there* — **own heading plus own data scope** is the test.
+
+**Worked example — "show the capacity cut history, last five weeks".**
+Both of the obvious answers are wrong, and for the same reason.
+
+| reading | answer it suggests | why it is wrong |
+|---|---|---|
+| it is about the whole DC, not one item | a tab | if the ask is only *show the weeks*, a section on the page already there carries it — or it goes at the top of the first section. A tab buys nothing. |
+| you would reach it from the "cut this week" card | a nested page | if the overview has a date control, clicking any week already shows that week. The page is not needed at all. |
+
+The answer is **1a**, and the thing that decides it is the size of the
+problem, not the shape of the navigation. Both wrong answers come from
+reaching for a new surface before asking whether the existing one could
+carry it.
+
+
+5. **Do not converge yet.** Converging here is what makes the whole exercise
    theatre: the shapes are compared as sentences, when the thing that actually
    decides it is seeing them laid out.
 
@@ -230,7 +232,27 @@ screen, only the icons it references, the three fonts, `kit.css`, and any
 vendor script its markup links. Not before, not drip-fed.
 
 **All five approaches on one page**, each a small schematic beside what it
-does, what it costs, and what it rules out. Build it with the `wfc-` classes
+does, what it costs, and what it rules out.
+
+> **Never skip this sheet because the DRD already drew a favourite.** Liking
+> an approach in the DRD is liking a *paragraph*. That is the thing this whole
+> method exists to avoid — Section 1 says not to converge precisely because
+> shapes argued as sentences lose to shapes seen side by side. A preference
+> stated from prose is provisional until it has been looked at.
+>
+> Build the sheet, show it, and let the preference survive or change. The user
+> may still say *"skip it, build A and B"* — that is their call to make out
+> loud. It is never yours to make on their behalf by reading ahead.
+
+> **Never skip this sheet because the DRD already drew a favourite.** Liking
+> an approach in the DRD is liking a *paragraph*. That is the thing this whole
+> method exists to avoid — Section 1 says not to converge precisely because
+> shapes argued as sentences lose to shapes seen side by side. A preference
+> stated from prose is provisional until it has been looked at.
+>
+> Build the sheet, show it, and let the preference survive or change. The user
+> may still say "skip it, build A and B" — that is their call to make out
+> loud. It is never yours to make on their behalf by reading ahead. Build it with the `wfc-` classes
 in `assets/wireframe.css`; [comparison-example.html](comparison-example.html)
 is the standard.
 

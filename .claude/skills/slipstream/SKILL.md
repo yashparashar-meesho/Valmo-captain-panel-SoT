@@ -54,80 +54,27 @@ what the skill adds.
 
 ### Section 0 — Locate
 
-Match the KRD against `pages.md` and `components.md`. Report:
-
-Once the problem is understood there are only ever **two** answers to *where
-can this live*, and the first has three placements inside it. Ask the module
-question first — it is the bigger decision and it bounds the rest. Walk all
-four, say why each is in or out, and **name the one you would pick**:
+Read the pack, match the KRD against `pages.md` and `components.md`, and
+**report — do not ask anything yet, and do not decide where it lives:**
 
 ```
-WHERE CAN THIS LIVE?
+THE PROBLEM AS I READ IT
+  <in your own words — if this is wrong, everything after it is wrong>
 
-  1 · IN AN EXISTING MODULE — <which one, and why that one>
-      1a  on <screen-id> — stack a section, or extend one   — <in/out, why>
-      1b  a tab or sub-tab in <module>                      — <in/out, why>
-      1c  inside <nested-page-id> of <module>               — <in/out, why>
-
-  2 · A NEW MODULE IN THE RAIL                    — <in/out, why>
-
-  RECOMMENDED — <which, and the one reason that decides it>
+WHAT IT TOUCHES
+  <modules and screens from the catalogue, and why each is relevant>
 
 CONVENTIONS THAT BIND THIS WORK
   <the framework, the layout rules, the foundations that apply>
 
 WHAT ALREADY EXISTS THAT YOU CAN REUSE
-  <components from the inventory that this problem will need>
+  <components from the inventory this problem will need>
 ```
 
-**Understand the problem before any of this.** Everything downstream inherits
-a misreading — the DRD will look right, the five approaches will be careful,
-and the design will solve the wrong thing. If the KRD is thin, go back to it
-rather than proceeding carefully.
-
-**The placements are a ladder, not a menu.** Take the lowest rung that
-genuinely serves the problem. Before proposing *any* new surface, ask whether
-a **control** removes the need for one — a date dropdown, a filter, a toggle
-or a sort on what is already there often does the whole job. "Show me last
-week" is a date control, not a screen.
-
-**Depth costs visibility.** If you recommend 1c, name the cost in the same
-breath: *it fits here, but it will be seen less because it sits inside.* It is
-a cost to state, **never grounds to rule the placement out** — not even when
-the problem itself is one of awareness. Put the trade in front of the person
-deciding; never decide for them by quietly dropping an option.
-
-The three placements answer different questions, so decide in this order:
-**does it fit on the page?** → 1a (stack another section, or extend one that
-is there — a column, a field, a state). **Does it not fit, but belong to the
-same subject?** → 1b, a tab, so the module holds both. **Does it belong to
-one item's detail rather than the module's main view?** → 1c.
-
-**A module having no tabs today is not an argument against a tab.** Any module
-can take one; which modules happen to use a pattern now says nothing about
-which may. Judge by whether the thing fits the page, never by the page's
-current furniture.
-
-**If two modules both seem to own it** — common, and not a reason for a new
-module — pick the one where it makes more sense to live and build it there,
-once. At the other touchpoint add a door: an entry point or a line linking to
-it, so the two stay correlated. **Never build the same thing in both.** If you
-genuinely cannot pick, say so and ask, giving your reasoning for each side —
-a bare "which one?" teaches the user nothing.
-
-Then **ask the user to confirm**. Never pick one silently, and never show
-four options with no opinion — that hands the decision back to the person who
-asked you to make it.
-
-Two traps, both of which cost a real run:
-
-- **A screen's `notHere` is that screen's, not the module's.** "DC Capacity
-  does not show per-pilot detail" excludes it from *that screen*. A tab, a
-  sub-tab or a nested page is a different screen in the same module, so the
-  exclusion never reached it. This is what made 1b invisible.
-- **Judge by the catalogue's patterns, not the target page's current shape.**
-  A module with no tabs today is not evidence against a tab — `tabs` exists
-  and two modules already use it.
+**Where it lives is not decided here.** It is one of the things the five
+approaches differ on; settling it now collapses the design space to whatever
+seemed obvious first. It belongs in the DRD, with the question in the DRD's
+open questions.
 
 ### Section 0 fetches nothing
 
@@ -203,6 +150,10 @@ Per `design-method.md`. The things most often got wrong:
   review into proofreading instead of choosing — colour returns at promotion.
   Open `docs/wireframe-example.html` first — it is the standard, and guessing
   what "grey box" means is what produced near-final pages on the first run.
+- **Never skip the comparison sheet because the DRD named a favourite.**
+  Liking an approach in the DRD is liking a paragraph; the sheet is where
+  shapes get compared as shapes. Build it and show it. The user may then say
+  "skip it, build A and B" — their call, never yours to make by reading ahead.
 - **Section 2 is the comparison sheet, and only that.** All five approaches as
   small schematics on one page, each beside what it does, costs and rules out
   (`wfc-` classes; `docs/comparison-example.html` is the standard). The
