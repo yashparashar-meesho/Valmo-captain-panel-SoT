@@ -24,15 +24,24 @@ how approaches get invented in a vacuum and the final UI lands off-spec.
 
 1. Read [pages.md](pages.md) and [components.md](components.md).
 2. Match the KRD against them.
-3. Produce candidates — **and candidates are shapes of change, not only
-   screens.** Walk all four, in this order, and say why each is in or out:
+3. Decide **where it can live**. Once the problem is understood, there are only
+   ever two answers, and the first has three placements inside it. Ask the
+   module question first — it is the bigger decision, and it bounds the rest.
 
-   | # | shape | looks like |
-   |---|---|---|
-   | 1 | extend a section on an existing screen | a field, a column, a state |
-   | 2 | a new section on an existing screen | its own heading and data scope |
-   | 3 | **a new screen inside an existing module** | **a tab — `tabs` already exists and two modules use it** |
-   | 4 | a new module | nothing in the rail fits |
+   **1 — In an existing module.** Name which one, and why that one.
+
+   | | placement | looks like | precedent |
+   |---|---|---|---|
+   | 1a | a new section on an existing page | its own heading and its own data scope | every module |
+   | 1b | a tab or sub-tab | a sibling view of the same subject | `tabs` in Pilot Management and Growth Dashboard; sub-tabs in Service Area |
+   | 1c | inside a nested page of that module | a drill-down that already exists | `payment-details` under Captain Payments |
+
+   **2 — A new module in the rail.** Only when nothing in the rail owns the
+   subject. Expensive: it has to earn a permanent slot, which usually means
+   someone opens it as part of a routine.
+
+   Use [section-rules.md](section-rules.md) to choose between 1a and the
+   others — *own heading plus own data scope* is the test.
 
 4. Name the conventions that will bind this work: the framework, the layout
    rules, the relevant foundations.
@@ -40,16 +49,19 @@ how approaches get invented in a vacuum and the final UI lands off-spec.
 **Gate — confirm the target.** Seconds, not a review. "Yes, that one," or
 "no, it's X." If wrong, re-run with the correction.
 
-> Never present a single confident answer. One option invites acceptance of a
-> wrong one; several invite a decision.
+4. **Recommend one**, and say why — then ask. Showing four options and no
+   opinion pushes the decision back to the person who asked you to make it.
+   Showing one option invites acceptance of a wrong one. Show all four, mark
+   which are out and why, and name the one you would pick.
 
-> **Shape 3 is the one that gets missed.** It was missed on the very first
+> **1b and 1c are the ones that get missed.** 1b was missed on the very first
 > real run. Two traps cause it, and both are easy to fall into again:
 >
 > - **Reading a screen's `notHere` as the module's.** `notHere` is scoped to
 >   **one screen**. "DC Capacity does not show per-pilot detail" excludes it
->   from *that screen*, and says nothing about a second screen in the same
->   module. A new tab is a new screen, so the exclusion never applied to it.
+>   from *that screen*, and says nothing about a tab, a sub-tab or a nested
+>   page in the same module. Those are different screens; the exclusion never
+>   reached them.
 > - **Reading the module's current shape instead of the catalogue's patterns.**
 >   A module having no tabs today is not evidence against a tab. Check
 >   [components.md](components.md) for what is available, not the target page

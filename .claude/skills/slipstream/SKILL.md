@@ -56,15 +56,22 @@ what the skill adds.
 
 Match the KRD against `pages.md` and `components.md`. Report:
 
-Candidates are **shapes of change, not only screens**. Walk all four and say
-why each is in or out — never skip straight to two of them:
+Once the problem is understood there are only ever **two** answers to *where
+can this live*, and the first has three placements inside it. Ask the module
+question first — it is the bigger decision and it bounds the rest. Walk all
+four, say why each is in or out, and **name the one you would pick**:
 
 ```
-TARGET CANDIDATES
-  1. extend a section on <screen-id>        — <in/out, why>
-  2. a new section on <screen-id>           — <in/out, why>
-  3. a new screen (tab) inside <module>     — <in/out, why>
-  4. a new module                           — <in/out, why>
+WHERE CAN THIS LIVE?
+
+  1 · IN AN EXISTING MODULE — <which one, and why that one>
+      1a  a new section on <screen-id>            — <in/out, why>
+      1b  a tab or sub-tab in <module>            — <in/out, why>
+      1c  inside <nested-page-id> of <module>     — <in/out, why>
+
+  2 · A NEW MODULE IN THE RAIL                    — <in/out, why>
+
+  RECOMMENDED — <which, and the one reason that decides it>
 
 CONVENTIONS THAT BIND THIS WORK
   <the framework, the layout rules, the foundations that apply>
@@ -73,13 +80,16 @@ WHAT ALREADY EXISTS THAT YOU CAN REUSE
   <components from the inventory that this problem will need>
 ```
 
-Then **ask the user to confirm the target**. Never pick one silently.
+Then **ask the user to confirm**. Never pick one silently, and never show
+four options with no opinion — that hands the decision back to the person who
+asked you to make it.
 
 Two traps, both of which cost a real run:
 
 - **A screen's `notHere` is that screen's, not the module's.** "DC Capacity
-  does not show per-pilot detail" excludes it from *that screen*. A tab is a
-  different screen in the same module, so the exclusion never reached it.
+  does not show per-pilot detail" excludes it from *that screen*. A tab, a
+  sub-tab or a nested page is a different screen in the same module, so the
+  exclusion never reached it. This is what made 1b invisible.
 - **Judge by the catalogue's patterns, not the target page's current shape.**
   A module with no tabs today is not evidence against a tab — `tabs` exists
   and two modules already use it.

@@ -1,5 +1,5 @@
 from pathlib import Path
-SW, SH, GAP = 330, 382, 22
+SW, SH, GAP = 330, 398, 22
 KW, FW, PAD = 132, 142, 20
 S  = [PAD+KW+GAP + i*(SW+GAP) for i in range(4)]
 FX = S[3]+SW+GAP
@@ -55,13 +55,14 @@ g0=section(S[0],"SECTION 0 — LOCATE",None,[
  ("#EFF5FF","#AFC8F5",1.4,[("Match the KRD to the catalogue",12,C["ink"],"700",None),
    ("5 modules · 11 screens · 53 components",10.5,C["ink2"],None,None),
    ("fetches nothing — reading only",10,C["red"],None,"italic")],70),
- ("#FFFFFF","#D7DCE4",1.4,[("Four shapes of change",12,C["ink"],"700",None),
-   ("1 extend a section · 2 a new section",10.5,C["ink2"],None,None),
-   ("3  a new tab in a module",11,C["purple"],"700",None),
-   ("4 a new module — say why each is in or out",10.5,C["ink2"],None,None)],88),
+ ("#FFFFFF","#D7DCE4",1.4,[("Where can it live?",12,C["ink"],"700",None),
+   ("1 · in an existing module —  which one?",10.5,C["ink2"],None,None),
+   ("1a a new section   1b a tab or sub-tab",11,C["purple"],"700",None),
+   ("1c inside one of its nested pages",11,C["purple"],"700",None),
+   ("2 · a new module in the rail",10.5,C["ink2"],None,None)],104),
  ("#FDEBBE","#C9962B",1.5,[("Confirm the target",12,"#6B4D08","700",None),
    ("seconds — just “yes, that one”",10,"#6B4D08",None,None)],52)],
- "wrong target → say which, re-run","shape 3 is the one that gets missed")
+ "wrong target → say which, re-run","show all four, recommend one, then ask")
 g1=section(S[1],"SECTION 1 — DIVERGE",None,[
  ("#FFFFFF","#D7DCE4",1.4,[("Interrogate the gaps",12,C["ink"],"700",None),
    ("only what the KRD left out and",10.5,C["ink2"],None,None),
