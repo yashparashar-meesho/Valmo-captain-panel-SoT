@@ -1,5 +1,5 @@
 {
-  "head": "93082fb",
+  "head": "c7cff87",
   "since": null,
   "screens": {
     "payments-list": [
@@ -458,6 +458,12 @@
     ]
   },
   "ledger": [
+    {
+      "sha": "dd082ced07933d7fea2dd818a7422b9ab2316b7d",
+      "short": "dd082ce",
+      "date": "2026-10-12",
+      "subject": "The schematic is a contract, tabs are drawn as tabs, and the skill is on the site"
+    },
     {
       "sha": "b9074a7a33ceb1c68e594c31e4a2b33f8f18192a",
       "short": "b9074a7",
