@@ -154,6 +154,13 @@ Per `design-method.md`. The things most often got wrong:
   Liking an approach in the DRD is liking a paragraph; the sheet is where
   shapes get compared as shapes. Build it and show it. The user may then say
   "skip it, build A and B" — their call, never yours to make by reading ahead.
+- **The schematic is a contract with the design that follows.** Same blocks,
+  same order. If a reviewer has to ask "which wireframe became this?", the
+  comparison was decoration. A block the design needs but the schematic never
+  showed is a change to surface, not to add quietly.
+- **Draw tabs as tabs** — `wfc-tabs`, a row with the active one underlined.
+  Never equal bordered boxes; that reads as a button group and hides which
+  view is active.
 - **Section 2 is the comparison sheet, and only that.** All five approaches as
   small schematics on one page, each beside what it does, costs and rules out
   (`wfc-` classes; `docs/comparison-example.html` is the standard). The

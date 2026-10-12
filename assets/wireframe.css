@@ -221,3 +221,13 @@
    30px taller than the window and clip the top of the rail. Give the shell
    what is left instead. */
 .vsw-pane .vp-shell { height: calc(100vh - 32px); }
+
+/* Tabs in a schematic. Drawn as tabs - a row with the active one underlined -
+   not as a row of equal bordered boxes, which reads as a button group and
+   gives no clue which is selected. Use .wfc-steps for a progression, never
+   for navigation. */
+.wfc-tabs { display:flex; gap:14px; border-bottom:1px solid var(--l); margin:0 0 2px; }
+.wfc-tabs div { font-size:11px; color:var(--mute); padding:4px 1px 6px; position:relative; }
+.wfc-tabs div.on { color:var(--ink); font-weight:700; }
+.wfc-tabs div.on::after { content:""; position:absolute; left:0; right:0; bottom:-1px;
+  height:2px; background:var(--ink); border-radius:2px 2px 0 0; }
