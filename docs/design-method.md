@@ -265,6 +265,18 @@ is the standard.
    that only permits existing components cannot produce a new idea. Mark which
    blocks are new — those are the component backlog.
 
+4. **The schematic is a contract with the design that follows.** It must name
+   the same blocks, in the same order, as the thing eventually built. If the
+   design needs a block the schematic never showed, that is a change worth
+   surfacing — not something to add quietly. A reviewer who picked a shape
+   should recognise it when the design arrives; if they have to ask *"which
+   wireframe became this?"*, the schematic was decoration.
+
+5. **Draw navigation as navigation.** Tabs are a row with the active one
+   underlined (`wfc-tabs`), never a row of equal bordered boxes — that reads
+   as a button group and shows nothing about which view you are on. Use
+   `wfc-steps` for a progression, never for navigation.
+
 **Gate — the reviewer picks one or two.** Then build the real thing. There is
 no greyed full-size stage in between: once a shape is chosen, the next useful
 artefact is the design, and a full-size wireframe of a decided shape is a

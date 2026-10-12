@@ -62,6 +62,8 @@ Each of these happened on the first real run of the `slipstream` skill.
 
 | never | because |
 |---|---|
+| Build a design whose blocks differ from the schematic that won | The schematic is a contract. If a reviewer cannot tell which wireframe became the design, the comparison was decoration and the choice they made was not the choice they got. New blocks are a change to surface, not to add quietly. |
+| Draw tabs as a row of equal bordered boxes | That reads as a button group and shows nothing about which view is active. Tabs are a row with the active one underlined — `wfc-tabs`. `wfc-steps` is for a progression, never navigation. |
 | Skip the comparison sheet because the DRD already named a favourite | Liking an approach in the DRD is liking a paragraph. Shapes argued as sentences lose to shapes seen side by side — that is *why* Section 1 says not to converge. The preference is provisional until it has been looked at. The user may say "skip it"; it is never yours to decide for them by reading ahead. |
 | Decide where it lives before the approaches exist | Placement is one of the things the five approaches differ on. Settle it first and the DRD diverges inside a box nobody argued for. It goes in the DRD, and the question goes in its open questions. |
 | Skip the DRD because Section 1 "does not block" | Not blocking means *do not wait for sign-off*. The artefact is still required. Skipped once already, and the chosen approach was then compared against nothing on paper — including the option that had been missed. Section 2 does not start until `DRD.md` exists. |
