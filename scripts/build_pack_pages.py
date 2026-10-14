@@ -186,7 +186,9 @@ def slipstream_rail():
     seed = json.loads((ROOT / "source" / "data-seed.json").read_text(encoding="utf-8"))
     by_flow = {}
     for s in seed["screens"]:
-        by_flow.setdefault(s.get("flow"), []).append(s)
+        by_flow.setdefault(s["flowId"], []).append(s)   # flowId, not flow
+    for v in by_flow.values():
+        v.sort(key=lambda x: x.get("order", 0))
     h = ['<aside id="sl"><div class="brand"><b>Slipstream</b>'
          '<span>Start where the last person finished.</span></div>'
          '<a class="home" href="../index.html">← The catalogue</a>']
@@ -197,6 +199,8 @@ def slipstream_rail():
         h.append("<h3>%s</h3>" % f["name"])
         for s in scr:
             h.append('<a href="../screens/%s.html">%s</a>' % (s["id"], s["name"]))
+    if sum(len(v) for v in by_flow.values()) != len(seed["screens"]):
+        sys.exit("rail lost screens: check the flowId join")
     h.append('<h3>Also</h3><a href="../index.html">Components</a>'
              '<a href="../index.html">Foundations</a><a href="../index.html">Learn</a>')
     h.append("</aside>")
