@@ -130,11 +130,10 @@
 
 /* ============ comparison sheet ========================================
    Five approaches on one page, each a schematic beside its rationale.
-   This is what a reviewer chooses from; the full-size greyed wireframe
-   comes after, for the one or two that survive. Deliberately small and
-   deliberately abstract - at this stage the question is "which shape",
-   not "is this spacing right".
-   ===================================================================== */
+   This is what a reviewer chooses from. There is no full-size greyed
+   wireframe stage after it — once a shape is picked, the next artefact is
+   the real design.
+   */
 .wfc { --l:#C9C9D3; --ink:#222; --mute:#6B6B76; --fill:#E6E6EC; --acc:#5B4BD6;
   max-width:1240px; margin:auto; padding:0 20px;
   font:14px/1.45 -apple-system,system-ui,sans-serif; color:var(--ink); }

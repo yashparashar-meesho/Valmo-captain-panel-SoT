@@ -193,7 +193,7 @@ how approaches get invented in a vacuum and the final UI lands off-spec.
    Handing over a raw `.md` hands over the *source* of a document, not the
    document. It reads badly, and approving it feels like reviewing a diff.
 
-   **Every approach entry carries the same six parts, in this order:**
+   **Every approach entry carries the same five parts, in this order:**
 
    | part | what it is for |
    |---|---|
@@ -283,13 +283,6 @@ how approaches get invented in a vacuum and the final UI lands off-spec.
 There are only ever two answers, and the first has three placements inside it.
 **Every approach in the DRD names its own placement** — that is part of what
 makes the approaches different from one another.
-
-> **The prerequisite: understand the problem properly first.** This is not
-> a step, it is the ground everything else stands on. A misread problem
-> produces a correct-looking DRD, five careful approaches and a finished
-> design that solves the wrong thing — and nothing downstream will catch
-> it, because every later stage inherits the misreading. If the KRD is
-> thin, the right move is to go back to it, not to proceed carefully.
 
 **1 — In an existing module.** Name which one, and why that one. The three
 placements are a **ladder, not a menu**: each rung costs more than the one
@@ -461,17 +454,7 @@ rather than arguable.
 > may still say *"skip it, build A and B"* — that is their call to make out
 > loud. It is never yours to make on their behalf by reading ahead.
 
-> **Never skip this sheet because the DRD already drew a favourite.** Liking
-> an approach in the DRD is liking a *paragraph*. That is the thing this whole
-> method exists to avoid — Section 1 says not to converge precisely because
-> shapes argued as sentences lose to shapes seen side by side. A preference
-> stated from prose is provisional until it has been looked at.
->
-> Build the sheet, show it, and let the preference survive or change. The user
-> may still say "skip it, build A and B" — that is their call to make out
-> loud. It is never yours to make on their behalf by reading ahead. Build it with the `wfc-` classes
-in `assets/wireframe.css`; [comparison-example.html](comparison-example.html)
-is the standard.
+**Build it with the `wfc-` classes** in `assets/wireframe.css`; [comparison-example.html](comparison-example.html) is the standard.
 
 1. **IA outline first** — header, then sections in order, then what is in each.
    Check it against [section-rules.md](section-rules.md) before drawing.
