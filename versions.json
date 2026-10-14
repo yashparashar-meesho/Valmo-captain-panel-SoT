@@ -1,5 +1,5 @@
 {
-  "head": "a5647cb",
+  "head": "fcd6a54",
   "since": null,
   "screens": {
     "payments-list": [
@@ -458,6 +458,12 @@
     ]
   },
   "ledger": [
+    {
+      "sha": "fcd6a541028b27e06926eae14d40dd1774378e45",
+      "short": "fcd6a54",
+      "date": "2026-10-15",
+      "subject": "Who the captain is, and what the first real run taught the method (#64)"
+    },
     {
       "sha": "dd082ced07933d7fea2dd818a7422b9ab2316b7d",
       "short": "dd082ce",
