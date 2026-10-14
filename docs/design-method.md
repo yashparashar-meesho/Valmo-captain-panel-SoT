@@ -73,9 +73,15 @@ catalogue starts going stale and Section 0 starts lying.
 Before anything is designed, establish what already exists. Skipping this is
 how approaches get invented in a vacuum and the final UI lands off-spec.
 
-1. Read [pages.md](pages.md) and [components.md](components.md).
-2. Match the KRD against them.
-3. Report, without asking anything yet: **the problem as you read it**, the
+1. Read [panel-principles.md](panel-principles.md) **first** — who the captain
+   is, and the panel's standing failures. Several entries there contradict
+   assumptions a page is easy to build on: the panels are **merging**, so design
+   for a captain working inside this one **all day under operational pressure**,
+   not the end-of-day reporter they are today; **WhatsApp is the competitor**;
+   there is **no homepage**, so nothing can assume where they arrived from.
+2. Read [pages.md](pages.md) and [components.md](components.md).
+3. Match the KRD against them.
+4. Report, without asking anything yet: **the problem as you read it**, the
    modules and screens it touches, the conventions that will bind the work,
    and what already exists that can be reused.
 
@@ -142,23 +148,40 @@ how approaches get invented in a vacuum and the final UI lands off-spec.
    of five. For each: what it does, what it costs, what it rules out, and
    **where it would live**.
 
-   ### What makes approaches genuinely different
+   ### Approaches are derived from the brief, not invented
 
-   **Placement is the entry axis, not the design axis.** Five approaches that
-   differ only on *where it goes* are one axis explored five times. Inside any
-   placement the real choices are:
+   **Do not think of approaches and then check them against the axes.** By the
+   time you have thought of three, you have already anchored on whichever came
+   to mind first, and the check only confirms it. Build the candidate set out
+   of the lists the brief already wrote:
 
-   | axis | the span |
+   | axis | where its span comes from |
    |---|---|
+   | **where it lives** | **every module the brief's *what it touches* named.** Each one is a candidate approach until ruled out *in writing*. |
+   | **who acts** | every actor the brief extracted — the user, another role, the system acting and then informing |
+   | **when it is surfaced** | the moments in the brief's **situations**: before the event · at the decision · on the event · after it |
    | **what is shown** | everything · only the exception · only the action |
-   | **who acts** | the user alone · the user with someone else · the system acts and informs |
-   | **when it is surfaced** | always · on the event · at the moment of the decision |
-   | **how it is framed** | status · warning · instruction · score |
-   | **depth** | summary only · item level · both |
+   | **how it is framed** | status · warning · instruction · explanation · score — *and add one if the problem admits another* |
+   | **depth** | summary · item level · both |
 
-   Place each approach on these axes and show the table. A set where four
-   approaches sit on the same point is visibly thin — which is the whole
-   purpose of writing it down.
+   This is why it is generative rather than a checklist: the brief named the
+   modules, the actors and the moments, so the candidates already exist. You
+   are selecting and pruning, not imagining.
+
+   > **Every module named in *what it touches* appears in the approach table,
+   > or is ruled out in a sentence.** Nothing from the brief may silently
+   > vanish. In the capacity-cut run, Growth Dashboard was named in the brief
+   > and then simply absent from the approaches — not rejected, absent — and
+   > nothing caught it but a human reading the table.
+
+   > **Placement is one axis, not the excluded one.** An earlier version of
+   > this file said placement was "the entry axis, not the design axis", and
+   > the next run stopped varying placement at all. Vary placement **and** the
+   > rest. A set that moves only on placement is thin; a set that never moves
+   > on it has thrown away a whole dimension.
+
+   Place every approach on the table and show it. A set clustered on one point
+   is visibly thin, which is the entire purpose of writing it down.
 
    > **The discriminator.** Two approaches are the same if switching from one
    > to the other **does not change what the user does**. If their behaviour
@@ -281,6 +304,36 @@ until they say it is good to go.
 
 Only then does anything get fetched or built.
 
+## Every answer goes back into the artefacts
+
+**An answer given in chat is not a decision until it is written down.** The
+moment the user answers anything — a gap, an open question, a correction —
+update the brief and the DRD **before doing anything else**, and show what
+changed.
+
+Three reasons this is not bookkeeping:
+
+- **Later steps check against the brief.** If the brief still says something
+  the user has since overturned, the final check validates against a document
+  everyone has stopped believing.
+- **The reasoning evaporates otherwise.** The chat is gone next week. The
+  brief is what someone reads in six months to understand why the page looks
+  like this.
+- **An answer often changes more than the question it answered.** In the
+  capacity-cut run, *"ignore AMs"* did not just delete a constraint — it
+  removed an entire approach, because that approach existed to be read by a
+  captain and an AM together. **Say that out loud.** A silently shrinking
+  option set looks like carelessness; an explained one is the method working.
+
+Report it as a diff, not a redraft: *what was open · what the answer is · what
+it changed.*
+
+> **IDs freeze once the brief is approved.** Before approval, renumber freely.
+> After it, a withdrawn constraint is **marked withdrawn, never deleted**, and
+> new facts take new numbers. Renumbering after other documents reference
+> `C4` silently repoints every reference to something else — and nothing in
+> the checks would catch it.
+
 ## Section 2 — Shape
 
 **Starts only after the DRD is approved.** This is where the real gate is.
@@ -342,6 +395,43 @@ drawing of work already understood.
 
 Losing approaches go to the **Idea Wall** (`log-exploration`): logged, never
 reviewed, allowed to go stale. Dead ends are the reason the wall exists.
+
+### Checking the design as UX, not only as UI
+
+The layout checks are syntactic. They will all pass on a page nobody can use.
+Two things close that gap, and both have to be *written*, because a tick is
+one you award yourself.
+
+**Answer the eight principles** in [panel-principles.md](panel-principles.md),
+one short argument each, citing the design.
+
+**Then walk every situation.** Not the happy path — *every* situation the edge
+sweep produced. The format is the same whatever the problem:
+
+```
+SITUATION   who they are, what state they are in, when they arrive
+THEY WANT   the one thing, in their words
+ARRIVING    what they already know, and what they just came from
+  1 …       what they see · what they do · what they now believe
+  2 …
+OUTCOME     succeeds  ·  stalls at step N because ___
+```
+
+Four rules make it worth doing:
+
+1. **One walkthrough per situation.** If the sweep found six, write six. The
+   happy path is the least informative of them.
+2. **At least one where things have already gone wrong** — the user is late,
+   mistaken, or arriving mid-failure. Designs break there, not at step one.
+3. **Phrase the question adversarially.** *"Is the hierarchy right?"* grades
+   itself; *"what does this person get wrong?"* has an answer.
+4. **A stall is a finding, and it ships as one.** Write it down even when you
+   cannot fix it — an unfixed stall someone knows about beats a hidden one.
+
+> **What this cannot do.** A walkthrough written by whoever made the design is
+> self-assessment. It catches the obvious stalls and misses the ones its
+> author is blind to. It raises the floor; only a second reader raises the
+> ceiling. Say so when handing the design over.
 
 ## Section 3 — Promote
 

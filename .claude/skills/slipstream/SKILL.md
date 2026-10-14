@@ -9,6 +9,11 @@ Two jobs in one skill: **initiate** a design run, and **check** that everything
 it depends on actually works. Run the check first, always — it costs one
 command and prevents designing against a stale or missing rulebook.
 
+> Every fetch here uses `--http1.1 --retry 3`. Without it, corporate networks
+> intermittently return `curl: (16) Error in the HTTP2 framing layer`, which
+> reads as a broken command when it is a transient network fault. A run that
+> half-fetches the pack is worse than one that fails loudly.
+
 **Repo:** `yashparashar-meesho/Valmo-captain-panel-SoT` (public — no auth
 needed for reading)
 **Raw base:** `https://raw.githubusercontent.com/yashparashar-meesho/Valmo-captain-panel-SoT/main`
@@ -24,7 +29,7 @@ for f in manifest.json docs/README.md docs/design-method.md docs/page-framework.
          docs/layout-rules.md docs/section-rules.md docs/never-do-this.md \
          docs/pages.md docs/components.md docs/color-foundation.md \
          docs/spacing-foundation.md docs/typography-audit.md docs/fidelity-checklist.md; do
-  printf '%-34s %s\n' "$f" "$(curl -s -o /dev/null -w '%{http_code}' $BASE/$f)"
+  printf '%-34s %s\n' "$f" "$(curl -s --http1.1 -o /dev/null -w '%{http_code}' $BASE/$f)"
 done
 ```
 
@@ -33,13 +38,27 @@ and say so rather than designing without it.
 
 Also confirm, and report in one line:
 
-- **`log-exploration` skill present?** Needed in Section 2 to park losing
-  wireframes. If missing, say so — the run can continue, the wall entry cannot.
+- **`log-exploration` — optional, and not shipped.** It parks losing
+  approaches on the Idea Wall. It is deliberately not published, so it will
+  normally be absent. **Do not report that as a problem** — say nothing unless
+  the user asks to log something, and then explain it is not installed.
+  Everything else in the method works without it.
 - **Working in a clone?** If the user has the repo locally, prefer local files
   and run `python3 scripts/check_v2_sync.py` and
   `python3 scripts/build_docs.py --check`. Both must pass. If `build_docs`
   reports stale, the inventory you are about to read is out of date — regenerate
   before trusting it.
+
+**Read `docs/panel-principles.md` first.** It is the only file describing the
+person and the product rather than how to build a page, and it contradicts
+several comfortable assumptions: the panels are **merging into this one**, so
+design for a captain working here **all day under operational pressure**, not
+the end-of-day reporter they are today · **speed is a feature**, 3–5 tabs per
+task today · **read-only is the root of the adoption problem** ·
+**WhatsApp is the competitor** and is winning · there is **no homepage** · a `–` in an empty cell reads as a loading failure ·
+selected and unselected states are known to be indistinguishable · payments
+lag a week. Its **eight principles are the UX checks** on the finished design,
+answered with an argument each, never a tick.
 
 Then **read the pack** — at minimum `design-method.md`, `pages.md`,
 `components.md`, `page-framework.md`, `section-rules.md`, `never-do-this.md`.
@@ -104,14 +123,14 @@ BASE=https://raw.githubusercontent.com/yashparashar-meesho/Valmo-captain-panel-S
 D=<folder>          # ask the user where, with AskUserQuestion
 mkdir -p $D/screens $D/assets/icons $D/assets/fonts $D/assets/vendor
 
-curl -s $BASE/screens/<id>.html -o $D/screens/<id>.html
-curl -s $BASE/assets/kit.css    -o $D/assets/kit.css
+curl -s --http1.1 $BASE/screens/<id>.html -o $D/screens/<id>.html
+curl -s --http1.1 $BASE/assets/kit.css    -o $D/assets/kit.css
 for f in Mier_B02-Book.woff2 Mier_B02-Demi.woff2 Mier_B02-Bold.woff2; do
-  curl -s $BASE/assets/fonts/$f -o $D/assets/fonts/$f; done
+  curl -s --http1.1 $BASE/assets/fonts/$f -o $D/assets/fonts/$f; done
 # only the icons this screen references
 for i in $(grep -o 'assets/icons/[A-Za-z0-9_.-]*' $D/screens/<id>.html \
            | sed 's|assets/icons/||' | sort -u); do
-  curl -s $BASE/assets/icons/$i -o $D/assets/icons/$i; done
+  curl -s --http1.1 $BASE/assets/icons/$i -o $D/assets/icons/$i; done
 ```
 
 **Behaviour files.** Some screens link a script in `assets/vendor/`. Read
@@ -132,6 +151,18 @@ preview it yourself through a built-in browser tool** — those commonly render 
 file outside their project directory as a static snapshot with no JavaScript,
 which silently breaks click-through while looking fine.
 
+### Whenever the user answers anything
+
+**Update the brief and the DRD first, before doing anything else**, and show
+the change as a diff — *what was open · what the answer is · what it changed.*
+An answer in chat is not a decision until it is in the artefact: later steps
+check against the brief, and the chat is gone next week.
+
+**An answer often changes more than the question.** Say so when it does — in
+the capacity-cut run *"ignore AMs"* removed an entire approach. **IDs freeze
+once the brief is approved**: mark withdrawn items withdrawn, never delete or
+renumber, because other documents reference `C4` and `T2` by name.
+
 ### Sections 1–3
 
 Per `design-method.md`. The things most often got wrong:
@@ -141,11 +172,17 @@ Per `design-method.md`. The things most often got wrong:
   an editor on a wireframe until `DRD.md` exists on disk.** On the first real
   run it was skipped, and the approach that was built had been compared
   against nothing written down, including an option that had been missed.
-- **Approaches differ on axes, not on placement.** Placement is how you get
-  in; the design axes are *what is shown · who acts · when it is surfaced ·
-  how it is framed · depth*. Put each approach on a table of those axes — a
-  set clustered on one point is visibly thin. **Two approaches are the same
-  if switching between them does not change what the user does.**
+- **Derive the approaches from the brief; do not invent them.** The brief
+  already named the modules (*what it touches*), the actors, and the moments
+  (its *situations*). Those are the spans. Build candidates from them and
+  prune — by the time you have imagined three you have anchored on the first.
+- **Every module the brief named appears in the approach table, or is ruled
+  out in a sentence.** Nothing from the brief may silently vanish.
+- **Placement is one axis, not the excluded one.** Vary placement *and* what
+  is shown · who acts · when surfaced · how framed · depth. Add a framing if
+  the problem admits one the list does not have.
+- **Two approaches are the same if switching between them does not change
+  what the user does.**
 - **The count follows the problem.** Two real approaches beat five padded
   ones. If they cluster, name the real fork underneath and ask which side to
   explore rather than listing costumes.
@@ -208,6 +245,16 @@ Before opening any PR, verify and report each line as pass or fail:
 | generators run | `build_docs.py`, `export_to_github.py` |
 | sync check passes | `check_v2_sync.py` exits 0 |
 | components first | new components in their own PR, merged before the module PR |
+
+**Then the UX checks**, which cannot be ticked and have to be written:
+
+- the **eight principles** from `panel-principles.md`, one argument each
+- a **walkthrough per situation** the edge sweep produced, in this shape:
+  `SITUATION · THEY WANT · ARRIVING · steps · OUTCOME (succeeds | stalls at N
+  because …)`. At least one where things have already gone wrong. A stall is
+  a finding and ships as one, fixed or not.
+- say plainly that a walkthrough written by the designer is self-assessment:
+  it raises the floor, not the ceiling.
 
 Report failures plainly. **Do not report a check as passed without running it.**
 

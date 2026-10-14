@@ -26,6 +26,7 @@ OUT = ROOT / "docs-preview.html"
 GROUPS = [
     ("Start here", [
         ("README.md", "Index of the pack", "new"),
+        ("panel-principles.md", "Who the captain is, and what already fails", "new"),
         ("design-method.md", "The four-section flow", "new"),
     ]),
     ("Rules — please read closely", [

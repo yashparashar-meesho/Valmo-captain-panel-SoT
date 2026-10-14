@@ -14,7 +14,7 @@ regardless of Claude plan or team, without needing repo access to be granted per
 One command, on any Mac with Claude Code. Public repo, so no login and no repo access:
 
 ```bash
-mkdir -p ~/.claude/skills/slipstream && curl -fsSL https://raw.githubusercontent.com/yashparashar-meesho/Valmo-captain-panel-SoT/main/.claude/skills/slipstream/SKILL.md -o ~/.claude/skills/slipstream/SKILL.md
+mkdir -p ~/.claude/skills/slipstream && curl -fsSL --http1.1 --retry 3 https://raw.githubusercontent.com/yashparashar-meesho/Valmo-captain-panel-SoT/main/.claude/skills/slipstream/SKILL.md -o ~/.claude/skills/slipstream/SKILL.md
 ```
 
 It is picked up immediately — no restart, and it works in every folder, not just a clone
