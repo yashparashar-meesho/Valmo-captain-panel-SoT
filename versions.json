@@ -1,5 +1,5 @@
 {
-  "head": "a8a8752",
+  "head": "a98e091",
   "since": null,
   "screens": {
     "payments-list": [
@@ -458,6 +458,12 @@
     ]
   },
   "ledger": [
+    {
+      "sha": "a98e0916d11c358c9f0f43fed57a17bb93a9781a",
+      "short": "a98e091",
+      "date": "2026-10-15",
+      "subject": "The copy button stops chasing the scroll (#72)"
+    },
     {
       "sha": "3f62349cc965dbf65160198eaf9da58fc005dc13",
       "short": "3f62349",
