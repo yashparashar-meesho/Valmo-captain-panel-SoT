@@ -1,6 +1,6 @@
 # The design method
 
-How a problem becomes a page. Four sections, **one** blocking gate.
+How a problem becomes a page. Four sections, and every one of them stops for a human before the next begins.
 
 This file is the instruction set behind the `slipstream` skill. Reading it is
 enough to run the method by hand; the skill just removes the fetching.
@@ -60,7 +60,6 @@ a better map. That is the whole point of the dashed line — and it only keeps
 working while promoting stays cheap. The moment it becomes a chore, the
 catalogue starts going stale and Section 0 starts lying.
 
-
 ---
 
 ## Section 0 — Locate
@@ -87,9 +86,6 @@ how approaches get invented in a vacuum and the final UI lands off-spec.
    path almost every time. The edge cases are not missing because they do not
    matter — they are missing because nobody thought of them, and that includes
    you unless you work from a list:
-   path almost every time. The edge cases are not missing because they do not
-   matter — they are missing because nobody thought of them, and that includes
-   you unless you work from a list:
 
    | generator | ask |
    |---|---|
@@ -113,8 +109,7 @@ how approaches get invented in a vacuum and the final UI lands off-spec.
    | part | what it holds |
    |---|---|
    | **the problem as you read it** | in your words, not the KRD's — this is the part that gets corrected |
-   | **what it touches** | the modules and screens, and the conventions that bind the work |
-   | **what already exists** | what can be reused rather than rebuilt |
+   | **what it touches** | every module and screen the problem reaches, named so none can vanish later |
    | **constraints** `C1…` | the rules the design cannot break |
    | **success tests** `T1…` | what a person must be able to do, or the design has failed |
    | **situations** `S1…` | every case the sweep found, the happy path among them |
@@ -122,6 +117,17 @@ how approaches get invented in a vacuum and the final UI lands off-spec.
 
    Everything downstream references these by name. That is the point: an
    approach is checked against `T2`, a shape is marked against `S5`.
+
+   > **Nothing else goes in it.** The conventions that bind the work and the
+   > components you can reuse were both established in step 2 — keep them, you
+   > will need them in Section 2 — but they are **build material, and the brief
+   > is not for the builder.** It is read by someone deciding whether you have
+   > understood their problem, and every paragraph that is not that is a
+   > paragraph between them and the answer.
+   >
+   > A brief is read, corrected and handed back. If it cannot be done in a few
+   > minutes it will be skimmed, and a skimmed brief is approved without being
+   > checked — which is worse than no gate at all.
 
 6. **Gate — the brief is good to go.** Show it and ask, in those words.
    Nothing in Section 1 starts until the person who asked for the work says so.
@@ -153,7 +159,6 @@ how approaches get invented in a vacuum and the final UI lands off-spec.
 > collapses the design space to whatever seemed obvious first, and the DRD
 > then diverges inside a box nobody argued for. It belongs in the DRD, and
 > the question belongs in the DRD's open questions.
-
 
 ## Section 1 — Diverge
 
@@ -354,7 +359,6 @@ The answer is **1a**, and the thing that decides it is the size of the
 problem, not the shape of the navigation. Both wrong answers come from
 reaching for a new surface before asking whether the existing one could
 carry it.
-
 
 6. **Give every approach the captain's journey.** Not a description of the
    screen — the numbered steps the captain actually takes, from what sets them
