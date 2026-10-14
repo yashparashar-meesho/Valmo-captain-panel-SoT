@@ -104,7 +104,31 @@ how approaches get invented in a vacuum and the final UI lands off-spec.
 
 1. **Interrogate the gaps** — ask only what the KRD left out *and* Section 0
    could not answer. Do not re-ask what the catalogue already knows.
-2. **Write the DRD** — `DRD.md` as the source, then render it to a page and
+
+   > **A question about the KRD is about what the KRD does not say. A question
+   > about the design is yours to decide and state.** Mixing them makes the
+   > reader adjudicate your design choices as though they were facts. Order
+   > questions by how much design they change, and always say what you will do
+   > if they go unanswered.
+
+2. **Sweep for the cases the KRD did not mention.** A KRD describes the happy
+   path almost every time. The edge cases are not missing because they do not
+   matter — they are missing because nobody thought of them, and that includes
+   you unless you work from a list:
+
+   | generator | ask |
+   |---|---|
+   | **data** | missing · zero · stale · exactly one · thousands · *exactly at the threshold* |
+   | **time** | the first ever · mid-transition · after a long absence · the current, incomplete period |
+   | **permission** | the user cannot act · a different role is looking |
+   | **lifecycle** | before · during · after · reverted |
+
+   Run it and the capacity-cut KRD immediately gives up: *exactly at 2pp* ·
+   *a new DC that is exempt* · *already at the 100-order floor* · *every metric
+   green but no new FE* · *this week's data incomplete*. **The KRD covers none
+   of them.** Each one becomes either a constraint or a success test, and each
+   one has to appear as a situation in the shapes.
+3. **Write the DRD** — `DRD.md` as the source, then render it to a page and
    **open it in the browser**:
 
    ```bash
@@ -114,13 +138,47 @@ how approaches get invented in a vacuum and the final UI lands off-spec.
    Handing over a raw `.md` hands over the *source* of a document, not the
    document. It reads badly, and approving it feels like reviewing a diff.
 
-3. **Five approaches.** Genuinely different ways to solve the problem, not one
-   idea in five costumes. For each: what it does, what it costs, what it rules
-   out. If two collapse into the same thing, say so and find another — do not
-   quietly ship four. **Each approach names its own placement**
-   from the ladder below.
+4. **As many approaches as the problem actually has.** Not five for the sake
+   of five. For each: what it does, what it costs, what it rules out, and
+   **where it would live**.
 
-4. **Ask where it should live in the DRD's open questions**, with your
+   ### What makes approaches genuinely different
+
+   **Placement is the entry axis, not the design axis.** Five approaches that
+   differ only on *where it goes* are one axis explored five times. Inside any
+   placement the real choices are:
+
+   | axis | the span |
+   |---|---|
+   | **what is shown** | everything · only the exception · only the action |
+   | **who acts** | the user alone · the user with someone else · the system acts and informs |
+   | **when it is surfaced** | always · on the event · at the moment of the decision |
+   | **how it is framed** | status · warning · instruction · score |
+   | **depth** | summary only · item level · both |
+
+   Place each approach on these axes and show the table. A set where four
+   approaches sit on the same point is visibly thin — which is the whole
+   purpose of writing it down.
+
+   > **The discriminator.** Two approaches are the same if switching from one
+   > to the other **does not change what the user does**. If their behaviour
+   > is identical, it is a variant, not an approach. Same look, different
+   > behaviour: two approaches. Different look, same behaviour: one.
+
+   ### How many
+
+   The count follows the problem. **If the honest answer is two, write two** —
+   and say why there are only two. Padding to five produces three real ideas
+   and two costumes, and the costumes waste the reader's attention in exactly
+   the place it is most needed.
+
+   **If they cluster, stop and ask.** When three approaches turn out to be the
+   same idea in different clothes, say so, name the real fork underneath them,
+   and ask which side of it to explore. A clustered set is not a failure to
+   report — it usually means the problem has one obvious shape and a single
+   real question, and naming that question is worth more than five options.
+
+5. **Ask where it should live in the DRD's open questions**, with your
    recommendation and the one reason that decides it. By then the approaches
    are on the page, so the question gets answered against something real
    instead of in the abstract.
@@ -208,7 +266,7 @@ reaching for a new surface before asking whether the existing one could
 carry it.
 
 
-5. **Do not converge yet.** Converging here is what makes the whole exercise
+6. **Do not converge yet.** Converging here is what makes the whole exercise
    theatre: the shapes are compared as sentences, when the thing that actually
    decides it is seeing them laid out.
 
