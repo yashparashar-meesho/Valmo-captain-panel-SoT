@@ -1,5 +1,5 @@
 {
-  "head": "b8ccb7f",
+  "head": "6c2b191",
   "since": null,
   "screens": {
     "payments-list": [
@@ -458,6 +458,12 @@
     ]
   },
   "ledger": [
+    {
+      "sha": "6c2b191e93f7d52d0e88612cecfc42bccd66682b",
+      "short": "6c2b191",
+      "date": "2026-10-15",
+      "subject": "The pack uses the real navigation, not a copy of it (#75)"
+    },
     {
       "sha": "b8ccb7fff8397256f3dc76a184723bd936ee13df",
       "short": "b8ccb7f",
