@@ -95,6 +95,31 @@
     overflow: hidden;
   }
 
+  /* Collapsing the rail. Entering the pack puts a second navigation on screen -
+     the pack's own list of documents - and two full rails is one too many. The
+     catalogue's rail narrows to a sliver rather than disappearing, so the way
+     back stays visible instead of living in someone's memory. The toggle sits
+     above the navigation, centred, in both states. */
+  body.spine-collapsed { --spine-w: 56px; }
+  .app { transition: grid-template-columns .16s ease; }
+  body.spine-collapsed .spine-brand,
+  body.spine-collapsed .spine-search,
+  body.spine-collapsed .spine-tabs,
+  body.spine-collapsed .spine-nav { display: none; }
+  .spine-toggle-row { display: flex; justify-content: center; padding: 10px 0; flex: none; }
+  #spineToggle {
+    width: 30px; height: 30px; flex: none; cursor: pointer;
+    border: 1px solid var(--line); background: var(--surface); border-radius: 8px;
+    color: var(--muted); font: 400 15px/1 var(--ui);
+    display: flex; align-items: center; justify-content: center;
+  }
+  #spineToggle:hover { background: var(--sunken); color: var(--navy); border-color: #C3CDDD; }
+  #spineToggle:focus-visible { outline: 2px solid var(--blue); outline-offset: 1px; }
+
+  /* The pack view fills the work area with its own two columns. */
+  .main.pack-view { padding: 0; overflow: hidden; }
+  .main.pack-view .packv { height: 100%; }
+
   /* ---------------------------------------------------------- spine
      One rail is the whole navigation. Flows, Components and Foundations are
      sections of a single tree rather than three modes behind a switcher, so
@@ -2935,6 +2960,9 @@
       <span class="lbl">Search everything</span>
       <kbd id="palHint">⌘K</kbd>
     </button>
+    <div class="spine-toggle-row">
+      <button id="spineToggle" type="button" aria-label="Collapse or expand the navigation"></button>
+    </div>
     <nav class="spine-tabs" id="viewSwitch"></nav>
     <div class="spine-nav" id="spineTree"></div>
   </aside>
@@ -3427,7 +3455,7 @@
         html += railRow(c.id, String(i + 1).padStart(2, "0"), c.name, null, state.compFilter === c.id);
       });
       html += '</ul>';
-    } else if (state.view === "learn") {
+    } else if (state.view === "learn" || state.view === "pack") {
       var arts = state.learn || [];
       html += '<div class="spine-kicker">' + arts.length + ' guides</div><ul class="spine-list">';
       html += railRow("__all", "", "All", arts.length, !learnId);
@@ -4154,13 +4182,9 @@
       '<div class="packband"><div class="packband-in">' +
         '<div class="t">' +
           '<span class="k">New</span>' +
-          '<h2>The pack \u2014 every rule the method reads</h2>' +
-          '<p>The fifteen documents the design agent reads on every run: who the ' +
-          'captain is, how a problem becomes a page, and every rule that exists ' +
-          'because breaking it cost someone a day. Plus a whole worked run.</p>' +
-          '<p class="meta">One page, read top to bottom \u2014 or jump from the rail.</p>' +
+          '<h2>The pack \u2014 15 documents the method reads</h2>' +
         '</div>' +
-        '<a class="cta" href="pack/index.html">Open the pack &#8250;</a>' +
+        '<a class="cta" href="?view=pack" data-open-pack>Open the pack &#8250;</a>' +
       '</div></div>';
 
     order.forEach(function (t) {
@@ -4191,6 +4215,11 @@
     });
 
     main.innerHTML = html + '</div>';
+
+    var packCta = main.querySelector("[data-open-pack]");
+    if (packCta) packCta.addEventListener("click", function (e) {
+      e.preventDefault(); openPack();
+    });
 
     Array.prototype.forEach.call(main.querySelectorAll("[data-go]"), function (b) {
       b.addEventListener("click", function () {
@@ -4324,10 +4353,106 @@
     window.__fitT = setTimeout(fitStage, 80);
   });
 
+  /* The pack is a view, not a separate page. It was built standalone once, with
+     its own imitation of this rail, and it read as a different product. The
+     documents are fetched as a fragment so the seed does not carry 184KB that
+     most visits never open. */
+  function renderPack() {
+    var main = document.getElementById("main");
+    renderTopbar(['<a href="#" data-back-learn>Learn</a>', '<strong>The pack</strong>',
+                  '<span id="packHere">Index of the pack</span>'], "");
+    main.classList.add("pack-view");
+
+    function wire() {
+      var rail = main.querySelector(".packv-rail");
+      var body = main.querySelector(".packv-body");
+      if (!rail || !body) return;
+      var links = {};
+      Array.prototype.forEach.call(rail.querySelectorAll("[data-pack]"), function (a) {
+        links[a.getAttribute("data-pack")] = a;
+        a.addEventListener("click", function (e) {
+          e.preventDefault();
+          var t = body.querySelector("#pack-" + a.getAttribute("data-pack"));
+          if (t) body.scrollTop += t.getBoundingClientRect().top - body.getBoundingClientRect().top;
+        });
+      });
+      var here = document.getElementById("packHere");
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          var id = e.target.id.replace(/^pack-/, "");
+          Object.keys(links).forEach(function (k) { links[k].classList.remove("on"); });
+          if (links[id]) {
+            links[id].classList.add("on");
+            if (here) here.textContent = links[id].textContent.replace(/(new|gen|run)$/, "").trim();
+          }
+        });
+      }, { root: body, rootMargin: "-10% 0px -80% 0px" });
+      Array.prototype.forEach.call(body.querySelectorAll("sect[id]"), function (x) { io.observe(x); });
+    }
+
+    if (state.packHtml) { main.innerHTML = state.packHtml; wire(); return; }
+    main.innerHTML = '<div class="empty-state"><h2>Opening the pack\u2026</h2></div>';
+    fetch("pack/content.html").then(function (r) {
+      if (!r.ok) throw new Error(r.status);
+      return r.text();
+    }).then(function (t) {
+      state.packHtml = t; main.innerHTML = t; wire();
+    }).catch(function () {
+      main.innerHTML = '<div class="empty-state"><h2>The pack could not be loaded</h2>' +
+        '<p>It is fetched from <code>pack/content.html</code>, which needs the site to be ' +
+        'served over http rather than opened as a file. Every document is also in ' +
+        '<a href="https://github.com/yashparashar-meesho/Valmo-captain-panel-SoT/tree/main/docs" ' +
+        'target="_blank" rel="noopener">the docs folder on GitHub</a>.</p></div>';
+    });
+  }
+
+  function openPack() {
+    state.view = "pack";
+    syncViewSwitch();
+    document.body.classList.add("spine-collapsed");
+    paintSpineToggle();
+    renderRail();
+    renderMain();
+    try { history.replaceState(null, "", "?view=pack"); } catch (e) {}
+  }
+
+  function paintSpineToggle() {
+    var t = document.getElementById("spineToggle");
+    if (!t) return;
+    var open = !document.body.classList.contains("spine-collapsed");
+    t.textContent = open ? "\u2039" : "\u203a";
+    t.title = open ? "Collapse the navigation" : "Expand the navigation";
+    t.setAttribute("aria-expanded", open ? "true" : "false");
+  }
+
+  document.getElementById("spineToggle").addEventListener("click", function () {
+    document.body.classList.toggle("spine-collapsed");
+    paintSpineToggle();
+  });
+  paintSpineToggle();
+
+  document.getElementById("crumb").addEventListener("click", function (e) {
+    var a = e.target.closest("[data-back-learn]");
+    if (!a) return;
+    e.preventDefault();
+    state.view = "learn";
+    learnId = null;
+    document.body.classList.remove("spine-collapsed");
+    paintSpineToggle();
+    syncViewSwitch();
+    renderRail();
+    renderMain();
+    try { history.replaceState(null, "", location.pathname); } catch (e2) {}
+  });
+
   function renderMain() {
     var main = document.getElementById("main");
 
     main.classList.toggle("stage-view", false);
+
+    if (state.view === "pack") { renderPack(); return; }
+    main.classList.remove("pack-view");
 
     if (state.view === "components") {
       var one = state.compFilter && state.components.find(function (c) { return c.id === state.compFilter; });
@@ -4518,6 +4643,7 @@
   document.getElementById("viewSwitch").addEventListener("click", function (e) {
     var btn = e.target.closest("button[data-view]");
     if (!btn) return;
+    if (state.view === "pack") { try { history.replaceState(null, "", location.pathname); } catch (e2) {} }
     state.view = btn.dataset.view;
     syncViewSwitch();
     renderMain();
@@ -4874,6 +5000,13 @@
       state.screens.forEach(function (s) { counts[s.flowId] = (counts[s.flowId] || 0) + 1; });
       state._counts = counts;
       state.db = makeLocalDb(seed);
+      /* A shareable way into the pack. The app has no router, so this is the
+         one query it reads - enough to send someone a link to the rules. */
+      if (/[?&]view=pack\b/.test(location.search)) {
+        state.view = "pack";
+        document.body.classList.add("spine-collapsed");
+        paintSpineToggle();
+      }
       renderRail();
       renderMain();
       loadVersions();
