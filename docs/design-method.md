@@ -100,6 +100,13 @@ how approaches get invented in a vacuum and the final UI lands off-spec.
    of them.** Each one becomes either a constraint or a success test, and each
    one has to appear as a situation in the shapes.
 
+   **Stop when a new case would be answered by the same screen as one you
+   already have.** The sweep generates cases; situations are the ones that
+   would make the design *different*. *Exactly at the threshold* and *one point
+   over* are one situation, not two. Six to eight is usual; past a dozen you
+   are listing inputs rather than situations, and every one of them costs a
+   chip on the sheet and a walkthrough in Section 3.
+
 5. **Write the brief** — `BRIEF.md`, then render it and open it:
 
    ```bash
