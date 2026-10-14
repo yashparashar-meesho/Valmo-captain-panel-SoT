@@ -16,13 +16,22 @@
   <text x="339" y="125" text-anchor="middle" font-size="10.5" fill="#5A6678">5 modules · 11 screens · 53 components</text>
   <text x="339" y="139.5" text-anchor="middle" font-size="10" fill="#D1483C" font-style="italic">fetches nothing — reading only</text>
   <path d="M339 160 V178" stroke="#8A94A6" stroke-width="1.6" fill="none" marker-end="url(#n)"/>
-  <rect x="188" y="180" width="302" height="86" rx="8" fill="#FFFFFF" stroke="#D7DCE4" stroke-width="1.4"/>
-  <text x="339" y="199" text-anchor="middle" font-size="12" fill="#16202E" font-weight="700">Report, do not ask yet</text>
-  <text x="339" y="215" text-anchor="middle" font-size="10.5" fill="#5A6678">the problem as you read it · what it touches</text>
-  <text x="339" y="229.5" text-anchor="middle" font-size="10.5" fill="#5A6678">conventions that bind · what you can reuse</text>
-  <text x="339" y="244" text-anchor="middle" font-size="11" fill="#7B5BD6" font-weight="700">where it lives is NOT decided here</text>
-  <text x="339" y="292" text-anchor="middle" font-size="10" fill="#8A94A6" font-style="italic">no gate — Section 0 flows straight on</text>
-  <text x="339" y="311" text-anchor="middle" font-size="10.5" fill="#5A6678" font-weight="600">understand the problem, or all of it is wrong</text>
+  <rect x="188" y="180" width="302" height="68" rx="8" fill="#FFFFFF" stroke="#D7DCE4" stroke-width="1.4"/>
+  <text x="339" y="199" text-anchor="middle" font-size="12" fill="#16202E" font-weight="700">Sweep for what the KRD left out</text>
+  <text x="339" y="215" text-anchor="middle" font-size="10.5" fill="#5A6678">data · time · permission · lifecycle</text>
+  <text x="339" y="229.5" text-anchor="middle" font-size="10.5" fill="#5A6678">each one becomes a situation</text>
+  <path d="M339 248 V266" stroke="#8A94A6" stroke-width="1.6" fill="none" marker-end="url(#n)"/>
+  <rect x="188" y="268" width="302" height="86" rx="8" fill="#FFFFFF" stroke="#D7DCE4" stroke-width="1.4"/>
+  <text x="339" y="287" text-anchor="middle" font-size="12" fill="#16202E" font-weight="700">Write the brief</text>
+  <text x="339" y="303" text-anchor="middle" font-size="10.5" fill="#5A6678">the problem · what it touches · what exists</text>
+  <text x="339" y="317.5" text-anchor="middle" font-size="10.5" fill="#5A6678">constraints C1… · tests T1… · situations S1…</text>
+  <text x="339" y="332" text-anchor="middle" font-size="11" fill="#7B5BD6" font-weight="700">where it lives is NOT decided here</text>
+  <path d="M339 354 V372" stroke="#8A94A6" stroke-width="1.6" fill="none" marker-end="url(#n)"/>
+  <rect x="188" y="374" width="302" height="52" rx="8" fill="#FDEBBE" stroke="#C9962B" stroke-width="2.4"/>
+  <text x="339" y="393" text-anchor="middle" font-size="12.5" fill="#6B4D08" font-weight="700">The brief is good to go</text>
+  <text x="339" y="409.5" text-anchor="middle" font-size="10.5" fill="#A6341F" font-weight="700">BLOCKING — IDs freeze here</text>
+  <text x="339" y="452" text-anchor="middle" font-size="10" fill="#8A94A6" font-style="italic">corrected here costs a sentence, later costs five approaches</text>
+  <text x="339" y="471" text-anchor="middle" font-size="10.5" fill="#5A6678" font-weight="600">understand the problem, or all of it is wrong</text>
   <rect x="526" y="74" width="330" height="414" rx="11" fill="none" stroke="#2F6FED" stroke-width="1.6" stroke-dasharray="7 5"/>
   <text x="526" y="64" text-anchor="start" font-size="12" fill="#2F6FED" font-weight="700">SECTION 1 — DIVERGE</text>
   <rect x="540" y="90" width="302" height="70" rx="8" fill="#FFFFFF" stroke="#D7DCE4" stroke-width="1.4"/>
@@ -81,7 +90,8 @@
   <text x="1395" y="377" text-anchor="middle" font-size="12" fill="#16202E" font-weight="700">PR 2 — the module</text>
   <text x="1395" y="393" text-anchor="middle" font-size="10.5" fill="#5A6678">wired into every screen’s rail</text>
   <text x="1395" y="436" text-anchor="middle" font-size="10" fill="#8A94A6" font-style="italic">the loop that shipped #42 → #43 → #44</text>
-  <path d="M506 281 H522" stroke="#13874B" stroke-width="1.8" fill="none" marker-end="url(#g)"/>
+  <path d="M506 400 H522" stroke="#13874B" stroke-width="1.8" fill="none" marker-end="url(#g)"/>
+  <path d="M188 400 H178 Q168 400 168 388 V126" stroke="#D1483C" stroke-width="1.4" fill="none" marker-end="url(#r)"/>
   <path d="M858 330 H874" stroke="#13874B" stroke-width="1.8" fill="none" marker-end="url(#g)"/>
   <path d="M540 330 H530 Q520 330 520 318 V126" stroke="#D1483C" stroke-width="1.4" fill="none" marker-end="url(#r)"/>
   <path d="M1210 283 H1226" stroke="#13874B" stroke-width="1.8" fill="none" marker-end="url(#g)"/>
