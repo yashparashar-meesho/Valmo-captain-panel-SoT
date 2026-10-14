@@ -1,5 +1,5 @@
 {
-  "head": "a98e091",
+  "head": "749bbe6",
   "since": null,
   "screens": {
     "payments-list": [
@@ -458,6 +458,12 @@
     ]
   },
   "ledger": [
+    {
+      "sha": "749bbe62bd0a36406764fa97a57497e4f06c6d6a",
+      "short": "749bbe6",
+      "date": "2026-10-15",
+      "subject": "The pack is one click from anywhere in Learn (#73)"
+    },
     {
       "sha": "a98e0916d11c358c9f0f43fed57a17bb93a9781a",
       "short": "a98e091",
