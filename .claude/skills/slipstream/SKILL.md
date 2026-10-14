@@ -308,10 +308,21 @@ Before opening any PR, verify and report each line as pass or fail:
 | heading levels | `h3` page title, `h4` section title, nothing else |
 | no forbidden patterns | re-read `never-do-this.md` and name anything you did |
 | tokens only | no raw hex, px type or ad-hoc spacing — and any deliberate deviation is written down, not silent |
-| source edited, not output | `source/flow-ledger.html` + `source/data-seed.json`, never `kit.css` / `index.html` / `screens/*` |
-| generators run | `build_docs.py`, `export_to_github.py` |
-| sync check passes | `check_v2_sync.py` exits 0 |
-| components first | new components in their own PR, merged before the module PR |
+| source edited, not output **(clone)** | `source/flow-ledger.html` + `source/data-seed.json`, never `kit.css` / `index.html` / `screens/*` |
+| generators run **(clone)** | `build_docs.py`, `export_to_github.py` |
+| sync check passes **(clone)** | `check_v2_sync.py` exits 0 |
+| components first **(clone)** | new components in their own PR, merged before the module PR |
+
+**The four marked (clone) need write access to the repository.** Sections 0 to
+2 run entirely from the public copies; Section 3 does not. Working without a
+clone, report those four as *n/a — needs the repo*, never as passed, and hand
+over the component list and the PR plan so someone with the repo can finish.
+The other five checks, and every UX check below, run anywhere.
+
+**The new components are listed back for approval as a rendered document** —
+`COMPONENTS.md` through `render_doc.py`, like every other artefact — one entry
+each: what it is, where it is used, and the existing component it was *not* an
+extension of, with why.
 
 **Then the UX checks**, which cannot be ticked and have to be written:
 

@@ -438,6 +438,12 @@ each card lights the module that approach actually lives in. Anonymous bars —
 or the same bar lit on every card — produce a placement comparison that says
 nothing about placement. See `comparison-example.html`.
 
+> **A lit chip means the shape has room for that situation, not that it
+> answers it.** Promoting one approach that was lit on all fourteen showed
+> three of them had room and no design behind it. The sheet is a claim about
+> space; the walkthroughs in Section 3 are where it gets tested. Say that on
+> the sheet, so nobody reads a row of green as finished work.
+
 **Draw the situations, not only the happy path.** Every situation the brief
 numbered gets a mark against each shape: lit where the shape has room to show
 it, faded where it does not. A shape that is blank in four situations out of
@@ -453,6 +459,14 @@ rather than arguable.
 > Build the sheet, show it, and let the preference survive or change. The user
 > may still say *"skip it, build A and B"* — that is their call to make out
 > loud. It is never yours to make on their behalf by reading ahead.
+
+> **An approach that extends an existing screen must draw that screen.** Its
+> schematic carries the furniture already on the page — the buttons, the
+> filters, the columns that are there today — not just the blocks being added.
+> Otherwise the design will always disagree with the schematic, because the
+> design has to carry them and the schematic never showed them, and a contract
+> that cannot hold teaches people to ignore it. Draw what is there, then draw
+> what changes.
 
 **Build it with the `wfc-` classes** in `assets/wireframe.css`; [comparison-example.html](comparison-example.html) is the standard.
 
@@ -581,6 +595,29 @@ opens Chrome where it exists and falls back to the system browser, always with
 > **Check the page answers before handing over the link.** A link was once
 > given out for a server that never started, because the port was taken. The
 > script waits for a 200 and exits if it never comes.
+
+## New component, or extend one that exists?
+
+Section 3 says every new block becomes a real component, and then leaves you to
+decide what counts as new. `section-rules.md` gives a crisp test for *new
+section or bake it in*; this is the same question one level down, and it needs
+the same kind of answer.
+
+**Extend the existing component when** the new thing is the same object showing
+more of itself — another column, another value, another state of something the
+component already models. The component's name still describes it afterwards.
+
+**Build a new one when** any of these is true:
+
+| | |
+|---|---|
+| the name no longer fits | if `metric-card` has to become "metric card, except when it shows four values and a proportion", it is not that component any more |
+| extending it changes other modules | a shared component is used elsewhere; **check a second module before touching it.** If the change would be wrong there, it is a new component, not an extension |
+| the extension is conditional on this page | a prop that only ever has one value outside this screen is a new component wearing an old name |
+
+**Write down the one you did not do.** If you built new, name the cheaper
+extension you rejected and why — that is the decision a reviewer is most likely
+to overturn, and they cannot overturn what they cannot see.
 
 ## Plain English, or it does not get read
 
