@@ -1,5 +1,5 @@
 {
-  "head": "6c2b191",
+  "head": "54b4635",
   "since": null,
   "screens": {
     "payments-list": [
@@ -458,6 +458,12 @@
     ]
   },
   "ledger": [
+    {
+      "sha": "54b4635c802a694c350c3ade97cfe09c856627df",
+      "short": "54b4635",
+      "date": "2026-10-15",
+      "subject": "The demo run shows its wireframes, and the method diagram is in the index (#76)"
+    },
     {
       "sha": "6c2b191e93f7d52d0e88612cecfc42bccd66682b",
       "short": "6c2b191",
