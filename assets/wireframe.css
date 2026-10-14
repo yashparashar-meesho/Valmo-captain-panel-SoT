@@ -151,11 +151,39 @@
 .wfc-opt .tag { font-size:12px; color:var(--mute); margin-bottom:12px; }
 
 .wfc-wf { border:1.5px dashed var(--l); border-radius:8px; display:grid;
-  grid-template-columns:78px 1fr; overflow:hidden; font-size:12px; }
+  grid-template-columns:104px 1fr; overflow:hidden; font-size:12px; }
 .wfc-side { background:var(--fill); padding:10px 8px; display:flex; flex-direction:column;
   gap:6px; font-size:9px; color:#777; }
 .wfc-side i { display:block; height:9px; background:#CFCFD8; border-radius:3px; }
 .wfc-side i.on { background:var(--acc); }
+
+/* The rail carries real module NAMES, and each schematic lights the module it
+   actually lives in. Anonymous bars - or the same bar lit on every card - make
+   a placement comparison that says nothing about placement. The bar styles
+   above remain only for schematics of a screen whose module is not the point. */
+.wfc-side div { font-size:8.5px; line-height:1.5; color:#9A9AA6;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.wfc-side div.on { color:#1A1A1F; font-weight:700; border-left:2px solid var(--acc);
+  margin-left:-8px; padding-left:6px; }
+
+/* Every approach shows the captain's journey: the numbered steps from what
+   sets them off to the point where they know what to do. A shape whose steps
+   run out before that is unfinished, and the list is where that shows. */
+.journey { margin:0 0 16px; padding-left:17px; font-size:12.5px; line-height:1.55; }
+.journey li { margin-bottom:5px; }
+
+/* Coverage chips: lit = this shape can show it, faded = it cannot. */
+.chips { margin-bottom:16px; line-height:2; }
+.chips .wfc-chip { opacity:.34; }
+.chips .wfc-chip.good { opacity:1; }
+
+.verdict { font-size:11px; font-weight:700; text-transform:uppercase;
+  letter-spacing:.06em; margin-bottom:14px; padding:3px 9px; border-radius:11px;
+  display:inline-block; }
+.v-in { background:#CFECCF; color:#0C5A32; }
+.v-out { background:#EDEDF1; color:#6B6B76; }
+.wfc-opt.is-chosen { border-color:#13874B; border-width:2px; }
+.wfc-opt.is-out { opacity:.72; }
 .wfc-main { padding:12px; display:flex; flex-direction:column; gap:10px; min-width:0; }
 .wfc-ttl { font-weight:700; font-size:13px; }
 .wfc-sub { color:var(--mute); font-size:11px; }
