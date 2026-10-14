@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spacing — Slipstream</title>
+<style>
+*{box-sizing:border-box}
+:root{--ink:#1A1A1F;--mute:#6B6B76;--line:#E6E6EC;--bg:#F4F4F7;--card:#fff;--acc:#2F6BFF}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 -apple-system,BlinkMacSystemFont,
+ "Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+.bar{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.bar .in{max-width:860px;margin:0 auto;padding:13px 24px;display:flex;gap:12px;align-items:baseline;
+ flex-wrap:wrap}
+.bar a{color:var(--acc);text-decoration:none;font-weight:600;font-size:13px}
+.bar a:hover{text-decoration:underline}
+.bar .n{font-weight:700;font-size:13px}
+.bar .t{color:var(--mute);font-size:12px;margin-left:auto}
+main{max-width:860px;margin:0 auto;padding:34px 24px 90px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:30px 34px}
+h1{font-size:30px;line-height:1.2;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-size:21px;margin:2.1em 0 .5em;letter-spacing:-.01em}
+h3{font-size:16px;margin:1.8em 0 .4em}
+h4{font-size:14px;margin:1.5em 0 .3em;color:var(--mute)}
+p,li{font-size:15px}
+code{background:#F0F0F4;border-radius:4px;padding:1px 5px;font-size:13px;
+ font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+pre{background:#1A1A1F;color:#E8E8EF;padding:14px 16px;border-radius:9px;overflow-x:auto}
+pre code{background:none;color:inherit;padding:0}
+table{border-collapse:collapse;width:100%;margin:1.1em 0;display:block;overflow-x:auto}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;
+ font-size:14px}
+th{color:var(--mute);font-weight:600;white-space:nowrap}
+blockquote{margin:1.2em 0;padding:2px 0 2px 16px;border-left:3px solid var(--line);color:var(--mute)}
+hr{border:0;border-top:1px solid var(--line);margin:2.2em 0}
+a{color:var(--acc)}
+strong{font-weight:650}
+.lede{color:var(--mute);margin:0 0 26px;font-size:15px}
+.grp{margin:0 0 30px}
+.grp h2{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--mute);
+ margin:0 0 10px}
+.rows{display:grid;gap:9px}
+.row{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;
+ padding:13px 16px;text-decoration:none;color:inherit}
+.row:hover{border-color:#C9C9D4}
+.row b{display:block;font-size:15px;margin-bottom:2px}
+.row span{color:var(--mute);font-size:13.5px}
+.nxt{display:flex;justify-content:space-between;gap:12px;margin-top:26px;font-size:13px}
+@media(max-width:700px){body{font-size:16px}main,.bar .in{padding-left:16px;padding-right:16px}
+ .card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="bar"><div class="in"><a href="index.html">The pack</a><span class="n">Spacing</span><span class="t">generated from docs/spacing-foundation.md</span></div></div>
+<main><div class="card"><h1>Spacing: the scale, the six roles, and how every rule reaches them</h1>
+<p><strong>This file is the stored reference.</strong> Build against the tokens here.</p>
+<p>Read from Figma — <em><code>&lt;temp&gt;</code> Claude feeding · spacing</em>, section "Final Palate - 16 Jan (After WS)" — on <strong>2026-09-10</strong>. The Figma explains the roles with a mobile screen; the roles are layout concepts, so they apply unchanged to the desktop panel.</p>
+<hr>
+<h2>1. How it works</h2>
+<p>Two layers, the same shape as the colour foundation:</p>
+<ul><li><strong>Scale</strong> — what a distance <em>is</em>. A 4px step ladder, plus negatives for deliberate pull-ins and overlaps: <code>--vpSpace0</code> … <code>--vpSpace40</code>, <code>--vpSpaceN4</code> … <code>--vpSpaceN16</code>.</li><li><strong>Semantic</strong> — what a distance is <em>for</em>. Six roles, each pointing at a scale step: <code>--vpSpacingVerPad12: var(--vpSpace12)</code>.</li></ul>
+<p>Rules reference the semantic tokens only. Nothing outside this block may write a raw pixel distance in <code>padding</code>, <code>margin</code> or <code>gap</code>.</p>
+<h2>2. The six roles</h2>
+<p>Straight from the Figma:</p>
+<table><thead><tr><th>Role</th><th>Means</th></tr></thead><tbody><tr><td><code>margin</code></td><td>screen edge to content — the page's outer gutter</td></tr><tr><td><code>inline</code></td><td>between items sitting side by side, in a row</td></tr><tr><td><code>stack</code></td><td>between items stacked one above the other</td></tr><tr><td><code>verPad</code></td><td>inside a container, top and bottom</td></tr><tr><td><code>horPad</code></td><td>inside a container, left and right</td></tr><tr><td><code>secGap</code></td><td>between whole sections, where a divider usually sits</td></tr></tbody></table>
+<p>A shorthand is split by role: <code>padding: A B</code> is <code>verPad A</code> + <code>horPad B</code>; <code>margin: A B</code> is <code>stack A</code> + <code>inline B</code>. <code>gap</code> is <code>stack</code> in a column and <code>inline</code> in a row, read off the rule's own <code>flex-direction</code>.</p>
+<p>Figma publishes only certain steps per role — <code>margin</code> has just 00 and 16, <code>horPad</code> has no 00 — and a role only offers what it publishes.</p>
+<h2>3. Valmo additions, and why they exist</h2>
+<p><strong>The live panel does not sit on a 4px grid.</strong> Auditing the kit found <strong>213 spacing declarations, of which 83 (39%) land between Figma's steps</strong> — and they land there because they were measured off live:</p>
+<table><thead><tr><th>Live measurement</th><th>Why that exact number</th></tr></thead><tbody><tr><td><code>.vp-navitem</code> padding <code>14px 20px</code></td><td>makes the nav row exactly 48px</td></tr><tr><td><code>.vp-btn</code> padding <code>7px 16px</code></td><td>7 + 20 line-height + 7 + 2 borders = live's 36px button</td></tr><tr><td><code>.vp-sidebar-footer .vp-navitem</code> padding <code>22px 20px</code></td><td>live's 65px footer block</td></tr><tr><td><code>.vp-subtabbar .vp-tab</code> padding <code>10px 0 8px</code></td><td>live's 38px tab bar</td></tr></tbody></table>
+<p>Snapping those to the 4px grid would have undone the pixel parity this catalog exists for. So the ladder is <strong>extended</strong> rather than enforced — the same call already made for typography (9 Valmo styles on top of Crystal's 19) and colour (5 Valmo colours on top of Crystal's palette).</p>
+<p><strong>15 Valmo steps:</strong> 1, 2, 3, 5, 6, 7, 9, 10, 11, 13, 14, 15, 18, 22, 30 px. They are labelled as Valmo in the Foundations → Spacing view, so it stays obvious which distances the design system sanctions and which the live panel simply uses.</p>
+<p>Totals: <strong>30 scale steps, 76 semantic tokens.</strong></p>
+<h2>4. Coverage (verified)</h2>
+<ul><li><strong>213 of 213</strong> spacing declarations in the kit route through the foundation.</li><li><strong>0</strong> raw pixel distances remain in any <code>padding</code>, <code>margin</code> or <code>gap</code>.</li><li>Components draw from the same tokens as the screens — the kit is one stylesheet.</li></ul>
+<h2>5. The mapping changed nothing on screen</h2>
+<p>The point of the exercise was tokens, not a redesign. Re-checking every geometry previously established against live — <strong>34 of 34 measurements unchanged</strong>: header bands (52 / 109 / 44), content gutter 266, nav row 48, footer blocks 65 and 68, button 36, breadcrumb row 49, payment panel 418, stat bar 70, breakup card 50, footer bar 72, Service Area tab bar 38 and side panel 352×1034.</p>
+<p>A note for anyone re-running this: an unterminated comment in the generated token block silently swallowed the whole Valmo scale, every <code>var()</code> referencing it became invalid, and padding collapsed to 0 — the page still <em>looked</em> plausible. Balance <code>/*</code> and <code>*/</code>, and assert that no <code>var(--vpSpac…)</code> is referenced without a matching definition.</p></div><div class="nxt"><a href="color-foundation.html">&larr; Colour</a><a href="typography-audit.html">Typography &rarr;</a></div></main>
+</body>
+</html>

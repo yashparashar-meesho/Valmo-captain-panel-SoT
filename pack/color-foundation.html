@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Colour — Slipstream</title>
+<style>
+*{box-sizing:border-box}
+:root{--ink:#1A1A1F;--mute:#6B6B76;--line:#E6E6EC;--bg:#F4F4F7;--card:#fff;--acc:#2F6BFF}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 -apple-system,BlinkMacSystemFont,
+ "Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+.bar{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.bar .in{max-width:860px;margin:0 auto;padding:13px 24px;display:flex;gap:12px;align-items:baseline;
+ flex-wrap:wrap}
+.bar a{color:var(--acc);text-decoration:none;font-weight:600;font-size:13px}
+.bar a:hover{text-decoration:underline}
+.bar .n{font-weight:700;font-size:13px}
+.bar .t{color:var(--mute);font-size:12px;margin-left:auto}
+main{max-width:860px;margin:0 auto;padding:34px 24px 90px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:30px 34px}
+h1{font-size:30px;line-height:1.2;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-size:21px;margin:2.1em 0 .5em;letter-spacing:-.01em}
+h3{font-size:16px;margin:1.8em 0 .4em}
+h4{font-size:14px;margin:1.5em 0 .3em;color:var(--mute)}
+p,li{font-size:15px}
+code{background:#F0F0F4;border-radius:4px;padding:1px 5px;font-size:13px;
+ font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+pre{background:#1A1A1F;color:#E8E8EF;padding:14px 16px;border-radius:9px;overflow-x:auto}
+pre code{background:none;color:inherit;padding:0}
+table{border-collapse:collapse;width:100%;margin:1.1em 0;display:block;overflow-x:auto}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;
+ font-size:14px}
+th{color:var(--mute);font-weight:600;white-space:nowrap}
+blockquote{margin:1.2em 0;padding:2px 0 2px 16px;border-left:3px solid var(--line);color:var(--mute)}
+hr{border:0;border-top:1px solid var(--line);margin:2.2em 0}
+a{color:var(--acc)}
+strong{font-weight:650}
+.lede{color:var(--mute);margin:0 0 26px;font-size:15px}
+.grp{margin:0 0 30px}
+.grp h2{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--mute);
+ margin:0 0 10px}
+.rows{display:grid;gap:9px}
+.row{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;
+ padding:13px 16px;text-decoration:none;color:inherit}
+.row:hover{border-color:#C9C9D4}
+.row b{display:block;font-size:15px;margin-bottom:2px}
+.row span{color:var(--mute);font-size:13.5px}
+.nxt{display:flex;justify-content:space-between;gap:12px;margin-top:26px;font-size:13px}
+@media(max-width:700px){body{font-size:16px}main,.bar .in{padding-left:16px;padding-right:16px}
+ .card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="bar"><div class="in"><a href="index.html">The pack</a><span class="n">Colour</span><span class="t">generated from docs/color-foundation.md</span></div></div>
+<main><div class="card"><h1>Color: the palette, and how every rule reaches it</h1>
+<p><strong>This file is the stored reference.</strong> Build against the tokens here; do not sample colours off the live panel ad hoc.</p>
+<p>Read off Crystal (<code>crystal.meeshosupplyassets.com</code> → Foundation / Colors) and the Valmo Blue sheet, and reconciled against the live captain panel on <strong>2026-09-10</strong>.</p>
+<hr>
+<h2>1. How it works</h2>
+<p>Identical in shape to the type library. One block in <code>flow-ledger.html</code>'s kit CSS declares every colour as a <code>--vp&lt;Name&gt;</code> token. Nothing else in the codebase may name a raw colour.</p>
+<p>Two layers, on purpose:</p>
+<ul><li><strong>Palette</strong> — 41 colours. What the colour <em>is</em> (<code>--vpGreyLight01: #E6EBF2</code>).</li><li><strong>Semantic aliases</strong> — what a colour is <em>for</em>, pointing at a palette entry (<code>--vpBorder: var(--vpGreyLight01)</code>). Rules reference these, so re-pointing a role is a one-line change and the palette stays the single source.</li></ul>
+<h2>2. The palette — 43 colours</h2>
+<p><strong>From Crystal (32)</strong> — reproduced exactly: <code>white</code> <code>black</code>; <code>greyLight01/02</code> <code>gainsboro</code> <code>santasGray</code> <code>greyMid01/02</code> <code>greyDark01/02</code>; <code>redBg</code> <code>redBorder</code> <code>blushPink</code> <code>redAction</code>; <code>orangeBg</code> <code>orangeBorder</code> <code>orangeAction</code>; <code>greenBg</code> <code>greenBorder</code> <code>greenAction</code> <code>emeraldGreen</code>; <code>yellowBg</code> <code>paleAmber</code> <code>yellowBorder</code> <code>yellowAction</code> <code>amberBrown</code>; <code>pinkBg</code> <code>pinkBorder</code> <code>pinkAction</code>; <code>graphPrimary</code> <code>graphSecondary</code> <code>graphTertiary</code>.</p>
+<p><strong>Crystal's four blue shades are deliberately excluded.</strong> <code>blueBg #EDEAFF</code>, <code>blueBorder #CCC3FF</code>, <code>blueAction #3C29B7</code> and <code>blueDarkBg #30228A</code> are <em>purple</em>. Valmo does not use them; Valmo Blue stands in their place.</p>
+<p><strong>Valmo Blue (6)</strong></p>
+<table><thead><tr><th>Token</th><th>Hex</th><th></th></tr></thead><tbody><tr><td><code>valmoPrimaryDark</code></td><td><code>#092D5E</code></td><td>brand — links, primary buttons, active tab text</td></tr><tr><td><code>valmoBlue</code></td><td><code>#2A67FF</code></td><td></td></tr><tr><td><code>valmoBlueT1</code></td><td><code>#6E9DEE</code></td><td>(also Crystal's <code>graphPrimary</code>)</td></tr><tr><td><code>valmoBlue2</code></td><td><code>#C5D7FF</code></td><td>the 4px bar on the selected nav row</td></tr><tr><td><code>valmoBlueT2</code></td><td><code>#C7DCFF</code></td><td></td></tr><tr><td><code>valmoBlueBg</code></td><td><code>#E3EDFF</code></td><td></td></tr></tbody></table>
+<p><strong>Valmo-only (3)</strong> — live uses these and neither palette carries them:</p>
+<table><thead><tr><th>Token</th><th>Hex</th><th>Covers</th></tr></thead><tbody><tr><td><code>valmoNavy</code></td><td><code>#072042</code></td><td>the sidebar rail — darker than PrimaryDark</td></tr><tr><td><code>valmoPageBg</code></td><td><code>#EAEAF2</code></td><td>the page ground behind every panel</td></tr><tr><td><code>valmoBlueT3</code></td><td><code>#DDE7FE</code></td><td>segmented-control active fill</td></tr><tr><td><code>valmoNavyMid</code></td><td><code>#0D2B52</code></td><td>map side-panel toggle</td></tr><tr><td><code>valmoGreenDeep</code></td><td><code>#1A7D3A</code></td><td>positive metric hint</td></tr></tbody></table>
+<h2>2a. Navigation — its own category</h2>
+<p>The rail is a separate colour world: white type and pale tints on navy, where the rest of the panel is dark type on white. It is called out as its own group so it reads as the exception it is, and <strong>the nav component draws from nothing else</strong>.</p>
+<p>Every value measured off live's sidebar:</p>
+<table><thead><tr><th>Token</th><th>Resolves to</th><th>Role</th></tr></thead><tbody><tr><td><code>navBg</code></td><td><code>valmoNavy #072042</code></td><td>the rail</td></tr><tr><td><code>navText</code></td><td><code>white</code></td><td>nav rows, account name, Log Out</td></tr><tr><td><code>navTextDim</code></td><td><code>greyLight01 #E6EBF2</code></td><td>BEU pill text, "Captain Panel"</td></tr><tr><td><code>navAvatarBg</code></td><td><code>greyLight01 #E6EBF2</code></td><td>avatar disc</td></tr><tr><td><code>navPillBorder</code></td><td><code>white</code></td><td>1px ring on the BEU pill</td></tr><tr><td><code>navActiveBar</code></td><td><code>valmoBlue2 #C5D7FF</code></td><td>4px selected edge</td></tr><tr><td><code>navActiveBg</code></td><td><code>#C5D7FF</code> @ 20%</td><td>selected row fill</td></tr><tr><td><code>navDivider</code></td><td><code>#C3C9D4</code> @ 20%</td><td>every rule in the rail</td></tr></tbody></table>
+<p><strong>On measuring the two alpha tints.</strong> Live states them in <code>oklab</code>. Converting the <em>opaque</em> oklab gives the exact hex (<code>#C5D7FF</code>, <code>#C3C9D4</code>); reading the composited pixel back off a canvas does not, because at 20% opacity the premultiplied 8-bit value quantises — it reports <code>#C3D7FF</code> / <code>#C3C8D2</code>. Our rail reads back with those same two values, i.e. identical to live through an identical path. Trust the opaque conversion, not the composited readback.</p>
+<h2>3. Two exemptions</h2>
+<p>By the same reasoning that keeps glyphs out of the type library:</p>
+<ul><li><strong>Artwork (11)</strong> — fills that colour a drawn mark, not an interface surface: <code>.vp-shipdot</code> and its <code>.diff-dc</code> / <code>.outside</code> / <code>.rto</code> variants, <code>.vp-shiptri</code>, <code>.vp-legend-tri</code>, <code>.vp-maparea</code>, <code>.vp-mapbase</code>, <code>.vp-dcpin</code>, <code>.vp-mapattrib</code>, <code>.vp-mapzoom</code>. The map screens' inline SVG marker fills are exempt for the same reason — they are illustration pulled from live, and rewriting them would make the assets diverge from the originals.</li><li><strong>Alpha (11)</strong> — shadows, scrims and translucent overlays. CSS cannot feed a <code>var()</code> into <code>rgba()</code>, so these stay literal; where one is a palette colour at a set opacity the comment says which.</li></ul>
+<h2>4. What the audit changed</h2>
+<p>Before: 15 tokens, but <strong>27 distinct raw colour literals across 52 uses</strong> in the kit bypassed them, and nothing checked. After: <strong>0</strong> raw colours outside the two exemptions — in the kit, in every component's markup, and on every rendered screen.</p>
+<p>Component markup was carrying colour too: the map legend keys set their swatch colour inline, and three panels set <code>background:#fff</code> inline. The legend keys now use <code>.vp-legend-dot.outside / .rto / .diff-dc</code>, and the panels use <code>var(--vpSurface)</code>, so no component declares a colour of its own.</p>
+<p>Snapped to the nearest palette entry (ΔE in CIE Lab, all imperceptible at these sizes):</p>
+<table><thead><tr><th>Was</th><th>Now</th><th>ΔE</th></tr></thead><tbody><tr><td><code>#fdecec</code> inline alert</td><td><code>redBg #FFEEED</code></td><td>0.8</td></tr><tr><td><code>#fbefe0</code> peach</td><td><code>orangeBg #FFEDDE</code></td><td>2.2</td></tr><tr><td><code>#e8ebf7</code> date-picker range</td><td><code>valmoPageBg #EAEAF2</code></td><td>2.3</td></tr><tr><td><code>#eef4fd</code> empty-state card</td><td><code>greyLight02 #F2F5FA</code></td><td>2.3</td></tr></tbody></table>
+<p>The two visible snaps were <strong>reverted</strong> and added to the palette instead, as <code>valmoNavyMid</code> and <code>valmoGreenDeep</code> — a 5.8 and a 16.2 ΔE shift is a colour change, not a rounding.</p>
+<p>Dropped as unused: <code>--vpNavyActive #16345c</code>, <code>--vpPink #ec4899</code> (0 references each).</p>
+<p><strong>One real bug found.</strong> The selected nav row was <code>#DDE7FE</code> at 20%. Live is <code>#C5D7FF</code> at 20% — its <code>oklab(0.878738 -0.0039801 -0.0586712 / 0.2)</code> converts to exactly Valmo Blue 2. Fixed.</p>
+<h2>5. Live confirms the palette</h2>
+<p>Two values measured off live land exactly on it, which is the strongest evidence the palette is the right one:</p>
+<ul><li>selected nav row → <code>#C5D7FF</code> @ 20% = <strong>valmoBlue2</strong></li><li>sidebar dividers → <code>#C3C9D4</code> @ 20% = <strong>greyMid01</strong></li></ul>
+<p>Live's page ground <code>#EAEAF2</code>, rail <code>#072042</code>, brand <code>#092D5E</code> and segment fill <code>#DDE7FE</code> were all measured directly and are carried verbatim.</p></div><div class="nxt"><a href="components.html">&larr; Components</a><a href="spacing-foundation.html">Spacing &rarr;</a></div></main>
+</body>
+</html>
