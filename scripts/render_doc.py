@@ -10,8 +10,12 @@ The DRD is written for a person to read and approve. Handing over a raw .md
 is handing over the source of a document, not the document - it reads badly
 and it makes approving it feel like reviewing a diff.
 
-    python3 scripts/render_doc.py DRD.md            # render, serve, open
-    python3 scripts/render_doc.py DRD.md --no-open  # render and serve only
+    python3 scripts/render_doc.py DRD.md              # render, serve, open
+    python3 scripts/render_doc.py DRD.md --no-open    # render and serve only
+    python3 scripts/render_doc.py DRD.md --html-only  # render only, no server
+
+Every document in one directory shares a single server; the port is recorded in
+`.slipstream-port` beside them and reused while it answers.
     python3 scripts/render_doc.py DRD.md --html-only
 
 Keeps the .md as the source: edit it and re-run. The page is standalone, so
@@ -138,10 +142,30 @@ def main():
         if "--html-only" in flags:
             return
 
-    port = free_port()
-    subprocess.Popen([sys.executable, "-m", "http.server", str(port)],
-                     cwd=str(out.parent),
-                     stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    # One server per directory, not one per artefact. A run produces five or six
+    # documents; starting a server for each left six ports open and made the
+    # artefacts of one run look like six unrelated sites. The port is recorded
+    # beside them and reused while it still answers.
+    import urllib.request as _u
+    note = out.parent / ".slipstream-port"
+    port = None
+    if note.exists():
+        try:
+            p_ = int(note.read_text().strip())
+            _u.urlopen("http://localhost:%d/" % p_, timeout=1)
+            port = p_
+            print("reusing the server already on %d" % port)
+        except Exception:
+            port = None
+    if port is None:
+        port = free_port()
+        subprocess.Popen([sys.executable, "-m", "http.server", str(port)],
+                         cwd=str(out.parent),
+                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        try:
+            note.write_text(str(port))
+        except Exception:
+            pass
     url = "http://localhost:%d/%s" % (port, out.name)
 
     # never hand over a link before it answers - one was given out once for a

@@ -128,6 +128,7 @@ python3 scripts/render_doc.py BRIEF.md
 
 ```bash
 python3 scripts/render_doc.py BRIEF.md        # markdown → a readable page
+python3 scripts/render_doc.py BRIEF.md --html-only   # render only, no server
 python3 scripts/render_doc.py shapes.html     # already a page → served as-is
 ```
 
@@ -168,8 +169,9 @@ batched fetch happens later, after the DRD is approved.
 
 ### Section 1 — the DRD, and a hard stop
 
-Write `DRD.md` with **five genuinely different approaches** (what each does,
-what it costs, what it rules out), then render and open it:
+Write `DRD.md` with **as many genuinely different approaches as the problem
+has** — usually around five, never padded to five (what each does, what it
+costs, what it rules out). Then render and open it:
 
 ```bash
 python3 scripts/render_doc.py DRD.md
@@ -198,9 +200,11 @@ for i in $(grep -o 'assets/icons/[A-Za-z0-9_.-]*' $D/screens/<id>.html \
   curl -s --http1.1 $BASE/assets/icons/$i -o $D/assets/icons/$i; done
 ```
 
-**Behaviour files.** Some screens link a script in `assets/vendor/`. Read
-`VENDOR_RULES` in `source/flow-ledger.html` (or just grep the fetched screen
-for `assets/vendor/`) and fetch what it references. A missing one 404s silently
+**Behaviour files.** Some screens link a script in `assets/vendor/`. **Grep the
+fetched screen for `assets/vendor/`** and fetch whatever it references — that
+works from the public copies. (In a clone, `VENDOR_RULES` in
+`source/flow-ledger.html` is the same list; the one-line install does not give
+you that file.) A missing one 404s silently
 — the page renders perfectly and its inputs do nothing.
 
 Serve it, and **check the port is free and the page returns 200 before you
