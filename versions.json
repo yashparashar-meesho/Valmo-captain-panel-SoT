@@ -1,5 +1,5 @@
 {
-  "head": "54b4635",
+  "head": "d5013af",
   "since": null,
   "screens": {
     "payments-list": [
@@ -458,6 +458,12 @@
     ]
   },
   "ledger": [
+    {
+      "sha": "d5013af7cd25396d8f6ae830894d21bd491c2818",
+      "short": "d5013af",
+      "date": "2026-10-15",
+      "subject": "The pack fetch revalidates instead of trusting the cache (#77)"
+    },
     {
       "sha": "54b4635c802a694c350c3ade97cfe09c856627df",
       "short": "54b4635",
