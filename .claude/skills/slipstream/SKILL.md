@@ -9,6 +9,11 @@ Two jobs in one skill: **initiate** a design run, and **check** that everything
 it depends on actually works. Run the check first, always — it costs one
 command and prevents designing against a stale or missing rulebook.
 
+> Every fetch here uses `--http1.1 --retry 3`. Without it, corporate networks
+> intermittently return `curl: (16) Error in the HTTP2 framing layer`, which
+> reads as a broken command when it is a transient network fault. A run that
+> half-fetches the pack is worse than one that fails loudly.
+
 **Repo:** `yashparashar-meesho/Valmo-captain-panel-SoT` (public — no auth
 needed for reading)
 **Raw base:** `https://raw.githubusercontent.com/yashparashar-meesho/Valmo-captain-panel-SoT/main`
@@ -24,7 +29,7 @@ for f in manifest.json docs/README.md docs/design-method.md docs/page-framework.
          docs/layout-rules.md docs/section-rules.md docs/never-do-this.md \
          docs/pages.md docs/components.md docs/color-foundation.md \
          docs/spacing-foundation.md docs/typography-audit.md docs/fidelity-checklist.md; do
-  printf '%-34s %s\n' "$f" "$(curl -s -o /dev/null -w '%{http_code}' $BASE/$f)"
+  printf '%-34s %s\n' "$f" "$(curl -s --http1.1 -o /dev/null -w '%{http_code}' $BASE/$f)"
 done
 ```
 
@@ -118,14 +123,14 @@ BASE=https://raw.githubusercontent.com/yashparashar-meesho/Valmo-captain-panel-S
 D=<folder>          # ask the user where, with AskUserQuestion
 mkdir -p $D/screens $D/assets/icons $D/assets/fonts $D/assets/vendor
 
-curl -s $BASE/screens/<id>.html -o $D/screens/<id>.html
-curl -s $BASE/assets/kit.css    -o $D/assets/kit.css
+curl -s --http1.1 $BASE/screens/<id>.html -o $D/screens/<id>.html
+curl -s --http1.1 $BASE/assets/kit.css    -o $D/assets/kit.css
 for f in Mier_B02-Book.woff2 Mier_B02-Demi.woff2 Mier_B02-Bold.woff2; do
-  curl -s $BASE/assets/fonts/$f -o $D/assets/fonts/$f; done
+  curl -s --http1.1 $BASE/assets/fonts/$f -o $D/assets/fonts/$f; done
 # only the icons this screen references
 for i in $(grep -o 'assets/icons/[A-Za-z0-9_.-]*' $D/screens/<id>.html \
            | sed 's|assets/icons/||' | sort -u); do
-  curl -s $BASE/assets/icons/$i -o $D/assets/icons/$i; done
+  curl -s --http1.1 $BASE/assets/icons/$i -o $D/assets/icons/$i; done
 ```
 
 **Behaviour files.** Some screens link a script in `assets/vendor/`. Read
