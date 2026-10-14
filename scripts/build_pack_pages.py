@@ -122,15 +122,17 @@ background:#F4F8FF;color:#24405E;border-radius:0 6px 6px 0}
 .packv-in strong{font-weight:650}
 .packv-in img{width:100%;height:auto;display:block;border:1px solid var(--pl);
 border-radius:8px;background:#fff}
-.packv-btn{display:inline-flex;align-items:center;gap:7px;background:#092D5E;color:#fff;
-text-decoration:none;font:650 13.5px/1 var(--ui);padding:10px 16px;border-radius:9px;
-margin:0 8px 8px 0}
-.packv-btn:hover{background:#0B3A79;color:#fff}
-.packv-btn.ghost{background:#fff;color:#092D5E;border:1px solid #C3CDDD}
-.packv-btn.ghost:hover{background:#F5F7FA}
+/* .packv-in a sets the link colour and is one class more specific than a bare
+   .packv-btn, so the button rendered blue text on a navy fill. Matched here at
+   the same depth rather than fought with !important. */
+.packv-in a.packv-btn,.packv-selfrun a.packv-btn{display:inline-flex;align-items:center;
+gap:7px;background:#092D5E;color:#fff;text-decoration:none;font:650 13.5px/1 var(--ui);
+padding:11px 18px;border-radius:8px;margin:0}
+.packv-in a.packv-btn:hover,.packv-selfrun a.packv-btn:hover{background:#0B3A79;color:#fff}
 .packv-frame{width:100%;height:1100px;border:1px solid var(--pl);border-radius:10px;
 background:#fff;display:block;margin:4px 0 10px}
 .packv-note{font:400 13px/1.6 var(--ui);color:var(--p3);margin:6px 0 0}
+.packv-note.scrollhint{margin:0 0 8px}
 .packv-selfrun{margin:28px 0 0;padding:20px 22px;border:1px solid #DCE5F5;border-radius:12px;
 background:linear-gradient(180deg,#F7F9FE 0%,#F1F5FC 100%)}
 .packv-selfrun.top{margin:0 0 26px}
@@ -180,6 +182,8 @@ WIREFRAME_SECTION = (
     '<p>Step 3. All five approaches drawn as schematics on one page, each beside '
     'the captain\u2019s journey and the situations it can show. This is where a '
     'shape chosen from a paragraph either survives being looked at or does not.</p>'
+    '<p class="packv-note scrollhint">Embedded below \u2014 scroll inside the frame '
+    'to see all five.</p>'
     '<iframe class="packv-frame" src="pack/run/shapes.html" loading="lazy" '
     'title="The five approaches drawn as schematics"></iframe>'
     '<p class="packv-note">The final design is deliberately not here. Every step '
@@ -206,12 +210,11 @@ SELF_RUN = (
     'method; the documents above are what it hands you.</li>'
     '</ol>'
     '<p class="packv-dl">'
-    '<a class="packv-btn" href="%s" download>\u2193 Download this KRD (.docx)</a>'
-    '<a class="packv-btn ghost" href="%s" download>\u2193 As markdown (.md)</a>'
+    '<a class="packv-btn" href="%s" download>Download this KRD</a>'
     '</p>'
     '<p class="packv-note">The original document, unedited. Everything below it on '
     'this page was produced from it.</p>'
-    '</div>' % (KRD_DOC, KRD_MD))
+    '</div>' % KRD_DOC)
 
 
 def inject_diagram(html):
