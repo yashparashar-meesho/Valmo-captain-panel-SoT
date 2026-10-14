@@ -21,20 +21,39 @@ several tools — most of which are not this panel.
 | evening | cash collection, reconciliation | Excel / register, Log10, **WhatsApp** |
 | end of day | reporting, manpower planning | **Captain Panel**, Libra, AM calls |
 
-### Three things in that table change how you design
+### That table is today. Design for where it is going.
 
-**The panel is an end-of-day tool.** It is not open while the work happens.
-A page that assumes someone is watching it is designing for a user who is not
-there. Anything time-critical has to reach them another way, and the panel is
-where they *reconcile and plan*, not where they *react*.
+**The panels are merging.** Log10, OpsTech and the ERP panel are being pulled
+into the Captain Panel, and daily operations move onto it. So the table above
+describes a captain who is being replaced by a different one: not someone who
+visits at the end of the day to report, but **someone working inside the panel
+all day, under operational pressure**.
+
+Design for that captain. Concretely, it means:
+
+- **A page may assume the captain is in the panel while the work happens.**
+  Time-critical things can live here. They could not before.
+- **Speed is a feature.** The work is scanning, manifesting, closing DRS,
+  handling exceptions, reconciling — high volume, repeated, under time
+  pressure. Captains already cross 3–5 tabs for a single task. Every extra
+  step is paid many times a day.
+- **Read-only is not enough.** *"Most things are read only"* is named as the
+  root of the adoption problem. A page that only displays has to say why it is
+  not simply a report.
+- **The panel is becoming the place of record.** As operations move onto it,
+  a number that disagrees with another surface is not a cosmetic bug.
+
+### Two things that do not change with the merge
 
 **WhatsApp is the competitor, and it is winning.** *"WhatsApp pe AM ko message
-karna faster hai."* A page justifies itself only by being better than
-messaging a human. "We put it on the panel" is not a solution on its own.
+karna faster hai."* A page justifies itself by beating a message to a human.
+"We put it on the panel" is not a solution on its own — and merging the panels
+raises that bar rather than removing it.
 
 **The captain is busy and interrupted.** *"I'm usually busy in operations — I
 miss the training sessions."* Nothing can assume prior training, a tutorial
-seen once, or a term explained elsewhere. Recall is not available.
+seen once, or a term explained elsewhere. **Recall is not available**, and an
+all-day tool under pressure makes that more true, not less.
 
 ---
 

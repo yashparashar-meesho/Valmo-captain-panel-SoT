@@ -46,9 +46,11 @@ Also confirm, and report in one line:
 
 **Read `docs/panel-principles.md` first.** It is the only file describing the
 person and the product rather than how to build a page, and it contradicts
-several comfortable assumptions: the panel is an **end-of-day** tool, not one
-open during the work · **WhatsApp is the competitor** and is winning · there
-is **no homepage** · a `–` in an empty cell reads as a loading failure ·
+several comfortable assumptions: the panels are **merging into this one**, so
+design for a captain working here **all day under operational pressure**, not
+the end-of-day reporter they are today · **speed is a feature**, 3–5 tabs per
+task today · **read-only is the root of the adoption problem** ·
+**WhatsApp is the competitor** and is winning · there is **no homepage** · a `–` in an empty cell reads as a loading failure ·
 selected and unselected states are known to be indistinguishable · payments
 lag a week. Its **eight principles are the UX checks** on the finished design,
 answered with an argument each, never a tick.
@@ -220,6 +222,16 @@ Before opening any PR, verify and report each line as pass or fail:
 | generators run | `build_docs.py`, `export_to_github.py` |
 | sync check passes | `check_v2_sync.py` exits 0 |
 | components first | new components in their own PR, merged before the module PR |
+
+**Then the UX checks**, which cannot be ticked and have to be written:
+
+- the **eight principles** from `panel-principles.md`, one argument each
+- a **walkthrough per situation** the edge sweep produced, in this shape:
+  `SITUATION · THEY WANT · ARRIVING · steps · OUTCOME (succeeds | stalls at N
+  because …)`. At least one where things have already gone wrong. A stall is
+  a finding and ships as one, fixed or not.
+- say plainly that a walkthrough written by the designer is self-assessment:
+  it raises the floor, not the ceiling.
 
 Report failures plainly. **Do not report a check as passed without running it.**
 

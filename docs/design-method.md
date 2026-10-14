@@ -75,9 +75,10 @@ how approaches get invented in a vacuum and the final UI lands off-spec.
 
 1. Read [panel-principles.md](panel-principles.md) **first** — who the captain
    is, and the panel's standing failures. Several entries there contradict
-   assumptions a page is easy to build on: the panel is an **end-of-day** tool,
-   not one open while the work happens; **WhatsApp is the competitor**; there
-   is **no homepage**, so nothing can assume where they arrived from.
+   assumptions a page is easy to build on: the panels are **merging**, so design
+   for a captain working inside this one **all day under operational pressure**,
+   not the end-of-day reporter they are today; **WhatsApp is the competitor**;
+   there is **no homepage**, so nothing can assume where they arrived from.
 2. Read [pages.md](pages.md) and [components.md](components.md).
 3. Match the KRD against them.
 4. Report, without asking anything yet: **the problem as you read it**, the
@@ -350,15 +351,40 @@ reviewed, allowed to go stale. Dead ends are the reason the wall exists.
 
 ### Checking the design as UX, not only as UI
 
-The layout checks are syntactic and will all pass on a page nobody can use.
-Answer the **eight principles** in [panel-principles.md](panel-principles.md)
-with an argument each, and walk **every situation** the edge sweep produced —
-narrate the captain in that situation, step by step, ending either in *they
-succeed* or *here is where they stall*. A stall is a finding.
+The layout checks are syntactic. They will all pass on a page nobody can use.
+Two things close that gap, and both have to be *written*, because a tick is
+one you award yourself.
 
-Phrase it adversarially. *"Is the hierarchy right?"* grades itself. *"A
-captain opens this at 7am, has never seen it, and is already under a cut —
-what do they get wrong?"* has an answer.
+**Answer the eight principles** in [panel-principles.md](panel-principles.md),
+one short argument each, citing the design.
+
+**Then walk every situation.** Not the happy path — *every* situation the edge
+sweep produced. The format is the same whatever the problem:
+
+```
+SITUATION   who they are, what state they are in, when they arrive
+THEY WANT   the one thing, in their words
+ARRIVING    what they already know, and what they just came from
+  1 …       what they see · what they do · what they now believe
+  2 …
+OUTCOME     succeeds  ·  stalls at step N because ___
+```
+
+Four rules make it worth doing:
+
+1. **One walkthrough per situation.** If the sweep found six, write six. The
+   happy path is the least informative of them.
+2. **At least one where things have already gone wrong** — the user is late,
+   mistaken, or arriving mid-failure. Designs break there, not at step one.
+3. **Phrase the question adversarially.** *"Is the hierarchy right?"* grades
+   itself; *"what does this person get wrong?"* has an answer.
+4. **A stall is a finding, and it ships as one.** Write it down even when you
+   cannot fix it — an unfixed stall someone knows about beats a hidden one.
+
+> **What this cannot do.** A walkthrough written by whoever made the design is
+> self-assessment. It catches the obvious stalls and misses the ones its
+> author is blind to. It raises the floor; only a second reader raises the
+> ceiling. Say so when handing the design over.
 
 ## Section 3 — Promote
 
