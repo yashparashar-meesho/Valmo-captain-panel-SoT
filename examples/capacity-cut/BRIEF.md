@@ -78,6 +78,17 @@ From `panel-principles.md`, and each one changes something here:
 - **WhatsApp is the competitor.** If an AM can explain this faster in a
   message, the page has not earned its place.
 
+## The gate — good to go?
+
+This brief was shown and corrected before anything else was written. The three
+answers below are what came back. **One of them removed an entire approach**,
+which is the whole argument for asking here rather than after the DRD: at this
+point it costs a sentence, and the same words arriving a stage later would have
+invalidated five approaches already argued in full.
+
+**Approved. IDs are frozen from here** — `C1`–`C8`, `T1`–`T4` and `S1`–`S7` are
+referenced by name in everything that follows.
+
 ## Answered since the first draft
 
 | | was open | answered |

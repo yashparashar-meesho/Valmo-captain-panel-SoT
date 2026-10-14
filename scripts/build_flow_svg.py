@@ -55,11 +55,17 @@ g0=section(S[0],"SECTION 0 — LOCATE",None,[
  ("#EFF5FF","#AFC8F5",1.4,[("Match the KRD to the catalogue",12,C["ink"],"700",None),
    ("5 modules · 11 screens · 53 components",10.5,C["ink2"],None,None),
    ("fetches nothing — reading only",10,C["red"],None,"italic")],70),
- ("#FFFFFF","#D7DCE4",1.4,[("Report, do not ask yet",12,C["ink"],"700",None),
-   ("the problem as you read it · what it touches",10.5,C["ink2"],None,None),
-   ("conventions that bind · what you can reuse",10.5,C["ink2"],None,None),
-   ("where it lives is NOT decided here",11,C["purple"],"700",None)],86)],
- "no gate — Section 0 flows straight on","understand the problem, or all of it is wrong")
+ ("#FFFFFF","#D7DCE4",1.4,[("Sweep for what the KRD left out",12,C["ink"],"700",None),
+   ("data · time · permission · lifecycle",10.5,C["ink2"],None,None),
+   ("each one becomes a situation",10.5,C["ink2"],None,None)],68),
+ ("#FFFFFF","#D7DCE4",1.4,[("Write the brief",12,C["ink"],"700",None),
+   ("the problem · what it touches · what exists",10.5,C["ink2"],None,None),
+   ("constraints C1… · tests T1… · situations S1…",10.5,C["ink2"],None,None),
+   ("where it lives is NOT decided here",11,C["purple"],"700",None)],86),
+ ("#FDEBBE","#C9962B",2.4,[("The brief is good to go",12.5,"#6B4D08","700",None),
+   ("BLOCKING — IDs freeze here",10.5,"#A6341F","700",None)],52)],
+ "corrected here costs a sentence, later costs five approaches",
+ "understand the problem, or all of it is wrong")
 g1=section(S[1],"SECTION 1 — DIVERGE",None,[
  ("#FFFFFF","#D7DCE4",1.4,[("Interrogate the gaps",12,C["ink"],"700",None),
    ("only what the KRD left out and",10.5,C["ink2"],None,None),
@@ -95,8 +101,9 @@ section(S[3],"SECTION 3 — PROMOTE","ALREADY WORKS",[
  ("#FFFFFF","#D7DCE4",1.4,[("PR 2 — the module",12,C["ink"],"700",None),
    ("wired into every screen’s rail",10.5,C["ink2"],None,None)],52)],
  "the loop that shipped #42 → #43 → #44",None)
-# A section without a gate - Section 0 no longer has one - hands off from its
-# own middle and has nothing to loop back to.
+# Every section now gates, so each hands off from its gate and each has a red
+# return path back to its own start. Section 0 gained one when the brief became
+# an approved artefact rather than a report.
 for i,g in ((0,g0),(1,g1),(2,g2)):
     y = g if g is not None else MID
     arrow("M%g %g H%g"%(S[i]+SW+2,y,S[i+1]-4),C["green"],"g",1.8)

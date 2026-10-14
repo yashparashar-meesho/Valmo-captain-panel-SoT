@@ -81,9 +81,63 @@ how approaches get invented in a vacuum and the final UI lands off-spec.
    there is **no homepage**, so nothing can assume where they arrived from.
 2. Read [pages.md](pages.md) and [components.md](components.md).
 3. Match the KRD against them.
-4. Report, without asking anything yet: **the problem as you read it**, the
-   modules and screens it touches, the conventions that will bind the work,
-   and what already exists that can be reused.
+4. **Sweep for the cases the KRD did not mention.** A KRD describes the happy
+   path almost every time. The edge cases are not missing because they do not
+   matter — they are missing because nobody thought of them, and that includes
+   you unless you work from a list:
+   path almost every time. The edge cases are not missing because they do not
+   matter — they are missing because nobody thought of them, and that includes
+   you unless you work from a list:
+
+   | generator | ask |
+   |---|---|
+   | **data** | missing · zero · stale · exactly one · thousands · *exactly at the threshold* |
+   | **time** | the first ever · mid-transition · after a long absence · the current, incomplete period |
+   | **permission** | the user cannot act · a different role is looking |
+   | **lifecycle** | before · during · after · reverted |
+
+   Run it and the capacity-cut KRD immediately gives up: *exactly at 2pp* ·
+   *a new DC that is exempt* · *already at the 100-order floor* · *every metric
+   green but no new FE* · *this week's data incomplete*. **The KRD covers none
+   of them.** Each one becomes either a constraint or a success test, and each
+   one has to appear as a situation in the shapes.
+
+5. **Write the brief** — `BRIEF.md`, then render it and open it:
+
+   ```bash
+   python3 scripts/render_doc.py BRIEF.md
+   ```
+
+   | part | what it holds |
+   |---|---|
+   | **the problem as you read it** | in your words, not the KRD's — this is the part that gets corrected |
+   | **what it touches** | the modules and screens, and the conventions that bind the work |
+   | **what already exists** | what can be reused rather than rebuilt |
+   | **constraints** `C1…` | the rules the design cannot break |
+   | **success tests** `T1…` | what a person must be able to do, or the design has failed |
+   | **situations** `S1…` | every case the sweep found, the happy path among them |
+   | **open questions** | what only the reader can answer, and what you will assume if they do not |
+
+   Everything downstream references these by name. That is the point: an
+   approach is checked against `T2`, a shape is marked against `S5`.
+
+6. **Gate — the brief is good to go.** Show it and ask, in those words.
+   Nothing in Section 1 starts until the person who asked for the work says so.
+
+   > **The cheapest correction in the method, and the most valuable.** A
+   > misread problem produces a correct-looking DRD, five careful approaches
+   > and a finished design that solves the wrong thing — and nothing
+   > downstream catches it, because every later stage inherits the misreading.
+   >
+   > In the capacity-cut run the brief came back with three corrections:
+   > *ignore AMs*, *the week renders to yesterday*, *this is capacity cuts
+   > only*. The first removed an entire approach, because that approach existed
+   > to be read by two people. Arriving after the DRD, those corrections would
+   > have invalidated five approaches already argued in full.
+
+   **IDs freeze here.** Before this gate, renumber freely. After it, `C4` and
+   `T2` are referenced by name across every later document — mark withdrawn
+   items withdrawn, and give new facts new numbers.
 
 > **The prerequisite: understand the problem properly first.** This is not a
 > step, it is the ground everything else stands on. A misread problem produces
@@ -117,23 +171,11 @@ how approaches get invented in a vacuum and the final UI lands off-spec.
    > questions by how much design they change, and always say what you will do
    > if they go unanswered.
 
-2. **Sweep for the cases the KRD did not mention.** A KRD describes the happy
-   path almost every time. The edge cases are not missing because they do not
-   matter — they are missing because nobody thought of them, and that includes
-   you unless you work from a list:
+2. **Check the brief still holds.** It was approved in Section 0, so its
+   constraints, success tests and situations are fixed and referenced by name
+   from here on. If something in it is now wrong, fix it *there* and say so —
+   never carry a second version of the truth in the DRD.
 
-   | generator | ask |
-   |---|---|
-   | **data** | missing · zero · stale · exactly one · thousands · *exactly at the threshold* |
-   | **time** | the first ever · mid-transition · after a long absence · the current, incomplete period |
-   | **permission** | the user cannot act · a different role is looking |
-   | **lifecycle** | before · during · after · reverted |
-
-   Run it and the capacity-cut KRD immediately gives up: *exactly at 2pp* ·
-   *a new DC that is exempt* · *already at the 100-order floor* · *every metric
-   green but no new FE* · *this week's data incomplete*. **The KRD covers none
-   of them.** Each one becomes either a constraint or a success test, and each
-   one has to appear as a situation in the shapes.
 3. **Write the DRD** — `DRD.md` as the source, then render it to a page and
    **open it in the browser**:
 
@@ -553,7 +595,7 @@ written on the design itself.
 
 | section | gate | blocking? |
 |---|---|---|
-| 0 Locate | confirm the target | yes, but seconds |
+| 0 Locate | **the brief is good to go** | **yes — Section 1 does not start without it** |
 | 1 Diverge | **the DRD is approved** | **yes — nothing is fetched or built until it is** |
 | 2 Shape | **reviewers pick one or two approaches** | yes |
 | 3 Promote | approve the new components | yes, minutes |

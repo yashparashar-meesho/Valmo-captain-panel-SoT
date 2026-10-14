@@ -73,8 +73,9 @@ what the skill adds.
 
 ### Section 0 — Locate
 
-Read the pack, match the KRD against `pages.md` and `components.md`, and
-**report — do not ask anything yet, and do not decide where it lives:**
+Read the pack and match the KRD against `pages.md` and `components.md`. Then
+**run the edge-case sweep** — data · time · permission · lifecycle — because a
+KRD describes the happy path almost every time, and write `BRIEF.md`:
 
 ```
 THE PROBLEM AS I READ IT
@@ -88,7 +89,36 @@ CONVENTIONS THAT BIND THIS WORK
 
 WHAT ALREADY EXISTS THAT YOU CAN REUSE
   <components from the inventory this problem will need>
+
+CONSTRAINTS            C1, C2, …   the rules the design cannot break
+SUCCESS TESTS          T1, T2, …   what a person must be able to do
+SITUATIONS             S1, S2, …   every case the sweep found
+
+OPEN QUESTIONS
+  <what only they can answer, and what you will assume if they do not>
 ```
+
+Render it and open it, then **ask whether it is good to go:**
+
+```bash
+python3 scripts/render_doc.py BRIEF.md
+```
+
+### The brief gate — blocking
+
+**Nothing in Section 1 starts until they say the brief is good to go.** Not
+"shared", not "sent" — answered.
+
+This is the cheapest correction in the method. A misread problem produces a
+correct-looking DRD, five careful approaches and a finished design that solves
+the wrong thing, and nothing downstream catches it. In the capacity-cut run the
+brief came back with three corrections, and one of them removed an entire
+approach — had it arrived after the DRD, five approaches would already have
+been argued against the wrong problem.
+
+**IDs freeze at this gate.** Before it, renumber freely. After it, `C4` and
+`T2` are referenced by name everywhere: mark withdrawn items withdrawn, and
+give new facts new numbers.
 
 **Where it lives is not decided here.** It is one of the things the five
 approaches differ on; settling it now collapses the design space to whatever
