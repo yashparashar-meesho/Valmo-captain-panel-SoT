@@ -133,6 +133,7 @@ background:#fff;display:block;margin:4px 0 10px}
 .packv-note{font:400 13px/1.6 var(--ui);color:var(--p3);margin:6px 0 0}
 .packv-selfrun{margin:28px 0 0;padding:20px 22px;border:1px solid #DCE5F5;border-radius:12px;
 background:linear-gradient(180deg,#F7F9FE 0%,#F1F5FC 100%)}
+.packv-selfrun.top{margin:0 0 26px}
 .packv-selfrun h3{margin:0 0 10px;font:650 17px/1.3 var(--ui);color:#092D5E}
 .packv-selfrun ol{margin:0 0 14px;padding-left:20px}
 .packv-selfrun li{margin:.4em 0}
@@ -190,8 +191,8 @@ WIREFRAME_SECTION = (
 # a run begins. It was on the DRD first, which put the instructions three steps
 # after the point where someone would act on them.
 SELF_RUN = (
-    '<div class="packv-selfrun">'
-    '<h3>Run one yourself</h3>'
+    '<div class="packv-selfrun top">'
+    '<h3>Want to run one yourself?</h3>'
     '<ol>'
     '<li><b>Install the skill</b> \u2014 one line, in <a href="?view=learn">Start now</a>. '
     'It needs Claude Code and nothing else.</li>'
@@ -249,7 +250,10 @@ def build():
             if slug == "readme":
                 html = inject_diagram(html)
             if slug == "run-krd":
-                html += SELF_RUN
+                # Above the document, not below it. Someone opening step 0 is
+                # deciding whether to do this themselves; the instructions are
+                # the answer to that, and 800 words of KRD is not the way to it.
+                html = SELF_RUN + html
             body.append(
                 '<sect id="pack-%s"><div class="packv-file">%s <i>&mdash; %s</i></div>'
                 '<div class="packv-in">%s</div></sect>'
