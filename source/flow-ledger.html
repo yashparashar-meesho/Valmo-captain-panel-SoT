@@ -932,6 +932,16 @@
   @media (max-width: 760px) { .packband { margin-left: -16px; margin-right: -16px;
     padding: 24px 16px; } }
 
+  .spine-pack {
+    display: block; margin: 14px 10px 0; padding: 10px 12px;
+    background: #101722; border-radius: 9px; text-decoration: none;
+  }
+  .spine-pack:hover { background: #1B2534; }
+  .spine-pack .n { display: block; font: 600 13px/1.3 var(--ui); color: #fff; }
+  .spine-pack .n::after { content: " \203A"; color: #7E8DA3; }
+  .spine-pack .d { display: block; font: 400 11px/1.45 var(--ui); color: #8795A9;
+    margin-top: 2px; }
+
   .learn-index-head { margin-bottom: 30px; }
   .learn-index-head h1 {
     margin: 0 0 6px; font: 700 30px/1.2 var(--display);
@@ -3424,6 +3434,12 @@
         html += railRow(a.id, String(i + 1).padStart(2, "0"), a.name, null, learnId === a.id);
       });
       html += '</ul>';
+      /* The pack is not a guide, so it is not a numbered row - but it was only
+         reachable from a band below fifteen cards, which meant scrolling past
+         everything to find out it existed. One click, from anywhere in Learn. */
+      html += '<a class="spine-pack" href="pack/index.html">' +
+        '<span class="n">The pack</span>' +
+        '<span class="d">All 15 rule documents, one page</span></a>';
     } else {
       html += '<div class="spine-kicker">3 foundations</div><ul class="spine-list">';
       [["all", "All"], ["type", "Typography"], ["color", "Colour"], ["space", "Spacing"]]
