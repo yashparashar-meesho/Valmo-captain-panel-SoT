@@ -4411,7 +4411,12 @@
 
     if (state.packHtml) { main.innerHTML = state.packHtml; wire(); return; }
     main.innerHTML = '<div class="empty-state"><h2>Opening the pack\u2026</h2></div>';
-    fetch("pack/content.html").then(function (r) {
+    /* Revalidate rather than trust the cache. The fragment is one URL whose
+       contents change on every pack edit, so a plain fetch served a returning
+       reader last week's rules - silently, with no way to tell. no-cache still
+       answers 304 when nothing moved, so this costs a round trip, not the
+       file. */
+    fetch("pack/content.html", { cache: "no-cache" }).then(function (r) {
       if (!r.ok) throw new Error(r.status);
       return r.text();
     }).then(function (t) {
