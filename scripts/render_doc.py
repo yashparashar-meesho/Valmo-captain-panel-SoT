@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 """Render a markdown document as a readable page, serve it, and open it.
 
+An .html or .svg file is already the document: it is served and opened as-is,
+so the same command shows a brief, a DRD, a comparison sheet or a design. Each
+one opens in its OWN TAB - a run is read by comparing its artefacts, so
+replacing the tab throws away the thing being compared to.
+
 The DRD is written for a person to read and approve. Handing over a raw .md
 is handing over the source of a document, not the document - it reads badly
 and it makes approving it feel like reviewing a diff.
@@ -80,6 +85,30 @@ def render(src: Path) -> Path:
     return out
 
 
+def open_in_browser(url):
+    """Open the document in a NEW TAB, never over the one already there.
+
+    A run produces a brief, then a DRD, then a comparison sheet, and they get
+    read against each other - so replacing the tab each time throws away the
+    thing you were comparing to. webbrowser.open() defaults to new=0, which
+    reuses the tab; that was the bug. Chrome first because it is where most
+    people already are, then whatever the system calls the default.
+    """
+    if sys.platform == "darwin":
+        for app in ("Google Chrome", "Chromium", "Microsoft Edge"):
+            try:
+                if subprocess.run(["open", "-a", app, url],
+                                  capture_output=True, timeout=8).returncode == 0:
+                    return app
+            except Exception:
+                pass
+    try:
+        webbrowser.open_new_tab(url)          # new=2: a tab, not this one
+        return "your default browser"
+    except Exception:
+        return "no browser - open %s yourself" % url
+
+
 def free_port(start=8300):
     import socket
     for p in range(start, start + 200):
@@ -98,10 +127,16 @@ def main():
     if not src.exists():
         sys.exit("no such file: %s" % src)
 
-    out = render(src)
-    print("rendered -> %s" % out)
-    if "--html-only" in flags:
-        return
+    # An .html artefact - a comparison sheet, a promoted design - is already the
+    # document. It gets served and opened the same way, so one command covers
+    # every artefact a run hands over and they all land in their own tab.
+    if src.suffix.lower() in (".html", ".htm", ".svg"):
+        out = src
+    else:
+        out = render(src)
+        print("rendered -> %s" % out)
+        if "--html-only" in flags:
+            return
 
     port = free_port()
     subprocess.Popen([sys.executable, "-m", "http.server", str(port)],
@@ -124,8 +159,7 @@ def main():
 
     print("serving  %s" % url)
     if "--no-open" not in flags:
-        webbrowser.open(url)
-        print("opened in your browser")
+        print("opened in %s" % open_in_browser(url))
 
 
 if __name__ == "__main__":

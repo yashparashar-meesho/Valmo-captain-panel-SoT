@@ -24,7 +24,9 @@ meaning:
 | step | what happens |
 |---|---|
 | **Match the KRD to the catalogue** | Read `pages.md` and `components.md` and find what this problem touches. **Nothing is fetched** — no screens, no icons, no fonts. They may belong to a page that is about to be ruled out. |
-| **Report, do not ask yet** | The problem as you read it, what it touches, the conventions that bind the work, and what already exists to reuse. **No gate here** — Section 0 flows straight into Section 1. |
+| **Sweep for what the KRD left out** | Data · time · permission · lifecycle. A KRD describes the happy path almost every time; each case the sweep finds becomes a situation the design has to answer. |
+| **Write the brief** | `BRIEF.md`: the problem as you read it, what it touches, what exists to reuse, and the numbered lists everything downstream references — constraints `C1…`, success tests `T1…`, situations `S1…`. Rendered and opened, never handed over as a raw `.md`. |
+| **🔒 The brief is good to go** | Asked in those words. **IDs freeze here.** The cheapest correction in the method: a misread problem produces a correct-looking DRD and a finished design that solves the wrong thing, and nothing downstream catches it. |
 | | **Where it lives is not decided here.** That is one of the things the five approaches differ on, so it belongs in the DRD. |
 
 ### Section 1 — Diverge · *what we could do*
@@ -63,7 +65,7 @@ catalogue starts going stale and Section 0 starts lying.
 
 ## Section 0 — Locate
 
-**Automatic. No human input, no gate, nothing fetched.**
+**Reading only — nothing is fetched. Ends on a gate:** the brief is shown and agreed before Section 1 starts.
 
 > Section 0 is reading. The pack is all you need — no screen files, no icons,
 > no fonts, no stylesheet. Those come in **one batched pass** later, once the
@@ -195,6 +197,11 @@ how approaches get invented in a vacuum and the final UI lands off-spec.
    | **Wins when · Costs · Rules out · Leans on** | the trade, compressed |
    | **Why it can work** | the argument *for* it, taken seriously |
    | **What would make it fail** | the one thing that would sink it |
+
+   And the set gets checked against the brief's **success tests** — which
+   approach answers `T1`, which only half-answers `T2`. A table does it in a
+   glance; the form matters less than the fact that an approach nobody has
+   checked against the tests is an opinion.
 
    > **Argue every approach as though it were the one being built.** An
    > approach written only as a trade-off line is a straw man, and a set of
@@ -565,6 +572,28 @@ if promoting is cheap. The moment it becomes a chore, the catalogue starts
 decaying.
 
 ---
+
+## Every artefact is opened, in its own tab
+
+A brief, a DRD, a comparison sheet, a promoted design — each one is **rendered,
+served and opened in the browser** the moment it exists. Never handed over as a
+path, and never as a raw `.md`: that is the *source* of a document, not the
+document, and approving it feels like reviewing a diff.
+
+```bash
+python3 scripts/render_doc.py BRIEF.md        # markdown → a readable page
+python3 scripts/render_doc.py shapes.html     # already a page → served as-is
+```
+
+**A new tab each time, never the one already open.** A run is read by comparing
+its artefacts — the DRD against the brief, the shapes against both — so
+replacing the tab throws away the thing being compared to. `render_doc.py`
+opens Chrome where it exists and falls back to the system browser, always with
+`open_new_tab`.
+
+> **Check the page answers before handing over the link.** A link was once
+> given out for a server that never started, because the port was taken. The
+> script waits for a 200 and exits if it never comes.
 
 ## Plain English, or it does not get read
 
