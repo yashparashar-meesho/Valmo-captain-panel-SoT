@@ -1,5 +1,5 @@
 {
-  "head": "9a6b308",
+  "head": "c5f61a4",
   "since": null,
   "screens": {
     "payments-list": [
@@ -458,6 +458,12 @@
     ]
   },
   "ledger": [
+    {
+      "sha": "c5f61a4ce34227d8e9a766bf4adcbd4124f64b7a",
+      "short": "c5f61a4",
+      "date": "2026-10-15",
+      "subject": "The pack, readable on the site (#68)"
+    },
     {
       "sha": "9a6b3080a4ab11bace16fee7e4349768694386e5",
       "short": "9a6b308",
