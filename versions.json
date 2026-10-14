@@ -1,5 +1,5 @@
 {
-  "head": "4be753c",
+  "head": "3f62349",
   "since": null,
   "screens": {
     "payments-list": [
@@ -458,6 +458,12 @@
     ]
   },
   "ledger": [
+    {
+      "sha": "3f62349cc965dbf65160198eaf9da58fc005dc13",
+      "short": "3f62349",
+      "date": "2026-10-15",
+      "subject": "The pack is one page, and Learn has a door to it (#70)"
+    },
     {
       "sha": "c5f61a4ce34227d8e9a766bf4adcbd4124f64b7a",
       "short": "c5f61a4",
