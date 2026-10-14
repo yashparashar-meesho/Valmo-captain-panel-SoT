@@ -1,5 +1,5 @@
 {
-  "head": "749bbe6",
+  "head": "b8ccb7f",
   "since": null,
   "screens": {
     "payments-list": [
@@ -458,6 +458,12 @@
     ]
   },
   "ledger": [
+    {
+      "sha": "b8ccb7fff8397256f3dc76a184723bd936ee13df",
+      "short": "b8ccb7f",
+      "date": "2026-10-15",
+      "subject": "The pack rail looks like Slipstream, and the banner moved up (#74)"
+    },
     {
       "sha": "749bbe62bd0a36406764fa97a57497e4f06c6d6a",
       "short": "749bbe6",
