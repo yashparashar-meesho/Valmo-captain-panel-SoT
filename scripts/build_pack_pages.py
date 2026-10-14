@@ -54,6 +54,7 @@ GROUPS = [
         (DOCS / "fidelity-checklist.md", "fidelity-checklist", "Matching live", ""),
     ]),
     ("Demo Run \u2014 Please check", [
+        (RUN / "KRD.md", "run-krd", "0 \u00b7 The KRD", "run"),
         (RUN / "BRIEF.md", "run-brief", "1 \u00b7 The brief", "run"),
         (RUN / "APPROACHES.md", "run-approaches", "2 \u00b7 The DRD", "run"),
         (None, "run-shapes", "3 \u00b7 The wireframes", "run"),
@@ -85,9 +86,6 @@ margin-left:6px;vertical-align:1px}
 .packv-lead h1{font:650 29px/1.2 var(--display,var(--ui));margin:0 0 8px;color:var(--navy);
 letter-spacing:-.02em}
 .packv-lead p{color:var(--pm);margin:0 0 6px;font:400 14.5px/1.7 var(--ui)}
-.packv-see{background:#FFF8EE;border:1px solid #F0DCBC;border-radius:9px;padding:11px 15px;
-font:400 13.5px/1.6 var(--ui);margin:10px 0 0}
-.packv-see a{color:#9A5A12;font-weight:600}
 .packv sect{display:block;scroll-margin-top:0;border-bottom:1px solid var(--pl)}
 .packv-file{position:sticky;top:0;background:rgba(255,255,255,.96);
 border-bottom:1px solid var(--pl);padding:10px 32px;z-index:4;
@@ -130,7 +128,7 @@ margin:0 8px 8px 0}
 .packv-btn:hover{background:#0B3A79;color:#fff}
 .packv-btn.ghost{background:#fff;color:#092D5E;border:1px solid #C3CDDD}
 .packv-btn.ghost:hover{background:#F5F7FA}
-.packv-frame{width:100%;height:560px;border:1px solid var(--pl);border-radius:10px;
+.packv-frame{width:100%;height:1100px;border:1px solid var(--pl);border-radius:10px;
 background:#fff;display:block;margin:4px 0 10px}
 .packv-note{font:400 13px/1.6 var(--ui);color:var(--p3);margin:6px 0 0}
 .packv-selfrun{margin:28px 0 0;padding:20px 22px;border:1px solid #DCE5F5;border-radius:12px;
@@ -166,8 +164,8 @@ def _link(m):
     return 'href="docs/%s.%s"' % (stem, ext)
 
 
-DRD_MD = "examples/capacity-cut/APPROACHES.md"
-BRIEF_MD = "examples/capacity-cut/BRIEF.md"
+KRD_DOC = "examples/capacity-cut/KRD.docx"
+KRD_MD = "examples/capacity-cut/KRD.md"
 
 # The wireframes are a page, not a document, so the step shows the real thing
 # rather than describing it. Someone judging the method needs to see what it
@@ -181,8 +179,6 @@ WIREFRAME_SECTION = (
     '<p>Step 3. All five approaches drawn as schematics on one page, each beside '
     'the captain\u2019s journey and the situations it can show. This is where a '
     'shape chosen from a paragraph either survives being looked at or does not.</p>'
-    '<p><a class="packv-btn" href="pack/run/shapes.html" target="_blank" '
-    'rel="noopener">Open full size \u2197</a></p>'
     '<iframe class="packv-frame" src="pack/run/shapes.html" loading="lazy" '
     'title="The five approaches drawn as schematics"></iframe>'
     '<p class="packv-note">The final design is deliberately not here. Every step '
@@ -190,17 +186,18 @@ WIREFRAME_SECTION = (
     'result.</p>'
     '</div></sect>')
 
-# What to do to run one yourself, attached to the DRD because that is the
-# artefact people will want to copy the shape of.
+# What to do to run one yourself, attached to the KRD because the KRD is where
+# a run begins. It was on the DRD first, which put the instructions three steps
+# after the point where someone would act on them.
 SELF_RUN = (
     '<div class="packv-selfrun">'
     '<h3>Run one yourself</h3>'
     '<ol>'
     '<li><b>Install the skill</b> \u2014 one line, in <a href="?view=learn">Start now</a>. '
     'It needs Claude Code and nothing else.</li>'
-    '<li><b>Describe the problem</b> in a new chat, or paste a KRD. Not a command, '
-    'just the problem \u2014 <i>\u201cCaptains have no way to see which of their pilots '
-    'are idle right now.\u201d</i></li>'
+    '<li><b>Hand it a KRD</b>, or just describe the problem. Not a command \u2014 '
+    '<i>\u201cCaptains have no way to see which of their pilots are idle right now.\u201d</i> '
+    'The document below is exactly what this run was given.</li>'
     '<li><b>Answer what it asks.</b> It separates questions about the KRD from '
     'decisions that are yours. Everything you answer goes back into the brief and '
     'the DRD.</li>'
@@ -208,12 +205,12 @@ SELF_RUN = (
     'method; the documents above are what it hands you.</li>'
     '</ol>'
     '<p class="packv-dl">'
-    '<a class="packv-btn" href="%s" download>\u2193 Download this DRD (.md)</a>'
-    '<a class="packv-btn ghost" href="%s" download>\u2193 Download the brief (.md)</a>'
+    '<a class="packv-btn" href="%s" download>\u2193 Download this KRD (.docx)</a>'
+    '<a class="packv-btn ghost" href="%s" download>\u2193 As markdown (.md)</a>'
     '</p>'
-    '<p class="packv-note">Markdown, as produced. Open them beside your own run to '
-    'see the shape each step should take.</p>'
-    '</div>' % (DRD_MD, BRIEF_MD))
+    '<p class="packv-note">The original document, unedited. Everything below it on '
+    'this page was produced from it.</p>'
+    '</div>' % (KRD_DOC, KRD_MD))
 
 
 def inject_diagram(html):
@@ -251,7 +248,7 @@ def build():
             html = re.sub(r'src="([a-z0-9.-]+\.svg)"', r'src="docs/\1"', html)
             if slug == "readme":
                 html = inject_diagram(html)
-            if slug == "run-approaches":
+            if slug == "run-krd":
                 html += SELF_RUN
             body.append(
                 '<sect id="pack-%s"><div class="packv-file">%s <i>&mdash; %s</i></div>'
@@ -263,14 +260,9 @@ def build():
         '<nav class="packv-rail">%s</nav>'
         '<div class="packv-body">'
         '<div class="packv-lead"><h1>The pack</h1>'
-        '<p>Everything the design method reads on every run \u2014 the same documents '
-        'a person can read. Generated from <code>docs/</code>; edit the markdown '
-        'there, never this page. Every file is in '
-        '<a href="%s" target="_blank" rel="noopener">the docs folder on GitHub</a> '
-        'if you want to read or download the originals.</p>'
-        '<p class="packv-see">The worked run ends in a comparison sheet: '
-        '<a href="pack/run/shapes.html" target="_blank" rel="noopener">'
-        'see the five shapes drawn</a>.</p></div>'
+        '<p>Every rule the design method reads, and one run that used them. '
+        'Generated from <code>docs/</code> \u2014 '
+        '<a href="%s" target="_blank" rel="noopener">originals on GitHub</a>.</p></div>'
         '%s</div></div>' % ("".join(rail), GH, "".join(body)))
 
     shapes = (RUN / "shapes.html").read_text(encoding="utf-8")
