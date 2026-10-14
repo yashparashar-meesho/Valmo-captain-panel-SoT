@@ -106,7 +106,11 @@
   body.spine-collapsed .spine-search,
   body.spine-collapsed .spine-tabs,
   body.spine-collapsed .spine-nav { display: none; }
-  .spine-toggle-row { display: flex; justify-content: center; padding: 10px 0; flex: none; }
+  /* The toggle exists because the pack brings a second rail. Everywhere else
+     there is one rail and nothing to trade space with, so a control that only
+     makes the navigation worse should not be on screen. */
+  .spine-toggle-row { display: none; justify-content: center; padding: 10px 0; flex: none; }
+  body.in-pack .spine-toggle-row { display: flex; }
   #spineToggle {
     width: 30px; height: 30px; flex: none; cursor: pointer;
     border: 1px solid var(--line); background: var(--surface); border-radius: 8px;
@@ -4377,6 +4381,20 @@
         });
       });
       var here = document.getElementById("packHere");
+      Array.prototype.forEach.call(main.querySelectorAll("[data-zoom]"), function (fig) {
+        fig.addEventListener("click", function () {
+          var ov = document.createElement("div");
+          ov.className = "packv-zoom";
+          ov.innerHTML = '<button class="x" type="button">Close &#10005;</button>' +
+            '<img src="' + fig.getAttribute("data-zoom") + '" alt="">';
+          function shut() { ov.remove(); document.removeEventListener("keydown", esc); }
+          function esc(e) { if (e.key === "Escape") shut(); }
+          ov.addEventListener("click", shut);
+          document.addEventListener("keydown", esc);
+          document.body.appendChild(ov);
+        });
+      });
+
       var io = new IntersectionObserver(function (es) {
         es.forEach(function (e) {
           if (!e.isIntersecting) return;
@@ -4410,7 +4428,7 @@
   function openPack() {
     state.view = "pack";
     syncViewSwitch();
-    document.body.classList.add("spine-collapsed");
+    document.body.classList.add("in-pack", "spine-collapsed");
     paintSpineToggle();
     renderRail();
     renderMain();
@@ -4438,7 +4456,7 @@
     e.preventDefault();
     state.view = "learn";
     learnId = null;
-    document.body.classList.remove("spine-collapsed");
+    document.body.classList.remove("in-pack", "spine-collapsed");
     paintSpineToggle();
     syncViewSwitch();
     renderRail();
@@ -4643,7 +4661,11 @@
   document.getElementById("viewSwitch").addEventListener("click", function (e) {
     var btn = e.target.closest("button[data-view]");
     if (!btn) return;
-    if (state.view === "pack") { try { history.replaceState(null, "", location.pathname); } catch (e2) {} }
+    if (state.view === "pack") {
+      document.body.classList.remove("in-pack", "spine-collapsed");
+      paintSpineToggle();
+      try { history.replaceState(null, "", location.pathname); } catch (e2) {}
+    }
     state.view = btn.dataset.view;
     syncViewSwitch();
     renderMain();
@@ -5004,7 +5026,7 @@
          one query it reads - enough to send someone a link to the rules. */
       if (/[?&]view=pack\b/.test(location.search)) {
         state.view = "pack";
-        document.body.classList.add("spine-collapsed");
+        document.body.classList.add("in-pack", "spine-collapsed");
         paintSpineToggle();
       }
       renderRail();

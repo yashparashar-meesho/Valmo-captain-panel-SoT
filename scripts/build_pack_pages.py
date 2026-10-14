@@ -53,12 +53,13 @@ GROUPS = [
         (DOCS / "typography-audit.md", "typography-audit", "Typography", ""),
         (DOCS / "fidelity-checklist.md", "fidelity-checklist", "Matching live", ""),
     ]),
-    ("A worked run", [
-        (RUN / "BRIEF.md", "run-brief", "The brief", "run"),
-        (RUN / "APPROACHES.md", "run-approaches", "The DRD", "run"),
+    ("Demo Run \u2014 Please check", [
+        (RUN / "BRIEF.md", "run-brief", "1 \u00b7 The brief", "run"),
+        (RUN / "APPROACHES.md", "run-approaches", "2 \u00b7 The DRD", "run"),
+        (None, "run-shapes", "3 \u00b7 The wireframes", "run"),
     ]),
 ]
-SLUGS = {p.name: slug for _, items in GROUPS for p, slug, _, _ in items}
+SLUGS = {p.name: slug for _, items in GROUPS for p, slug, _, _ in items if p}
 ASSETS = {"flow.svg", "comparison-example.html", "wireframe-example.html",
           "promoted-example.html"}
 
@@ -123,6 +124,31 @@ background:#F4F8FF;color:#24405E;border-radius:0 6px 6px 0}
 .packv-in strong{font-weight:650}
 .packv-in img{width:100%;height:auto;display:block;border:1px solid var(--pl);
 border-radius:8px;background:#fff}
+.packv-btn{display:inline-flex;align-items:center;gap:7px;background:#092D5E;color:#fff;
+text-decoration:none;font:650 13.5px/1 var(--ui);padding:10px 16px;border-radius:9px;
+margin:0 8px 8px 0}
+.packv-btn:hover{background:#0B3A79;color:#fff}
+.packv-btn.ghost{background:#fff;color:#092D5E;border:1px solid #C3CDDD}
+.packv-btn.ghost:hover{background:#F5F7FA}
+.packv-frame{width:100%;height:560px;border:1px solid var(--pl);border-radius:10px;
+background:#fff;display:block;margin:4px 0 10px}
+.packv-note{font:400 13px/1.6 var(--ui);color:var(--p3);margin:6px 0 0}
+.packv-selfrun{margin:28px 0 0;padding:20px 22px;border:1px solid #DCE5F5;border-radius:12px;
+background:linear-gradient(180deg,#F7F9FE 0%,#F1F5FC 100%)}
+.packv-selfrun h3{margin:0 0 10px;font:650 17px/1.3 var(--ui);color:#092D5E}
+.packv-selfrun ol{margin:0 0 14px;padding-left:20px}
+.packv-selfrun li{margin:.4em 0}
+.packv-dl{margin:0;display:flex;flex-wrap:wrap}
+.packv-fig{margin:0 0 22px;padding:0;cursor:zoom-in}
+.packv-fig img{width:100%;height:auto;display:block;border:1px solid var(--pl);
+border-radius:10px;background:#fff}
+.packv-fig figcaption{font:400 12.5px/1.6 var(--ui);color:var(--p3);text-align:center;
+margin-top:7px}
+.packv-zoom{position:fixed;inset:0;z-index:90;background:rgba(10,30,60,.82);
+display:flex;flex-direction:column;padding:18px;cursor:zoom-out}
+.packv-zoom img{flex:1;min-height:0;width:100%;object-fit:contain}
+.packv-zoom .x{align-self:flex-end;background:#fff;border:0;border-radius:8px;
+font:650 13px/1 var(--ui);padding:9px 14px;cursor:pointer;margin-bottom:12px;color:#0A1E3C}
 @media(max-width:900px){.packv-rail{display:none}}
 </style>
 """
@@ -137,7 +163,73 @@ def _link(m):
     if ext == "md":
         slug = SLUGS.get(stem + ".md")
         return 'href="#pack-%s"' % slug if slug else 'href="%s/%s.md"' % (GH, stem)
-    return 'href="../docs/%s.%s"' % (stem, ext)
+    return 'href="docs/%s.%s"' % (stem, ext)
+
+
+DRD_MD = "examples/capacity-cut/APPROACHES.md"
+BRIEF_MD = "examples/capacity-cut/BRIEF.md"
+
+# The wireframes are a page, not a document, so the step shows the real thing
+# rather than describing it. Someone judging the method needs to see what it
+# produced, and a link alone gets skipped.
+WIREFRAME_SECTION = (
+    '<sect id="pack-run-shapes">'
+    '<div class="packv-file">examples/capacity-cut/shapes.html '
+    '<i>&mdash; 3 \u00b7 The wireframes</i></div>'
+    '<div class="packv-in">'
+    '<h1>The wireframes</h1>'
+    '<p>Step 3. All five approaches drawn as schematics on one page, each beside '
+    'the captain\u2019s journey and the situations it can show. This is where a '
+    'shape chosen from a paragraph either survives being looked at or does not.</p>'
+    '<p><a class="packv-btn" href="pack/run/shapes.html" target="_blank" '
+    'rel="noopener">Open full size \u2197</a></p>'
+    '<iframe class="packv-frame" src="pack/run/shapes.html" loading="lazy" '
+    'title="The five approaches drawn as schematics"></iframe>'
+    '<p class="packv-note">The final design is deliberately not here. Every step '
+    'up to it is, so the method can be judged on its working rather than its '
+    'result.</p>'
+    '</div></sect>')
+
+# What to do to run one yourself, attached to the DRD because that is the
+# artefact people will want to copy the shape of.
+SELF_RUN = (
+    '<div class="packv-selfrun">'
+    '<h3>Run one yourself</h3>'
+    '<ol>'
+    '<li><b>Install the skill</b> \u2014 one line, in <a href="?view=learn">Start now</a>. '
+    'It needs Claude Code and nothing else.</li>'
+    '<li><b>Describe the problem</b> in a new chat, or paste a KRD. Not a command, '
+    'just the problem \u2014 <i>\u201cCaptains have no way to see which of their pilots '
+    'are idle right now.\u201d</i></li>'
+    '<li><b>Answer what it asks.</b> It separates questions about the KRD from '
+    'decisions that are yours. Everything you answer goes back into the brief and '
+    'the DRD.</li>'
+    '<li><b>Approve the DRD before anything is built.</b> That gate is the whole '
+    'method; the documents above are what it hands you.</li>'
+    '</ol>'
+    '<p class="packv-dl">'
+    '<a class="packv-btn" href="%s" download>\u2193 Download this DRD (.md)</a>'
+    '<a class="packv-btn ghost" href="%s" download>\u2193 Download the brief (.md)</a>'
+    '</p>'
+    '<p class="packv-note">Markdown, as produced. Open them beside your own run to '
+    'see the shape each step should take.</p>'
+    '</div>' % (DRD_MD, BRIEF_MD))
+
+
+def inject_diagram(html):
+    """The method diagram, where the index explains what each file answers.
+
+    It is the same drawing design-method.md carries. Repeating it here is not
+    duplication - it is generated from the same file - and it is the one thing
+    that makes the list of documents read as a sequence rather than a shelf.
+    """
+    fig = ('<figure class="packv-fig" data-zoom="docs/flow.svg">'
+           '<img src="docs/flow.svg" alt="The four sections of the method, '
+           'their gates, and where the one blocking stop is">'
+           '<figcaption>The method, end to end. Tap to open it full size.</figcaption>'
+           '</figure>')
+    marker = "<h2>Which file answers which question</h2>"
+    return html.replace(marker, fig + marker, 1) if marker in html else fig + html
 
 
 def build():
@@ -146,14 +238,21 @@ def build():
     for name, items in GROUPS:
         rail.append("<h4>%s</h4>" % name)
         for src, slug, label, tag in items:
-            if not src.exists():
-                sys.exit("missing: %s" % src)
             rail.append('<a href="#pack-%s" data-pack="%s">%s%s</a>' % (
                 slug, slug, label,
                 '<span class="packv-tag t-%s">%s</span>' % (tag, tag) if tag else ""))
+            if src is None:                       # the wireframe sheet, not markdown
+                body.append(WIREFRAME_SECTION)
+                continue
+            if not src.exists():
+                sys.exit("missing: %s" % src)
             html = md(src.read_text(encoding="utf-8"))
             html = re.sub(r'href="([A-Za-z0-9._-]+)\.(md|html|svg)"', _link, html)
-            html = re.sub(r'src="([a-z0-9.-]+\.svg)"', r'src="../docs/\1"', html)
+            html = re.sub(r'src="([a-z0-9.-]+\.svg)"', r'src="docs/\1"', html)
+            if slug == "readme":
+                html = inject_diagram(html)
+            if slug == "run-approaches":
+                html += SELF_RUN
             body.append(
                 '<sect id="pack-%s"><div class="packv-file">%s <i>&mdash; %s</i></div>'
                 '<div class="packv-in">%s</div></sect>'
