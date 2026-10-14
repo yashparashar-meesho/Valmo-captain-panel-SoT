@@ -148,23 +148,40 @@ how approaches get invented in a vacuum and the final UI lands off-spec.
    of five. For each: what it does, what it costs, what it rules out, and
    **where it would live**.
 
-   ### What makes approaches genuinely different
+   ### Approaches are derived from the brief, not invented
 
-   **Placement is the entry axis, not the design axis.** Five approaches that
-   differ only on *where it goes* are one axis explored five times. Inside any
-   placement the real choices are:
+   **Do not think of approaches and then check them against the axes.** By the
+   time you have thought of three, you have already anchored on whichever came
+   to mind first, and the check only confirms it. Build the candidate set out
+   of the lists the brief already wrote:
 
-   | axis | the span |
+   | axis | where its span comes from |
    |---|---|
+   | **where it lives** | **every module the brief's *what it touches* named.** Each one is a candidate approach until ruled out *in writing*. |
+   | **who acts** | every actor the brief extracted — the user, another role, the system acting and then informing |
+   | **when it is surfaced** | the moments in the brief's **situations**: before the event · at the decision · on the event · after it |
    | **what is shown** | everything · only the exception · only the action |
-   | **who acts** | the user alone · the user with someone else · the system acts and informs |
-   | **when it is surfaced** | always · on the event · at the moment of the decision |
-   | **how it is framed** | status · warning · instruction · score |
-   | **depth** | summary only · item level · both |
+   | **how it is framed** | status · warning · instruction · explanation · score — *and add one if the problem admits another* |
+   | **depth** | summary · item level · both |
 
-   Place each approach on these axes and show the table. A set where four
-   approaches sit on the same point is visibly thin — which is the whole
-   purpose of writing it down.
+   This is why it is generative rather than a checklist: the brief named the
+   modules, the actors and the moments, so the candidates already exist. You
+   are selecting and pruning, not imagining.
+
+   > **Every module named in *what it touches* appears in the approach table,
+   > or is ruled out in a sentence.** Nothing from the brief may silently
+   > vanish. In the capacity-cut run, Growth Dashboard was named in the brief
+   > and then simply absent from the approaches — not rejected, absent — and
+   > nothing caught it but a human reading the table.
+
+   > **Placement is one axis, not the excluded one.** An earlier version of
+   > this file said placement was "the entry axis, not the design axis", and
+   > the next run stopped varying placement at all. Vary placement **and** the
+   > rest. A set that moves only on placement is thin; a set that never moves
+   > on it has thrown away a whole dimension.
+
+   Place every approach on the table and show it. A set clustered on one point
+   is visibly thin, which is the entire purpose of writing it down.
 
    > **The discriminator.** Two approaches are the same if switching from one
    > to the other **does not change what the user does**. If their behaviour

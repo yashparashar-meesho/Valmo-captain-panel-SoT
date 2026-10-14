@@ -172,11 +172,17 @@ Per `design-method.md`. The things most often got wrong:
   an editor on a wireframe until `DRD.md` exists on disk.** On the first real
   run it was skipped, and the approach that was built had been compared
   against nothing written down, including an option that had been missed.
-- **Approaches differ on axes, not on placement.** Placement is how you get
-  in; the design axes are *what is shown · who acts · when it is surfaced ·
-  how it is framed · depth*. Put each approach on a table of those axes — a
-  set clustered on one point is visibly thin. **Two approaches are the same
-  if switching between them does not change what the user does.**
+- **Derive the approaches from the brief; do not invent them.** The brief
+  already named the modules (*what it touches*), the actors, and the moments
+  (its *situations*). Those are the spans. Build candidates from them and
+  prune — by the time you have imagined three you have anchored on the first.
+- **Every module the brief named appears in the approach table, or is ruled
+  out in a sentence.** Nothing from the brief may silently vanish.
+- **Placement is one axis, not the excluded one.** Vary placement *and* what
+  is shown · who acts · when surfaced · how framed · depth. Add a framing if
+  the problem admits one the list does not have.
+- **Two approaches are the same if switching between them does not change
+  what the user does.**
 - **The count follows the problem.** Two real approaches beat five padded
   ones. If they cluster, name the real fork underneath and ask which side to
   explore rather than listing costumes.
