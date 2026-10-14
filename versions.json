@@ -1,5 +1,5 @@
 {
-  "head": "7b5827b",
+  "head": "9a6b308",
   "since": null,
   "screens": {
     "payments-list": [
@@ -458,6 +458,12 @@
     ]
   },
   "ledger": [
+    {
+      "sha": "9a6b3080a4ab11bace16fee7e4349768694386e5",
+      "short": "9a6b308",
+      "date": "2026-10-15",
+      "subject": "Learn: Designing something new (#67)"
+    },
     {
       "sha": "fcd6a541028b27e06926eae14d40dd1774378e45",
       "short": "fcd6a54",
