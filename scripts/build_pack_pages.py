@@ -46,6 +46,14 @@ GROUPS = [
         ("fidelity-checklist", "Fidelity checklist", "Does it match live?"),
     ]),
 ]
+# the worked run - source markdown lives in examples/capacity-cut/
+RUN = ROOT / "examples" / "capacity-cut"
+RUN_OUT = OUT / "run"
+RUN_PAGES = [
+    ("BRIEF", "The brief", "The problem pinned down: constraints, success tests, and the seven situations."),
+    ("APPROACHES", "The DRD", "Five approaches on the axes, each with the captain's journey and the case for it."),
+]
+
 EXTRAS = [
     ("../docs/flow.svg", "The method diagram", "The four sections at a glance."),
     ("../docs/comparison-example.html", "A comparison sheet", "Five approaches drawn as schematics. The worked standard."),
@@ -156,6 +164,10 @@ def build():
             rows += ('<a class="row" href="%s.html"><b>%s</b><span>%s</span></a>'
                      % (slug, title, blurb))
         rows += "</div></div>"
+    rows += ('<div class="grp"><h2>A whole run</h2><div class="rows">'
+             '<a class="row" href="run/index.html"><b>Capacity Cut for Latent</b>'
+             '<span>Every artefact from one real pass of the method, in order.</span></a>'
+             '</div></div>')
     rows += '<div class="grp"><h2>Worked examples</h2><div class="rows">'
     for href, title, blurb in EXTRAS:
         rows += '<a class="row" href="%s"><b>%s</b><span>%s</span></a>' % (href, title, blurb)
@@ -169,6 +181,50 @@ def build():
         'run — the same ones a person can read. Generated from <code>docs/</code>; '
         'edit the markdown there, never these pages.</p>' + rows)
 
+    # --- the worked run -------------------------------------------------
+    RUN_OUT.mkdir(parents=True, exist_ok=True)
+    run_written = {}
+    for j, (stem, title, blurb) in enumerate(RUN_PAGES):
+        src = RUN / (stem + ".md")
+        if not src.exists():
+            sys.exit("missing: %s" % src)
+        body = md(src.read_text(encoding="utf-8"))
+        nav = []
+        if j:
+            nav.append('<a href="%s.html">&larr; %s</a>'
+                       % (RUN_PAGES[j - 1][0].lower(), RUN_PAGES[j - 1][1]))
+        else:
+            nav.append('<a href="index.html">&larr; The run</a>')
+        nxt = (RUN_PAGES[j + 1][0].lower(), RUN_PAGES[j + 1][1]) if j < len(RUN_PAGES) - 1 \
+            else ("shapes", "The shapes")
+        nav.append('<a href="%s.html">%s &rarr;</a>' % nxt)
+        crumb = ('<a href="../index.html">The pack</a>'
+                 '<a href="index.html">Capacity Cut</a><span class="n">%s</span>'
+                 '<span class="t">as produced, not tidied afterwards</span>' % title)
+        run_written["run/" + stem.lower() + ".html"] = shell(
+            title + " \u2014 Capacity Cut", crumb,
+            '<div class="card">%s</div>' % body,
+            '<div class="nxt">%s</div>' % "".join(nav))
+
+    steps = ""
+    for stem, title, blurb in RUN_PAGES:
+        steps += ('<a class="row" href="%s.html"><b>%s</b><span>%s</span></a>'
+                  % (stem.lower(), title, blurb))
+    steps += ('<a class="row" href="shapes.html"><b>The shapes</b><span>All five drawn '
+              'as schematics, every shape marked against every situation.</span></a>')
+    run_written["run/index.html"] = shell(
+        "Capacity Cut for Latent \u2014 a worked run",
+        '<a href="../index.html">The pack</a><span class="n">Capacity Cut for Latent</span>'
+        '<span class="t">a whole run, in order</span>',
+        '<h1>Capacity Cut for Latent</h1><p class="lede">Every artefact from one real pass '
+        'of the design method, kept as it was produced rather than tidied afterwards. Read '
+        'them in order \u2014 each is checked against the one before it, which is the point: '
+        'an approach that contradicts the brief is caught because the brief was written '
+        'down first.</p><div class="grp"><div class="rows">%s</div></div>' % steps)
+
+    written.update(run_written)
+    written["run/shapes.html"] = (RUN / "shapes.html").read_text(encoding="utf-8")
+
     stale = [n for n, html_ in written.items()
              if not (OUT / n).exists() or (OUT / n).read_text(encoding="utf-8") != html_]
     if "--check" in sys.argv:
@@ -178,7 +234,9 @@ def build():
         print("pack/ is current: %d pages" % len(written))
         return
     for n, html_ in written.items():
-        (OUT / n).write_text(html_, encoding="utf-8")
+        t = OUT / n
+        t.parent.mkdir(parents=True, exist_ok=True)
+        t.write_text(html_, encoding="utf-8")
     print("Wrote %d pages to pack/ (%d stale)" % (len(written), len(stale)))
 
 build()

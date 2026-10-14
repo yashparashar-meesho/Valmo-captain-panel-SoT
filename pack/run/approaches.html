@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The DRD — Capacity Cut</title>
+<style>
+*{box-sizing:border-box}
+:root{--ink:#1A1A1F;--mute:#6B6B76;--line:#E6E6EC;--bg:#F4F4F7;--card:#fff;--acc:#2F6BFF}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 -apple-system,BlinkMacSystemFont,
+ "Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+.bar{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.bar .in{max-width:860px;margin:0 auto;padding:13px 24px;display:flex;gap:12px;align-items:baseline;
+ flex-wrap:wrap}
+.bar a{color:var(--acc);text-decoration:none;font-weight:600;font-size:13px}
+.bar a:hover{text-decoration:underline}
+.bar .n{font-weight:700;font-size:13px}
+.bar .t{color:var(--mute);font-size:12px;margin-left:auto}
+main{max-width:860px;margin:0 auto;padding:34px 24px 90px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:30px 34px}
+h1{font-size:30px;line-height:1.2;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-size:21px;margin:2.1em 0 .5em;letter-spacing:-.01em}
+h3{font-size:16px;margin:1.8em 0 .4em}
+h4{font-size:14px;margin:1.5em 0 .3em;color:var(--mute)}
+p,li{font-size:15px}
+code{background:#F0F0F4;border-radius:4px;padding:1px 5px;font-size:13px;
+ font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+pre{background:#1A1A1F;color:#E8E8EF;padding:14px 16px;border-radius:9px;overflow-x:auto}
+pre code{background:none;color:inherit;padding:0}
+table{border-collapse:collapse;width:100%;margin:1.1em 0;display:block;overflow-x:auto}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;
+ font-size:14px}
+th{color:var(--mute);font-weight:600;white-space:nowrap}
+blockquote{margin:1.2em 0;padding:2px 0 2px 16px;border-left:3px solid var(--line);color:var(--mute)}
+hr{border:0;border-top:1px solid var(--line);margin:2.2em 0}
+a{color:var(--acc)}
+strong{font-weight:650}
+.lede{color:var(--mute);margin:0 0 26px;font-size:15px}
+.grp{margin:0 0 30px}
+.grp h2{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--mute);
+ margin:0 0 10px}
+.rows{display:grid;gap:9px}
+.row{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;
+ padding:13px 16px;text-decoration:none;color:inherit}
+.row:hover{border-color:#C9C9D4}
+.row b{display:block;font-size:15px;margin-bottom:2px}
+.row span{color:var(--mute);font-size:13.5px}
+.nxt{display:flex;justify-content:space-between;gap:12px;margin-top:26px;font-size:13px}
+@media(max-width:700px){body{font-size:16px}main,.bar .in{padding-left:16px;padding-right:16px}
+ .card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="bar"><div class="in"><a href="../index.html">The pack</a><a href="index.html">Capacity Cut</a><span class="n">The DRD</span><span class="t">as produced, not tidied afterwards</span></div></div>
+<main><div class="card"><h1>Approaches — Capacity Cut for Latent</h1>
+<p><strong>Step 2 of 4.</strong> <strong>Five</strong> approaches. Two changes since the last draft, both worth stating rather than quietly applying:</p>
+<ul><li><strong>A scorecard for a captain and an AM to read together was removed.</strong> C8 settled that nothing is built for AMs, so it had no second reader and no reason to exist.</li><li><strong>Growth Dashboard was missing and is back as E.</strong> It was an approach in the first draft; when this set was rebuilt around the axes it disappeared, and nothing said so. That is a silent shrink, which is precisely the failure the method warns about. Caught on review, not by me. Each is placed on the design axes, says which</li></ul>
+<p>success tests it passes, and names the constraints it leans on.</p>
+<h2>The axes</h2>
+<p>Placement is how you get into a page; these are the choices <em>inside</em> it. A set clustered on one point is thin, and the table is what shows that.</p>
+<table><thead><tr><th></th><th>what is shown</th><th>who acts</th><th>when surfaced</th><th>how framed</th><th>depth</th></tr></thead><tbody><tr><td><strong>A</strong> Capacity Cut tab</td><td>everything</td><td>captain</td><td>always</td><td>status</td><td>DC + FE</td></tr><tr><td><strong>B</strong> Alert at the moment of commitment</td><td>only the breach</td><td>captain</td><td>at the decision</td><td>warning</td><td>summary</td></tr><tr><td><strong>C</strong> Pilot-first, on the roster</td><td>only the action</td><td>captain</td><td>always</td><td>instruction</td><td>FE level</td></tr><tr><td><strong>D</strong> Pushed weekly notice</td><td>only the breach</td><td>system acts, then informs</td><td>on the event</td><td>warning</td><td>summary</td></tr><tr><td><strong>E</strong> A reason on Growth Dashboard</td><td>only the breach</td><td>captain</td><td>always, but weekly</td><td><strong>explanation</strong></td><td>summary</td></tr></tbody></table>
+<p><strong>They are genuinely different by the discriminator</strong> — switching between any two changes what the captain actually does: <em>review and plan</em> (A), <em>react while committing a number</em> (B), <em>onboard an FE</em> (C), <em>wait to be told</em> (D), and <em>understand why last week went the way it did</em> (E).</p>
+<blockquote><p><strong>Placement is an axis too — it is just not the only one.</strong> The previous draft over-corrected: having said placement is not the design axis, it dropped placement variation altogether, and a whole module went with it. A and B sit in DC Capacity, C in Pilot Management, D in the notification layer, E in Growth Dashboard. <strong>Vary placement <em>and</em> the rest.</strong></p></blockquote>
+<blockquote><p><strong>The framing span was also short.</strong> It read <em>status · warning · instruction · score</em>. E is none of those — it is an <strong>explanation</strong>, which is a fifth framing and the one Growth Dashboard exists to provide.</p></blockquote>
+<h2>Against the success test</h2>
+<table><thead><tr><th></th><th>T1 which metric</th><th>T2 what brings it back</th><th>T3 am I close</th><th>T4 not a dispute</th></tr></thead><tbody><tr><td><strong>A</strong></td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr><tr><td><strong>B</strong></td><td>✅</td><td>⚠️ partial</td><td>✅</td><td>✅</td></tr><tr><td><strong>C</strong></td><td>❌ one metric of four</td><td>⚠️ only the Pilot Load half</td><td>❌</td><td>✅</td></tr><tr><td><strong>D</strong></td><td>✅</td><td>⚠️ partial</td><td>❌ arrives only on breach</td><td>✅</td></tr><tr><td><strong>E</strong></td><td>✅</td><td>❌ no room to say a new FE must be hired</td><td>⚠️ only once it has happened</td><td>✅</td></tr></tbody></table>
+<h2>The approaches</h2>
+<h3>A · A "Capacity Cut" tab in DC Capacity</h3>
+<p><strong>What the captain does</strong></p>
+<ol><li>A weekly notice arrives, or they open DC Capacity themselves.</li><li>They tap the Capacity Cut tab.</li><li>They read the cut — 20% — and which metric caused it.</li><li>They scroll to the list of field executives.</li><li>They see a new FE has to be hired. A lower number will not do.</li></ol>
+<p>Two sections: this week's four metrics against their thresholds, and the field executives over 280 weekly OFD.</p>
+<p><strong>Wins when</strong> the cut is understood as a capacity event, and the captain is the one who acts. <strong>Costs</strong> a second screen. <strong>Rules out</strong> nothing. <strong>Leans on</strong> C1, C3, C4, C6.</p>
+<p><strong>Why it can work.</strong> The cut is a capacity event, and this puts it where capacity already lives — the captain does not have to learn a new place. A tab costs nothing structurally: two modules already use them, and the module's own page stays exactly as it is. Most of all it is the only shape with room for a second section, which is what the hiring rule needs: a number cannot carry it, a list of people can.</p>
+<p><strong>What would make it fail.</strong> DC Capacity is not a page captains open daily. On its own it waits to be found — which is why it needs a door, not why it is the wrong home.</p>
+<h3>B · An alert where the capacity number is committed</h3>
+<p><strong>What the captain does</strong></p>
+<ol><li>They open DC Capacity to set next week's number.</li><li>They type a capacity figure.</li><li>An alert tells them a cut is already active.</li><li>They stop there. Nothing on the page says how to undo it.</li></ol>
+<p>No new screen. An inline alert on <em>Set Your DC Capacity</em>, at the moment the captain types a number.</p>
+<p><strong>Wins when</strong> the goal is to stop a bad commitment rather than to explain a policy. <strong>Costs</strong> everything that does not fit in an alert — the FE table cannot go here, so T2 is only half answered. <strong>Leans on</strong> C1, C5.</p>
+<p><strong>Why it can work.</strong> It is the only shape that reaches the captain at the moment of the decision, rather than after it. Nothing is navigated to and nothing is learned: the alert finds them while they are already typing a number, which is the one moment the cut has direct consequences.</p>
+<p><strong>What would make it fail.</strong> An alert is a sentence. The hiring rule needs a list, and there is nowhere under a form field to put one. It also has nothing to say to a captain who has not been cut, which is most captains most weeks.</p>
+<h3>C · Pilot-first, on the roster</h3>
+<p><strong>What the captain does</strong></p>
+<ol><li>They open Pilot Management.</li><li>A banner says Pilot Load has breached.</li><li>They read the two new columns, one field executive at a time.</li><li>They see exactly who is over 280.</li></ol>
+<p>Two columns on Pilot Management — weekly OFD and over/under 280 — and a banner when Pilot Load is breached.</p>
+<p><strong>Wins when</strong> the belief is that staffing is the only real lever, so put the metric next to it. <strong>Costs</strong> the other three metrics, which have nowhere to go. <strong>Rules out</strong> T1 and T3. <strong>Leans on</strong> C4 — and it is the only approach that makes the hiring rule concrete, because the roster is where a new FE actually appears.</p>
+<p><strong>Why it can work.</strong> Pilot Load is a problem about people, and this is the only shape that shows people. A captain reading <em>9 of 34 over 280</em> knows something a percentage cannot tell them — and the roster is the one screen where hiring a new FE visibly changes the picture, because that is where a new FE appears.</p>
+<p><strong>What would make it fail.</strong> It explains one metric out of four. A captain cut for D0 attempt would find nothing here, and would have no reason to look.</p>
+<h3>D · A pushed weekly notice</h3>
+<p><strong>What the captain does</strong></p>
+<ol><li>The notice arrives at the start of the week.</li><li>They read which metric broke.</li><li>They tap through to the Capacity Cut tab.</li></ol>
+<p>The panel's notification module carries the breach; the detail lives wherever it already lives.</p>
+<p><strong>Wins when</strong> the problem is that nobody looks in time. It is the only approach that does not require the captain to come. <strong>Costs</strong> everything before the breach — it cannot answer T3, because it only exists once the cut has happened. <strong>Leans on</strong> C1, C5.</p>
+<p><strong>Why it can work.</strong> It is the only shape that does not wait to be found. Captains live in WhatsApp and check the panel when something sends them there, so a weekly notice matches how the news actually travels today — and the panel is where it should land.</p>
+<p><strong>What would make it fail.</strong> Every module already nudges, and nothing says which matters. Without a reason to outrank the others and a date to stop, this becomes one more thing to dismiss.</p>
+<h3>E · A reason on Growth Dashboard</h3>
+<p><strong>What the captain does</strong></p>
+<ol><li>They open Growth Dashboard, which they do anyway.</li><li>They see orders are down.</li><li>A card says a capacity cut is the reason.</li><li>They tap through to the Capacity Cut tab.</li></ol>
+<p>The cut appears as one more entry in <em>Your Order Summary</em>'s reasons, beside the capacity card already there.</p>
+<p><strong>Wins when</strong> the captain's real question is <em>why did last week go the way it did</em> — and that is the question they already arrive at Growth Dashboard holding. It is the module most likely to be open, it is weekly like the cut, and it already names capacity as a reason orders moved.</p>
+<p><strong>Costs</strong> everything after the explanation. Growth Dashboard diagnoses and points elsewhere, so it can say a cut happened but never what to do about it — and it cannot say that a lower reading is not enough, which is the subtlest thing in the KRD (C4).</p>
+<p><strong>Rules out</strong> T2. <strong>Would be a third section</strong> on a module that already has two, which <code>section-rules.md</code> says no screen does. <strong>Leans on</strong> C1, C6.</p>
+<p><strong>Why it can work.</strong> Growth Dashboard is the page captains already open, and the question it answers — <em>why did orders drop?</em> — is the exact question a cut creates. The cut is one reason among the reasons already shown there, so it needs no new habit and no new place.</p>
+<p><strong>What would make it fail.</strong> It can name the cause and nothing else. If the link does not land the captain inside the detail, it tells them they have a problem and leaves them there.</p>
+<h2>Open question — where should this live?</h2>
+<p><strong>Recommended: A, with two doors.</strong> The deciding reason is unchanged: the cut acts on the capacity number, so it belongs where the capacity number lives. Growth Dashboard gets a door, and <code>dc-capacity</code> carries a notice when a cut is live.</p>
+<p><strong>A is still the only approach that passes all four tests</strong>, and the deciding reason is unchanged: the cut acts on the capacity number, so it belongs where that number lives.</p>
+<p>But E changes the shape of the recommendation rather than the answer. <strong>E is the best discovery surface we have and the worst home</strong> — most likely to be open, weekly like the cut, already answering the adjacent question, and structurally unable to say what to do about any of it. That is the definition of a door rather than a home, and now it is written down as a rejected approach with its reason, instead of being a decision I made quietly while redrawing a table.</p>
+<p>So: <strong>A, with two doors</strong> — the capacity card on Growth Dashboard links to the tab (E as a door), and <code>dc-capacity</code> carries a notice when a cut is live. D also becomes a door rather than an approach.</p>
+<h2>Decided</h2>
+<table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td><strong>was open</strong></td><td>where should this live?</td></tr><tr><td><strong>answered</strong></td><td><strong>A + E</strong> — the recommendation, taken</td></tr><tr><td><strong>what it changed</strong></td><td>A is the <strong>home</strong>: a <em>Capacity Cut</em> tab in DC Capacity, carrying all four metrics, the FE list and the reinstatement path. <strong>E is a door, not a second home</strong>: Growth Dashboard's existing capacity card links to the tab. <strong>D becomes a door too</strong> — the notification points at the tab rather than replacing it. <strong>B and C are out.</strong></td></tr></tbody></table>
+<p><strong>What "A + E" does not mean.</strong> E is not built as a page. One home, many doors — the thing itself exists once, in DC Capacity, and Growth Dashboard gets a link to it. Building the explanation in both places would be two things to maintain and, before long, two versions of the truth.</p>
+<p><strong>What C's loss costs, recorded so it is not forgotten.</strong> C was the only approach that made the hiring rule concrete — a newly onboarded FE appearing on the roster is what actually ends a Pilot Load breach. A can <em>say</em> it; C made it unavoidable. If S5 turns out to be common, borrowing C's two roster columns into A is the cheapest fix, and this paragraph is where the next person finds that out.</p>
+<p><strong>Still to do before the design: the shapes.</strong> A and E were chosen from paragraphs. Step 3 draws all five, because that is what the method is for — and the choice may survive it or change.</p>
+<hr>
+<h2>What the shapes showed (step 3)</h2>
+<p>Drawn, not argued. A situation counts only if the screen has room to show it.</p>
+<table><thead><tr><th></th><th>shape</th><th>situations</th><th>tests</th><th>verdict</th></tr></thead><tbody><tr><td><strong>A</strong></td><td>Capacity Cut tab, DC Capacity</td><td><strong>7/7</strong></td><td><strong>4/4</strong></td><td>home</td></tr><tr><td><strong>E</strong></td><td>reason card, Growth Dashboard</td><td>3/7</td><td>1/4</td><td>door</td></tr><tr><td><strong>D</strong></td><td>pushed weekly notice</td><td>1/7</td><td>1/4</td><td>door</td></tr><tr><td><strong>B</strong></td><td>inline alert on the capacity field</td><td>2/7</td><td>2/4</td><td>out</td></tr><tr><td><strong>C</strong></td><td>roster columns, Pilot Management</td><td>1/7</td><td>1/4</td><td>out</td></tr></tbody></table>
+<p><strong>The choice survived the drawing. A + E stands.</strong></p>
+<p>Three things the drawings showed that the writing did not:</p>
+<p><strong>Only A has something to show when nothing is wrong.</strong> B, C and D only exist once a cut has happened. So they are blank for a captain who has never been cut (S1), one who is close to the line (S2), and a new DC that is exempt (S6). B cannot answer T3 for the same reason — a captain cannot ask "am I close?" on a screen that appears only after the answer is yes. This is what makes A the home. Not the score.</p>
+<p><strong>B beat C.</strong> In writing, C sounded like the better idea. Drawn, B answers two tests and C answers one. Both are still out. But they were ranked the wrong way round, and C was the one carried forward.</p>
+<p><strong>E is thin, and that is the risk.</strong> One test out of four. E can say a cut caused the drop. It cannot say what to do next. Everything depends on its link opening the Capacity Cut tab. If that link is weak, E is decoration.</p>
+<h3>Still carried, still unresolved</h3>
+<p><strong>S5 — every metric green, but no new FE.</strong> Only C made this impossible to miss, because it lists people instead of showing a percentage. C is out. A picks this up through its field-executive list. That list is now doing real work: it is the only place the hiring rule becomes visible — capacity returns only when a new FE is hired (C4). If the design weakens the list, S5 goes with it.</p></div><div class="nxt"><a href="brief.html">&larr; The brief</a><a href="shapes.html">The shapes &rarr;</a></div></main>
+</body>
+</html>

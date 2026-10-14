@@ -1,0 +1,90 @@
+<!doctype html><html><head><meta charset="utf-8">
+<title>Capacity Cut — the shapes</title>
+<link rel="stylesheet" href="../../assets/wireframe.css">
+<style>
+body{margin:0;background:#F4F4F7;padding-bottom:70px}
+.wfc-wf{grid-template-columns:104px 1fr}
+.wfc-side div{font-size:8.5px;line-height:1.5;color:#9A9AA6;white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis}
+.wfc-side div.on{color:#1A1A1F;font-weight:700;border-left:2px solid var(--acc);
+  margin-left:-8px;padding-left:6px}
+.wfc-opt.is-chosen{border-color:#13874B;border-width:2px}
+.wfc-opt.is-out{opacity:.72}
+.verdict{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+  margin-bottom:14px;padding:3px 9px;border-radius:11px;display:inline-block}
+.v-in{background:#CFECCF;color:#0C5A32}.v-out{background:#EDEDF1;color:#6B6B76}
+.journey{margin:0 0 16px;padding-left:17px;font-size:12.5px;line-height:1.55}
+.journey li{margin-bottom:5px}
+.chips{margin-bottom:16px;line-height:2}
+.chips .wfc-chip{opacity:.34}.chips .wfc-chip.good{opacity:1}
+.key{font-size:12.5px;color:#4A4A55;margin:0 0 20px;line-height:1.75;
+  background:#fff;border:1px solid var(--l);border-radius:10px;padding:14px 16px}
+.key b{color:#1A1A1F}
+.key p{margin:0 0 9px}.key p:last-child{margin:0}
+</style></head><body><div class="wfc">
+<h1>Capacity Cut for Latent — the shapes</h1>
+<p class="lede">Step 3 of 4. All five drawn, including the two already chosen.
+They were chosen from written descriptions, and a drawing can change the answer.
+Each one shows the blocks the real design would have, in the same order.
+The rail shows which module it lives in.</p>
+<div class="key">
+<p><b>What the captain does</b> — the steps, in order, from start to the point
+where they know what to do. If a shape runs out of steps before that, it is not finished.</p>
+<p><b>Situations</b> — green means the screen has room to show that situation. Grey means it does not.<br>
+S1 never been cut · S2 close to the line · S3 first week cut · S4 at the 100 floor ·
+S5 green but no new FE · S6 new DC, exempt · S7 shown up to yesterday</p>
+<p><b>Questions it answers</b> — green means a captain can answer it from this screen alone.<br>
+T1 which metric caused it · T2 what brings capacity back · T3 am I close to a cut ·
+T4 this is not where you argue</p>
+</div>
+<div class="wfc-opt is-chosen">
+  <div><h2>A — A “Capacity Cut” tab in DC Capacity</h2><div class="tag">1b · a new screen inside an existing module &nbsp;·&nbsp; <b>DC Capacity</b></div>
+  <div class="wfc-wf"><div class="wfc-side"><div class="">Valmo Support</div><div class="">Payments</div><div class="on">DC Capacity</div><div class="">Growth Dashboard</div><div class="">Service Area</div><div class="">Area Updated</div><div class="">Loss Management</div><div class="">Cash Pendency</div><div class="">Pilot Rate Card</div><div class="">Pilot Management</div></div><div class="wfc-main">
+    <div class="wfc-ttl">Capacity Cut</div><div class="wfc-sub">§1 this week · §2 field executives against 280</div><div class="wfc-tabs"><div class="">Set Your DC Capacity</div><div class="on">Capacity Cut</div></div><div class="wfc-row"><div class="wfc-box bad"><b>this week</b><div class="wfc-v">20% cut</div><span class="wfc-chip bad">D0 attempt</span><div class="wfc-note">960, not 1,200 · floor 100 · <i>shown up to yesterday</i></div></div></div><div class="wfc-row"><div class="wfc-box bad"><b>D0 attempt %</b><div class="wfc-v">81.4</div><span class="wfc-chip bad">breached</span></div><div class="wfc-box "><b>COD FAD %</b><div class="wfc-v">7.1</div><span class="wfc-chip good">within</span></div></div><div class="wfc-row"><div class="wfc-box "><b>Misroute %</b><div class="wfc-v">4.4</div><span class="wfc-chip good">within</span></div><div class="wfc-box bad"><b>Pilot Load %</b><div class="wfc-v">26</div><span class="wfc-chip bad">breached</span></div></div><div class="wfc-sub" style="margin-top:4px">— second section —</div><table class="wfc-table"><tr><th>Field executive</th><th>Weekly OFD</th><th>Status</th></tr><tr><td>— name —</td><td>312</td><td><span class="wfc-chip bad">over 280</span></td></tr><tr><td>— name —</td><td>268</td><td><span class="wfc-chip good">within</span></td></tr></table><div class="wfc-row"><div class="wfc-box "><b>what brings capacity back</b><span class="wfc-chip ">the catch</span><div class="wfc-note">25% is restored. But only once a <b>new FE is hired</b> — a lower reading is not enough (C4).</div></div></div></div></div>
+  <div class="wfc-note" style="margin-top:6px">schematic — the same blocks, in the same order, as the design this becomes</div></div>
+  <div class="wfc-pc"><div class="verdict v-in">chosen — the home</div>
+    <h3>What the captain does</h3><ol class="journey"><li>A weekly notice arrives, or they open DC Capacity themselves.</li><li>They tap the Capacity Cut tab.</li><li>They read the cut — 20% — and which metric caused it.</li><li>They scroll to the list of field executives.</li><li>They see a new FE has to be hired. A lower number will not do.</li></ol>
+    <h3>Situations it can show</h3><div class="chips"><span class="wfc-chip good" title="never been cut">S1</span> <span class="wfc-chip good" title="close to the line">S2</span> <span class="wfc-chip good" title="first week cut">S3</span> <span class="wfc-chip good" title="at the 100 floor">S4</span> <span class="wfc-chip good" title="green, but no new FE">S5</span> <span class="wfc-chip good" title="new DC, exempt">S6</span> <span class="wfc-chip good" title="shown up to yesterday">S7</span> </div>
+    <h3>Questions it answers</h3><div class="chips"><span class="wfc-chip good" title="which metric caused it">T1</span> <span class="wfc-chip good" title="what brings capacity back">T2</span> <span class="wfc-chip good" title="am I close to a cut">T3</span> <span class="wfc-chip good" title="this is not where you argue">T4</span> </div>
+    <div class="wfc-fit">Only this screen has room to explain the catch: capacity comes back only when a new field executive is hired. A lower Pilot Load reading is not enough (C4). The list of field executives underneath is the proof. It is also the only screen that still says something useful when there is no cut at all.</div></div></div>
+<div class="wfc-opt is-chosen">
+  <div><h2>E — A reason card on Growth Dashboard</h2><div class="tag">1a · extend a section on the existing page &nbsp;·&nbsp; <b>Growth Dashboard</b></div>
+  <div class="wfc-wf"><div class="wfc-side"><div class="">Valmo Support</div><div class="">Payments</div><div class="">DC Capacity</div><div class="on">Growth Dashboard</div><div class="">Service Area</div><div class="">Area Updated</div><div class="">Loss Management</div><div class="">Cash Pendency</div><div class="">Pilot Rate Card</div><div class="">Pilot Management</div></div><div class="wfc-main">
+    <div class="wfc-ttl">Current Performance</div><div class="wfc-sub">the cut sits beside the other reasons orders moved</div><div class="wfc-tabs"><div class="on">Current Performance</div></div><div class="wfc-row"><div class="wfc-box "><b>orders</b><div class="wfc-v">7,583 / 9,480</div></div><div class="wfc-box bad"><b>lost to the cut</b><div class="wfc-v">−1,897</div><span class="wfc-chip bad">capacity</span></div></div><div class="wfc-row"><div class="wfc-box "><b>reason card</b><span class="wfc-chip ">→ DC Capacity</span><div class="wfc-note">“capacity cut — D0 attempt”. Opens A. Does not repeat it.</div></div></div></div></div>
+  <div class="wfc-note" style="margin-top:6px">schematic — the same blocks, in the same order, as the design this becomes</div></div>
+  <div class="wfc-pc"><div class="verdict v-in">chosen — a door</div>
+    <h3>What the captain does</h3><ol class="journey"><li>They open Growth Dashboard, which they do anyway.</li><li>They see orders are down.</li><li>A card says a capacity cut is the reason.</li><li>They tap through to the Capacity Cut tab.</li></ol>
+    <h3>Situations it can show</h3><div class="chips"><span class="wfc-chip good" title="never been cut">S1</span> <span class="wfc-chip" title="close to the line">S2</span> <span class="wfc-chip good" title="first week cut">S3</span> <span class="wfc-chip" title="at the 100 floor">S4</span> <span class="wfc-chip" title="green, but no new FE">S5</span> <span class="wfc-chip" title="new DC, exempt">S6</span> <span class="wfc-chip good" title="shown up to yesterday">S7</span> </div>
+    <h3>Questions it answers</h3><div class="chips"><span class="wfc-chip good" title="which metric caused it">T1</span> <span class="wfc-chip" title="what brings capacity back">T2</span> <span class="wfc-chip" title="am I close to a cut">T3</span> <span class="wfc-chip" title="this is not where you argue">T4</span> </div>
+    <div class="wfc-fit">This is a link, not a second copy. Growth Dashboard is the page captains already have open. It can say a cut caused the drop. It cannot say what to do about it.</div></div></div>
+<div class="wfc-opt is-chosen">
+  <div><h2>D — A pushed weekly notice</h2><div class="tag">outside the four — a channel, not a screen &nbsp;·&nbsp; <b>—</b></div>
+  <div class="wfc-wf"><div class="wfc-side"><div class="">Valmo Support</div><div class="">Payments</div><div class="">DC Capacity</div><div class="">Growth Dashboard</div><div class="">Service Area</div><div class="">Area Updated</div><div class="">Loss Management</div><div class="">Cash Pendency</div><div class="">Pilot Rate Card</div><div class="">Pilot Management</div></div><div class="wfc-main">
+    <div class="wfc-ttl">Notification</div><div class="wfc-sub">the breach arrives; the detail lives in A</div><div class="wfc-row"><div class="wfc-box warn"><b>notification</b><span class="wfc-chip ">weekly</span><div class="wfc-note">“Capacity cut this week — D0 attempt.” One line, then a link to the Capacity Cut tab.</div></div></div><div class="wfc-row"><div class="wfc-box "><b>sunset</b><span class="wfc-chip ">required</span><div class="wfc-note">every module already shouts. This needs a reason to be louder, and a date to stop.</div></div></div></div></div>
+  <div class="wfc-note" style="margin-top:6px">schematic — the same blocks, in the same order, as the design this becomes</div></div>
+  <div class="wfc-pc"><div class="verdict v-in">a door</div>
+    <h3>What the captain does</h3><ol class="journey"><li>The notice arrives at the start of the week.</li><li>They read which metric broke.</li><li>They tap through to the Capacity Cut tab.</li></ol>
+    <h3>Situations it can show</h3><div class="chips"><span class="wfc-chip" title="never been cut">S1</span> <span class="wfc-chip" title="close to the line">S2</span> <span class="wfc-chip good" title="first week cut">S3</span> <span class="wfc-chip" title="at the 100 floor">S4</span> <span class="wfc-chip" title="green, but no new FE">S5</span> <span class="wfc-chip" title="new DC, exempt">S6</span> <span class="wfc-chip" title="shown up to yesterday">S7</span> </div>
+    <h3>Questions it answers</h3><div class="chips"><span class="wfc-chip good" title="which metric caused it">T1</span> <span class="wfc-chip" title="what brings capacity back">T2</span> <span class="wfc-chip" title="am I close to a cut">T3</span> <span class="wfc-chip" title="this is not where you argue">T4</span> </div>
+    <div class="wfc-fit">A weekly message. It says a cut happened. Everything else lives in A. It works as a door because AMs are out of scope (C8). No one is left who never opens the panel.</div></div></div>
+<div class="wfc-opt is-out">
+  <div><h2>B — An alert where capacity is committed</h2><div class="tag">1a · extend the existing section &nbsp;·&nbsp; <b>DC Capacity</b></div>
+  <div class="wfc-wf"><div class="wfc-side"><div class="">Valmo Support</div><div class="">Payments</div><div class="on">DC Capacity</div><div class="">Growth Dashboard</div><div class="">Service Area</div><div class="">Area Updated</div><div class="">Loss Management</div><div class="">Cash Pendency</div><div class="">Pilot Rate Card</div><div class="">Pilot Management</div></div><div class="wfc-main">
+    <div class="wfc-ttl">Set Your DC Capacity</div><div class="wfc-sub">inline, at the moment a number is typed</div><div class="wfc-tabs"><div class="on">Set Your DC Capacity</div><div class="">Capacity Cut</div></div><div class="wfc-row"><div class="wfc-box bad"><b>delivery capacity</b><div class="wfc-v">960</div><span class="wfc-chip bad">was 1,200</span></div></div><div class="wfc-row"><div class="wfc-box bad"><b>inline alert</b><span class="wfc-chip ">on the field</span><div class="wfc-note">“a 20% cut is active — D0 attempt”</div></div></div><div class="wfc-row"><div class="wfc-box "><b>the capacity form</b><span class="wfc-chip ">unchanged</span><div class="wfc-note">no room under the field to say how capacity comes back</div></div></div></div></div>
+  <div class="wfc-note" style="margin-top:6px">schematic — the same blocks, in the same order, as the design this becomes</div></div>
+  <div class="wfc-pc"><div class="verdict v-out">out</div>
+    <h3>What the captain does</h3><ol class="journey"><li>They open DC Capacity to set next week's number.</li><li>They type a capacity figure.</li><li>An alert tells them a cut is already active.</li><li>They stop there. Nothing on the page says how to undo it.</li></ol>
+    <h3>Situations it can show</h3><div class="chips"><span class="wfc-chip" title="never been cut">S1</span> <span class="wfc-chip" title="close to the line">S2</span> <span class="wfc-chip good" title="first week cut">S3</span> <span class="wfc-chip good" title="at the 100 floor">S4</span> <span class="wfc-chip" title="green, but no new FE">S5</span> <span class="wfc-chip" title="new DC, exempt">S6</span> <span class="wfc-chip" title="shown up to yesterday">S7</span> </div>
+    <h3>Questions it answers</h3><div class="chips"><span class="wfc-chip good" title="which metric caused it">T1</span> <span class="wfc-chip" title="what brings capacity back">T2</span> <span class="wfc-chip" title="am I close to a cut">T3</span> <span class="wfc-chip good" title="this is not where you argue">T4</span> </div>
+    <div class="wfc-fit">It catches the captain at the right moment — while they are typing a number. But there is no room under the field to say how capacity comes back. And it shows nothing at all when there is no cut.</div></div></div>
+<div class="wfc-opt is-out">
+  <div><h2>C — Pilot-first, on the roster</h2><div class="tag">1a · extend the existing section &nbsp;·&nbsp; <b>Pilot Management</b></div>
+  <div class="wfc-wf"><div class="wfc-side"><div class="">Valmo Support</div><div class="">Payments</div><div class="">DC Capacity</div><div class="">Growth Dashboard</div><div class="">Service Area</div><div class="">Area Updated</div><div class="">Loss Management</div><div class="">Cash Pendency</div><div class="">Pilot Rate Card</div><div class="on">Pilot Management</div></div><div class="wfc-main">
+    <div class="wfc-ttl">My Current Pilots</div><div class="wfc-sub">two columns added, plus a banner when Pilot Load breaches</div><div class="wfc-tabs"><div class="on">My Current Pilots</div><div class="">Previously Worked</div></div><div class="wfc-row"><div class="wfc-box bad"><b>banner</b><span class="wfc-chip ">Pilot Load</span><div class="wfc-note">9 of 34 field executives over 280</div></div></div><table class="wfc-table"><tr><th>Field executive</th><th>Weekly OFD</th><th>Status</th></tr><tr><td>— name —</td><td>312</td><td><span class="wfc-chip bad">over 280</span></td></tr><tr><td>— name —</td><td>268</td><td><span class="wfc-chip good">within</span></td></tr></table><div class="wfc-row"><div class="wfc-box "><b>the roster</b><span class="wfc-chip ">+2 columns</span><div class="wfc-note">weekly OFD · against 280</div></div></div></div></div>
+  <div class="wfc-note" style="margin-top:6px">schematic — the same blocks, in the same order, as the design this becomes</div></div>
+  <div class="wfc-pc"><div class="verdict v-out">out</div>
+    <h3>What the captain does</h3><ol class="journey"><li>They open Pilot Management.</li><li>A banner says Pilot Load has breached.</li><li>They read the two new columns, one field executive at a time.</li><li>They see exactly who is over 280.</li></ol>
+    <h3>Situations it can show</h3><div class="chips"><span class="wfc-chip" title="never been cut">S1</span> <span class="wfc-chip" title="close to the line">S2</span> <span class="wfc-chip" title="first week cut">S3</span> <span class="wfc-chip" title="at the 100 floor">S4</span> <span class="wfc-chip good" title="green, but no new FE">S5</span> <span class="wfc-chip" title="new DC, exempt">S6</span> <span class="wfc-chip" title="shown up to yesterday">S7</span> </div>
+    <h3>Questions it answers</h3><div class="chips"><span class="wfc-chip" title="which metric caused it">T1</span> <span class="wfc-chip good" title="what brings capacity back">T2</span> <span class="wfc-chip" title="am I close to a cut">T3</span> <span class="wfc-chip" title="this is not where you argue">T4</span> </div>
+    <div class="wfc-fit">Out. But it was the only screen that made S5 impossible to miss, because it lists people instead of showing a percentage. Its field-executive list moves into A.</div></div></div>
+</div></body></html>

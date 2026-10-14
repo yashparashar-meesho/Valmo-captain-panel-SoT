@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The brief — Capacity Cut</title>
+<style>
+*{box-sizing:border-box}
+:root{--ink:#1A1A1F;--mute:#6B6B76;--line:#E6E6EC;--bg:#F4F4F7;--card:#fff;--acc:#2F6BFF}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 -apple-system,BlinkMacSystemFont,
+ "Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+.bar{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.bar .in{max-width:860px;margin:0 auto;padding:13px 24px;display:flex;gap:12px;align-items:baseline;
+ flex-wrap:wrap}
+.bar a{color:var(--acc);text-decoration:none;font-weight:600;font-size:13px}
+.bar a:hover{text-decoration:underline}
+.bar .n{font-weight:700;font-size:13px}
+.bar .t{color:var(--mute);font-size:12px;margin-left:auto}
+main{max-width:860px;margin:0 auto;padding:34px 24px 90px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:30px 34px}
+h1{font-size:30px;line-height:1.2;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-size:21px;margin:2.1em 0 .5em;letter-spacing:-.01em}
+h3{font-size:16px;margin:1.8em 0 .4em}
+h4{font-size:14px;margin:1.5em 0 .3em;color:var(--mute)}
+p,li{font-size:15px}
+code{background:#F0F0F4;border-radius:4px;padding:1px 5px;font-size:13px;
+ font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+pre{background:#1A1A1F;color:#E8E8EF;padding:14px 16px;border-radius:9px;overflow-x:auto}
+pre code{background:none;color:inherit;padding:0}
+table{border-collapse:collapse;width:100%;margin:1.1em 0;display:block;overflow-x:auto}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;
+ font-size:14px}
+th{color:var(--mute);font-weight:600;white-space:nowrap}
+blockquote{margin:1.2em 0;padding:2px 0 2px 16px;border-left:3px solid var(--line);color:var(--mute)}
+hr{border:0;border-top:1px solid var(--line);margin:2.2em 0}
+a{color:var(--acc)}
+strong{font-weight:650}
+.lede{color:var(--mute);margin:0 0 26px;font-size:15px}
+.grp{margin:0 0 30px}
+.grp h2{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--mute);
+ margin:0 0 10px}
+.rows{display:grid;gap:9px}
+.row{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;
+ padding:13px 16px;text-decoration:none;color:inherit}
+.row:hover{border-color:#C9C9D4}
+.row b{display:block;font-size:15px;margin-bottom:2px}
+.row span{color:var(--mute);font-size:13.5px}
+.nxt{display:flex;justify-content:space-between;gap:12px;margin-top:26px;font-size:13px}
+@media(max-width:700px){body{font-size:16px}main,.bar .in{padding-left:16px;padding-right:16px}
+ .card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="bar"><div class="in"><a href="../index.html">The pack</a><a href="index.html">Capacity Cut</a><span class="n">The brief</span><span class="t">as produced, not tidied afterwards</span></div></div>
+<main><div class="card"><h1>Brief — Capacity Cut for Latent</h1>
+<p><strong>Step 1 of 4.</strong> Nothing is designed yet and nothing has been fetched. This exists so every later step can be checked against it by name.</p>
+<h2>The problem, in one sentence</h2>
+<p>A Latent DC loses a fifth of its capacity for breaching any one of four weekly metrics, and today finds out only after it has happened.</p>
+<p><strong>The single decision the page must support:</strong> <em>what do I do this week so I am not cut — or so I get my capacity back?</em></p>
+<h2>What it touches</h2>
+<p><code>dc-capacity</code> owns the number the cut acts on · <code>growth-dashboard</code> already explains why orders moved and runs weekly, like the cut · <code>pilot-management</code> owns the roster, and staffing is the only lever in the captain's own hands.</p>
+<h2>Constraints</h2>
+<p>These come from the KRD. Every later step has to account for them <strong>by name</strong>.</p>
+<table><thead><tr><th></th><th>constraint</th></tr></thead><tbody><tr><td><strong>C1</strong></td><td>A breach of <strong>any one</strong> metric triggers a flat 20% cut. Cuts never stack within a week.</td></tr><tr><td><strong>C2</strong></td><td>Cuts continue weekly down to a floor of 100 orders.</td></tr><tr><td><strong>C3</strong></td><td>Reinstatement is +25% of the cut capacity — which restores it <strong>in full</strong> — and only when every metric is green.</td></tr><tr><td><strong>C4</strong></td><td>For Pilot Load, green means <strong>a newly onboarded FE</strong>, not a lower reading. A falling order count lowers the reading without anything improving.</td></tr><tr><td><strong>C5</strong></td><td>The captain <strong>cannot turn this off</strong>. Exceptions go through Control Tower only.</td></tr><tr><td><strong>C6</strong></td><td>The allowance tightens with maturity: new DCs under 5 weeks are exempt, stable 5pp, mature 2pp.</td></tr><tr><td><strong>C7</strong></td><td>Pilots receive no communication about this at all.</td></tr><tr><td><strong>C8</strong></td><td><strong>AMs are out of scope.</strong> The KRD names them, but nothing is built for them here. Confirmed, not assumed.</td></tr></tbody></table>
+<h2>Success test</h2>
+<p>The page is right if these are true of a real person using it. They are checked again, line by line, against the built design in step 4.</p>
+<table><thead><tr><th></th><th>the page is right if…</th></tr></thead><tbody><tr><td><strong>T1</strong></td><td>a captain under a cut can say <strong>which metric caused it</strong>, without asking anyone</td></tr><tr><td><strong>T2</strong></td><td>a captain can say <strong>exactly what has to happen</strong> for capacity to come back — including that a lower Pilot Load reading is not enough (C4)</td></tr><tr><td><strong>T3</strong></td><td>a captain <strong>not yet cut</strong> can tell whether they are close to one</td></tr><tr><td><strong>T4</strong></td><td>a captain <strong>cannot mistake this for a place to dispute</strong> the cut (C5)</td></tr></tbody></table>
+<h2>Situations</h2>
+<p>Produced by running the sweep — data, time, permission, lifecycle — against the KRD. <strong>The KRD describes only S3.</strong> Every one of these has to be designed, and each is walked against the finished page in step 4.</p>
+<table><thead><tr><th></th><th>situation</th><th>where it came from</th></tr></thead><tbody><tr><td><strong>S1</strong></td><td>never been cut, does not know this exists</td><td>lifecycle · before</td></tr><tr><td><strong>S2</strong></td><td>inside the allowance but close to it</td><td>data · exactly at the threshold</td></tr><tr><td><strong>S3</strong></td><td>first week under a cut</td><td><em>the only one the KRD describes</em></td></tr><tr><td><strong>S4</strong></td><td>third week running, already at the 100-order floor</td><td>lifecycle · during · C2</td></tr><tr><td><strong>S5</strong></td><td>every metric green, but no new FE — so <strong>not</strong> recovering</td><td>C4 · the trap</td></tr><tr><td><strong>S6</strong></td><td>a new DC, under 5 weeks, exempt</td><td>C6 · excluded state</td></tr><tr><td><strong>S7</strong></td><td>the current week is shown to <strong>yesterday</strong> — one day behind, never incomplete</td><td>data · the current period</td></tr></tbody></table>
+<h2>What the panel already tells us</h2>
+<p>From <code>panel-principles.md</code>, and each one changes something here:</p>
+<ul><li><strong>The panels are merging</strong> — design for a captain working here all day under operational pressure, not an end-of-day reporter.</li><li><strong><code>–</code> in an empty cell reads as a loading failure.</strong> Captains see a bare dash and conclude the page is broken, not that there is genuinely nothing there. Our own <code>dc-capacity</code> does this today — the action bar shows <code>-</code> until a number is typed. Wherever a value is legitimately absent, say so in words.</li><li><strong>Selected and unselected states are already reported as indistinguishable.</strong> Anything tabbed has to do more than change font weight.</li><li><strong>Recall is not available.</strong> S1 has never seen this and will not have been trained. The page explains itself or it fails.</li><li><strong>WhatsApp is the competitor.</strong> If an AM can explain this faster in a message, the page has not earned its place.</li></ul>
+<h2>Answered since the first draft</h2>
+<table><thead><tr><th></th><th>was open</th><th>answered</th></tr></thead><tbody><tr><td>the cut's shape</td><td>daily or weekly?</td><td><strong>spread across the week, but not attributable to any single date.</strong> So the figure is a weekly ceiling. Nothing may show a per-day cut.</td></tr><tr><td>what is cut</td><td>delivery, pickup, or both?</td><td><strong>capacity</strong> — fewer orders arrive. Taken as the delivery number the page already commits; if pickup is cut too, that is a change, not a detail.</td></tr><tr><td>AMs</td><td>one page or two?</td><td><strong>neither — nothing is built for AMs here.</strong> See C8.</td></tr></tbody></table>
+<blockquote><p><strong>The AM answer removed an approach.</strong> E existed because a scorecard is something a captain and an AM read together. With C8 settled there is no second reader, and E has no reason to exist. Four approaches, not five — the count follows the problem, and this is what that looks like in practice.</p></blockquote>
+<h2>Decided</h2>
+<table><thead><tr><th></th><th>answered</th></tr></thead><tbody><tr><td><strong>where it lives</strong></td><td><strong>A + E.</strong> A <em>Capacity Cut</em> tab in DC Capacity is the home; Growth Dashboard's capacity card is a door to it, as is the weekly notification. One home, many doors.</td></tr></tbody></table>
+<h2>Still open</h2>
+<ul><li>Nothing blocking.</li><li><strong>Watch S5.</strong> Every metric green but no new FE, so not actually recovering. The approach that made this unavoidable (C, roster columns) was not chosen. A can say it; it has to say it well.</li></ul></div><div class="nxt"><a href="index.html">&larr; The run</a><a href="approaches.html">The DRD &rarr;</a></div></main>
+</body>
+</html>
