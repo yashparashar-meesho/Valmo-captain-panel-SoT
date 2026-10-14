@@ -88,6 +88,32 @@ def main():
         if uncovered:
             notes.append("in docs/ but never fetched by the skill: %s" % ", ".join(uncovered))
 
+    # ---- the brief stays a brief ----
+    # Two build-side sections were in the brief template and made it long enough
+    # to skim. A skimmed brief gets approved without being checked, which is
+    # worse than having no gate at all. They are build material: gathered in
+    # Section 0, used in Section 2, never in the document someone signs off.
+    skill = ROOT / ".claude" / "skills" / "slipstream" / "SKILL.md"
+    if skill.exists():
+        t = skill.read_text(encoding="utf-8")
+        for banned in ("CONVENTIONS THAT BIND THIS WORK",
+                       "WHAT ALREADY EXISTS THAT YOU CAN REUSE"):
+            if banned in t:
+                problems.append("the brief template carries %r again. The brief is read by "
+                                "someone deciding whether the problem was understood; build "
+                                "material belongs in Section 2." % banned)
+
+    # ---- every script the skill tells you to run, it must tell you to fetch --
+    if skill.exists():
+        t = skill.read_text(encoding="utf-8")
+        for script in re.findall(r"scripts/([a-z_]+\.py)", t):
+            if script in ("check_v2_sync.py", "build_docs.py"):
+                continue                      # clone-only, guarded as such
+            if ("scripts/%s" % script) not in t.split("Then get the two scripts")[0] \
+               and "-o scripts/$f" not in t:
+                problems.append("the skill runs scripts/%s but never tells a non-clone "
+                                "user to fetch it." % script)
+
     # ------------------------------------------------------------- report --
     for n in notes:
         print("NOTE: " + n)

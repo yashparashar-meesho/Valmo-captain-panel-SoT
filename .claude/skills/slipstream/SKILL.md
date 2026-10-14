@@ -25,13 +25,31 @@ needed for reading)
 
 ```bash
 BASE=https://raw.githubusercontent.com/yashparashar-meesho/Valmo-captain-panel-SoT/main
-for f in manifest.json docs/README.md docs/design-method.md docs/page-framework.md \
-         docs/layout-rules.md docs/section-rules.md docs/never-do-this.md \
-         docs/pages.md docs/components.md docs/color-foundation.md \
-         docs/spacing-foundation.md docs/typography-audit.md docs/fidelity-checklist.md; do
+for f in manifest.json docs/README.md docs/panel-principles.md docs/design-method.md \
+         docs/page-framework.md docs/layout-rules.md docs/section-rules.md \
+         docs/never-do-this.md docs/pages.md docs/components.md \
+         docs/color-foundation.md docs/spacing-foundation.md \
+         docs/typography-audit.md docs/fidelity-checklist.md docs/flow.svg \
+         docs/comparison-example.html docs/wireframe-example.html \
+         docs/promoted-example.html assets/wireframe.css \
+         scripts/render_doc.py scripts/md_to_html.py; do
   printf '%-34s %s\n' "$f" "$(curl -s --http1.1 -o /dev/null -w '%{http_code}' $BASE/$f)"
 done
 ```
+
+**Then get the two scripts**, unless you are in a clone and already have them.
+Every artefact step below runs `scripts/render_doc.py`, and the one-line
+install gave you only this file:
+
+```bash
+mkdir -p scripts
+for f in render_doc.py md_to_html.py; do
+  curl -fsSL --http1.1 --retry 3 -o scripts/$f $BASE/scripts/$f
+done
+```
+
+`render_doc.py` imports `md_to_html.py` from beside it, so fetching one without
+the other fails with `ModuleNotFoundError`. Get both.
 
 Everything must be `200`. A `404` means the pack moved or was renamed — stop
 and say so rather than designing without it.
@@ -240,13 +258,15 @@ Per `design-method.md`. The things most often got wrong:
   · after · reverted). A KRD describes the happy path; the sweep is what finds
   the rest. Each case becomes a constraint or a test, and a situation in the
   shapes.
-- **Section 2 wireframes are grey, all of them.** Load `kit.css` then
-  `assets/wireframe.css`, put `wf` on the scope, and make every block a
-  `.wf-box` whose label says what information goes there. Add `.exists` where
-  the catalogue already has the pattern. A wireframe that looks finished turns
-  review into proofreading instead of choosing — colour returns at promotion.
-  Open `docs/wireframe-example.html` first — it is the standard, and guessing
-  what "grey box" means is what produced near-final pages on the first run.
+- **Section 2 is grey, all of it.** Load `kit.css` then `assets/wireframe.css`
+  and build the schematics with the `wfc-` classes — `comparison-example.html`
+  is the standard for the sheet. A component the catalogue already has is drawn
+  as that component, greyed. **Only** what it does *not* have becomes a
+  labelled `.wf-box`, so the dashed boxes are an exact list of what has to be
+  built. `wireframe-example.html` shows that grey vocabulary close up; it is a
+  reference for *how grey works*, **not a stage to build** — there is no
+  full-size wireframe step. A wireframe that looks finished turns review into
+  proofreading instead of choosing; colour returns at promotion.
 - **Never skip the comparison sheet because the DRD named a favourite.**
   Liking an approach in the DRD is liking a paragraph; the sheet is where
   shapes get compared as shapes. Build it and show it. The user may then say
