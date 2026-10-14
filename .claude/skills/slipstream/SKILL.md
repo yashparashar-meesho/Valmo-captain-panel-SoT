@@ -104,6 +104,21 @@ Render it and open it, then **ask whether it is good to go:**
 python3 scripts/render_doc.py BRIEF.md
 ```
 
+### Open every artefact you make
+
+```bash
+python3 scripts/render_doc.py BRIEF.md        # markdown → a readable page
+python3 scripts/render_doc.py shapes.html     # already a page → served as-is
+```
+
+The brief, the DRD, the comparison sheet and the design are each rendered,
+served and **opened in the browser** as soon as they exist — Chrome where it
+exists, the default browser otherwise. **Each in a new tab.** A run is read by
+comparing its artefacts, so replacing the tab throws away what was being
+compared to.
+
+If a browser cannot be opened at all, say so and give the URL.
+
 ### The brief gate — blocking
 
 **Nothing in Section 1 starts until they say the brief is good to go.** Not
