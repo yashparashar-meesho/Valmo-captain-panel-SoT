@@ -33,13 +33,25 @@ and say so rather than designing without it.
 
 Also confirm, and report in one line:
 
-- **`log-exploration` skill present?** Needed in Section 2 to park losing
-  wireframes. If missing, say so — the run can continue, the wall entry cannot.
+- **`log-exploration` — optional, and not shipped.** It parks losing
+  approaches on the Idea Wall. It is deliberately not published, so it will
+  normally be absent. **Do not report that as a problem** — say nothing unless
+  the user asks to log something, and then explain it is not installed.
+  Everything else in the method works without it.
 - **Working in a clone?** If the user has the repo locally, prefer local files
   and run `python3 scripts/check_v2_sync.py` and
   `python3 scripts/build_docs.py --check`. Both must pass. If `build_docs`
   reports stale, the inventory you are about to read is out of date — regenerate
   before trusting it.
+
+**Read `docs/panel-principles.md` first.** It is the only file describing the
+person and the product rather than how to build a page, and it contradicts
+several comfortable assumptions: the panel is an **end-of-day** tool, not one
+open during the work · **WhatsApp is the competitor** and is winning · there
+is **no homepage** · a `–` in an empty cell reads as a loading failure ·
+selected and unselected states are known to be indistinguishable · payments
+lag a week. Its **eight principles are the UX checks** on the finished design,
+answered with an argument each, never a tick.
 
 Then **read the pack** — at minimum `design-method.md`, `pages.md`,
 `components.md`, `page-framework.md`, `section-rules.md`, `never-do-this.md`.

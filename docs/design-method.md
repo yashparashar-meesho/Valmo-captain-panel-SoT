@@ -73,9 +73,14 @@ catalogue starts going stale and Section 0 starts lying.
 Before anything is designed, establish what already exists. Skipping this is
 how approaches get invented in a vacuum and the final UI lands off-spec.
 
-1. Read [pages.md](pages.md) and [components.md](components.md).
-2. Match the KRD against them.
-3. Report, without asking anything yet: **the problem as you read it**, the
+1. Read [panel-principles.md](panel-principles.md) **first** — who the captain
+   is, and the panel's standing failures. Several entries there contradict
+   assumptions a page is easy to build on: the panel is an **end-of-day** tool,
+   not one open while the work happens; **WhatsApp is the competitor**; there
+   is **no homepage**, so nothing can assume where they arrived from.
+2. Read [pages.md](pages.md) and [components.md](components.md).
+3. Match the KRD against them.
+4. Report, without asking anything yet: **the problem as you read it**, the
    modules and screens it touches, the conventions that will bind the work,
    and what already exists that can be reused.
 
@@ -342,6 +347,18 @@ drawing of work already understood.
 
 Losing approaches go to the **Idea Wall** (`log-exploration`): logged, never
 reviewed, allowed to go stale. Dead ends are the reason the wall exists.
+
+### Checking the design as UX, not only as UI
+
+The layout checks are syntactic and will all pass on a page nobody can use.
+Answer the **eight principles** in [panel-principles.md](panel-principles.md)
+with an argument each, and walk **every situation** the edge sweep produced —
+narrate the captain in that situation, step by step, ending either in *they
+succeed* or *here is where they stall*. A stall is a finding.
+
+Phrase it adversarially. *"Is the hierarchy right?"* grades itself. *"A
+captain opens this at 7am, has never seen it, and is already under a cut —
+what do they get wrong?"* has an answer.
 
 ## Section 3 — Promote
 

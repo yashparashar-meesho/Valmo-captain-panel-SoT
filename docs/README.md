@@ -14,6 +14,7 @@ https://raw.githubusercontent.com/yashparashar-meesho/Valmo-captain-panel-SoT/ma
 
 | question | file |
 |---|---|
+| **Who is this for, and what already fails?** | **[panel-principles.md](panel-principles.md)** — read first |
 | How does a problem become a page? | [design-method.md](design-method.md) |
 | …at a glance? | [flow.svg](flow.svg) — the diagram in design-method |
 | What is a page made of? | [page-framework.md](page-framework.md) |
