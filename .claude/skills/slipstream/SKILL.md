@@ -82,13 +82,8 @@ THE PROBLEM AS I READ IT
   <in your own words — if this is wrong, everything after it is wrong>
 
 WHAT IT TOUCHES
-  <modules and screens from the catalogue, and why each is relevant>
-
-CONVENTIONS THAT BIND THIS WORK
-  <the framework, the layout rules, the foundations that apply>
-
-WHAT ALREADY EXISTS THAT YOU CAN REUSE
-  <components from the inventory this problem will need>
+  <every module and screen the problem reaches, and why each is relevant —
+   name them all, including ones you expect to rule out, or they vanish>
 
 CONSTRAINTS            C1, C2, …   the rules the design cannot break
 SUCCESS TESTS          T1, T2, …   what a person must be able to do
@@ -97,6 +92,13 @@ SITUATIONS             S1, S2, …   every case the sweep found
 OPEN QUESTIONS
   <what only they can answer, and what you will assume if they do not>
 ```
+
+**Nothing else goes in the brief.** You read the conventions and the component
+inventory in the step before this and you will need them in Section 2 — but
+they are build material. The brief is read by someone deciding whether you have
+understood their problem, and anything that is not that is in the way. A brief
+that cannot be read and corrected in a few minutes gets skimmed, and a skimmed
+brief is approved without being checked.
 
 Render it and open it, then **ask whether it is good to go:**
 
