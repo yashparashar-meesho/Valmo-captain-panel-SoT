@@ -1,242 +1,266 @@
 #!/usr/bin/env python3
-"""Render the docs/ pack as readable pages on the site, under pack/.
+"""Render the docs/ pack as one readable page on the site: pack/index.html.
 
-    python3 scripts/build_pack_pages.py            # -> pack/*.html
+    python3 scripts/build_pack_pages.py            # -> pack/index.html
     python3 scripts/build_pack_pages.py --check    # fail if stale (CI)
 
-GENERATED. Never hand-edit pack/*.html - edit the markdown in docs/ and run
-this. The pack is the source; these pages are a reading surface for people who
-do not want to read raw markdown on GitHub. A second copy of a fact drifts,
-so nothing here is written by hand.
+GENERATED. Never hand-edit pack/index.html - edit the markdown in docs/ (or
+examples/capacity-cut/) and run this. The markdown is the source; a second
+copy of a fact drifts.
 
-Links between documents are rewritten from .md to .html. The three worked
-examples and flow.svg are already HTML or SVG and are linked, not converted.
+One page, every document as a section, with a doc rail down the left - the
+same shape as the throwaway review page, which is the shape people actually
+read in. Seventeen separate pages made you navigate to find out whether a
+rule existed.
+
+Two rails, never both unless asked. The pack's own rail is what you came for,
+so it is the one that shows. The Slipstream rail is collapsed behind an
+arrow: open it and you have both, which is the only time two rails earn
+their width.
 """
+import json
 import re
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from md_to_html import md  # noqa: E402
+from md_to_html import md  # noqa: E402  one converter, shared with render_doc.py
 
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
+RUN = ROOT / "examples" / "capacity-cut"
 OUT = ROOT / "pack"
 
-# order, title, blurb - mirrors docs/README.md's own grouping
+# (source, slug, nav label, tag)   tag: "" | "new" | "gen" | "run"
 GROUPS = [
     ("Start here", [
-        ("panel-principles", "Who the captain is", "The person and the product, and what the live panel already gets wrong."),
-        ("design-method", "The design method", "How a problem becomes a page. Four sections, one gate."),
-        ("never-do-this", "Never do this", "Every line cost someone real time at least once."),
+        (DOCS / "README.md", "readme", "Index of the pack", ""),
+        (DOCS / "panel-principles.md", "panel-principles", "Who the captain is", "new"),
+        (DOCS / "design-method.md", "design-method", "The design method", "new"),
     ]),
-    ("Building a page", [
-        ("page-framework", "Page framework", "What a page is made of."),
-        ("layout-rules", "Layout rules", "How wide, how tall, what scrolls."),
-        ("section-rules", "Section rules", "A new section, or bake it into one that exists."),
+    ("Rules", [
+        (DOCS / "page-framework.md", "page-framework", "What a page is made of", ""),
+        (DOCS / "layout-rules.md", "layout-rules", "Rail, header, work area", ""),
+        (DOCS / "section-rules.md", "section-rules", "New section vs bake in", ""),
+        (DOCS / "never-do-this.md", "never-do-this", "Never do this", "new"),
     ]),
-    ("What already exists", [
-        ("pages", "Pages", "Every screen built so far, and what it is for. Generated."),
-        ("components", "Components", "The component inventory. Generated."),
+    ("What exists", [
+        (DOCS / "pages.md", "pages", "All 11 screens", "gen"),
+        (DOCS / "components.md", "components", "All 53 components", "gen"),
     ]),
     ("Foundations", [
-        ("color-foundation", "Colour", "Which colour, and the token for it."),
-        ("spacing-foundation", "Spacing", "Which spacing token."),
-        ("typography-audit", "Typography", "Which type style."),
-        ("fidelity-checklist", "Fidelity checklist", "Does it match live?"),
+        (DOCS / "color-foundation.md", "color-foundation", "Colour", ""),
+        (DOCS / "spacing-foundation.md", "spacing-foundation", "Spacing", ""),
+        (DOCS / "typography-audit.md", "typography-audit", "Typography", ""),
+        (DOCS / "fidelity-checklist.md", "fidelity-checklist", "Matching live", ""),
+    ]),
+    ("A worked run", [
+        (RUN / "BRIEF.md", "run-brief", "The brief", "run"),
+        (RUN / "APPROACHES.md", "run-approaches", "The DRD", "run"),
     ]),
 ]
-# the worked run - source markdown lives in examples/capacity-cut/
-RUN = ROOT / "examples" / "capacity-cut"
-RUN_OUT = OUT / "run"
-RUN_PAGES = [
-    ("BRIEF", "The brief", "The problem pinned down: constraints, success tests, and the seven situations."),
-    ("APPROACHES", "The DRD", "Five approaches on the axes, each with the captain's journey and the case for it."),
-]
-
-EXTRAS = [
-    ("../docs/flow.svg", "The method diagram", "The four sections at a glance."),
-    ("../docs/comparison-example.html", "A comparison sheet", "Five approaches drawn as schematics. The worked standard."),
-    ("../docs/wireframe-example.html", "A wireframe", "Grey only, on the real skeleton."),
-    ("../docs/promoted-example.html", "A promoted design", "Crystal colour, real components."),
-]
-
-CSS = """
-*{box-sizing:border-box}
-:root{--ink:#1A1A1F;--mute:#6B6B76;--line:#E6E6EC;--bg:#F4F4F7;--card:#fff;--acc:#2F6BFF}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 -apple-system,BlinkMacSystemFont,
- "Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
-.bar{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
-.bar .in{max-width:860px;margin:0 auto;padding:13px 24px;display:flex;gap:12px;align-items:baseline;
- flex-wrap:wrap}
-.bar a{color:var(--acc);text-decoration:none;font-weight:600;font-size:13px}
-.bar a:hover{text-decoration:underline}
-.bar .n{font-weight:700;font-size:13px}
-.bar .t{color:var(--mute);font-size:12px;margin-left:auto}
-main{max-width:860px;margin:0 auto;padding:34px 24px 90px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:30px 34px}
-h1{font-size:30px;line-height:1.2;margin:0 0 6px;letter-spacing:-.02em}
-h2{font-size:21px;margin:2.1em 0 .5em;letter-spacing:-.01em}
-h3{font-size:16px;margin:1.8em 0 .4em}
-h4{font-size:14px;margin:1.5em 0 .3em;color:var(--mute)}
-p,li{font-size:15px}
-code{background:#F0F0F4;border-radius:4px;padding:1px 5px;font-size:13px;
- font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
-pre{background:#1A1A1F;color:#E8E8EF;padding:14px 16px;border-radius:9px;overflow-x:auto}
-pre code{background:none;color:inherit;padding:0}
-table{border-collapse:collapse;width:100%;margin:1.1em 0;display:block;overflow-x:auto}
-th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;
- font-size:14px}
-th{color:var(--mute);font-weight:600;white-space:nowrap}
-blockquote{margin:1.2em 0;padding:2px 0 2px 16px;border-left:3px solid var(--line);color:var(--mute)}
-hr{border:0;border-top:1px solid var(--line);margin:2.2em 0}
-a{color:var(--acc)}
-strong{font-weight:650}
-.lede{color:var(--mute);margin:0 0 26px;font-size:15px}
-.grp{margin:0 0 30px}
-.grp h2{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--mute);
- margin:0 0 10px}
-.rows{display:grid;gap:9px}
-.row{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;
- padding:13px 16px;text-decoration:none;color:inherit}
-.row:hover{border-color:#C9C9D4}
-.row b{display:block;font-size:15px;margin-bottom:2px}
-.row span{color:var(--mute);font-size:13.5px}
-.nxt{display:flex;justify-content:space-between;gap:12px;margin-top:26px;font-size:13px}
-@media(max-width:700px){body{font-size:16px}main,.bar .in{padding-left:16px;padding-right:16px}
- .card{padding:22px 18px}}
-"""
-
+SLUGS = {p.name: slug for _, items in GROUPS for p, slug, _, _ in items}
 ASSETS = {"flow.svg", "comparison-example.html", "wireframe-example.html",
           "promoted-example.html"}
 
+CSS = """
+:root{--ink:#15202E;--ink2:#55606F;--ink3:#8A94A3;--page:#fff;--sunken:#F5F7FA;
+--line:#E2E7EE;--accent:#2F6FED;--new:#7B5BD6;--gen:#0E7C53;--run:#B2541A;
+--font:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,system-ui,sans-serif;
+--mono:ui-monospace,SFMono-Regular,Menlo,monospace}
+*{box-sizing:border-box}html,body{margin:0;height:100%}
+body{background:var(--page);color:var(--ink);font:16px/1.65 var(--font);display:flex}
+
+/* ---- the Slipstream rail: collapsed unless asked for ---- */
+#sl{width:232px;flex:none;background:#101722;color:#C9D2E0;height:100vh;overflow-y:auto;
+padding:18px 0 40px;display:none}
+body.sl-open #sl{display:block}
+#sl .brand{padding:0 18px 14px;border-bottom:1px solid #223047;margin-bottom:12px}
+#sl .brand b{display:block;font-size:15px;color:#fff;letter-spacing:-.01em}
+#sl .brand span{font-size:11px;color:#6E7D93}
+#sl h3{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6E7D93;
+margin:16px 18px 6px;font-weight:650}
+#sl a{display:block;padding:5px 18px;color:#C9D2E0;text-decoration:none;font-size:13px}
+#sl a:hover{background:#1B2534;color:#fff}
+#sl .home{color:#8FB4FF}
+
+/* ---- the pack's own rail ---- */
+nav.docs{width:270px;flex:none;background:var(--sunken);border-right:1px solid var(--line);
+height:100vh;overflow-y:auto;padding:14px 0 40px}
+.railtop{display:flex;align-items:center;gap:8px;padding:0 14px 12px;margin-bottom:6px;
+border-bottom:1px solid var(--line)}
+#slToggle{flex:none;width:28px;height:28px;border:1px solid var(--line);background:#fff;
+border-radius:7px;cursor:pointer;color:var(--ink2);font-size:13px;line-height:1;
+display:flex;align-items:center;justify-content:center}
+#slToggle:hover{background:#EAEFF6;color:var(--ink)}
+.railtop b{font-size:13px}
+.railtop span{font-size:11px;color:var(--ink3);display:block;font-weight:400}
+nav.docs h2{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);
+margin:18px 20px 6px;font-weight:650}
+nav.docs a{display:block;padding:6px 20px;color:var(--ink2);text-decoration:none;font-size:14px;
+border-left:2px solid transparent}
+nav.docs a:hover{background:#EAEFF6;color:var(--ink)}
+nav.docs a.on{border-left-color:var(--accent);color:var(--ink);font-weight:600;background:#E8EFFC}
+.tag{font-size:9.5px;font-weight:700;letter-spacing:.05em;padding:1px 5px;border-radius:3px;
+margin-left:6px;vertical-align:1px}
+.t-new{background:#EEE8FD;color:var(--new)}.t-gen{background:#DFF3E9;color:var(--gen)}
+.t-run{background:#FBE8DA;color:var(--run)}
+
+main{flex:1;min-width:0;height:100vh;overflow-y:auto;padding:0 0 120px}
+.inner{max-width:820px;margin:0 auto;padding:30px 32px}
+.filehead{position:sticky;top:0;background:rgba(255,255,255,.96);
+border-bottom:1px solid var(--line);padding:11px 32px;z-index:5;
+font:600 12.5px/1.4 var(--mono);color:var(--ink2)}
+.filehead i{font-style:normal;color:var(--ink3);font-weight:400}
+section{scroll-margin-top:46px;border-bottom:1px solid var(--line)}
+section:last-child{border-bottom:0}
+.lead-in{padding:34px 32px 10px;max-width:820px;margin:0 auto}
+.lead-in h1{font-size:29px;margin:0 0 8px;letter-spacing:-.02em}
+.lead-in p{color:var(--ink2);margin:0 0 6px}
+.md h1{font-size:29px;line-height:1.2;letter-spacing:-.02em;margin:.2em 0 .5em}
+.md h2{font-size:21px;letter-spacing:-.01em;margin:1.9em 0 .5em;padding-bottom:.25em;
+border-bottom:1px solid var(--line)}
+.md h3{font-size:17px;margin:1.6em 0 .4em}.md h4{font-size:15px;margin:1.4em 0 .3em}
+.md p{margin:.75em 0;color:#242E3C}.md ul,.md ol{padding-left:1.35em;margin:.7em 0}
+.md li{margin:.3em 0}
+.md code{background:#EFF2F6;padding:1.5px 6px;border-radius:4px;font:.855em var(--mono);
+color:#1F3C73}
+.md pre{background:#132033;color:#DCE6F5;padding:15px 18px;border-radius:9px;overflow-x:auto;
+font:13px/1.6 var(--mono);margin:1em 0}
+.md pre code{background:none;color:inherit;padding:0;font-size:inherit}
+.md table{border-collapse:collapse;width:100%;margin:1.1em 0;font-size:14.5px;display:block;
+overflow-x:auto}
+.md th,.md td{border:1px solid var(--line);padding:8px 11px;text-align:left;vertical-align:top}
+.md th{background:var(--sunken);font-size:12px;text-transform:uppercase;letter-spacing:.06em;
+color:var(--ink3);font-weight:650;white-space:nowrap}
+.md tr:nth-child(even) td{background:#FBFCFE}
+.md blockquote{margin:1.1em 0;padding:.6em 1.1em;border-left:3px solid var(--accent);
+background:#F4F8FF;color:#24405E;border-radius:0 6px 6px 0}
+.md blockquote p{margin:.35em 0}.md a{color:var(--accent)}
+.md hr{border:0;border-top:1px solid var(--line);margin:2em 0}.md strong{font-weight:650}
+.md img{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:8px;
+background:#fff}
+.seealso{background:#FFF8EE;border:1px solid #F0DCBC;border-radius:9px;padding:12px 16px;
+font-size:14px;margin:0 0 4px}
+.seealso a{color:#9A5A12;font-weight:600}
+@media(max-width:900px){nav.docs,#sl{display:none}body.sl-open #sl{display:none}}
+"""
+
+JS = """
+(function(){
+  var b=document.body, t=document.getElementById('slToggle'), K='slipstream-pack-rail';
+  function paint(){ t.textContent = b.classList.contains('sl-open') ? '\\u2039' : '\\u203a';
+    t.title = b.classList.contains('sl-open')
+      ? 'Hide the Slipstream rail' : 'Show the Slipstream rail'; }
+  try{ if(localStorage.getItem(K)==='1') b.classList.add('sl-open'); }catch(e){}
+  paint();
+  t.addEventListener('click', function(){
+    b.classList.toggle('sl-open'); paint();
+    try{ localStorage.setItem(K, b.classList.contains('sl-open')?'1':'0'); }catch(e){}
+  });
+  /* which document am I in - the rail follows the reading position */
+  var links={}, secs=[].slice.call(document.querySelectorAll('section[id]'));
+  secs.forEach(function(s){ var a=document.querySelector('nav.docs a[href="#'+s.id+'"]');
+    if(a) links[s.id]=a; });
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(!e.isIntersecting) return;
+      for(var k in links) links[k].classList.remove('on');
+      if(links[e.target.id]) links[e.target.id].classList.add('on'); });
+  },{rootMargin:'-10% 0px -80% 0px'});
+  secs.forEach(function(s){ io.observe(s); });
+})();
+"""
+
 
 def _link(m):
-    """A cross-reference inside the pack, resolved exactly once."""
+    """A cross-reference, resolved once: in-pack links become anchors."""
     stem, ext = m.group(1), m.group(2)
     if ext == "md":
-        return 'href="%s.html"' % stem            # another page here
-    return 'href="../docs/%s.%s"' % (stem, ext)   # a worked example or the svg
+        slug = SLUGS.get(stem + ".md")
+        return 'href="#%s"' % slug if slug else 'href="../docs/%s.md"' % stem
+    return 'href="../docs/%s.%s"' % (stem, ext)
 
 
-def shell(title, crumb, body, foot=""):
-    return ('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
-            '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
-            '<title>%s</title>\n<style>%s</style>\n</head>\n<body>\n'
-            '<div class="bar"><div class="in">%s</div></div>\n'
-            '<main>%s%s</main>\n</body>\n</html>\n'
-            % (title, CSS, crumb, body, foot))
+def slipstream_rail():
+    """Generated from the seed, so the rail cannot drift from the catalogue."""
+    seed = json.loads((ROOT / "source" / "data-seed.json").read_text(encoding="utf-8"))
+    by_flow = {}
+    for s in seed["screens"]:
+        by_flow.setdefault(s.get("flow"), []).append(s)
+    h = ['<aside id="sl"><div class="brand"><b>Slipstream</b>'
+         '<span>Start where the last person finished.</span></div>'
+         '<a class="home" href="../index.html">← The catalogue</a>']
+    for f in sorted(seed["flows"], key=lambda x: x.get("order", 0)):
+        scr = by_flow.get(f["id"], [])
+        if not scr:
+            continue
+        h.append("<h3>%s</h3>" % f["name"])
+        for s in scr:
+            h.append('<a href="../screens/%s.html">%s</a>' % (s["id"], s["name"]))
+    h.append('<h3>Also</h3><a href="../index.html">Components</a>'
+             '<a href="../index.html">Foundations</a><a href="../index.html">Learn</a>')
+    h.append("</aside>")
+    return "".join(h)
+
 
 def build():
     OUT.mkdir(exist_ok=True)
-    flat = [(s, t) for _, items in GROUPS for s, t, _ in items]
-    written = {}
-
-    for i, (slug, title) in enumerate(flat):
-        src = DOCS / (slug + ".md")
-        if not src.exists():
-            sys.exit("missing: %s" % src)
-        text = src.read_text(encoding="utf-8")
-        body = md(text)
-        # One pass, not two. Rewriting .md -> .html first and then redirecting
-        # .html links at docs/ sent every cross-reference to a file that does
-        # not exist, because the second rule matched what the first had just
-        # written. Each link is now decided once.
-        body = re.sub(r'href="([a-z0-9-]+)\.(md|html|svg)"', _link, body)
-        nav = []
-        if i:
-            nav.append('<a href="%s.html">&larr; %s</a>' % (flat[i - 1][0], flat[i - 1][1]))
-        else:
-            nav.append("<span></span>")
-        if i < len(flat) - 1:
-            nav.append('<a href="%s.html">%s &rarr;</a>' % (flat[i + 1][0], flat[i + 1][1]))
-        crumb = ('<a href="index.html">The pack</a><span class="n">%s</span>'
-                 '<span class="t">generated from docs/%s.md</span>' % (title, slug))
-        written[slug + ".html"] = shell(
-            title + " — Slipstream", crumb,
-            '<div class="card">%s</div>' % body,
-            '<div class="nxt">%s</div>' % "".join(nav))
-
-    rows = ""
+    rail, body = [], []
     for name, items in GROUPS:
-        rows += '<div class="grp"><h2>%s</h2><div class="rows">' % name
-        for slug, title, blurb in items:
-            rows += ('<a class="row" href="%s.html"><b>%s</b><span>%s</span></a>'
-                     % (slug, title, blurb))
-        rows += "</div></div>"
-    rows += ('<div class="grp"><h2>A whole run</h2><div class="rows">'
-             '<a class="row" href="run/index.html"><b>Capacity Cut for Latent</b>'
-             '<span>Every artefact from one real pass of the method, in order.</span></a>'
-             '</div></div>')
-    rows += '<div class="grp"><h2>Worked examples</h2><div class="rows">'
-    for href, title, blurb in EXTRAS:
-        rows += '<a class="row" href="%s"><b>%s</b><span>%s</span></a>' % (href, title, blurb)
-    rows += "</div></div>"
+        rail.append("<h2>%s</h2>" % name)
+        for src, slug, label, tag in items:
+            if not src.exists():
+                sys.exit("missing: %s" % src)
+            rail.append('<a href="#%s">%s%s</a>' % (
+                slug, label,
+                '<span class="tag t-%s">%s</span>' % (tag, tag) if tag else ""))
+            html = md(src.read_text(encoding="utf-8"))
+            html = re.sub(r'href="([A-Za-z0-9._-]+)\.(md|html|svg)"', _link, html)
+            html = re.sub(r'src="([a-z0-9.-]+\.svg)"', r'src="../docs/\1"', html)
+            rel = src.relative_to(ROOT).as_posix()
+            body.append(
+                '<section id="%s"><div class="filehead">%s <i>&mdash; %s</i></div>'
+                '<div class="inner md">%s</div></section>' % (slug, rel, label, html))
 
-    written["index.html"] = shell(
-        "The pack — Slipstream",
-        '<a href="../index.html">Slipstream</a><span class="n">The pack</span>'
-        '<span class="t">generated from docs/</span>',
-        '<h1>The pack</h1><p class="lede">The documents the design method reads on every '
-        'run — the same ones a person can read. Generated from <code>docs/</code>; '
-        'edit the markdown there, never these pages.</p>' + rows)
+    page = (
+        '<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
+        '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
+        '<title>The pack — Slipstream</title>\n<style>%s</style>\n</head>\n<body>\n'
+        '%s\n<nav class="docs"><div class="railtop">'
+        '<button id="slToggle" aria-label="Show or hide the Slipstream rail"></button>'
+        '<b>The pack<span>%d documents</span></b></div>%s</nav>\n'
+        '<main><div class="lead-in"><h1>The pack</h1>'
+        '<p>Everything the design method reads on every run — the same documents a '
+        'person can read. Generated from <code>docs/</code>; edit the markdown there, '
+        'never this page.</p>'
+        '<p class="seealso">The worked run ends in a comparison sheet: '
+        '<a href="run/shapes.html">see the five shapes drawn</a>.</p></div>'
+        '%s</main>\n<script>%s</script>\n</body>\n</html>\n'
+        % (CSS, slipstream_rail(), len(SLUGS), "".join(rail), "".join(body), JS))
 
-    # --- the worked run -------------------------------------------------
-    RUN_OUT.mkdir(parents=True, exist_ok=True)
-    run_written = {}
-    for j, (stem, title, blurb) in enumerate(RUN_PAGES):
-        src = RUN / (stem + ".md")
-        if not src.exists():
-            sys.exit("missing: %s" % src)
-        body = md(src.read_text(encoding="utf-8"))
-        nav = []
-        if j:
-            nav.append('<a href="%s.html">&larr; %s</a>'
-                       % (RUN_PAGES[j - 1][0].lower(), RUN_PAGES[j - 1][1]))
-        else:
-            nav.append('<a href="index.html">&larr; The run</a>')
-        nxt = (RUN_PAGES[j + 1][0].lower(), RUN_PAGES[j + 1][1]) if j < len(RUN_PAGES) - 1 \
-            else ("shapes", "The shapes")
-        nav.append('<a href="%s.html">%s &rarr;</a>' % nxt)
-        crumb = ('<a href="../index.html">The pack</a>'
-                 '<a href="index.html">Capacity Cut</a><span class="n">%s</span>'
-                 '<span class="t">as produced, not tidied afterwards</span>' % title)
-        run_written["run/" + stem.lower() + ".html"] = shell(
-            title + " \u2014 Capacity Cut", crumb,
-            '<div class="card">%s</div>' % body,
-            '<div class="nxt">%s</div>' % "".join(nav))
+    shapes = (RUN / "shapes.html").read_text(encoding="utf-8")
+    written = {"index.html": page, "run/shapes.html": shapes}
+    stale = [n for n, h in written.items()
+             if not (OUT / n).exists() or (OUT / n).read_text(encoding="utf-8") != h]
 
-    steps = ""
-    for stem, title, blurb in RUN_PAGES:
-        steps += ('<a class="row" href="%s.html"><b>%s</b><span>%s</span></a>'
-                  % (stem.lower(), title, blurb))
-    steps += ('<a class="row" href="shapes.html"><b>The shapes</b><span>All five drawn '
-              'as schematics, every shape marked against every situation.</span></a>')
-    run_written["run/index.html"] = shell(
-        "Capacity Cut for Latent \u2014 a worked run",
-        '<a href="../index.html">The pack</a><span class="n">Capacity Cut for Latent</span>'
-        '<span class="t">a whole run, in order</span>',
-        '<h1>Capacity Cut for Latent</h1><p class="lede">Every artefact from one real pass '
-        'of the design method, kept as it was produced rather than tidied afterwards. Read '
-        'them in order \u2014 each is checked against the one before it, which is the point: '
-        'an approach that contradicts the brief is caught because the brief was written '
-        'down first.</p><div class="grp"><div class="rows">%s</div></div>' % steps)
-
-    written.update(run_written)
-    written["run/shapes.html"] = (RUN / "shapes.html").read_text(encoding="utf-8")
-
-    stale = [n for n, html_ in written.items()
-             if not (OUT / n).exists() or (OUT / n).read_text(encoding="utf-8") != html_]
     if "--check" in sys.argv:
         if stale:
             sys.exit("pack/ is stale: %s\nRun: python3 scripts/build_pack_pages.py"
                      % ", ".join(sorted(stale)))
-        print("pack/ is current: %d pages" % len(written))
+        print("pack/ is current: %d documents on one page" % len(SLUGS))
         return
-    for n, html_ in written.items():
+    for n, h in written.items():
         t = OUT / n
         t.parent.mkdir(parents=True, exist_ok=True)
-        t.write_text(html_, encoding="utf-8")
-    print("Wrote %d pages to pack/ (%d stale)" % (len(written), len(stale)))
+        t.write_text(h, encoding="utf-8")
+    # the per-document pages this replaced
+    for old in OUT.glob("*.html"):
+        if old.name != "index.html":
+            old.unlink()
+    for old in (OUT / "run").glob("*.html"):
+        if old.name != "shapes.html":
+            old.unlink()
+    print("Wrote pack/index.html: %d documents, %d stale" % (len(SLUGS), len(stale)))
+
 
 build()

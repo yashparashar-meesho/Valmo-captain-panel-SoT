@@ -16,4 +16,5 @@ the brief was written down first.
 
 The numbers are real. This was an actual KRD, not an invented example.
 
-Rendered for reading at [`pack/run/`](../../pack/run/index.html).
+Rendered for reading in [the pack](../../pack/index.html#run-brief), alongside the
+rules the method checks them against.
