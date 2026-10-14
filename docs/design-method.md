@@ -144,6 +144,24 @@ how approaches get invented in a vacuum and the final UI lands off-spec.
    Handing over a raw `.md` hands over the *source* of a document, not the
    document. It reads badly, and approving it feels like reviewing a diff.
 
+   **Every approach entry carries the same six parts, in this order:**
+
+   | part | what it is for |
+   |---|---|
+   | **What the captain does** | the numbered journey — see step 6 |
+   | *one or two lines* | what the thing actually is |
+   | **Wins when · Costs · Rules out · Leans on** | the trade, compressed |
+   | **Why it can work** | the argument *for* it, taken seriously |
+   | **What would make it fail** | the one thing that would sink it |
+
+   > **Argue every approach as though it were the one being built.** An
+   > approach written only as a trade-off line is a straw man, and a set of
+   > straw men is not a choice — it is the recommendation with scenery. The
+   > reader must be able to disagree with you from the page itself.
+
+   Keep each to a short paragraph. Detail earns its place by changing
+   somebody's mind; past that it is bulk, and bulk does not get read.
+
 4. **As many approaches as the problem actually has.** Not five for the sake
    of five. For each: what it does, what it costs, what it rules out, and
    **where it would live**.
@@ -289,7 +307,31 @@ reaching for a new surface before asking whether the existing one could
 carry it.
 
 
-6. **Do not converge yet.** Converging here is what makes the whole exercise
+6. **Give every approach the captain's journey.** Not a description of the
+   screen — the numbered steps the captain actually takes, from what sets them
+   off to the point where they know what to do.
+
+   | step | what it names |
+   |---|---|
+   | 1 | what starts it — a notice, a habit, a task they were already doing |
+   | 2 | where they land |
+   | 3 | what they read |
+   | 4 | what they do next |
+   | 5 | what they now know |
+
+   Write it **before** the trade-offs. It is the thing that exposes a shape
+   that cannot finish — and a shape reads as plausible for exactly as long as
+   nobody walks through it.
+
+   > In the capacity-cut run, approach **B** ended at *"They stop there.
+   > Nothing on the page says how to undo it."* That one line ruled it out
+   > faster than its test coverage did.
+
+   The journey appears twice, word for word: in the DRD entry, and beside the
+   schematic in Section 2. If drawing the shape changes the journey, the DRD
+   is updated too.
+
+7. **Do not converge yet.** Converging here is what makes the whole exercise
    theatre: the shapes are compared as sentences, when the thing that actually
    decides it is seeing them laid out.
 
@@ -342,8 +384,19 @@ it changed.*
 screen, only the icons it references, the three fonts, `kit.css`, and any
 vendor script its markup links. Not before, not drip-fed.
 
-**All five approaches on one page**, each a small schematic beside what it
-does, what it costs, and what it rules out.
+**All five approaches on one page**, each a small schematic beside **the
+captain's journey**, what it does, what it costs, and what it rules out.
+
+**The rail is part of the schematic.** It carries the real module names, and
+each card lights the module that approach actually lives in. Anonymous bars —
+or the same bar lit on every card — produce a placement comparison that says
+nothing about placement. See `comparison-example.html`.
+
+**Draw the situations, not only the happy path.** Every situation the brief
+numbered gets a mark against each shape: lit where the shape has room to show
+it, faded where it does not. A shape that is blank in four situations out of
+seven is not a cheaper option, and the sheet is where that becomes visible
+rather than arguable.
 
 > **Never skip this sheet because the DRD already drew a favourite.** Liking
 > an approach in the DRD is liking a *paragraph*. That is the thing this whole
@@ -470,6 +523,31 @@ if promoting is cheap. The moment it becomes a chore, the catalogue starts
 decaying.
 
 ---
+
+## Plain English, or it does not get read
+
+Every artefact here is read by someone busy. **A sentence that has to be read
+twice is a defect**, the same as a clipped label — and it fails the same way:
+quietly, with the reader blaming themselves.
+
+| instead of | write |
+|---|---|
+| a filled chip means the shape has somewhere to put that state | green means the screen has room to show that situation |
+| the only shape with room for C4's trap in words | only this screen has room to explain the catch in C4 |
+| arrives only on breach, so T3 is unanswerable | it only appears after a cut, so it cannot tell them they are close to one |
+
+Three rules catch most of it:
+
+- **One idea per sentence.** A dash holding two clauses together is usually
+  two sentences that have not been separated yet.
+- **An ID is nesting too.** *"C4's trap"* makes the reader go and fetch C4
+  before they can read the clause it sits in. Say the thing, then name the
+  ID: *"a new FE has to be hired (C4)"*.
+- **A legend says what the reader sees, not what the system means.** *"Green
+  means it can show this."* Never *"a filled chip indicates coverage."*
+
+This applies to the brief, the DRD, the comparison sheet, and any words
+written on the design itself.
 
 ## Where each gate actually is
 
