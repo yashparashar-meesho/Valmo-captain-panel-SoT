@@ -287,6 +287,36 @@ until they say it is good to go.
 
 Only then does anything get fetched or built.
 
+## Every answer goes back into the artefacts
+
+**An answer given in chat is not a decision until it is written down.** The
+moment the user answers anything — a gap, an open question, a correction —
+update the brief and the DRD **before doing anything else**, and show what
+changed.
+
+Three reasons this is not bookkeeping:
+
+- **Later steps check against the brief.** If the brief still says something
+  the user has since overturned, the final check validates against a document
+  everyone has stopped believing.
+- **The reasoning evaporates otherwise.** The chat is gone next week. The
+  brief is what someone reads in six months to understand why the page looks
+  like this.
+- **An answer often changes more than the question it answered.** In the
+  capacity-cut run, *"ignore AMs"* did not just delete a constraint — it
+  removed an entire approach, because that approach existed to be read by a
+  captain and an AM together. **Say that out loud.** A silently shrinking
+  option set looks like carelessness; an explained one is the method working.
+
+Report it as a diff, not a redraft: *what was open · what the answer is · what
+it changed.*
+
+> **IDs freeze once the brief is approved.** Before approval, renumber freely.
+> After it, a withdrawn constraint is **marked withdrawn, never deleted**, and
+> new facts take new numbers. Renumbering after other documents reference
+> `C4` silently repoints every reference to something else — and nothing in
+> the checks would catch it.
+
 ## Section 2 — Shape
 
 **Starts only after the DRD is approved.** This is where the real gate is.

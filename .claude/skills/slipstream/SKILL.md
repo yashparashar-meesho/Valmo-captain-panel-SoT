@@ -151,6 +151,18 @@ preview it yourself through a built-in browser tool** — those commonly render 
 file outside their project directory as a static snapshot with no JavaScript,
 which silently breaks click-through while looking fine.
 
+### Whenever the user answers anything
+
+**Update the brief and the DRD first, before doing anything else**, and show
+the change as a diff — *what was open · what the answer is · what it changed.*
+An answer in chat is not a decision until it is in the artefact: later steps
+check against the brief, and the chat is gone next week.
+
+**An answer often changes more than the question.** Say so when it does — in
+the capacity-cut run *"ignore AMs"* removed an entire approach. **IDs freeze
+once the brief is approved**: mark withdrawn items withdrawn, never delete or
+renumber, because other documents reference `C4` and `T2` by name.
+
 ### Sections 1–3
 
 Per `design-method.md`. The things most often got wrong:
