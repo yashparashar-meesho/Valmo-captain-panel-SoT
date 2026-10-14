@@ -70,9 +70,14 @@ CSS = """
 --pa:#2F6FED;--pmono:ui-monospace,SFMono-Regular,Menlo,monospace}
 .packv-rail{width:258px;flex:none;background:#F5F7FA;border-right:1px solid var(--pl);
 overflow-y:auto;padding:14px 0 40px}
-.packv-rail h4{font:650 11px/1 var(--ui);letter-spacing:.09em;text-transform:uppercase;
-color:var(--p3);margin:16px 20px 6px}
-.packv-rail h4:first-child{margin-top:0}
+/* Groups, not a list with labels in it. The heading was lighter than the items
+   it introduced and sat 16px below the previous group against 12px between
+   items - so every gap read the same and the headings floated between two
+   groups rather than belonging to the one under them. Now: darker and heavier
+   than its items, far from what came before, close to what it names. */
+.packv-rail h4{font:700 10.5px/1 var(--ui);letter-spacing:.085em;text-transform:uppercase;
+color:#3D4A5C;margin:30px 20px 9px}
+.packv-rail h4:first-child{margin-top:2px}
 .packv-rail a{display:block;padding:6px 20px;color:var(--pm);text-decoration:none;
 font:400 14px/1.45 var(--ui);border-left:2px solid transparent}
 .packv-rail a:hover{background:#EAEFF6;color:var(--ink)}
