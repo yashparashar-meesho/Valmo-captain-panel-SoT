@@ -37,6 +37,9 @@ jobs:
         
       - name: Docs pack integrity
         run: python3 scripts/check_docs.py
+
+      - name: Pack pages are current
+        run: python3 scripts/build_pack_pages.py --check
         
       - name: Every page is whole
         run: |
