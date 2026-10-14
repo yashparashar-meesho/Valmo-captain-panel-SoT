@@ -141,8 +141,21 @@ Per `design-method.md`. The things most often got wrong:
   an editor on a wireframe until `DRD.md` exists on disk.** On the first real
   run it was skipped, and the approach that was built had been compared
   against nothing written down, including an option that had been missed.
-- **Section 1** diverges on *approach*, not structure. Do not produce a fixed
-  number of approaches.
+- **Approaches differ on axes, not on placement.** Placement is how you get
+  in; the design axes are *what is shown · who acts · when it is surfaced ·
+  how it is framed · depth*. Put each approach on a table of those axes — a
+  set clustered on one point is visibly thin. **Two approaches are the same
+  if switching between them does not change what the user does.**
+- **The count follows the problem.** Two real approaches beat five padded
+  ones. If they cluster, name the real fork underneath and ask which side to
+  explore rather than listing costumes.
+- **Run the edge-case sweep in the brief** — data (missing · zero · stale ·
+  one · thousands · exactly at the threshold) · time (first ever ·
+  mid-transition · after absence · the current incomplete period) ·
+  permission (cannot act · another role looking) · lifecycle (before · during
+  · after · reverted). A KRD describes the happy path; the sweep is what finds
+  the rest. Each case becomes a constraint or a test, and a situation in the
+  shapes.
 - **Section 2 wireframes are grey, all of them.** Load `kit.css` then
   `assets/wireframe.css`, put `wf` on the scope, and make every block a
   `.wf-box` whose label says what information goes there. Add `.exists` where
