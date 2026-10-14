@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The pack — Slipstream</title>
+<style>
+*{box-sizing:border-box}
+:root{--ink:#1A1A1F;--mute:#6B6B76;--line:#E6E6EC;--bg:#F4F4F7;--card:#fff;--acc:#2F6BFF}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 -apple-system,BlinkMacSystemFont,
+ "Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+.bar{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.bar .in{max-width:860px;margin:0 auto;padding:13px 24px;display:flex;gap:12px;align-items:baseline;
+ flex-wrap:wrap}
+.bar a{color:var(--acc);text-decoration:none;font-weight:600;font-size:13px}
+.bar a:hover{text-decoration:underline}
+.bar .n{font-weight:700;font-size:13px}
+.bar .t{color:var(--mute);font-size:12px;margin-left:auto}
+main{max-width:860px;margin:0 auto;padding:34px 24px 90px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:30px 34px}
+h1{font-size:30px;line-height:1.2;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-size:21px;margin:2.1em 0 .5em;letter-spacing:-.01em}
+h3{font-size:16px;margin:1.8em 0 .4em}
+h4{font-size:14px;margin:1.5em 0 .3em;color:var(--mute)}
+p,li{font-size:15px}
+code{background:#F0F0F4;border-radius:4px;padding:1px 5px;font-size:13px;
+ font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+pre{background:#1A1A1F;color:#E8E8EF;padding:14px 16px;border-radius:9px;overflow-x:auto}
+pre code{background:none;color:inherit;padding:0}
+table{border-collapse:collapse;width:100%;margin:1.1em 0;display:block;overflow-x:auto}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;
+ font-size:14px}
+th{color:var(--mute);font-weight:600;white-space:nowrap}
+blockquote{margin:1.2em 0;padding:2px 0 2px 16px;border-left:3px solid var(--line);color:var(--mute)}
+hr{border:0;border-top:1px solid var(--line);margin:2.2em 0}
+a{color:var(--acc)}
+strong{font-weight:650}
+.lede{color:var(--mute);margin:0 0 26px;font-size:15px}
+.grp{margin:0 0 30px}
+.grp h2{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--mute);
+ margin:0 0 10px}
+.rows{display:grid;gap:9px}
+.row{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;
+ padding:13px 16px;text-decoration:none;color:inherit}
+.row:hover{border-color:#C9C9D4}
+.row b{display:block;font-size:15px;margin-bottom:2px}
+.row span{color:var(--mute);font-size:13.5px}
+.nxt{display:flex;justify-content:space-between;gap:12px;margin-top:26px;font-size:13px}
+@media(max-width:700px){body{font-size:16px}main,.bar .in{padding-left:16px;padding-right:16px}
+ .card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="bar"><div class="in"><a href="../index.html">Slipstream</a><span class="n">The pack</span><span class="t">generated from docs/</span></div></div>
+<main><h1>The pack</h1><p class="lede">The documents the design method reads on every run — the same ones a person can read. Generated from <code>docs/</code>; edit the markdown there, never these pages.</p><div class="grp"><h2>Start here</h2><div class="rows"><a class="row" href="panel-principles.html"><b>Who the captain is</b><span>The person and the product, and what the live panel already gets wrong.</span></a><a class="row" href="design-method.html"><b>The design method</b><span>How a problem becomes a page. Four sections, one gate.</span></a><a class="row" href="never-do-this.html"><b>Never do this</b><span>Every line cost someone real time at least once.</span></a></div></div><div class="grp"><h2>Building a page</h2><div class="rows"><a class="row" href="page-framework.html"><b>Page framework</b><span>What a page is made of.</span></a><a class="row" href="layout-rules.html"><b>Layout rules</b><span>How wide, how tall, what scrolls.</span></a><a class="row" href="section-rules.html"><b>Section rules</b><span>A new section, or bake it into one that exists.</span></a></div></div><div class="grp"><h2>What already exists</h2><div class="rows"><a class="row" href="pages.html"><b>Pages</b><span>Every screen built so far, and what it is for. Generated.</span></a><a class="row" href="components.html"><b>Components</b><span>The component inventory. Generated.</span></a></div></div><div class="grp"><h2>Foundations</h2><div class="rows"><a class="row" href="color-foundation.html"><b>Colour</b><span>Which colour, and the token for it.</span></a><a class="row" href="spacing-foundation.html"><b>Spacing</b><span>Which spacing token.</span></a><a class="row" href="typography-audit.html"><b>Typography</b><span>Which type style.</span></a><a class="row" href="fidelity-checklist.html"><b>Fidelity checklist</b><span>Does it match live?</span></a></div></div><div class="grp"><h2>Worked examples</h2><div class="rows"><a class="row" href="../docs/flow.svg"><b>The method diagram</b><span>The four sections at a glance.</span></a><a class="row" href="../docs/comparison-example.html"><b>A comparison sheet</b><span>Five approaches drawn as schematics. The worked standard.</span></a><a class="row" href="../docs/wireframe-example.html"><b>A wireframe</b><span>Grey only, on the real skeleton.</span></a><a class="row" href="../docs/promoted-example.html"><b>A promoted design</b><span>Crystal colour, real components.</span></a></div></div></main>
+</body>
+</html>

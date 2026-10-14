@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page framework — Slipstream</title>
+<style>
+*{box-sizing:border-box}
+:root{--ink:#1A1A1F;--mute:#6B6B76;--line:#E6E6EC;--bg:#F4F4F7;--card:#fff;--acc:#2F6BFF}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 -apple-system,BlinkMacSystemFont,
+ "Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+.bar{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.bar .in{max-width:860px;margin:0 auto;padding:13px 24px;display:flex;gap:12px;align-items:baseline;
+ flex-wrap:wrap}
+.bar a{color:var(--acc);text-decoration:none;font-weight:600;font-size:13px}
+.bar a:hover{text-decoration:underline}
+.bar .n{font-weight:700;font-size:13px}
+.bar .t{color:var(--mute);font-size:12px;margin-left:auto}
+main{max-width:860px;margin:0 auto;padding:34px 24px 90px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:30px 34px}
+h1{font-size:30px;line-height:1.2;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-size:21px;margin:2.1em 0 .5em;letter-spacing:-.01em}
+h3{font-size:16px;margin:1.8em 0 .4em}
+h4{font-size:14px;margin:1.5em 0 .3em;color:var(--mute)}
+p,li{font-size:15px}
+code{background:#F0F0F4;border-radius:4px;padding:1px 5px;font-size:13px;
+ font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+pre{background:#1A1A1F;color:#E8E8EF;padding:14px 16px;border-radius:9px;overflow-x:auto}
+pre code{background:none;color:inherit;padding:0}
+table{border-collapse:collapse;width:100%;margin:1.1em 0;display:block;overflow-x:auto}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;
+ font-size:14px}
+th{color:var(--mute);font-weight:600;white-space:nowrap}
+blockquote{margin:1.2em 0;padding:2px 0 2px 16px;border-left:3px solid var(--line);color:var(--mute)}
+hr{border:0;border-top:1px solid var(--line);margin:2.2em 0}
+a{color:var(--acc)}
+strong{font-weight:650}
+.lede{color:var(--mute);margin:0 0 26px;font-size:15px}
+.grp{margin:0 0 30px}
+.grp h2{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--mute);
+ margin:0 0 10px}
+.rows{display:grid;gap:9px}
+.row{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;
+ padding:13px 16px;text-decoration:none;color:inherit}
+.row:hover{border-color:#C9C9D4}
+.row b{display:block;font-size:15px;margin-bottom:2px}
+.row span{color:var(--mute);font-size:13.5px}
+.nxt{display:flex;justify-content:space-between;gap:12px;margin-top:26px;font-size:13px}
+@media(max-width:700px){body{font-size:16px}main,.bar .in{padding-left:16px;padding-right:16px}
+ .card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="bar"><div class="in"><a href="index.html">The pack</a><span class="n">Page framework</span><span class="t">generated from docs/page-framework.md</span></div></div>
+<main><div class="card"><h1>The page framework</h1>
+<blockquote><p>You asked whether a framework is needed. There already is one — it just was not written down. Every one of the 11 screens is the same skeleton with different contents, and there is exactly one documented exemption.</p></blockquote>
+<h2>The skeleton</h2>
+<pre><code>vp-shell                         the page. flex row, 100vh, never scrolls itself
+├── vp-sidebar                   the rail. 250px, fixed, never scrolls
+└── vp-content                   the work area. grey, scrolls, 16px side gutter
+    ├── vp-pagebar               the header. sticky, min 52px, carries the h3
+    ├── vp-tabs | vp-subtabbar    optional. sits flush under the header, 1px divider
+    └── vp-panel                 the section. white, radius 8, 16px padding
+        ├── section head (h4)    optional, may sit on a tinted strip
+        └── content              cards, rows, tables, fields</code></pre>
+<p><code>vp-shell</code>, <code>vp-sidebar</code>, <code>vp-content</code>, <code>vp-pagebar</code> and <code>vp-panel</code> each appear <strong>exactly 11 times across 11 screens</strong> — once per page, no exceptions. That is not a convention anyone has to remember; it is simply what a page is.</p>
+<h2>Heading levels carry meaning</h2>
+<p>Measured across every screen, with no counter-examples:</p>
+<table><thead><tr><th>level</th><th>role</th><th>example</th></tr></thead><tbody><tr><td><code>h3</code></td><td>page title, in the header band</td><td><code>Payments</code>, <code>Growth Dashboard</code>, <code>DC Capacity</code></td></tr><tr><td><code>h4</code></td><td>section title, inside a panel or on its strip</td><td><code>Set Your DC Capacity</code>, <code>Your Order Summary</code></td></tr></tbody></table>
+<p>There is no <code>h1</code>, <code>h2</code>, <code>h5</code> or <code>h6</code> anywhere in the panel. Do not introduce one — if content feels like it needs a third level, it is a card inside a section, not a heading.</p>
+<p>Two screens title the page with the <strong>view</strong> rather than the module (<code>Payment Details (17 Aug – 23 Aug)</code>). That is correct when the page is a drill-down: the rail already says which module you are in.</p>
+<h2>How many sections a page has</h2>
+<p>Across all 11 screens: <strong>one or two. Never three.</strong></p>
+<p>That is a useful ceiling, not a hard law — but if a design wants four sections, that is strong evidence the page is really two pages, or that three of them are cards inside one section. Check <a href="section-rules.html">section-rules.md</a> before adding a third.</p>
+<h2>The one exemption</h2>
+<p><strong>Service Area's three screens have no <code>vp-panel</code> at all.</strong> The map is the work area and runs edge to edge, with the 16px gutter deliberately bypassed (<code>vp-content-flush</code>). A map boxed inside a padded white card is a worse map.</p>
+<p>This is the only exemption, it is deliberate, and it is documented so nobody "fixes" it. If a new page wants the same treatment, it needs the same justification: the content <em>is</em> the canvas.</p>
+<h2>Building order</h2>
+<p>Build in the order the skeleton nests. Starting from the content and working outwards is how pages end up with the gutter, the header height or the scroll container subtly wrong.</p>
+<ol><li>shell + rail (copy from any existing screen — it is identical on all 11)</li><li>header, with the <code>h3</code></li><li>tabs, if the module has them</li><li>sections, top to bottom</li><li>contents of each section</li></ol>
+<h2>Where the rest lives</h2>
+<ul><li>measurements and behaviours → <a href="layout-rules.html">layout-rules.md</a></li><li>when something earns its own section → <a href="section-rules.html">section-rules.md</a></li><li>colour, spacing, type → the three foundation files</li><li>what already exists → <a href="pages.html">pages.md</a>, <a href="components.html">components.md</a></li></ul></div><div class="nxt"><a href="never-do-this.html">&larr; Never do this</a><a href="layout-rules.html">Layout rules &rarr;</a></div></main>
+</body>
+</html>

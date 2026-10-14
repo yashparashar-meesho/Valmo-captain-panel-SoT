@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pages — Slipstream</title>
+<style>
+*{box-sizing:border-box}
+:root{--ink:#1A1A1F;--mute:#6B6B76;--line:#E6E6EC;--bg:#F4F4F7;--card:#fff;--acc:#2F6BFF}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 -apple-system,BlinkMacSystemFont,
+ "Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+.bar{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.bar .in{max-width:860px;margin:0 auto;padding:13px 24px;display:flex;gap:12px;align-items:baseline;
+ flex-wrap:wrap}
+.bar a{color:var(--acc);text-decoration:none;font-weight:600;font-size:13px}
+.bar a:hover{text-decoration:underline}
+.bar .n{font-weight:700;font-size:13px}
+.bar .t{color:var(--mute);font-size:12px;margin-left:auto}
+main{max-width:860px;margin:0 auto;padding:34px 24px 90px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:30px 34px}
+h1{font-size:30px;line-height:1.2;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-size:21px;margin:2.1em 0 .5em;letter-spacing:-.01em}
+h3{font-size:16px;margin:1.8em 0 .4em}
+h4{font-size:14px;margin:1.5em 0 .3em;color:var(--mute)}
+p,li{font-size:15px}
+code{background:#F0F0F4;border-radius:4px;padding:1px 5px;font-size:13px;
+ font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+pre{background:#1A1A1F;color:#E8E8EF;padding:14px 16px;border-radius:9px;overflow-x:auto}
+pre code{background:none;color:inherit;padding:0}
+table{border-collapse:collapse;width:100%;margin:1.1em 0;display:block;overflow-x:auto}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;
+ font-size:14px}
+th{color:var(--mute);font-weight:600;white-space:nowrap}
+blockquote{margin:1.2em 0;padding:2px 0 2px 16px;border-left:3px solid var(--line);color:var(--mute)}
+hr{border:0;border-top:1px solid var(--line);margin:2.2em 0}
+a{color:var(--acc)}
+strong{font-weight:650}
+.lede{color:var(--mute);margin:0 0 26px;font-size:15px}
+.grp{margin:0 0 30px}
+.grp h2{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--mute);
+ margin:0 0 10px}
+.rows{display:grid;gap:9px}
+.row{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;
+ padding:13px 16px;text-decoration:none;color:inherit}
+.row:hover{border-color:#C9C9D4}
+.row b{display:block;font-size:15px;margin-bottom:2px}
+.row span{color:var(--mute);font-size:13.5px}
+.nxt{display:flex;justify-content:space-between;gap:12px;margin-top:26px;font-size:13px}
+@media(max-width:700px){body{font-size:16px}main,.bar .in{padding-left:16px;padding-right:16px}
+ .card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="bar"><div class="in"><a href="index.html">The pack</a><span class="n">Pages</span><span class="t">generated from docs/pages.md</span></div></div>
+<main><div class="card"><h1>Pages built so far</h1>
+<p>Every screen in the catalogue: what it is <em>for</em> first, then what it is <em>made of</em>. Read the UX to decide whether something belongs; read the structure to build it.</p>
+<h2>The belonging test</h2>
+<blockquote><p>Something belongs on a page when it serves that page's <strong>decision</strong>. If it serves a different decision, it belongs on the page that owns that decision - or on a new one.</p></blockquote>
+<p>Then check the two lists:</p>
+<ul><li>already in <strong>answers</strong> -&gt; it exists; extend it rather than adding beside it</li><li>listed under <strong>not here</strong> -&gt; it was considered and rejected; read why before re-proposing it</li><li>in neither -&gt; genuinely new, and the decision above is the test</li></ul>
+<p><strong>answers and not here are scoped to one screen, never to the module.</strong> "DC Capacity does not show per-pilot detail" excludes it from <em>that screen</em>. A second screen in the same module - a tab - is a different screen, and the exclusion does not reach it. Reading a screen's exclusions as the module's is how a tab stops being considered.</p>
+<p>Once the page is settled, <a href="section-rules.html">section-rules.md</a> decides whether it is a new section or baked into an existing one.</p>
+<p>5 modules, 11 screens, 53 components.</p>
+<hr>
+<h2>Captain Payments</h2>
+<p><code>captain-payments</code> - 2 screens</p>
+<p>Check captain panel - Payments complete flow</p>
+<p><strong>Who</strong> — The captain, checking what they have earned and whether it has actually been paid.</p>
+<p><strong>How often</strong> — Per settlement cycle — the table runs in weekly cycles, with This Month / Previous Month / Last 3 Months above it. Opened when a payment is expected or has just landed.</p>
+<p><strong>Journey</strong> — The panel's default landing module, so for many captains this is the first screen of the session. Ends either satisfied, or inside one cycle's breakdown looking for a number that does not match.</p>
+<blockquote><p><strong>&lt;Yash will add more&gt;</strong></p></blockquote>
+<h3>Payments</h3>
+<p><code>payments-list</code></p>
+<p><strong>Job</strong> — "Has my money come in, and for which cycle?"</p>
+<p><strong>Decision it supports</strong> — Is the pending amount and each cycle's payout what I expected — and which cycle, if any, do I need to look into?</p>
+<p><strong>Answers today</strong></p>
+<ul><li>How much is still pending, and till when?</li><li>Across this period, what were base pay, adjustments, losses and total earnings?</li><li>The same four, broken down per settlement cycle.</li><li>Which cycle looks wrong enough to open?</li></ul>
+<p><strong>Deliberately not here</strong></p>
+<ul><li>Why any single number is what it is — that is Payment Details, one click away.</li><li>Losses as a subject in their own right — Loss Management is its own module in the rail.</li></ul>
+<blockquote><p><strong>&lt;Yash will add more&gt;</strong></p></blockquote>
+<p><strong>Structure in words</strong> — Hero stat card, then one white panel (radius 8) containing the All Payments header, stat summary, and the settlement-cycle table.</p>
+<p><strong>Structure</strong> - page header, stat summary bar, section (white panel)</p>
+<p><strong>Headings</strong> - <code>h3</code> Payments</p>
+<p><strong>States</strong> - loaded, empty (no cycles yet), loading</p>
+<p><strong>Components</strong> - <code>sidebar-navigation</code>, <code>badge-new</code>, <code>buttons</code>, <code>hero-stat</code>, <code>stat-summary-bar</code>, <code>segmented-toggle</code>, <code>data-table</code>, <code>pagination</code>, <code>page-header-bar</code>, <code>table-footer</code></p>
+<h3>Payment Details</h3>
+<p><code>payment-details</code></p>
+<p><strong>Job</strong> — "Why is this cycle's number what it is?"</p>
+<p><strong>Decision it supports</strong> — Do I accept this cycle's payout, or is something wrong that I need to raise?</p>
+<p><strong>Answers today</strong></p>
+<ul><li>When was it credited, to which account, and under what transaction ID?</li><li>What are base pay, adjustments, losses and the total for this cycle?</li><li>Line by line, what makes up each of those three?</li></ul>
+<p><strong>Deliberately not here</strong></p>
+<ul><li>Any other cycle — this page is one cycle, deliberately. Comparison happens on the list.</li><li>Raising a dispute. The page explains the number; it does not argue with it.</li></ul>
+<blockquote><p><strong>&lt;Yash will add more&gt;</strong></p></blockquote>
+<p><strong>Structure in words</strong> — Back button + breadcrumb, success banner, then one white panel (radius 8, 16px padding) containing the stat strip and the real expand/collapse Base Pay / Adjustments / Losses accordion.</p>
+<p><strong>Structure</strong> - page header, stat summary bar, section (white panel)</p>
+<p><strong>Headings</strong> - <code>h3</code> Payment Details (17 Aug - 23 Aug)</p>
+<p><strong>States</strong> - loaded, under computation (banner + stats only, no accordion)</p>
+<p><strong>Components</strong> - <code>sidebar-navigation</code>, <code>badge-new</code>, <code>buttons</code>, <code>stat-summary-bar</code>, <code>accordion-row</code>, <code>page-header-bar</code>, <code>breadcrumb</code>, <code>success-banner</code>, <code>page-footer-bar</code></p>
+<hr>
+<h2>Service Area</h2>
+<p><code>service-area</code> - 3 screens</p>
+<p>Check captain panel - Service Area complete flow</p>
+<p><strong>Who</strong> — The captain, for the geography their DC is responsible for.</p>
+<p><strong>How often</strong> — Three different rhythms in one module. The area itself changes rarely and is changed <em>by someone else</em>. A shipment lookup is on-demand, when one AWB is in question. Misrouting is reviewed periodically, because penalties accrue.</p>
+<p><strong>Journey</strong> — Three sub-tabs, one subject: the area as a whole, a single shipment inside it, and the shipments that should never have arrived.</p>
+<blockquote><p><strong>&lt;Yash will add more&gt;</strong></p></blockquote>
+<h3>My Service Area</h3>
+<p><code>service-area-my-area</code></p>
+<p><strong>Job</strong> — "What am I responsible for, and has it changed under me?"</p>
+<p><strong>Decision it supports</strong> — Do I accept the current boundary and its order ceilings — and has something changed that I need to react to?</p>
+<p><strong>Answers today</strong></p>
+<ul><li>Where does my service area actually end?</li><li>Which pincodes are mine, and what is each one's daily order ceiling?</li><li>When did it last change, and who changed it?</li></ul>
+<p><strong>Deliberately not here</strong></p>
+<ul><li>Editing the area. The captain cannot — an Area Manager changes it, and the page says so. This is a read-and-react surface, not a control.</li></ul>
+<blockquote><p><strong>&lt;Yash will add more&gt;</strong></p></blockquote>
+<p><strong>Structure in words</strong> — Map-dominant page: the serviceable polygon with the DC pin, and a floating panel carrying area update history, current pincodes, daily order ceilings and the map-layer toggles.</p>
+<p><strong>Structure</strong> - page header, sub-tab bar, map work area (gutter exemption)</p>
+<p><strong>Headings</strong> - <code>h3</code> Service Area, <code>h4</code> My Service Area</p>
+<p><strong>States</strong> - loaded, pincode boundaries on, neighbouring DC areas on, earlier area version selected, panel collapsed</p>
+<p><strong>Components</strong> - <code>sidebar-navigation</code>, <code>badge-new</code>, <code>map-canvas</code>, <code>map-side-panel</code>, <code>map-markers</code>, <code>collapsible-section</code>, <code>metric-kv-row</code>, <code>layer-checkbox-row</code>, <code>inline-alert</code>, <code>page-header-bar</code>, <code>sub-tabs</code></p>
+<h3>Find Shipment Location</h3>
+<p><code>service-area-find-shipment</code></p>
+<p><strong>Job</strong> — "Where is this one shipment supposed to be?"</p>
+<p><strong>Decision it supports</strong> — Is this AWB inside my area, and is it eligible to be marked as misrouted?</p>
+<p><strong>Answers today</strong></p>
+<ul><li>Where does this shipment sit relative to my boundary?</li><li>Is it eligible for misrouting?</li></ul>
+<p><strong>Deliberately not here</strong></p>
+<ul><li>Bulk lookup. One AWB at a time — the many-shipments view is the Misrouted tab.</li></ul>
+<blockquote><p><strong>&lt;Yash will add more&gt;</strong></p></blockquote>
+<p><strong>Structure in words</strong> — AWB lookup over the same map. Shows the zero-state card explaining the three steps until a shipment is searched.</p>
+<p><strong>Structure</strong> - page header, sub-tab bar, map work area (gutter exemption)</p>
+<p><strong>Headings</strong> - <code>h3</code> Service Area, <code>h4</code> Find Shipment Location</p>
+<p><strong>States</strong> - empty (no search yet), searching, shipment found, AWB not found</p>
+<p><strong>Components</strong> - <code>sidebar-navigation</code>, <code>badge-new</code>, <code>map-canvas</code>, <code>map-side-panel</code>, <code>map-markers</code>, <code>awb-search-field</code>, <code>empty-state-card</code>, <code>page-header-bar</code>, <code>sub-tabs</code></p>
+<h3>Misrouted Shipment</h3>
+<p><code>service-area-misrouted</code></p>
+<p><strong>Job</strong> — "Which shipments landed with me that should never have?"</p>
+<p><strong>Decision it supports</strong> — Which misrouted shipments, in this in-scan window, are worth acting on?</p>
+<p><strong>Answers today</strong></p>
+<ul><li>How many are misrouted, and where are they?</li><li>What is the penalty exposure?</li><li>Which category does each one fall into — the five colour-coded layers?</li></ul>
+<p><strong>Deliberately not here</strong></p>
+<ul><li>Returning or re-routing them. The page quantifies the problem; the action is elsewhere.</li></ul>
+<blockquote><p><strong>&lt;Yash will add more&gt;</strong></p></blockquote>
+<p><strong>Structure in words</strong> — Misrouting analysis: in-scan date range with picker, the penalty alert, and five colour-coded shipment layers that each show/hide their own markers over the map.</p>
+<p><strong>Structure</strong> - page header, sub-tab bar, map work area (gutter exemption)</p>
+<p><strong>Headings</strong> - <code>h3</code> Service Area, <code>h4</code> Your Misrouted Shipments (222)</p>
+<p><strong>States</strong> - loaded (penalty layers on), date picker open, all layers on, arrows to misrouted DC on, no misroutes in range</p>
+<p><strong>Components</strong> - <code>sidebar-navigation</code>, <code>badge-new</code>, <code>buttons</code>, <code>map-canvas</code>, <code>map-side-panel</code>, <code>map-markers</code>, <code>layer-checkbox-row</code>, <code>date-range-field</code>, <code>date-range-picker</code>, <code>inline-alert</code>, <code>download-button</code>, <code>page-header-bar</code>, <code>sub-tabs</code></p>
+<hr>
+<h2>Pilot Management</h2>
+<p><code>pilot-management</code> - 2 screens</p>
+<p>How a captain views their roster of pilots and onboards a new one.</p>
+<p><strong>Who</strong> — The captain managing their rider roster — 124 current, 11 previously worked.</p>
+<p><strong>How often</strong> — Ongoing. Pilots join and leave continuously, so this is a maintenance surface rather than a decision made once.</p>
+<p><strong>Journey</strong> — Onboarding starts in the Valmo Partner App, not here — the captain only adds a pilot once that is done. From the roster they move to rate cards and performance, which live elsewhere.</p>
+<blockquote><p><strong>&lt;Yash will add more&gt;</strong></p></blockquote>
+<h3>Pilot Management</h3>
+<p><code>pilot-management-list</code></p>
+<p><strong>Job</strong> — "Who is working for me, and are their details right?"</p>
+<p><strong>Decision it supports</strong> — Who is on the roster, and who do I need to add, check or stop counting on?</p>
+<p><strong>Answers today</strong></p>
+<ul><li>Who is currently working, and who used to?</li><li>Who joined when, and can I find one by phone number?</li><li>What is each pilot's rate card?</li></ul>
+<p><strong>Deliberately not here</strong></p>
+<ul><li>Onboarding a pilot. That happens in the Valmo Partner App first — the banner on this page exists purely to say so, which is a strong signal it was a repeated misunderstanding.</li><li>Pilot performance. Rate Card and Growth Dashboard own that.</li></ul>
+<blockquote><p><strong>&lt;Yash will add more&gt;</strong></p></blockquote>
+<p><strong>Structure in words</strong> — Onboarding callout banner, tabs for Current vs Previously Worked pilots, a sort + phone-search row, and a paginated rate-card table.</p>
+<p><strong>Structure</strong> - page header, tab strip, section (white panel)</p>
+<p><strong>Headings</strong> - <code>h3</code> Pilot Management, <code>h4</code> Add and manage pilots here</p>
+<p><strong>States</strong> - loaded, empty (0 pilots), loading</p>
+<p><strong>Components</strong> - <code>sidebar-navigation</code>, <code>badge-new</code>, <code>buttons</code>, <code>callout-banner</code>, <code>tabs</code>, <code>data-table</code>, <code>search-input</code>, <code>pagination</code></p>
+<h3>Add New Pilot</h3>
+<p><code>add-new-pilot</code></p>
+<p><strong>Job</strong> — "Add someone who has already onboarded in the app."</p>
+<p><strong>Decision it supports</strong> — Is this mobile number a real, already-onboarded pilot I am allowed to add?</p>
+<p><strong>Answers today</strong></p>
+<ul><li>Does this number belong to an onboarded pilot?</li></ul>
+<p><strong>Deliberately not here</strong></p>
+<ul><li>Onboarding itself — by design. Verify stays disabled until the number is valid, so the modal fails early rather than collecting details for someone who cannot be added.</li></ul>
+<blockquote><p><strong>&lt;Yash will add more&gt;</strong></p></blockquote>
+<p><strong>Structure in words</strong> — Modal over Pilot Management: mobile number entry, disabled Verify until a valid number is entered, then Add Pilot.</p>
+<p><strong>Structure</strong> - page header, tab strip, section (white panel)</p>
+<p><strong>Headings</strong> - <code>h3</code> Pilot Management, <code>h4</code> Add and manage pilots here</p>
+<p><strong>States</strong> - number entry (Verify disabled), verifying, verified (Add Pilot enabled)</p>
+<p><strong>Components</strong> - <code>sidebar-navigation</code>, <code>badge-new</code>, <code>buttons</code>, <code>callout-banner</code>, <code>tabs</code>, <code>data-table</code>, <code>search-input</code>, <code>pagination</code>, <code>modal</code></p>
+<hr>
+<h2>Growth Dashboard</h2>
+<p><code>growth-dashboard</code> - 3 screens</p>
+<p>How a captain sees the orders they are winning against the ceiling their area can produce, and what is costing them the difference.</p>
+<p><strong>Who</strong> — The captain who wants more volume and more earnings, and needs to know what is standing in the way.</p>
+<p><strong>How often</strong> — Weekly — every figure is scoped to a week (16th–22nd Sept).</p>
+<p><strong>Journey</strong> — Diagnostic, not operational. The captain comes to find out <em>why</em> the number is what it is, and every fix lives in another module — rate card, RTO, or DC Capacity. Leaving this page is the normal outcome, not a failure.</p>
+<blockquote><p><strong>&lt;Yash will add more&gt;</strong></p></blockquote>
+<h3>Design Equivalent — Happy</h3>
+<p><code>growth-dashboard-design-happy</code>  ·  <strong>design</strong> version</p>
+<p><strong>Job</strong> — "Am I getting the orders I could be — and if not, what is costing me?" — the no-orders-missed state.</p>
+<p><strong>Decision it supports</strong> — Which lever do I pull to close the gap between the orders I am getting and the orders I could get?</p>
+<p><strong>Answers today</strong></p>
+<ul><li>How many orders am I getting, out of how many possible?</li><li>What is expected to happen in the coming weeks, and why?</li><li>On each lever — rate card, RTO and the rest — where am I against target, and is that good or not?</li><li>Where did the orders actually go, and what caused each movement?</li></ul>
+<p><strong>Deliberately not here</strong></p>
+<ul><li>Any fix. Every lever on this page is actioned in another module. The page is a diagnosis, and leaving it is the normal outcome.</li><li>Anything the live version does not also do. This is the same decision in the design's language, not a different product.</li></ul>
+<blockquote><p><strong>&lt;Yash will add more&gt;</strong></p></blockquote>
+<p><strong>Structure in words</strong> — The Figma for this module in its no-orders-missed state, carrying live's own figures so the two versions differ in design and not in content. Green section dot, a rising banner pill, a green note, and a chart whose only step is the +525 gain.</p>
+<p><strong>Structure</strong> - page header, section (white panel) ×2, metric card ×2</p>
+<p><strong>Headings</strong> - <code>h3</code> Growth Dashboard, <code>h4</code> Your Metrics (16th Sept - 22nd Sept), <code>h4</code> Your Order Summary (16th Sept - 22nd Sept)</p>
+<p><strong>States</strong> - extra orders won, all four metrics on target</p>
+<p><strong>Components</strong> - <code>sidebar-navigation</code>, <code>page-header-bar</code>, <code>buttons</code>, <code>language-button</code>, <code>orders-banner</code>, <code>metric-card</code>, <code>status-chip</code>, <code>section-header</code>, <code>info-strip</code>, <code>banner-pill</code>, <code>status-dot</code>, <code>note-banner-outcome</code>, <code>step-chart</code>, <code>chart-tooltip</code>, <code>praise-card</code>, <code>reason-card</code></p>
+<h3>Design Equivalent — Sad</h3>
+<p><code>growth-dashboard-design-sad</code>  ·  <strong>design</strong> version</p>
+<p><strong>Job</strong> — "Am I getting the orders I could be — and if not, what is costing me?" — the orders-missed state.</p>
+<p><strong>Decision it supports</strong> — Which lever do I pull to close the gap between the orders I am getting and the orders I could get?</p>
+<p><strong>Answers today</strong></p>
+<ul><li>How many orders am I getting, out of how many possible?</li><li>What is expected to happen in the coming weeks, and why?</li><li>On each lever — rate card, RTO and the rest — where am I against target, and is that good or not?</li><li>Where did the orders actually go, and what caused each movement?</li></ul>
+<p><strong>Deliberately not here</strong></p>
+<ul><li>Any fix. Every lever on this page is actioned in another module. The page is a diagnosis, and leaving it is the normal outcome.</li><li>Anything the live version does not also do. This is the same decision in the design's language, not a different product.</li></ul>
+<blockquote><p><strong>&lt;Yash will add more&gt;</strong></p></blockquote>
+<p><strong>Structure in words</strong> — The same design in its orders-missed state. Numbers are the Figma's own (225 potential, −37 allocation, −52 capacity, 136 manifested) because the live panel never rendered a missed-orders case to borrow from.</p>
+<p><strong>Structure</strong> - page header, section (white panel) ×2, metric card ×2</p>
+<p><strong>Headings</strong> - <code>h3</code> Growth Dashboard, <code>h4</code> Your Metrics (23rd Mar - 30th Mar), <code>h4</code> Your Order Summary (23rd Mar - 30th Mar)</p>
+<p><strong>States</strong> - allocation miss, capacity miss, both</p>
+<p><strong>Components</strong> - <code>sidebar-navigation</code>, <code>page-header-bar</code>, <code>buttons</code>, <code>language-button</code>, <code>orders-banner</code>, <code>metric-card</code>, <code>status-chip</code>, <code>section-header</code>, <code>info-strip</code>, <code>banner-pill</code>, <code>status-dot</code>, <code>note-banner-outcome</code>, <code>step-chart</code>, <code>chart-tooltip</code>, <code>reason-card</code>, <code>capacity-card</code></p>
+<h3>Growth Dashboard</h3>
+<p><code>growth-dashboard</code></p>
+<p><strong>Job</strong> — "Am I getting the orders I could be — and if not, what is costing me?"</p>
+<p><strong>Decision it supports</strong> — Which lever do I pull to close the gap between the orders I am getting and the orders I could get?</p>
+<p><strong>Answers today</strong></p>
+<ul><li>How many orders am I getting, out of how many possible?</li><li>What is expected to happen in the coming weeks, and why?</li><li>On each lever — rate card, RTO and the rest — where am I against target, and is that good or not?</li><li>Where did the orders actually go, and what caused each movement?</li></ul>
+<p><strong>Deliberately not here</strong></p>
+<ul><li>Any fix. Every lever on this page is actioned in another module. The page is a diagnosis, and leaving it is the normal outcome.</li></ul>
+<blockquote><p><strong>&lt;Yash will add more&gt;</strong></p></blockquote>
+<p><strong>Structure in words</strong> — One scrolling page under a single Current Performance tab. Your Metrics carries the orders banner and four metric cards; Your Order Summary pairs a waterfall of where the orders went with the reasons behind each movement.</p>
+<p><strong>Structure</strong> - page header, tab strip, section (white panel) ×2</p>
+<p><strong>Headings</strong> - <code>h3</code> Growth Dashboard, <code>h4</code> Your Metrics (16th Sept - 22nd Sept), <code>h4</code> Your Order Summary (16th Sept - 22nd Sept)</p>
+<p><strong>States</strong> - loaded, no extra orders, targets all met</p>
+<p><strong>Components</strong> - <code>sidebar-navigation</code>, <code>badge-new</code>, <code>buttons</code>, <code>tabs</code>, <code>page-header-bar</code>, <code>language-button</code>, <code>status-chip</code>, <code>metric-card</code>, <code>orders-banner</code>, <code>section-header</code>, <code>note-banner</code>, <code>waterfall-chart</code>, <code>reason-group</code>, <code>info-strip</code></p>
+<hr>
+<h2>DC Capacity</h2>
+<p><code>dc-capacity</code> - 1 screen</p>
+<p>How a captain sets the delivery and pickup volume their DC will take, against the demand in their area and the pilots they have.</p>
+<p><strong>Who</strong> — The captain who runs the DC — the person accountable for whether the centre can absorb the volume it is offered.</p>
+<p><strong>How often</strong> — Rarely, and never casually. Capacity is a commitment: it takes effect the next day and the matching volume only arrives 5–7 days later. Visited when demand shifts or the pilot roster changes, not as part of a daily routine.</p>
+<p><strong>Journey</strong> — Arrived at from Growth Dashboard, after seeing orders were missed and wanting to know whether the ceiling was the cause. Leaves having committed a number, with nothing to check until the volume moves days later.</p>
+<blockquote><p><strong>&lt;Yash will add more&gt;</strong></p></blockquote>
+<h3>DC Capacity</h3>
+<p><code>dc-capacity</code></p>
+<p><strong>Job</strong> — "Tell me how much I should take on, and let me commit to it."</p>
+<p><strong>Decision it supports</strong> — What delivery and pickup numbers should this DC commit to for the coming week?</p>
+<p><strong>Answers today</strong></p>
+<ul><li>How much demand is there in my area?</li><li>How many pilots do I actually have?</li><li>What does the panel think I should take?</li><li>If I pick a different number, how far off am I — and in what currency (orders short, or pilots short)?</li></ul>
+<p><strong>Deliberately not here</strong></p>
+<ul><li>History of past capacity commitments — the page is about the next decision, not a record of previous ones.</li><li>Per-pilot detail — that is Pilot Management's decision, not this one.</li><li>Any view of whether the last commitment paid off — that is Growth Dashboard's job, and splitting it across two pages would mean neither owns it.</li></ul>
+<blockquote><p><strong>&lt;Yash will add more&gt;</strong></p></blockquote>
+<p><strong>Structure in words</strong> — One screen, two capacities. Each names itself on a grey strip, then pairs the number the captain is asking for against the one the panel recommends, and closes with when the change takes effect. The field answers on every keystroke — red below and above the workable band, green inside it — and the totals and the commit sit in a bar on the work area's floor so a half-set form cannot scroll out of sight.</p>
+<p><strong>Structure</strong> - page header, stat summary bar, section (white panel), capacity card ×2, sticky action bar</p>
+<p><strong>Headings</strong> - <code>h3</code> DC Capacity, <code>h4</code> Set Your DC Capacity, <code>h4</code> Delivery Capacity(Forward), <code>h4</code> Pickup Capacity(Reverse)</p>
+<p><strong>States</strong> - below the band — red, 'you can do N more orders with your active pilots', inside the band — green, 'Best capacity for you, your earnings will increase', above the band — red, 'you will need N extra pilots to do these deliveries', empty — no message, untouched — the bar's totals read as a dash until a value is entered</p>
+<p><strong>Components</strong> - <code>sidebar-navigation</code>, <code>page-header-bar</code>, <code>buttons</code>, <code>language-button</code>, <code>stat-summary-bar</code>, <code>capacity-section</code>, <code>capacity-field</code>, <code>recommendation-card</code>, <code>notice-bar</code>, <code>sticky-action-bar</code></p>
+<hr></div><div class="nxt"><a href="section-rules.html">&larr; Section rules</a><a href="components.html">Components &rarr;</a></div></main>
+</body>
+</html>

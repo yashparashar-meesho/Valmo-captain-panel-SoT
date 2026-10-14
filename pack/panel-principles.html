@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Who the captain is — Slipstream</title>
+<style>
+*{box-sizing:border-box}
+:root{--ink:#1A1A1F;--mute:#6B6B76;--line:#E6E6EC;--bg:#F4F4F7;--card:#fff;--acc:#2F6BFF}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 -apple-system,BlinkMacSystemFont,
+ "Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+.bar{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.bar .in{max-width:860px;margin:0 auto;padding:13px 24px;display:flex;gap:12px;align-items:baseline;
+ flex-wrap:wrap}
+.bar a{color:var(--acc);text-decoration:none;font-weight:600;font-size:13px}
+.bar a:hover{text-decoration:underline}
+.bar .n{font-weight:700;font-size:13px}
+.bar .t{color:var(--mute);font-size:12px;margin-left:auto}
+main{max-width:860px;margin:0 auto;padding:34px 24px 90px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:30px 34px}
+h1{font-size:30px;line-height:1.2;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-size:21px;margin:2.1em 0 .5em;letter-spacing:-.01em}
+h3{font-size:16px;margin:1.8em 0 .4em}
+h4{font-size:14px;margin:1.5em 0 .3em;color:var(--mute)}
+p,li{font-size:15px}
+code{background:#F0F0F4;border-radius:4px;padding:1px 5px;font-size:13px;
+ font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+pre{background:#1A1A1F;color:#E8E8EF;padding:14px 16px;border-radius:9px;overflow-x:auto}
+pre code{background:none;color:inherit;padding:0}
+table{border-collapse:collapse;width:100%;margin:1.1em 0;display:block;overflow-x:auto}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;
+ font-size:14px}
+th{color:var(--mute);font-weight:600;white-space:nowrap}
+blockquote{margin:1.2em 0;padding:2px 0 2px 16px;border-left:3px solid var(--line);color:var(--mute)}
+hr{border:0;border-top:1px solid var(--line);margin:2.2em 0}
+a{color:var(--acc)}
+strong{font-weight:650}
+.lede{color:var(--mute);margin:0 0 26px;font-size:15px}
+.grp{margin:0 0 30px}
+.grp h2{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--mute);
+ margin:0 0 10px}
+.rows{display:grid;gap:9px}
+.row{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;
+ padding:13px 16px;text-decoration:none;color:inherit}
+.row:hover{border-color:#C9C9D4}
+.row b{display:block;font-size:15px;margin-bottom:2px}
+.row span{color:var(--mute);font-size:13.5px}
+.nxt{display:flex;justify-content:space-between;gap:12px;margin-top:26px;font-size:13px}
+@media(max-width:700px){body{font-size:16px}main,.bar .in{padding-left:16px;padding-right:16px}
+ .card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="bar"><div class="in"><a href="index.html">The pack</a><span class="n">Who the captain is</span><span class="t">generated from docs/panel-principles.md</span></div></div>
+<main><div class="card"><h1>The captain, and the panel's standing problems</h1>
+<p>From the <em>Captain Panel — Increasing Trust, Comprehension and Adoption</em> workshop. This is the only file in the pack that describes <strong>the person and the product</strong>, rather than how to build a page. Read it in the brief, before anything else — most of it changes design decisions, and several entries contradict assumptions a page can easily be built on.</p>
+<hr>
+<h2>Who the captain is</h2>
+<p>A <strong>seasoned logistics partner running a small-to-medium delivery centre</strong>. Not an office worker. Their day is physical, interrupted, and spent across several tools — most of which are not this panel.</p>
+<table><thead><tr><th>when</th><th>what they are doing</th><th>the tool they reach for</th></tr></thead><tbody><tr><td>early morning</td><td>sorting shipments, assigning pilots</td><td>Log10, physical sorting, <strong>WhatsApp</strong></td></tr><tr><td>mid-day</td><td>tracking RVP pickups, watching OOR</td><td>OpsTech, <strong>WhatsApp</strong></td></tr><tr><td>evening</td><td>cash collection, reconciliation</td><td>Excel / register, Log10, <strong>WhatsApp</strong></td></tr><tr><td>end of day</td><td>reporting, manpower planning</td><td><strong>Captain Panel</strong>, Libra, AM calls</td></tr></tbody></table>
+<h3>That table is today. Design for where it is going.</h3>
+<p><strong>The panels are merging.</strong> Log10, OpsTech and the ERP panel are being pulled into the Captain Panel, and daily operations move onto it. So the table above describes a captain who is being replaced by a different one: not someone who visits at the end of the day to report, but <strong>someone working inside the panel all day, under operational pressure</strong>.</p>
+<p>Design for that captain. Concretely, it means:</p>
+<ul><li><strong>A page may assume the captain is in the panel while the work happens.</strong> Time-critical things can live here. They could not before.</li><li><strong>Speed is a feature.</strong> The work is scanning, manifesting, closing DRS, handling exceptions, reconciling — high volume, repeated, under time pressure. Captains already cross 3–5 tabs for a single task. Every extra step is paid many times a day.</li><li><strong>Read-only is not enough.</strong> <em>"Most things are read only"</em> is named as the root of the adoption problem. A page that only displays has to say why it is not simply a report.</li><li><strong>The panel is becoming the place of record.</strong> As operations move onto it, a number that disagrees with another surface is not a cosmetic bug.</li></ul>
+<h3>Two things that do not change with the merge</h3>
+<p><strong>WhatsApp is the competitor, and it is winning.</strong> <em>"WhatsApp pe AM ko message karna faster hai."</em> A page justifies itself by beating a message to a human. "We put it on the panel" is not a solution on its own — and merging the panels raises that bar rather than removing it.</p>
+<p><strong>The captain is busy and interrupted.</strong> <em>"I'm usually busy in operations — I miss the training sessions."</em> Nothing can assume prior training, a tutorial seen once, or a term explained elsewhere. <strong>Recall is not available</strong>, and an all-day tool under pressure makes that more true, not less.</p>
+<hr>
+<h2>The eight principles</h2>
+<p>From the Loadshare panel UX audit. Use them as the UX checks on a finished design — each one answered with an argument, not a tick.</p>
+<table><thead><tr><th></th><th>principle</th><th>the question to answer</th></tr></thead><tbody><tr><td>1</td><td><strong>Efficiency</strong></td><td>How many steps and tabs does the task take? Captains cross 3–5 tabs per task today.</td></tr><tr><td>2</td><td><strong>Proactive communication</strong></td><td>Does it tell them <em>before</em> the problem, or after? Deadlines and capacity limits are invisible today until an action is blocked.</td></tr><tr><td>3</td><td><strong>Guidance</strong></td><td>Is help at the point of need, or somewhere else?</td></tr><tr><td>4</td><td><strong>Transparency</strong></td><td>Is system state visible — what happened, what is happening, what will?</td></tr><tr><td>5</td><td><strong>Actionability</strong></td><td>Can they fix it from here, and is the next step obvious?</td></tr><tr><td>6</td><td><strong>Consistency</strong></td><td>Same word, same placement, same pattern as the rest of the panel.</td></tr><tr><td>7</td><td><strong>Intuitiveness</strong></td><td>Can it be recognised at a glance, without reading?</td></tr><tr><td>8</td><td><strong>Error prevention</strong></td><td>Are inputs validated early? Is there a fallback when the system fails?</td></tr></tbody></table>
+<hr>
+<h2>Known failures — never ship these again</h2>
+<p>Every one of these was found in the live panel. They are not hypothetical.</p>
+<h3>Copy and terminology</h3>
+<ul><li><strong>Use the captain's word, not the system's.</strong> They say <em>OFD</em> and <em>OOR</em>; the panel says <em>Open Orders</em>. They say <em>DC</em>; other surfaces say <em>Hub</em>.</li><li><em>"Capacity Limit"</em> and <em>"DO Compliance"</em> are <strong>not understood</strong>. Neither is <em>"prevent"</em> in <em>"days left to prevent loss"</em>.</li><li><em>"Loss marked"</em> reads as <em>already processed</em>. It is not.</li><li>The same thing must be called the same thing on Atlas, the panel, Log10 and in offline comms. Inconsistency across surfaces is itself a trust problem.</li></ul>
+<h3>Components</h3>
+<ul><li><strong>An empty cell shown as <code>–</code> reads as a loading failure.</strong> Design the empty state; never leave a dash standing in for one.</li><li><strong>Selected and unselected states are not distinguishable.</strong> This has been reported from the live panel, so a tab strip or toggle that only changes weight is not enough.</li><li>The <strong>info <code>i</code> icon is too small</strong> to be seen or hit.</li><li><strong>Hover-only actions are not discoverable.</strong> Anything hover-revealed is, in practice, missing.</li><li><strong>Do not mix pagination and infinite scroll.</strong> Pick one, panel-wide.</li><li>Horizontal scroll is hard to use — Loss Management is the example. Avoid it; if unavoidable, make it obvious.</li><li><strong>Informational and actionable elements are not visually separated.</strong> If a captain cannot tell what they can press, they press nothing.</li></ul>
+<h3>Structure</h3>
+<ul><li><strong>There is no homepage.</strong> The panel has no starting point, so no page can assume the captain arrived from anywhere in particular.</li><li><strong>No hierarchy or grouping in navigation</strong>, and no framework for adding new features — which is why every new module makes the rail worse.</li><li><strong>Nudges and flags compete.</strong> Several modules each shout; nothing says which is urgent. A new flag needs a reason to outrank the others, and a sunset.</li></ul>
+<h3>Trust and data</h3>
+<ul><li><strong>Payments lag by a week; some data by 8–10 hours.</strong> A number without a timestamp will be mistrusted, and rightly.</li><li><strong>Loadshare and the panel disagree</strong> on volume and payments. If a figure exists elsewhere, say which source this one is.</li><li><strong>Most of the panel is read-only</strong>, which is the root of the adoption problem. A page that only displays has to justify why it is not a report.</li></ul>
+<hr>
+<h2>The communication rule</h2>
+<blockquote><p><strong>If it's not on the panel, it's not official.</strong></p></blockquote>
+<p>The panel is the intended single source of truth. Critical updates land here first; WhatsApp and AMs are reminder channels that point back, never replacements. A design that assumes an AM will explain it has already failed.</p>
+<hr>
+<h2>What is changing, and must not be designed against</h2>
+<ul><li><strong>Typography is moving from Mier B02 to DM Sans.</strong> The catalogue is still Mier and is correct today. Do not pre-empt the change; do not add anything that depends on Mier's specific metrics.</li><li><strong>The colour palette is being revised</strong> for contrast and accessibility — the current primary blue sits too close to dark grey.</li><li><strong>Mobile web is coming.</strong> Captains are already using the panel on phones with no mobile experience at all. A desktop-only layout is a known gap, not a safe assumption.</li></ul>
+<blockquote><p>These are directional and dated. If a design turns on one of them, ask — do not assume this file is current.</p></blockquote></div><div class="nxt"><span></span><a href="design-method.html">The design method &rarr;</a></div></main>
+</body>
+</html>

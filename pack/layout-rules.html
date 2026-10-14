@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Layout rules — Slipstream</title>
+<style>
+*{box-sizing:border-box}
+:root{--ink:#1A1A1F;--mute:#6B6B76;--line:#E6E6EC;--bg:#F4F4F7;--card:#fff;--acc:#2F6BFF}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 -apple-system,BlinkMacSystemFont,
+ "Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+.bar{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.bar .in{max-width:860px;margin:0 auto;padding:13px 24px;display:flex;gap:12px;align-items:baseline;
+ flex-wrap:wrap}
+.bar a{color:var(--acc);text-decoration:none;font-weight:600;font-size:13px}
+.bar a:hover{text-decoration:underline}
+.bar .n{font-weight:700;font-size:13px}
+.bar .t{color:var(--mute);font-size:12px;margin-left:auto}
+main{max-width:860px;margin:0 auto;padding:34px 24px 90px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:30px 34px}
+h1{font-size:30px;line-height:1.2;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-size:21px;margin:2.1em 0 .5em;letter-spacing:-.01em}
+h3{font-size:16px;margin:1.8em 0 .4em}
+h4{font-size:14px;margin:1.5em 0 .3em;color:var(--mute)}
+p,li{font-size:15px}
+code{background:#F0F0F4;border-radius:4px;padding:1px 5px;font-size:13px;
+ font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+pre{background:#1A1A1F;color:#E8E8EF;padding:14px 16px;border-radius:9px;overflow-x:auto}
+pre code{background:none;color:inherit;padding:0}
+table{border-collapse:collapse;width:100%;margin:1.1em 0;display:block;overflow-x:auto}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;
+ font-size:14px}
+th{color:var(--mute);font-weight:600;white-space:nowrap}
+blockquote{margin:1.2em 0;padding:2px 0 2px 16px;border-left:3px solid var(--line);color:var(--mute)}
+hr{border:0;border-top:1px solid var(--line);margin:2.2em 0}
+a{color:var(--acc)}
+strong{font-weight:650}
+.lede{color:var(--mute);margin:0 0 26px;font-size:15px}
+.grp{margin:0 0 30px}
+.grp h2{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--mute);
+ margin:0 0 10px}
+.rows{display:grid;gap:9px}
+.row{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;
+ padding:13px 16px;text-decoration:none;color:inherit}
+.row:hover{border-color:#C9C9D4}
+.row b{display:block;font-size:15px;margin-bottom:2px}
+.row span{color:var(--mute);font-size:13.5px}
+.nxt{display:flex;justify-content:space-between;gap:12px;margin-top:26px;font-size:13px}
+@media(max-width:700px){body{font-size:16px}main,.bar .in{padding-left:16px;padding-right:16px}
+ .card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="bar"><div class="in"><a href="index.html">The pack</a><span class="n">Layout rules</span><span class="t">generated from docs/layout-rules.md</span></div></div>
+<main><div class="card"><h1>Universal layout rules</h1>
+<p>From the <em>Guide for Slipstream</em> frame in the Figma spacing file (node <code>28:13356</code>). These hold for <strong>every</strong> module, not per screen. Until now they survived only as comments inside <code>flow-ledger.html</code>'s stylesheet — which meant a new page could only be built correctly by someone who had read the CSS.</p>
+<p>The structure these rules apply to is in <a href="page-framework.html">page-framework.md</a>.</p>
+<hr>
+<h2>Rail</h2>
+<ul><li><strong>250px, fixed.</strong> Height follows the screen.</li><li><strong>Never scrolls vertically.</strong> <code>overflow: hidden</code>, always.</li><li>250 is our Crystal component's width, not the 224 the Figma guide draws. The guide is wrong here and the component is right — this was confirmed and is not up for re-deciding.</li></ul>
+<h2>Header</h2>
+<ul><li><strong>Fixed to the top.</strong> Everything in the work area scrolls under it (<code>position: sticky; top: 0</code>).</li><li><strong>52px minimum</strong>, and it grows when its contents need more. The Figma guide draws 60 on a 1056 work area; 52 is the measured live value and wins.</li><li>Padding <code>12px 16px</code>. It spans the full work area, cancelling the gutter with a negative inline margin, so the band runs edge to edge.</li></ul>
+<h2>Work area</h2>
+<ul><li><strong>Always grey.</strong> Universally, every module.</li><li><strong>16px side gutter</strong>, 16px at the bottom, <strong>0 at the top</strong> — the header provides the top edge.</li><li><strong>The first section sits 16px below the header.</strong></li><li>The work area is the scroll container, not the document.</li></ul>
+<h2>Sections</h2>
+<ol><li><strong>Each has a background colour.</strong> White unless something else is specified.</li><li><strong>16px padding on all sides</strong>, for everything inside.</li><li><strong>8px radius.</strong></li><li><strong>16px between stacked sections.</strong></li><li>A section <strong>may scroll independently</strong> of the page, vertically or horizontally.</li></ol>
+<h2>Scrollbars</h2>
+<p><strong>Whenever a section or the page can scroll, the scrollbar is visible by default.</strong> Nobody should have to guess that something scrolls. This is why the work area uses <code>overflow-y: scroll</code> rather than <code>auto</code> — a gutter that appears and disappears also shifts the layout by its own width.</p>
+<p>The one place this does not apply is the map (below).</p>
+<h2>Tabs directly under the header</h2>
+<p>A tab strip immediately beneath the header <strong>does not take the 16px gap</strong>. The two bands meet on a 1px divider. Same for a sub-tab bar. Tabs always carry a white ground of their own rather than borrowing the work area's grey.</p>
+<h2>The map exemption</h2>
+<p>Service Area's three screens bypass the gutter entirely and run the map edge to edge, and the map's own scroll is panning, not scrolling — so the always-visible scrollbar rule does not apply to it either.</p>
+<p>This is the only exemption. It is deliberate. Do not "fix" it.</p>
+<h2>Applying these to an existing screen</h2>
+<p>These rules were applied retroactively to every live-equivalent screen, with Service Area exempted. If you find a screen that disagrees with this file, the screen is wrong — but check <a href="fidelity-checklist.html">deliberate differences</a> first, because a few mismatches with live are intentional.</p></div><div class="nxt"><a href="page-framework.html">&larr; Page framework</a><a href="section-rules.html">Section rules &rarr;</a></div></main>
+</body>
+</html>

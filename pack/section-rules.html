@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Section rules — Slipstream</title>
+<style>
+*{box-sizing:border-box}
+:root{--ink:#1A1A1F;--mute:#6B6B76;--line:#E6E6EC;--bg:#F4F4F7;--card:#fff;--acc:#2F6BFF}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 -apple-system,BlinkMacSystemFont,
+ "Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+.bar{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.bar .in{max-width:860px;margin:0 auto;padding:13px 24px;display:flex;gap:12px;align-items:baseline;
+ flex-wrap:wrap}
+.bar a{color:var(--acc);text-decoration:none;font-weight:600;font-size:13px}
+.bar a:hover{text-decoration:underline}
+.bar .n{font-weight:700;font-size:13px}
+.bar .t{color:var(--mute);font-size:12px;margin-left:auto}
+main{max-width:860px;margin:0 auto;padding:34px 24px 90px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:30px 34px}
+h1{font-size:30px;line-height:1.2;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-size:21px;margin:2.1em 0 .5em;letter-spacing:-.01em}
+h3{font-size:16px;margin:1.8em 0 .4em}
+h4{font-size:14px;margin:1.5em 0 .3em;color:var(--mute)}
+p,li{font-size:15px}
+code{background:#F0F0F4;border-radius:4px;padding:1px 5px;font-size:13px;
+ font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+pre{background:#1A1A1F;color:#E8E8EF;padding:14px 16px;border-radius:9px;overflow-x:auto}
+pre code{background:none;color:inherit;padding:0}
+table{border-collapse:collapse;width:100%;margin:1.1em 0;display:block;overflow-x:auto}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;
+ font-size:14px}
+th{color:var(--mute);font-weight:600;white-space:nowrap}
+blockquote{margin:1.2em 0;padding:2px 0 2px 16px;border-left:3px solid var(--line);color:var(--mute)}
+hr{border:0;border-top:1px solid var(--line);margin:2.2em 0}
+a{color:var(--acc)}
+strong{font-weight:650}
+.lede{color:var(--mute);margin:0 0 26px;font-size:15px}
+.grp{margin:0 0 30px}
+.grp h2{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--mute);
+ margin:0 0 10px}
+.rows{display:grid;gap:9px}
+.row{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;
+ padding:13px 16px;text-decoration:none;color:inherit}
+.row:hover{border-color:#C9C9D4}
+.row b{display:block;font-size:15px;margin-bottom:2px}
+.row span{color:var(--mute);font-size:13.5px}
+.nxt{display:flex;justify-content:space-between;gap:12px;margin-top:26px;font-size:13px}
+@media(max-width:700px){body{font-size:16px}main,.bar .in{padding-left:16px;padding-right:16px}
+ .card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="bar"><div class="in"><a href="index.html">The pack</a><span class="n">Section rules</span><span class="t">generated from docs/section-rules.md</span></div></div>
+<main><div class="card"><h1>New section, or bake into an existing one?</h1>
+<p>The question that comes up on every new piece of work, and the one thing that was written down nowhere. The rule below is <strong>derived from the 11 screens already built</strong>, not invented — the worked examples are the evidence.</p>
+<hr>
+<h2>The test</h2>
+<blockquote><p><strong>Own heading + own data scope → its own section.</strong> <strong>An attribute of data already on the page → bake it in.</strong></p></blockquote>
+<p>Both halves have to be true for a new section. A thing with a heading but no independent data is a card. A thing with its own data but no heading is a row.</p>
+<p>Ask it in this order:</p>
+<ol><li><strong>Could this section be reloaded on its own?</strong> If its data comes from the same place as the section above it, it is not independent — bake it in.</li><li><strong>Does it need a title for the page to make sense?</strong> If you would not give it an <code>h4</code>, it is not a section.</li><li><strong>Is this the third section?</strong> No screen has three. See the ceiling below.</li></ol>
+<h2>Worked examples from what exists</h2>
+<table><thead><tr><th>on screen</th><th>the thing</th><th>call</th><th>why</th></tr></thead><tbody><tr><td><code>payments-list</code></td><td>hero stat + settlement table</td><td><strong>one section</strong></td><td>the table <em>is</em> the payments data; the stat summarises the same thing</td></tr><tr><td><code>growth-dashboard</code></td><td>Your Metrics / Your Order Summary</td><td><strong>two sections</strong></td><td>different date-scoped datasets, each with its own <code>h4</code></td></tr><tr><td><code>dc-capacity</code></td><td>Set Your DC Capacity</td><td><strong>one section</strong></td><td>delivery and pickup are two cards inside it — same form, one save</td></tr><tr><td><code>dc-capacity</code></td><td>Forward Demand / Active Pilots</td><td><strong>baked in</strong></td><td>they are context for the capacity form, not their own subject</td></tr><tr><td><code>dc-capacity</code></td><td>the yellow notice</td><td><strong>baked in</strong></td><td>an annotation on the card it sits in</td></tr><tr><td><code>dc-capacity</code></td><td>the save bar</td><td><strong>neither</strong></td><td>a sticky action bar, part of the page chrome</td></tr><tr><td><code>pilot-management-list</code></td><td>the roster</td><td><strong>one section</strong></td><td>tabs switch views within it, not between sections</td></tr><tr><td><code>service-area-*</code></td><td>the map</td><td><strong>exemption</strong></td><td>the map is the work area — no panel at all</td></tr></tbody></table>
+<p>The instructive pair is DC Capacity: <em>Delivery Capacity</em> and <em>Pickup Capacity</em> look like they want to be two sections — two headings, two inputs, two recommendations. They are <strong>cards inside one section</strong>, because one button saves both. Shared fate means one section.</p>
+<h2>If you bake in, follow the hierarchy</h2>
+<p>Baked-in content must sit in the section's existing order, not get appended wherever it fits:</p>
+<pre><code>section head (h4) → context strip → the primary control or data → annotations</code></pre>
+<p>Dropping a new field below the save bar, or a new stat after the table, is the failure mode this rule exists to prevent. Match the hierarchy of the section you are joining — never something random.</p>
+<h2>The ceiling</h2>
+<p><strong>One or two sections per page. Never three.</strong></p>
+<p>Across all 11 screens there is no counter-example. If a design calls for a third, one of these is true and worth deciding explicitly:</p>
+<ul><li>it is really <strong>two pages</strong>, and the rail should carry both; or</li><li>two of the three are <strong>cards inside one section</strong>; or</li><li>you have found the genuine first exception — in which case say so out loud and add it here, so the next person inherits the reasoning.</li></ul>
+<h2>Things that are never sections</h2>
+<table><thead><tr><th></th><th>what it is instead</th></tr></thead><tbody><tr><td>the yellow notice bar</td><td>an annotation inside a card</td></tr><tr><td>the sticky save bar</td><td>page chrome, outside the sections</td></tr><tr><td>the stat summary strip</td><td>context inside the section it describes</td></tr><tr><td>tabs / sub-tabs</td><td>navigation, sits under the header</td></tr><tr><td>a metric card</td><td>content inside a section</td></tr></tbody></table></div><div class="nxt"><a href="layout-rules.html">&larr; Layout rules</a><a href="pages.html">Pages &rarr;</a></div></main>
+</body>
+</html>
