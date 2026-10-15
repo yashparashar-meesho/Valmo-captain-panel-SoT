@@ -134,9 +134,14 @@ python3 scripts/render_doc.py shapes.html     # already a page → served as-is
 
 The brief, the DRD, the comparison sheet and the design are each rendered,
 served and **opened in the browser** as soon as they exist — Chrome where it
-exists, the default browser otherwise. **Each in a new tab.** A run is read by
-comparing its artefacts, so replacing the tab throws away what was being
-compared to.
+exists, the default browser otherwise. **Those four, and nothing else.** The
+component list and the checks are read alongside the design: render them, link
+them, do not open them.
+
+Each of the four in its own tab, because a run is read by comparing its
+artefacts. But the same artefact never opens twice — re-render it after a
+correction and the script says *already open, reload that tab*. All the
+documents in one directory share one server.
 
 If a browser cannot be opened at all, say so and give the URL.
 

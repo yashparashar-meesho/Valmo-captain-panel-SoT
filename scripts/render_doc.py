@@ -183,7 +183,21 @@ def main():
 
     print("serving  %s" % url)
     if "--no-open" not in flags:
-        print("opened in %s" % open_in_browser(url))
+        # One tab per artefact, not one per render. Re-rendering a document
+        # after a correction used to open another tab, so a run that revised
+        # its brief twice left three tabs of the same page and the reader had
+        # to work out which was current. The old tab is still pointed at this
+        # URL - it just needs a reload.
+        seen = out.parent / ".slipstream-opened"
+        done = set(seen.read_text().split()) if seen.exists() else set()
+        if url in done:
+            print("already open at %s - reload that tab to see this version" % url)
+        else:
+            print("opened in %s" % open_in_browser(url))
+            try:
+                seen.write_text("\n".join(sorted(done | {url})))
+            except Exception:
+                pass
 
 
 if __name__ == "__main__":
