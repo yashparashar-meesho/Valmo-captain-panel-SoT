@@ -593,11 +593,21 @@ python3 scripts/render_doc.py BRIEF.md        # markdown → a readable page
 python3 scripts/render_doc.py shapes.html     # already a page → served as-is
 ```
 
-**A new tab each time, never the one already open.** A run is read by comparing
-its artefacts — the DRD against the brief, the shapes against both — so
-replacing the tab throws away the thing being compared to. `render_doc.py`
-opens Chrome where it exists and falls back to the system browser, always with
-`open_new_tab`.
+**Four tabs for a whole run — one per gate, and no more.** The artefacts a
+person reviews are the **brief**, the **DRD**, the **comparison sheet** and the
+**design**. Those open. Everything else a run produces — the component list,
+the checks — is read alongside the design and is linked, not opened.
+
+A new tab for each of those four, never the one already open: a run is read by
+comparing its artefacts, so replacing the tab throws away the thing being
+compared to. But **the same artefact never opens twice.** Re-rendering a brief
+after a correction used to open another tab, leaving three tabs of the same
+page and no way to tell which was current; `render_doc.py` now says *already
+open — reload that tab* instead. It opens Chrome where it exists and falls back
+to the system browser.
+
+> One run left **twenty servers and twenty tabs** before this was fixed: a
+> server and a tab per render, not per artefact.
 
 > **Check the page answers before handing over the link.** A link was once
 > given out for a server that never started, because the port was taken. The
